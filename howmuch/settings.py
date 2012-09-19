@@ -111,6 +111,9 @@ INSTALLED_APPS = (
     'gunicorn',
     'kombu.transport.django',
     'djcelery',
+    'howmuch.Pictures',
+    'howmuch.core',
+
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
