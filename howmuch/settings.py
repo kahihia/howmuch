@@ -1,6 +1,3 @@
-#HOWMUCH.DO CREATED AND DEVELOPED BY JUAN CARLOS CAYETANO ZUÑIGA
-#THIS SOURCE AND ALL CONTENTS ARE PROPERTY OF JUAN CARLOS CAYETANO ZUÑIGA
-
 # Django settings for howmuch project.
 
 import dj_database_url
@@ -114,8 +111,10 @@ INSTALLED_APPS = (
     'gunicorn',
     'kombu.transport.django',
     'djcelery',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
+    # Uncomment the next line to enable the admin:
+    # 'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
 )
 
 # A sample logging configuration. The only tangible logging
