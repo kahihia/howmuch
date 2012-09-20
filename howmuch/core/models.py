@@ -15,8 +15,9 @@ class RequestItem(models.Model):
 	brand = models.CharField(max_length=25)
 	model = models.CharField(max_length=25)
 	state = models.CharField(max_length=7, choices=STATES_CHOICES)
+	date = models.DateTimeField()
 	duedate = models.DateTimeField()
-	pictures = models.ManyToManyField(Picture, through='RequestItemPicture')
+	pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
 
 	def __unicode__(self):
 		return self.title

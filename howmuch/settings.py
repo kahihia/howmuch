@@ -48,24 +48,6 @@ USE_TZ = True
 
 #Site Root
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -82,6 +64,20 @@ AWS_SECRET_ACCESS_KEY = 'pjzH4uwWLtybh6kCERrP+oET2DKy4aXGdu08l9H3'
 AWS_STORAGE_BUCKET_NAME = 'howmuch'
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #AMAZON
+
+#FILES
+MEDIA_ROOT = '/media/'
+STATIC_ROOT = '/static/'
+S3_URL = 'http://s3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = S3_URL + STATIC_ROOT
+MEDIA_URL = S3_URL + MEDIA_ROOT
+DEFAULT_FILE_STORAGE = 'howmuch.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'howmuch.s3utils.StaticRootS3BotoStorage'
+#FILES
+
+#REGISTRATION
+ACCOUNT_ACTIVATION_DAYS = 7
+#REGISTRATION
 
 
 # List of finder classes that know how to find static files in
@@ -117,11 +113,7 @@ ROOT_URLCONF = 'howmuch.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'howmuch.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+TEMPLATE_DIRS = ( os.path.join(SITE_ROOT, 'templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -136,6 +128,8 @@ INSTALLED_APPS = (
     'howmuch.Pictures',
     'howmuch.core',
     'howmuch.smart_selects',
+    'storages',
+    'registration',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
@@ -173,3 +167,5 @@ LOGGING = {
 }
 
 BROKER_BACKEND = 'django'
+
+LOGIN_REDIRECT_URL = '/home/'

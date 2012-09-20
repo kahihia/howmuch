@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="/media/css/registration.css">
+	<link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	
+	<form id="registrationForm" action="" method="POST">{% csrf_token %}
+		<h1>Registrate, es GRATIS</h1>
+		<div class="registerField">
+			<div class="form-field">{{ form.username}}</div>
+		</div>
+		<div class="registerField">
+			{{ form.first_name}}
+		</div>
+		<div class="registerField">
+			{{ form.last_name}}
+		</div>	
+		<div class="registerField">
+			{{ form.email}}
+		</div>
+		<div class="registerField">
+			{{ form.password1}}
+		</div>	
+        <div class="registerField">
+			{{ form.password2}}
+		</div>	
+		<div class="registerField">
+			{{ form.tos}}
+			<p><strong>{{ form.tos.label}}</strong></p>
+		</div>	
+		<div class="registerField">
+			<input id="submitRegister" type="submit" value="Registarme">
+		</div>
+		{% if form.errors%}
+			<p id="label-errors">Llena Correctamente todos los campos</p>
+		{% endif%}
+		
+	</form>
+
+</body>
+</html>
