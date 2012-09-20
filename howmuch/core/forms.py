@@ -8,4 +8,4 @@ class RequestItemForm(ModelForm):
 	
 	class Meta:
 		model=RequestItem
-		exclude = ('owner','photos',)
+		exclude = ('owner','date','pictures',)
