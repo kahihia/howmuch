@@ -4,10 +4,12 @@ amqplib==1.0.2
 anyjson==0.3.3
 argparse==1.2.1
 billiard==2.7.3.13
+boto==2.5.2
 celery==3.0.9
 distribute==0.6.27
 dj-database-url==0.2.1
 django-celery==3.0.9
+django-storages==1.1.5
 gunicorn==0.14.6
 kombu==2.4.6
 psycopg2==2.4.5

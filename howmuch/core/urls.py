@@ -7,9 +7,6 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-	url(r'^chaining/', include('howmuch.smart_selects.urls')),
-	(r'^pictures/', include('howmuch.Pictures.urls')),
-	(r'^core/', include('howmuch.core.urls')),
     # Examples:
     # url(r'^$', 'howmuch.views.home', name='home'),
     # url(r'^howmuch/', include('howmuch.foo.urls')),

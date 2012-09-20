@@ -1,5 +1,9 @@
 # Django settings for howmuch project.
 
+import os
+
+gettext_noop = lambda s: s
+
 import dj_database_url
 
 DEBUG = True
@@ -21,7 +25,13 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-MX'
+
+LANGUAGES = (
+
+('es-mx', gettext_noop('Mexican Spanish')),
+
+)
 
 SITE_ID = 1
 
@@ -36,6 +46,8 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+#Site Root
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = ''
@@ -43,7 +55,7 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -61,6 +73,16 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+
+#AMAZON
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = 'AKIAJBJPT42ROYJRYKFA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'howmuch'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#AMAZON
+
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -113,6 +135,7 @@ INSTALLED_APPS = (
     'djcelery',
     'howmuch.Pictures',
     'howmuch.core',
+    'howmuch.smart_selects',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
