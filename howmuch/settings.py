@@ -170,3 +170,13 @@ LOGGING = {
 BROKER_BACKEND = 'django'
 
 LOGIN_REDIRECT_URL = '/home/'
+
+#EMAIL
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'app7604709@heroku.com'
+EMAIL_HOST_PASSWORD = 'f1djpkod'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+#EMAIL
