@@ -44,7 +44,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 #Site Root
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -68,7 +68,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #FILES
 MEDIA_ROOT = '/media/'
 STATIC_ROOT = '/static/'
-S3_URL = 'http://s3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
+S3_URL = 'http://%s.s3-website-us-east-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATIC_URL = S3_URL + STATIC_ROOT
 MEDIA_URL = S3_URL + MEDIA_ROOT
 DEFAULT_FILE_STORAGE = 'howmuch.s3utils.MediaRootS3BotoStorage'
@@ -78,6 +78,7 @@ STATICFILES_STORAGE = 'howmuch.s3utils.StaticRootS3BotoStorage'
 #REGISTRATION
 ACCOUNT_ACTIVATION_DAYS = 7
 #REGISTRATION
+
 
 
 # List of finder classes that know how to find static files in
@@ -127,7 +128,7 @@ INSTALLED_APPS = (
     'djcelery',
     'howmuch.Pictures',
     'howmuch.core',
-    'howmuch.smart_selects',
+    'smart_selects',
     'storages',
     'registration',
 

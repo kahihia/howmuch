@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.default.urls')),
     url(r'^login/$',  login),
     url(r'^logout/$', logout),
-	url(r'^chaining/', include('howmuch.smart_selects.urls')),
+	url(r'^chaining/', include('smart_selects.urls')),
 	url(r'^pictures/', include('howmuch.Pictures.urls')),
 	
     # Examples:
