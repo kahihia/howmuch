@@ -15,7 +15,7 @@ class RequestItem(models.Model):
 	brand = models.CharField(max_length=25)
 	model = models.CharField(max_length=25)
 	state = models.CharField(max_length=7, choices=STATES_CHOICES)
-	date = models.DateTimeField()
+	date = models.DateTimeField(auto_now_add=True)
 	duedate = models.DateTimeField()
 	pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
 
