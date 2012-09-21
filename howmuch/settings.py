@@ -66,13 +66,19 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #AMAZON
 
 #FILES
-MEDIA_ROOT = '/media/'
-STATIC_ROOT = '/static/'
-S3_URL = 'http://%s.s3-website-us-east-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-STATIC_URL = S3_URL + STATIC_ROOT
-MEDIA_URL = S3_URL + MEDIA_ROOT
-DEFAULT_FILE_STORAGE = 'howmuch.s3utils.MediaRootS3BotoStorage'
-STATICFILES_STORAGE = 'howmuch.s3utils.StaticRootS3BotoStorage'
+
+#MEDIA_ROOT = '/media/'
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
+#STATIC_ROOT = '/static/'
+STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
+#S3_URL = 'http://%s.s3-website-us-east-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+#STATIC_URL = S3_URL + STATIC_ROOT
+STATIC_URL = '/static/'
+#MEDIA_URL = S3_URL + MEDIA_ROOT
+MEDIA_URL = '/media/'
+#DEFAULT_FILE_STORAGE = 'howmuch.s3utils.MediaRootS3BotoStorage'
+#STATICFILES_STORAGE = 'howmuch.s3utils.StaticRootS3BotoStorage'
+
 #FILES
 
 #REGISTRATION

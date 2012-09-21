@@ -1,0 +1,57 @@
+header{
+	font-size: 12px;
+}
+header label{
+	color:white;
+	font-weight:bold;
+}
+.menu-list{
+	color:white;
+	display:inline;
+	font-weight:bold;	
+	padding:12px;
+}
+
+.menu-list:hover{
+}
+
+#bar-above{
+	position: fixed;
+	top:0px;
+	width:100%;
+	z-index:9999;
+}
+
+
+#menu{
+	display:inline-block;
+}
+#encargo-bar{
+	display:inline-block;
+}
+#precio-encargo{
+	border:0px;
+	padding:5px;
+}
+#descripcion-encargo,{
+	border:0px;
+	padding:5px;
+
+}
+#precio-encargo:focus,#descripcion-encargo:focus{
+	border: 3px solid #FC0087;
+}
+#goencargo{
+	border:0px;
+	color:white;
+	padding: 10px;
+	width:100px;
+
+}
+#goencargo:hover,#gocotizacion:hover{
+
+}
+#content{
+	margin-top:100px;
+}
+

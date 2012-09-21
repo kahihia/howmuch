@@ -9,17 +9,41 @@
         <title>{% block title %}{% endblock%}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
-        <script src="{{ STATIC_URL }}js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/normalize.css">
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css">
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css">
+        <script src="{{ MEDIA_URL }}js/vendor/modernizr-2.6.2.min.js"></script>
+        {% block media %}
+        {% endblock %}
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
         <header>
+            <div id="bar-above">
+                <div class="logo-howmuch">
+                    <span class="how">how</span><span class="much">much</span><span class="punto-do">.do</span>
+                </div>
 
-
+                <div id="encargo-bar">
+                    <form action="/item/new/" method="GET">{% csrf_token %}
+                        <label for ="precio-encargo">Pago: </label>
+                        <input id="precio-encargo"  name = "precio" type="text" placeholder="CANTIDAD" maxlength="7" size="12" >
+                        <label for = "descripcion-encargo">Por: </label>
+                        <input id="descripcion-encargo" name = "descripcion" type="text"  placeholder="DESCRIPCION CORTA" maxlength="110" size="50" >
+                        <input id="goencargo" type="submit" value="GO">
+                    </form>
+                </div>
+                <div id ="menu">
+                    <ul>
+                        <li class="menu-list">|Encargos|</li>
+                        <li class="menu-list">|Cotizaciones|</li>
+                        <li class="menu-list">|Asignaciones|</li>
+                        <li class="menu-list">|Cuenta|</li>
+                    </ul> 
+                </div>
+            </div>
         </header>
 
         <section id="content">
