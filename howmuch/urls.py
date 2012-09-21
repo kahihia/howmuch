@@ -9,7 +9,8 @@ from django.contrib.auth.views import login, logout
 
 urlpatterns = patterns('',
     url(r'^', include('howmuch.core.urls')),
-    (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^profile/', include('howmuch.Profile.urls')),
+    url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^login/$',  login),
     url(r'^logout/$', logout),
 	url(r'^chaining/', include('smart_selects.urls')),

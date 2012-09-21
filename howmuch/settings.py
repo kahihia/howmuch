@@ -13,6 +13,8 @@ ADMINS = (
      ('Juan Carlos Cayetano', 'kayethano@gmail.com'),
 )
 
+AUTH_PROFILE_MODULE = 'howmuch.Profile.Profile'
+
 MANAGERS = ADMINS
 
 DATABASES = {'default': dj_database_url.config(default='postgres://kayethano:90ldenb0y@localhost:5432/howmuch')}
@@ -137,6 +139,7 @@ INSTALLED_APPS = (
     'smart_selects',
     'storages',
     'registration',
+    'howmuch.Profile'
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

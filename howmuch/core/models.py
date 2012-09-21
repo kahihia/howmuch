@@ -10,7 +10,7 @@ STATES_CHOICES = (
 class RequestItem(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by RequestItem")
 	price = models.IntegerField()
-	title = models.CharField(max_length=100, help_text="Titulo del Articulo que quieres")
+	title = models.CharField(max_length=100)
 	description = models.CharField(max_length=140)
 	brand = models.CharField(max_length=25)
 	model = models.CharField(max_length=25)
@@ -18,6 +18,7 @@ class RequestItem(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	duedate = models.DateTimeField()
 	pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
+	addressDelivery = models.CharField(max_length=177)
 
 	def __unicode__(self):
 		return self.title
