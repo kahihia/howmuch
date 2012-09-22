@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
+
 {% endblock %}
 {% block media %}
 
@@ -8,15 +9,50 @@
 {% block content %}
 
 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-
-		{{ form }}
-		{{ form.photo.errors}}
-
+	<div>
+		<span>Precio</span>
+		{{ form.price }}
+		{{ form.price.errors }}
+	</div>
+	<div>
+		<span>Titulo</span>
+		{{ form.title }}
+		{{ form.title.errors }}
+	</div>
+	<div>
+		<span>Descripcion</span>
+		{{ form.description }}
+		{{ form.description.errors }}
+	</div>
+	<div>
+		<span>Marca</span>
+		{{ form.brand }}
+		{{ form.brand.errors }}
+	</div>
+	<div>
+		<span>Modelo</span>
+		{{ form.model }}
+		{{ form.model.errors }}
+	</div>
+	<div>
+		<span>Estado</span>
+		{{ form.state }}
+		{{ form.state.errors }}
+	</div>
+	<div>
+		<span>Vencimiento</span>
+		{{ form.duedate }}
+		{{ form.duedate.errors }}
+	</div>
+	<div>
+		<span>Direccion de Envio</span>
+		{{ form.addressDelivery }}
+		{{ form.addressDelivery.errors }}
+	</div>
 	
 		<input type="submit" value="SUBIR">
 </form>
 
 
 {% endblock %}
-
 

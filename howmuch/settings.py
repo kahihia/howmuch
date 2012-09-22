@@ -13,7 +13,7 @@ ADMINS = (
      ('Juan Carlos Cayetano', 'kayethano@gmail.com'),
 )
 
-AUTH_PROFILE_MODULE = 'howmuch.Profile.Profile'
+AUTH_PROFILE_MODULE = 'perfil.perfil'
 
 MANAGERS = ADMINS
 
@@ -139,7 +139,7 @@ INSTALLED_APPS = (
     'smart_selects',
     'storages',
     'registration',
-    'howmuch.Profile'
+    'howmuch.perfil'
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

@@ -25,6 +25,6 @@ def requestItem(request):
 			newItem.save()
 			return HttpResponseRedirect('/thanks/')
 	else:
-		form = RequestItemForm(initial={'title' : title, 'price' : request.GET['precio']})
+		form = RequestItemForm(initial={'title' : title, 'price' : request.GET['precio'], 'addressDelivery' : request.user.get_profile().getAddressDelivery()})
 	return render_to_response('core/newitem.html', {'form' : form}, context_instance=RequestContext(request))
 
