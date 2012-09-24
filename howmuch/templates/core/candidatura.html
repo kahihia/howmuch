@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+
+{% endblock %}
+{% block media %}
+
+{% endblock %}
+
+{% block content %}
+
+			{% if errors %}
+				<ul>
+					{% for error in errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+
+			{% else %}
+
+			<h1><span>{{user}}</span> Confirma</h1>
+			<h2>Aplico para Vender el Articulo <span>{{ requestItem.title }}</span></h2>
+			<form action="" id="confirmaCandidatura" method="POST">{% csrf_token %}
+				<p>Enviale un mensaje a <span>{{ requestItem.owner }}</span> acerca del producto que estas dispuesto a venderle asi como informacion complementaria que le pueda ayudar a seleccionarte a ti para su vendedor </p>
+				<h4>Este es el precio contraoferta, es decir el precio al que desean comprar el articulo + Gastos de Envio</h4>
+				{{ form.cprice}}
+				{{ form.cprice.errors}}
+				<h4>Enviale un mensaje a tu posible Comprador</h4>
+				{{ form.message}}
+				{{ form.message.errors}}
+				<input type="submit" value="Venderselo">
+				<p>Al Aplicarte para esta venta estas Aceptando los Terminos y Condiciones de esta pagina</p>
+			</form>
+
+			{% endif %}
+
+
+{% endblock %}

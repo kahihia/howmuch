@@ -3,8 +3,20 @@ from django.contrib.auth.models import User
 from howmuch.Pictures.models import Picture
 
 STATES_CHOICES = (
+
 	('NEW' , 'NUEVO'),
 	('USED' , 'USADO'),
+
+)
+
+STATUS_ASSIGNMENT = (
+
+	('1', 'PAGADO'),
+	('2', 'ENVIADO'),
+	('3', 'COMPLETADO'),
+	('4','CALIFICADO'),
+	('5', 'CANCELADO')
+
 )
 
 class RequestItem(models.Model):
@@ -32,13 +44,14 @@ class RequestItemPicture(models.Model):
 
 class Proffer(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by Proffer")
-	date = models.DateTimeField()
+	requestItem = models.ForeignKey(RequestItem)
+	date = models.DateTimeField(auto_now_add=True)
 	cprice = models.IntegerField()
 	message = models.CharField(max_length=140)
 	pictures = models.ManyToManyField(Picture, through='ProfferPicture')
 
 	def __unicode__(self):
-		return self.owner
+		return u'owner: %s, item: %s' % (self.owner, self.requestItem.title)
 
 class ProfferPicture(models.Model):
 	proffer = models.ForeignKey(Proffer)
@@ -50,7 +63,12 @@ class ProfferPicture(models.Model):
 class Assignment(models.Model):
 	owner = models.ForeignKey(User)
 	requestItem = models.ForeignKey(RequestItem)
-	date = models.DateTimeField()
+	date = models.DateTimeField(auto_now_add=True)
+	duedate = models.DateTimeField(null=True, blank=True)
+	status = models.CharField(max_length=2, choices=STATUS_ASSIGNMENT)
+
+	def __unicode__(self):
+		return u'%s and %s' % (self.owner, self.requestItem)
 
 
 
