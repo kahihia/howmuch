@@ -11,6 +11,7 @@ STATES_CHOICES = (
 
 STATUS_ASSIGNMENT = (
 
+	('0', 'NOTIFICADO'),
 	('1', 'PAGADO'),
 	('2', 'ENVIADO'),
 	('3', 'COMPLETADO'),
@@ -33,14 +34,14 @@ class RequestItem(models.Model):
 	addressDelivery = models.CharField(max_length=177)
 
 	def __unicode__(self):
-		return self.title
+		return u'Title: %s' % (self.title)
 
 class RequestItemPicture(models.Model):
 	requestItem = models.ForeignKey(RequestItem)
 	picture = models.ForeignKey(Picture)
 
 	def __unicode__(self):
-		return self.requestItem.title
+		return u'%s' % (self.requestItem.title)
 
 class Proffer(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by Proffer")
@@ -65,10 +66,12 @@ class Assignment(models.Model):
 	requestItem = models.ForeignKey(RequestItem)
 	date = models.DateTimeField(auto_now_add=True)
 	duedate = models.DateTimeField(null=True, blank=True)
-	status = models.CharField(max_length=2, choices=STATUS_ASSIGNMENT)
+	comment = models.CharField(max_length=144)
+	status = models.CharField(max_length=2, default = 0)
+
 
 	def __unicode__(self):
-		return u'%s and %s' % (self.owner, self.requestItem)
+		return u'Owner: %s and item: %s' % (self.owner, self.requestItem)
 
 
 

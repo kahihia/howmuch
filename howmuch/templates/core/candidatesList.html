@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+
+{% endblock %}
+
+{% block content %}
+
+	
+	{% for candidate in candidates %}
+		<div>
+			{{ candidate.owner }}
+			{{ candidate.date }}
+			{{ candidate.cprice }}
+			{{ candidate.message }}
+		</div>
+
+	{% empty %}
+		<span>Este Articulo aun no dispone de Posibles Vendedores</span>
+	{% endfor %}
+	
+
+{% endblock %}

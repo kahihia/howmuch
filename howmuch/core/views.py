@@ -1,9 +1,10 @@
-from howmuch.core.forms import RequestItemForm, ProfferForm
-from howmuch.core.models import RequestItem
+from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
+from howmuch.core.models import RequestItem, Proffer
 from howmuch.core.functions import UserRequestItem
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import timedelta, date
 from django.template import RequestContext
@@ -64,3 +65,27 @@ def newProffer(request,itemId):
 		form = ProfferForm()
 	return render_to_response('core/candidatura.html', {'form' : form, 'requestItem' : requestItem, 'user' : request.user }, context_instance=RequestContext(request))
 
+
+@login_required(login_url="/login/")
+def viewCandidates(request, itemId):
+	candidates = get_list_or_404(Proffer, requestItem = itemId)
+	return render_to_response('core/candidatesList.html', {'candidates' : candidates }, context_instance=RequestContext(request))
+
+
+@login_required(login_url="/login/")
+def newAssignment(request, itemId, candidateID):
+	candidate = get_object_or_404(Proffer, owner = candidateID)
+	candidateUser = get_object_or_404(User, pk = candidateID)
+	item = get_object_or_404(RequestItem, pk= itemId)
+
+	if request.method == 'POST':
+		form = AssignmentForm(request.POST)
+		if form.is_valid():
+			newAssignment = form.save(commit=False)
+			newAssignment.owner = candidateUser 
+			newAssignment.requestItem = item
+			newAssignment.save()
+			return HttpResponseRedirect("/Thanks/")
+	else:
+		form = AssignmentForm()
+	return render_to_response('core/newAssignment.html', {'form' : form}, context_instance=RequestContext(request))
