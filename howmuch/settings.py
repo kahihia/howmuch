@@ -139,7 +139,8 @@ INSTALLED_APPS = (
     'smart_selects',
     'storages',
     'registration',
-    'howmuch.perfil'
+    'howmuch.perfil',
+    'captcha',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

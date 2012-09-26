@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', logout),
 	url(r'^chaining/', include('smart_selects.urls')),
 	url(r'^pictures/', include('howmuch.Pictures.urls')),
+    url(r'^captcha/', include('captcha.urls')),
 	
     # Examples:
     # url(r'^$', 'howmuch.views.home', name='home'),

@@ -1,8 +1,8 @@
 from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
-from howmuch.core.models import RequestItem, Proffer
+from howmuch.core.models import RequestItem, Proffer, Assignment
 from howmuch.core.functions import UserRequestItem
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,6 +22,7 @@ def requestItem(request):
 	if request.method == 'POST':
 		form = RequestItemForm(request.POST)
 		if form.is_valid():
+			human = True
 			newItem = form.save(commit=False)
 			newItem.owner = request.user
 			newItem.save()
@@ -74,9 +75,17 @@ def viewCandidates(request, itemId):
 
 @login_required(login_url="/login/")
 def newAssignment(request, itemId, candidateID):
+
 	candidate = get_object_or_404(Proffer, owner = candidateID)
 	candidateUser = get_object_or_404(User, pk = candidateID)
 	item = get_object_or_404(RequestItem, pk= itemId)
+
+	try:
+		Assignment.objects.get(requestItem = item )
+	except Assignment.DoesNotExist:
+		pass
+	else:
+		return HttpResponse("Esta Asignacion ya Existe")
 
 	if request.method == 'POST':
 		form = AssignmentForm(request.POST)
