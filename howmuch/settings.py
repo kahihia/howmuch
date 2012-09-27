@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'registration',
     'howmuch.perfil',
     'captcha',
+    'howmuch.messages',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

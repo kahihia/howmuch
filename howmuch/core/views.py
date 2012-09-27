@@ -1,6 +1,8 @@
 from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
 from howmuch.core.models import RequestItem, Proffer, Assignment
+from howmuch.messages.models import Conversation
 from howmuch.core.functions import UserRequestItem
+from howmuch.messages.functions import InitialConversationContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -76,9 +78,10 @@ def viewCandidates(request, itemId):
 @login_required(login_url="/login/")
 def newAssignment(request, itemId, candidateID):
 
-	candidate = get_object_or_404(Proffer, owner = candidateID)
-	candidateUser = get_object_or_404(User, pk = candidateID)
+
 	item = get_object_or_404(RequestItem, pk= itemId)
+	candidate = get_object_or_404(Proffer, owner = candidateID, requestItem = item)
+	candidateUser = get_object_or_404(User, pk = candidateID)
 
 	try:
 		Assignment.objects.get(requestItem = item )
@@ -94,6 +97,20 @@ def newAssignment(request, itemId, candidateID):
 			newAssignment.owner = candidateUser 
 			newAssignment.requestItem = item
 			newAssignment.save()
+			"""
+			Se crea la Conversation correspondiente a la Asignacion
+			"""
+			conversation = Conversation.objects.create(assignment = newAssignment)
+			conversation.save()
+
+			"""
+			Se crea una instancia de InitialConversationContext
+			"""
+			newContext = InitialConversationContext(item.owner, newAssignment.owner, conversation)
+
+			newContext.createMessageByBuyer()
+			newContext.createMessageBySaller()
+
 			return HttpResponseRedirect("/Thanks/")
 	else:
 		form = AssignmentForm()
