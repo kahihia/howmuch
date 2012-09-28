@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+
+{% endblock %}
+
+{% block content %}
+
+	<ul>
+	{% for message in messages %}
+
+	<li>{{ message.message }}</li>
+
+	{% endfor %}
+
+	</ul>
+
+
+	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+		{{ form.message }}
+		{{ form.message.errors }}
+		<input type="submit" value="ENVIAR">
+	</form>
+
+{% endblock %}

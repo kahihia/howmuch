@@ -19,3 +19,15 @@ class InitialConversationContext:
 		newMessage = Message.objects.create(owner = self.saller, message = theMessage, conversation = self.conversation)
 		newMessage.save()
 
+class ConversationFeatures:
+	def __init__(self, conversation, user):
+		self.conversation = conversation
+		self.user = user
+
+	def is_inside(self):
+		if self.conversation.assignment.owner == self.user or self.conversation.assignment.requestItem.owner == self.user:
+			return True
+		else:
+			return False
+
+

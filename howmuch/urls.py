@@ -10,6 +10,7 @@ from django.contrib.auth.views import login, logout
 urlpatterns = patterns('',
     url(r'^', include('howmuch.core.urls')),
     url(r'^profile/', include('howmuch.perfil.urls')),
+    url(r'^messages/', include('howmuch.messages.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^login/$',  login),
     url(r'^logout/$', logout),
