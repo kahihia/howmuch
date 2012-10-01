@@ -8,14 +8,15 @@ from django.contrib.auth.views import login, logout
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^login/$',  login),
+    url(r'^logout/$', logout),
     url(r'^', include('howmuch.core.urls')),
     url(r'^profile/', include('howmuch.perfil.urls')),
     url(r'^messages/', include('howmuch.messages.urls')),
+    url(r'^pictures/', include('howmuch.Pictures.urls')),
+    url(r'^prestige/', include('howmuch.prestige.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^login/$',  login),
-    url(r'^logout/$', logout),
 	url(r'^chaining/', include('smart_selects.urls')),
-	url(r'^pictures/', include('howmuch.Pictures.urls')),
     url(r'^captcha/', include('captcha.urls')),
 	
     # Examples:

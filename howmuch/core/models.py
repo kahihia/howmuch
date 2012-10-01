@@ -11,20 +11,23 @@ STATES_CHOICES = (
 
 STATUS_ASSIGNMENT = (
 
-	('0', 'NOTIFICADO'),
-	('1', 'PAGADO'),
-	('2', 'ENVIADO'),
-	('3', 'COMPLETADO'),
-	('4','CALIFICADO'),
-	('5', 'CANCELADO')
+	('0', 'NOTIFICADO'), #Cuando la Asignacion es generada
+	('1', 'PAGADO'), #Cuando el comprador notifica el pago
+	('2', 'PRODUCTO ENVIADO'), #Cuando el vendedor notifica el Envio del producto, ya permite que los usuarios CRITIQUEN
+	('3','EN ESPERA DE CRITICA'), #Se activa en el momento en que cualquiera de los involucrados CRITICA la transaccion
+	('4', 'COMPLETADO'), #Cuando ya existe CRITICA tanto del comprador como del vendedor
+	('5', 'CANCELADO') #Cuando se cancela la transaccion
 
 )
+
+
 
 class RequestItem(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by RequestItem")
 	price = models.IntegerField()
 	title = models.CharField(max_length=100)
 	description = models.CharField(max_length=140)
+	#quantity = models.IntegerField() 
 	brand = models.CharField(max_length=25)
 	model = models.CharField(max_length=25)
 	state = models.CharField(max_length=7, choices=STATES_CHOICES)
@@ -35,6 +38,16 @@ class RequestItem(models.Model):
 
 	def __unicode__(self):
 		return u'Title: %s' % (self.title)
+
+	def has_candidate(self):
+		if Proffer.objects.filter(requestItem = self).exists():
+			return True
+		else:
+			return False
+
+	def has_finished(self):
+		return 0
+
 
 class RequestItemPicture(models.Model):
 	requestItem = models.ForeignKey(RequestItem)
@@ -69,9 +82,21 @@ class Assignment(models.Model):
 	comment = models.CharField(max_length=144)
 	status = models.CharField(max_length=2, default = 0)
 
-
 	def __unicode__(self):
 		return u'Owner: %s and item: %s' % (self.owner, self.requestItem)
+
+	def is_saller(self,user):
+		if self.owner == user:
+			return True
+		else: 
+			return False
+
+	def is_buyer(self,user):
+		if self.requestItem.owner == user:
+			return True
+		else:
+			return False
+
 
 
 

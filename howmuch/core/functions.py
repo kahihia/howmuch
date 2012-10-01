@@ -1,4 +1,5 @@
 from howmuch.core.models import RequestItem, Proffer, Assignment
+from howmuch.prestige.models import PayConfirm, DeliveryConfirm, Prestige
 
 
 
@@ -74,3 +75,45 @@ class UserRequestItem:
 		if self.is_owner() or self.is_candidate() or self.is_assigned():
 			return False
 		return True
+
+class AssignmentFeatures:
+	def __init__(self, assignment):
+		self.assignment = assignment
+
+	def has_been_paid(self):
+		try:
+			PayConfirm.objects.get(assignment = self.assignment)
+		except PayConfirm.DoesNotExist:
+			return False
+		return True
+
+	def has_been_delivered(self):
+		try:
+			DeliveryConfirm.objects.get(assignment = self.assignment)
+		except DeliveryConfirm.DoesNotExist:
+			return False
+		return True
+
+	def has_been_critiqued(self):
+		prestige = Prestige.objects.filter(assignment = self.assignment)
+		if prestige.exists():
+			return True
+		return False
+
+	def has_been_completed(self):
+		if Prestige.objects.filter(assignment = self.assignment).count() == 2:
+			return True
+		return False
+
+	def user_has_critiqued(self, user):
+		try:
+			Prestige.objects.filter(assignment = self.assignment, de = user)
+		except Prestige.DoesNotExist:
+			return False
+		return True
+
+
+
+
+
+

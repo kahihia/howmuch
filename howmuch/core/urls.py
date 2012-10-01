@@ -5,5 +5,7 @@ urlpatterns = patterns('howmuch.core.views',
 		url(r'^item/candidates/(?P<itemId>\d+)/$', 'viewCandidates', name="coreViewCandidates"),
 		url(r'^proffer/new/(?P<itemId>\d+)/$', 'newProffer', name = "coreNewProffer"),
 		url(r'^assignment/new/(?P<itemId>\d+)/(?P<candidateID>\d+)/$','newAssignment', name = "coreNewAssignment"),
+		url(r'^purchases/published/$', 'publishedPurchasesView' , name = "corePublishedPurchasesView"),
+		url(r'^purchases/process/$', 'processPurchasesView' , name = "coreProcessPurchasesView"),
 		url(r'^$','home', name = "coreHome"),
 ) 

@@ -24,7 +24,7 @@ def requestItem(request):
 	if request.method == 'POST':
 		form = RequestItemForm(request.POST)
 		if form.is_valid():
-			human = True
+			#human = True
 			newItem = form.save(commit=False)
 			newItem.owner = request.user
 			newItem.save()
@@ -115,3 +115,19 @@ def newAssignment(request, itemId, candidateID):
 	else:
 		form = AssignmentForm()
 	return render_to_response('core/newAssignment.html', {'form' : form}, context_instance=RequestContext(request))
+
+def publishedPurchasesView(request):
+	items = RequestItem.objects.filter(owner=request.user)
+	publishedPurchases = []
+	for item in items:
+		if not item.has_candidate():
+			publishedPurchases.append(item)
+	return render_to_response('core/publishedPurchases.html', {'publishedPurchases' : publishedPurchases }, context_instance = RequestContext(request))
+
+def processPurchasesView(request):
+	items = RequestItem.objects.filter(owner=request.user)
+	processPurchases = []
+	for item in items:
+		if item.has_candidate():
+			processPurchases.append(item)
+	return render_to_response('core/processPurchases.html', {'processPurchases' : processPurchases }, context_instance = RequestContext(request))

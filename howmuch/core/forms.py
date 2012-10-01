@@ -5,7 +5,7 @@ from howmuch.core.models import RequestItem, Proffer, Assignment
 from captcha.fields import CaptchaField
 
 class RequestItemForm(ModelForm):
-	captcha = CaptchaField()
+	#captcha = CaptchaField()
 	duedate = forms.DateTimeField(widget=widgets.AdminSplitDateTime)
 	
 	class Meta:
