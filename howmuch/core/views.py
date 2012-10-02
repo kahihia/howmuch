@@ -1,7 +1,7 @@
 from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
 from howmuch.core.models import RequestItem, Proffer, Assignment
 from howmuch.messages.models import Conversation
-from howmuch.core.functions import UserRequestItem
+from howmuch.core.functions import UserRequestItem, AssignmentFeatures
 from howmuch.messages.functions import InitialConversationContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
@@ -116,18 +116,54 @@ def newAssignment(request, itemId, candidateID):
 		form = AssignmentForm()
 	return render_to_response('core/newAssignment.html', {'form' : form}, context_instance=RequestContext(request))
 
+
+@login_required(login_url="/login/")
 def publishedPurchasesView(request):
-	items = RequestItem.objects.filter(owner=request.user)
+	items = RequestItem.objects.filter(owner = request.user)
 	publishedPurchases = []
 	for item in items:
-		if not item.has_candidate():
+		if not item.has_candidates():
 			publishedPurchases.append(item)
 	return render_to_response('core/publishedPurchases.html', {'publishedPurchases' : publishedPurchases }, context_instance = RequestContext(request))
 
+
+@login_required(login_url="/login/")
 def processPurchasesView(request):
-	items = RequestItem.objects.filter(owner=request.user)
+	items = RequestItem.objects.filter(owner = request.user)
 	processPurchases = []
 	for item in items:
-		if item.has_candidate():
+		if item.has_candidates():
 			processPurchases.append(item)
 	return render_to_response('core/processPurchases.html', {'processPurchases' : processPurchases }, context_instance = RequestContext(request))
+
+
+@login_required(login_url="/login/")
+def completedPurchasesView(request):
+	items = RequestItem.objects.filter(owner = request.user)
+	completedPurchases = []
+	for item in items:
+		if item.has_been_completed():
+			completedPurchases.append(item)
+	return render_to_response('core/completedPurchases.html', {'completedPurchases' : completedPurchases}, context_instance = RequestContext(request))
+
+@login_required(login_url="/login/")
+def possibleSalesView(request):
+	items = Proffer.objects.filter(owner = request.user )
+	possibleSales = []
+	for item in items:
+		if item.is_open():
+			possibleSales.append(item)
+	return render_to_response('core/possibleSales.html', {'possibleSales' : possibleSales }, context_instance = RequestContext(request))
+
+@login_required(login_url="/login/")
+def processSalesView(request):
+	processSales = Assignment.objects.filter(owner = request.user, status__in = ["0","1","2","3"])
+	return render_to_response('core/processSales.html', {'processSales' : processSales}, context_instance = RequestContext(request))
+
+@login_required(login_url="/login/")
+def completedSalesView(request):
+	completedSales = Assignment.objects.filter(owner = request.user, status = "4")
+	return render_to_response('core/completedSales.html', {'completedSales' : completedSales }, context_instance = RequestContext(request))
+
+
+

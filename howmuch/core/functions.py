@@ -112,6 +112,11 @@ class AssignmentFeatures:
 			return False
 		return True
 
+	def is_in_process(self):
+		if self.assignment.status in ["0", "1", "2", "3"]:
+			return True
+		return False
+
 
 
 

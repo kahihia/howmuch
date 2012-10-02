@@ -39,14 +39,30 @@ class RequestItem(models.Model):
 	def __unicode__(self):
 		return u'Title: %s' % (self.title)
 
-	def has_candidate(self):
+	#True si el item ya posee candidatos
+	def has_candidates(self):
 		if Proffer.objects.filter(requestItem = self).exists():
 			return True
 		else:
 			return False
 
-	def has_finished(self):
-		return 0
+	#True si el item ya posee asignacion
+	def has_assignment(self):
+		try:
+			Assignment.objecs.get(requestItem = self)
+		except Assignment.DoesNotExist:
+			return False
+		return True
+
+	#True si el item ya ha finalizado
+	def has_been_completed(self):
+		try:
+			assignment = Assignment.objects.get(requestItem = self)
+		except Assignment.DoesNotExist:
+			return False
+		if assignment.status == "4":
+			return True
+		return False
 
 
 class RequestItemPicture(models.Model):
@@ -66,6 +82,13 @@ class Proffer(models.Model):
 
 	def __unicode__(self):
 		return u'owner: %s, item: %s' % (self.owner, self.requestItem.title)
+
+	def is_open(self):
+		try:
+			Assignment.objects.get(requestItem = self.requestItem)
+		except Assignment.DoesNotExist:
+			return True
+		return False
 
 class ProfferPicture(models.Model):
 	proffer = models.ForeignKey(Proffer)

@@ -17,7 +17,6 @@ class Conversation(models.Model):
 	def __unicode__(self):
 		return u'Assignment to: %s ' % (self.assignment.requestItem)
 
-
 class Message(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by Message")
 	date = models.DateTimeField(auto_now_add=True)

@@ -1,6 +1,7 @@
 from howmuch.prestige.models import Prestige
 from howmuch.core.models import Assignment
 from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeForm
+from howmuch.messages.models import Conversation, Message
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
@@ -18,8 +19,15 @@ STATUS_ASSIGNMENT = (
 
 )
 
+@login_required(login_url="/login/")
 def confirmPay(request, assignmentID):
 	assignment = get_object_or_404(Assignment, pk = assignmentID, requestItem__owner = request.user)
+
+	"""
+	Se valida que la conversacion correspondiente a la asignacion exista, ya que enseguida se utiliza la variable
+	"""
+
+	conversation = get_object_or_404(Conversation, assignment = assignment)
 
 	# Instancia de la clase AssignmentFeatures
 	assignmentFeature = AssignmentFeatures(assignment)
@@ -35,8 +43,17 @@ def confirmPay(request, assignmentID):
 			newPay.owner = request.user
 			newPay.assignment = assignment
 			newPay.save()
+			"""
+			Se cambia el estado de la asignacion a 1
+			"""
 			assignment.status = "1"
 			assignment.save()
+			"""
+			Se agrega a la conversacion de la asignacion el mensaje enviado en ConfirmPay
+			"""
+			newMessage = Message.objects.create(owner = request.user, message = newPay.message, conversation = conversation)
+			newMessage.save()
+
 			return HttpResponseRedirect('/thanks/')
 	else:
 		form = PayConfirmForm()
@@ -46,8 +63,18 @@ def confirmPay(request, assignmentID):
 def confirmDelivery(request, assignmentID):
 	assignment = get_object_or_404(Assignment, pk = assignmentID, owner = request.user)
 
+	"""
+	Se valida que la conversacion correspondiente a la asignacion exista, ya que enseguida se utiliza la variable
+	"""
+
+	conversation = get_object_or_404(Conversation, assignment = assignment)
+
 	# Instancia de la clase AssignmentFeatures
 	assignmentFeature = AssignmentFeatures(assignment)
+
+	# Verifica que el pago haya sido realizado en caso de que no, envia mensaje de error
+	if not assignmentFeature.has_been_paid():
+		return HttpResponse("No puedes Confirmar el Envio del articulo hasta que el comprador no te haya pagado")
 
 	#Se valida que la confirmacion del envio no haya sido confirmado anteriormente
 	if assignmentFeature.has_been_delivered():
@@ -60,13 +87,23 @@ def confirmDelivery(request, assignmentID):
 			newDelivery.owner = request.user
 			newDelivery.assignment = assignment
 			newDelivery.save()
+			"""
+			Se cambia el estado de la asignacion a 2
+			"""
 			assignment.status = "2"
 			assignment.save()
+			"""
+			Se agrega a la conversacion de la asignacion el mensaje enviado en ConfirmPay
+			"""
+			newMessage = Message.objects.create(owner = request.user, message = newDelivery.message, conversation = conversation)
+			newMessage.save()
+
 			return HttpResponseRedirect('/thanks/')
 	else:
 		form = DeliveryConfirmForm()
 	return render_to_response('prestige/deliveryConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
 
+@login_required(login_url="/login/")
 def setPrestigeSaller(request, assignmentID):
 	assignment = get_object_or_404(Assignment, pk= assignmentID)
 
@@ -94,11 +131,17 @@ def setPrestigeSaller(request, assignmentID):
 			newPrestigeSaller.to = assignment.owner
 			newPrestigeSaller.assignment = assignment
 			newPrestigeSaller.save()
+			"""
+			Se cambia el estado de la asignacion a 3
+			"""
+			assignment.status = "3"
+			assignment.save()
 			return HttpResponseRedirect('/thanks/')
 	else:
 		form = PrestigeForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
 
+@login_required(login_url="/login/")
 def setPrestigeBuyer(request, assignmentID):
 	assignment = get_object_or_404(Assignment, pk= assignmentID)
 	if assignment.is_saller(request.user):
@@ -125,11 +168,18 @@ def setPrestigeBuyer(request, assignmentID):
 			newPrestigeSaller.to = assignment.requestItem.owner
 			newPrestigeSaller.assignment = assignment
 			newPrestigeSaller.save()
+			"""
+			Se cambia el estado de la asignacion a 3
+			"""
+			assignment.status = "3"
+			assignment.save()
 			return HttpResponseRedirect('/thanks/')
 	else:
 		form = PrestigeForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
 
+
+@login_required(login_url="/login/")
 def cancelAssignment(request, assignmentID):
 	assignment = get_object_or_404(Assignment, pk=assignmentID, requestItem__owner = request.user)
 
