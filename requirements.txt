@@ -13,6 +13,7 @@ django-celery==3.0.9
 django-simple-captcha==0.3.4
 django-storages==1.1.5
 gunicorn==0.14.6
+indextank==1.0.6
 kombu==2.4.6
 psycopg2==2.4.5
 python-dateutil==1.5

@@ -143,6 +143,7 @@ INSTALLED_APPS = (
     'captcha',
     'howmuch.messages',
     'howmuch.prestige',
+    'howmuch.searchengine',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

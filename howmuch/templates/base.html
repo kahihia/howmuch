@@ -13,8 +13,8 @@
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css">
-        <script src="{{ MEDIA_URL }}js/vendor/modernizr-2.6.2.min.js"></script>
-
+        <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/south-street/jquery-ui.css" media="all" />
+        
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -43,6 +43,13 @@
                         <a class= "alogo" href=""><li class="menu-list">Cuenta</li></a>
                     </ul> 
                 </div>
+
+                <div>
+                    <form id="myform" action="ignored.html">
+                    <input id="query" type="text"/>
+                    </form>
+                <div id="results"></div>
+            </div>
             </div>
         </header>
 
@@ -63,6 +70,21 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="{{ MEDIA_URL }}js/vendor/modernizr-2.6.2.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.ize.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.autocomplete.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/querybuilder.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.ajaxsearch.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.renderer.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.instantsearch.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#myform").indextank_Ize('http://dyci1.api.searchify.com', 'idx');
+                var renderer =  $("#results").indextank_Renderer();
+                $("#query").indextank_Autocomplete().indextank_AjaxSearch( {listeners: renderer}).indextank_InstantSearch();
+            });
+        </script>
         {% block media %}
         {% endblock %}
 

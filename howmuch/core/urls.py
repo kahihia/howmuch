@@ -15,4 +15,5 @@ urlpatterns = patterns('howmuch.core.views',
 		url(r'^sales/completed/$', 'completedSalesView' , name = "coreCompletedSalesView"),
 
 		url(r'^$','home', name = "coreHome"),
+		
 ) 

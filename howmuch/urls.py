@@ -15,10 +15,12 @@ urlpatterns = patterns('',
     url(r'^messages/', include('howmuch.messages.urls')),
     url(r'^pictures/', include('howmuch.Pictures.urls')),
     url(r'^prestige/', include('howmuch.prestige.urls')),
+    url(r'^search/', include('howmuch.searchengine.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
 	url(r'^chaining/', include('smart_selects.urls')),
     url(r'^captcha/', include('captcha.urls')),
-	
+
+   
     # Examples:
     # url(r'^$', 'howmuch.views.home', name='home'),
     # url(r'^howmuch/', include('howmuch.foo.urls')),

@@ -16,7 +16,6 @@ import datetime
 def home(request):
 	return render_to_response('core/home.html', context_instance=RequestContext(request))
 
-
 @login_required(login_url="/login/")
 def requestItem(request):
 	if request.method == 'GET':
