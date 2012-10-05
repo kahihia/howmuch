@@ -5,9 +5,7 @@ from howmuch.core.models import RequestItem, Proffer, Assignment
 from captcha.fields import CaptchaField
 
 class RequestItemForm(ModelForm):
-	#captcha = CaptchaField()
-	duedate = forms.DateTimeField(widget=widgets.AdminSplitDateTime)
-	
+	#captcha = CaptchaField()	
 	class Meta:
 		model = RequestItem
 		exclude = ('owner','date','pictures',)

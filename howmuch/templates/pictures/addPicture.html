@@ -1,0 +1,23 @@
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+
+
+{% endblock %}
+
+{% block content %}
+
+	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+		{{ form.picture }}
+		{{ form.picture.errors}}
+		<input id="submitPhotoButton" type="submit" value="SUBIR">
+
+	</form>
+	
+
+{% endblock %}
+
+

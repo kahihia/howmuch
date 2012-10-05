@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from howmuch.Pictures.models import Picture
+from howmuch.pictures.models import Picture
+from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
+from smart_selects.db_fields import ChainedForeignKey
+
 
 STATES_CHOICES = (
 
@@ -26,13 +29,25 @@ class RequestItem(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by RequestItem")
 	price = models.IntegerField()
 	title = models.CharField(max_length=100)
-	description = models.CharField(max_length=140)
-	#quantity = models.IntegerField() 
+	description = models.CharField(max_length=1024)
+	quantity = models.IntegerField() 
+	######Categoria de los Productos
+	itemsCatA = models.ForeignKey(ItemsCatA, help_text="")
+	itemsCatB = ChainedForeignKey(
+		ItemsCatB,
+		chained_field="itemsCatA",
+       		chained_model_field="itemsCatA", 
+        	show_all=False, 
+        	auto_choose=True,
+		help_text=""
+	)
+	itemsCatC = ChainedForeignKey(ItemsCatC, chained_field="itemsCatB", chained_model_field="itemsCatB", help_text = "")
+	######Categoria de los Productos
 	brand = models.CharField(max_length=25)
 	model = models.CharField(max_length=25)
 	state = models.CharField(max_length=7, choices=STATES_CHOICES)
 	date = models.DateTimeField(auto_now_add=True)
-	duedate = models.DateTimeField()
+	daysLimit = models.IntegerField()
 	pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
 	addressDelivery = models.CharField(max_length=177)
 

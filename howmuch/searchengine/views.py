@@ -1,8 +1,11 @@
 from howmuch.core.models import RequestItem
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from indextank.client import ApiClient
 from django.core import serializers
+from django.template import RequestContext
 import datetime
+import urllib
 
 def defineIndex():
 	api = ApiClient('http://:PAEaldYb8L2lH8@dyci1.api.searchify.com')
@@ -24,7 +27,7 @@ def indexsearch(request):
 	return(HttpResponse('Indexing: %s' % datetime.datetime.now() ))
 
 def searchservice(request):
-	q = unquote(request.GET.get('q', '')) # uncode the request
+	q = urllib.unquote(request.GET.get('q', '')) # uncode the request
 	q = q.strip() # Get rid of white space, it will mess with results from Searchify
 	resource = defineIndex() # Grab our Searchify object
 	index = resource['index']
@@ -38,15 +41,16 @@ def searchservice(request):
 		# because the user is still typing.
 		finalq = ' AND text:'.join(q)
 		finalq += "*" # Wildcard at the end!
-		searchresults = index.search( 'text:%s' % finalq ) # Run the search
-		for result in searchresults['results']: # For each searchresults
-			try:
+		searchresults = index.search( 'text:%s' % finalq , fetch_fields=['text']) # Run the search
+		#for result in searchresults['results']: # For each searchresults
+		#	try:
 				# Grab the object in django, if it's published!
-				obj = RequestItem.objects.get(pk=result['docid'])
-				results.append(obj)
-			except RequestItem.DoesNotExist: # Model wasn't found.
-				pass
+		#		obj = RequestItem.objects.get(pk=result['docid'])
+		#		results.append(obj)
+		#	except RequestItem.DoesNotExist: # Model wasn't found.
+		#		pass
 		# Return the results in a serialized JSON response.
-		return HttpResponse(serializers.serialize("json", results))
+		#return HttpResponse(serializers.serialize("json", searchresults))
+		return render_to_response('searchengine/results.html', {'searchresults' : searchresults}, context_instance = RequestContext(request) )
 	# Or some raw JSON saying none were found.
 	return HttpResponse('{"results": "none"}') 

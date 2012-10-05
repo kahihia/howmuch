@@ -20,9 +20,29 @@
 		{{ form.title.errors }}
 	</div>
 	<div>
+		<span>Cantidad</span>
+		{{ form.quantity }}
+		{{ form.quantity.errors }}
+	</div>
+	<div>
 		<span>Descripcion</span>
 		{{ form.description }}
 		{{ form.description.errors }}
+	</div>
+	<div>
+		<span>Categoria A</span>
+		{{ form.itemsCatA }}
+		{{ form.itemsCatA.errors }}
+	</div>
+	<div>
+		<span>Categoria B</span>
+		{{ form.itemsCatB }}
+		{{ form.itemsCatB.errors }}
+	</div>
+	<div>
+		<span>Categoria C</span>
+		{{ form.itemsCatC }}
+		{{ form.itemsCatC.errors }}
 	</div>
 	<div>
 		<span>Marca</span>
@@ -40,17 +60,16 @@
 		{{ form.state.errors }}
 	</div>
 	<div>
-		<span>Vencimiento</span>
-		{{ form.duedate }}
-		{{ form.duedate.errors }}
+		<span>Dias limite</span>
+		{{ form.daysLimit }}
+		{{ form.daysLimit.errors }}
 	</div>
 	<div>
 		<span>Direccion de Envio</span>
 		{{ form.addressDelivery }}
 		{{ form.addressDelivery.errors }}
 	</div>
-		{{ form.captcha }}
-	
+	{{form.errors}}
 		<input type="submit" value="SUBIR">
 </form>
 

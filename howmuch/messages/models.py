@@ -21,7 +21,7 @@ class Message(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by Message")
 	date = models.DateTimeField(auto_now_add=True)
 	message = models.CharField(max_length=250)
-	conversatison = models.ForeignKey(Conversation)
+	conversation = models.ForeignKey(Conversation)
 
 	def __unicode__(self):
 		return u'message: %s' % (self.message)

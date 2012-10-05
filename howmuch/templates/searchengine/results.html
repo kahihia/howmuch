@@ -9,5 +9,11 @@
 
 {% block content %}
 
+Fueron encontrados {{searchresults.matches }} Resultados
+{% for result in searchresults.results %}
+
+<li>{{result.text}}</li>
+
+{% endfor %}
 
 {% endblock %}
