@@ -26,7 +26,7 @@ class Picture(models.Model):
 	date = models.DateTimeField(auto_now=True, auto_now_add=True)
 
 	def __unicode__(self):
-			return self.photo.url
+			return self.picture.url
 
 
 
