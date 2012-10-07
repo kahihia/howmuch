@@ -14,12 +14,13 @@ import datetime
 
 @login_required(login_url="/login/")
 def home(request):
-	return render_to_response('core/home.html', context_instance=RequestContext(request))
+	items = RequestItem.objects.all()
+	return render_to_response('core/home.html',{'items' : items } ,context_instance=RequestContext(request))
 
 @login_required(login_url="/login/")
 def requestItem(request):
 	if request.method == 'GET':
-		title = "Pago $ " + request.GET['precio'] + " Por " + request.GET['descripcion'] 
+		title = request.GET['descripcion'] 
 	if request.method == 'POST':
 		form = RequestItemForm(request.POST)
 		if form.is_valid():
@@ -27,15 +28,19 @@ def requestItem(request):
 			newItem = form.save(commit=False)
 			newItem.owner = request.user
 			newItem.save()
-			return HttpResponseRedirect('/thanks/')
+			return HttpResponseRedirect('/pictures/addpicture/requestitem/' + str(newItem.pk) )
 	else:
 		form = RequestItemForm(initial={'title' : title, 'price' : request.GET['precio'], 'addressDelivery' : request.user.get_profile().getAddressDelivery()})
 	return render_to_response('core/newitem.html', {'form' : form}, context_instance=RequestContext(request))
 
+def viewItem(request, itemID):
+	item = get_object_or_404(RequestItem, pk=itemID)
+	return render_to_response('core/viewItem.html', {'item' : item }, context_instance = RequestContext(request))
+
 @login_required(login_url="/login/")
 def newProffer(request,itemId):
 	"""
-	Validar que el RequestItemF exista, si no existe regresa error 404
+	Validar que el RequestItem exista, si no existe regresa error 404
 	"""
 
 	requestItem = get_object_or_404(RequestItem, pk = itemId)
@@ -62,7 +67,7 @@ def newProffer(request,itemId):
 			newProffer.owner = request.user
 			newProffer.requestItem = requestItem
 			newProffer.save()
-			return HttpResponseRedirect('/Thanks/')
+			return HttpResponseRedirect('/pictures/addpicture/proffer/' + str(newProffer.pk) )
 	else:
 		form = ProfferForm()
 	return render_to_response('core/candidatura.html', {'form' : form, 'requestItem' : requestItem, 'user' : request.user }, context_instance=RequestContext(request))
@@ -77,8 +82,14 @@ def viewCandidates(request, itemId):
 @login_required(login_url="/login/")
 def newAssignment(request, itemId, candidateID):
 
-
-	item = get_object_or_404(RequestItem, pk= itemId)
+	#Validar que el item exista y que el owner de el sea el request.user
+	try:
+		item = RequestItem.objects.get(pk= itemId, owner=request.user)
+	except RequestItem.DoesNotExist:
+		return HttpResponse("No tienes permiso para Asignar este Solicutud")
+	else:
+		pass
+	
 	candidate = get_object_or_404(Proffer, owner = candidateID, requestItem = item)
 	candidateUser = get_object_or_404(User, pk = candidateID)
 

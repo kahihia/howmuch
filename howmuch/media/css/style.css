@@ -1,3 +1,5 @@
+
+
 /*
 
 LOGO
@@ -43,75 +45,11 @@ span.punto-do{
 LOGO
 
 */
-
-
-/*
-
-HEADER
-
-*/
-
-header{
-	font-size: 12px;
-}
-header label{
-	color:black;
-	font-weight:bold;
-}
-.menu-list{
-	color:black;
-	display:inline;
-	font-weight:bold;	
-	padding:12px;
+.inputRequestItem{
+	border-radius: 3px;
+	border:1px solid blue;
+	padding: 3px;
+	background: white;
 }
 
-.menu-list:hover{
-}
-
-#bar-above{
-	position: fixed !important;
-	top:0px;
-	z-index:9999;
-	min-width: 981px
-}
-
-
-#menu{
-	display:inline-block;
-}
-#encargo-bar{
-	display:inline-block;
-}
-#precio-encargo{
-	border:0px;
-	padding:5px;
-}
-#descripcion-encargo{
-	border:0px;
-	padding:5px;
-
-}
-#precio-encargo:focus,#descripcion-encargo:focus{
-	border: 3px solid rgb(0,185,226);;
-}
-#goencargo{
-	border:0px;
-	color:white;
-	padding: 10px;
-	width:100px;
-	background: rgb(0,59,72);
-
-}
-#goencargo:hover{
-	background: rgb(0,113,138);
-}
-#content{
-	margin-top:100px;
-}
-
-/*
-
-HEADER
-
-*/
 

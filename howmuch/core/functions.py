@@ -43,7 +43,7 @@ class UserRequestItem:
 
 	def is_assigned(self):
 		try:
-			Assignment.objects.get(owner = self.user, requestItem = self.requestItemId)
+			Assignment.objects.get(requestItem = self.requestItemId)
 		except Assignment.DoesNotExist:
 			return False
 		return True
@@ -59,7 +59,7 @@ class UserRequestItem:
 		if self.is_owner():
 			errors.append("Esta Solicitud fue publicada por ti y tu no puedes vendertela a ti mismo")
 		elif self.is_assigned():
-			errors.append("Tu ya has sido Asignado para vender este articulo, no lo puedes vender nuevamente")
+			errors.append("Este Articulo ya tiene Asignado un Vendedor, lo sentimos mucho")
 		elif self.is_candidate():
 			errors.append("Tu ya eres un Vendedor Candidaro, no puedes volver a serlo para este mismo articulo")
 		

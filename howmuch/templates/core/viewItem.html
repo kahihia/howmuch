@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+
+
+{% endblock %}
+
+{% block content %}
+
+<div>
+	{{ item.title }}
+</div>
+<div>
+	{{ item.owner }}
+</div>
+<div>
+	{{ item.description }}
+</div>
+<div>
+	{{ item.quantity }}
+</div>
+<div>
+	{{ item.date }}
+</div>
+<div>
+	{{ item.itemsCatA}}
+</div>
+<div>
+	{{ item.itemsCatB}}
+</div>
+<div>
+	{{ item.itemsCatC}}
+</div>
+<div>
+	{{ item.brand }}
+</div>
+<div>		
+	{{ item.model }}
+</div>
+<div>
+	{{ item.state }}
+</div>
+<div>
+	{{ item.daysLimit}}
+</div>
+
+<a href="/proffer/new/{{ item.pk }}">Ofertar al comprador</a>
+
+{% endblock %}
+
+

@@ -31,9 +31,9 @@
                 <div id="encargo-bar">
                     <form action="/item/new/" method="GET">{% csrf_token %}
                         <label for ="precio-encargo">Pago: </label>
-                        <input id="precio-encargo"  name = "precio" type="text" placeholder="CANTIDAD" maxlength="7" size="12" >
+                        <input id="precio-encargo" class="inputRequestItem" name = "precio" type="text" placeholder="CANTIDAD" >
                         <label for = "descripcion-encargo">Por: </label>
-                        <input id="descripcion-encargo" name = "descripcion" type="text"  placeholder="DESCRIPCION CORTA" maxlength="110" size="50" >
+                        <input id="descripcion-encargo" class="inputRequestItem" name = "descripcion" type="text"  placeholder="DESCRIPCION CORTA">
                         <input id="goencargo" type="submit" value="GO">
                     </form>
                 </div>
@@ -47,7 +47,7 @@
                 </div>
 
                 <div>
-                    <form action = "/search/" method = "GET" id="myform">
+                    <form action = "/search/" method = "GET">
                         <input id="query" type="text" name="q"/>
                         <input type ="submit" value="Buscar">
                     </form>
@@ -80,13 +80,6 @@
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.ajaxsearch.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.renderer.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.instantsearch.js"></script>
-        <script>
-            $(document).ready(function(){
-                $("#myform").indextank_Ize('http://dyci1.api.searchify.com', 'idx');
-                var renderer =  $("#results").indextank_Renderer();
-                $("#query").indextank_Autocomplete().indextank_AjaxSearch( {listeners: renderer}).indextank_InstantSearch();
-            });
-        </script>
         {% block media %}
         {% endblock %}
 

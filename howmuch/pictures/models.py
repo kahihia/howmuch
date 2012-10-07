@@ -21,7 +21,7 @@ def make_upload_path(instance, filename): ##Autor: msamoylov by Stackoverflow
     return os.path.join(dir_name, file_root + file_ext.lower())
 
 class Picture(models.Model):
-	picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((250,250),(500,500)))
+	picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((100,100),(250,250),(250,500),(200,450),(300,450),(250,400),(500,250),(450,200)))
 	owner = models.ForeignKey(User)
 	date = models.DateTimeField(auto_now=True, auto_now_add=True)
 

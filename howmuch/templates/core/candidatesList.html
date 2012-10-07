@@ -16,6 +16,7 @@
 			{{ candidate.date }}
 			{{ candidate.cprice }}
 			{{ candidate.message }}
+			<a href="/assignment/new/{{ candidate.requestItem.pk }}/{{ candidate.owner.pk}}">Asignar Venta a este Usuario</a>
 		</div>
 
 	{% empty %}
@@ -24,3 +25,6 @@
 	
 
 {% endblock %}
+
+
+
