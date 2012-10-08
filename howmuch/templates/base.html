@@ -23,37 +23,34 @@
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
         <header>
-            <div id="bar-above">
-                <div class="logo-howmuch">
+      
+                <div class="itemHeader logo-howmuch">
                     <a class="alogo" href="/"><span class="how">how</span><span class="much">much</span><span class="punto-do">.do</span></a>
                 </div>
 
-                <div id="encargo-bar">
+                <div class="itemHeader formRequestItem">
                     <form action="/item/new/" method="GET">{% csrf_token %}
-                        <label for ="precio-encargo">Pago: </label>
-                        <input id="precio-encargo" class="inputRequestItem" name = "precio" type="text" placeholder="CANTIDAD" >
-                        <label for = "descripcion-encargo">Por: </label>
-                        <input id="descripcion-encargo" class="inputRequestItem" name = "descripcion" type="text"  placeholder="DESCRIPCION CORTA">
-                        <input id="goencargo" type="submit" value="GO">
+                        <label class="labelFormRequestItem" for ="precio-encargo">Pago: </label>
+                        <input id="precio-encargo" class="inputRequestItem" name = "precio" type="text" placeholder="$$$" size="3">
+                        <label class="labelFormRequestItem" for = "descripcion-encargo">Por: </label>
+                        <input id="descripcion-encargo" class="inputRequestItem" name = "descripcion" type="text"  placeholder="Producto..." size="12">
+                        <input class="button-green" id="goencargo" type="submit" value="GO">
                     </form>
-                </div>
-                <div id ="menu">
-                    <ul>
-                        <a class= "alogo" href=""><li class="menu-list">Ventas</li></a>
-                        <a class= "alogo" href=""><li class="menu-list">Inbox</li></a>
-                        <a class= "alogo" href=""><li class="menu-list">Compras</li></a>
-                        <a class= "alogo" href=""><li class="menu-list">Cuenta</li></a>
-                    </ul> 
                 </div>
 
-                <div>
-                    <form action = "/search/" method = "GET">
-                        <input id="query" type="text" name="q"/>
-                        <input type ="submit" value="Buscar">
-                    </form>
-                <div id="results"></div>
-            </div>
-            </div>
+                <nav class="itemHeader" id ="menu">
+                    <ul>
+                        <li><a href="/sales/possible">Ventas</a></li>
+                        <li><a href="/sales/possible">Inbox</a></li>
+                        <li><a href="/purchases/published">Compras</a></li>
+                        <li><a href="/sales/possible">Cuenta</a></li>
+                    </ul> 
+                </nav>
+
+                <div class="itemHeader">
+                    <span>{{ user }}</span>
+                </div>
+
         </header>
 
         <section id="content">

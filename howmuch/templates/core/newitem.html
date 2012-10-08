@@ -9,68 +9,82 @@
 {% block content %}
 
 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-	<div>
-		<span>Precio</span>
-		{{ form.price }}
-		{{ form.price.errors }}
-	</div>
-	<div>
-		<span>Titulo</span>
-		{{ form.title }}
-		{{ form.title.errors }}
-	</div>
-	<div>
-		<span>Cantidad</span>
-		{{ form.quantity }}
-		{{ form.quantity.errors }}
-	</div>
-	<div>
-		<span>Descripcion</span>
-		{{ form.description }}
-		{{ form.description.errors }}
-	</div>
-	<div>
-		<span>Categoria A</span>
-		{{ form.itemsCatA }}
-		{{ form.itemsCatA.errors }}
-	</div>
-	<div>
-		<span>Categoria B</span>
-		{{ form.itemsCatB }}
-		{{ form.itemsCatB.errors }}
-	</div>
-	<div>
-		<span>Categoria C</span>
-		{{ form.itemsCatC }}
-		{{ form.itemsCatC.errors }}
-	</div>
-	<div>
-		<span>Marca</span>
-		{{ form.brand }}
-		{{ form.brand.errors }}
-	</div>
-	<div>
-		<span>Modelo</span>
-		{{ form.model }}
-		{{ form.model.errors }}
-	</div>
-	<div>
-		<span>Estado</span>
-		{{ form.state }}
-		{{ form.state.errors }}
-	</div>
-	<div>
-		<span>Dias limite</span>
-		{{ form.daysLimit }}
-		{{ form.daysLimit.errors }}
-	</div>
-	<div>
-		<span>Direccion de Envio</span>
-		{{ form.addressDelivery }}
-		{{ form.addressDelivery.errors }}
-	</div>
-	{{form.errors}}
-		<input type="submit" value="SUBIR">
+	<section class="GroupItemsForm">
+		<h2>Detalles Del producto</h2>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Precio</span>
+			{{ form.price }}
+			{{ form.price.errors }}
+		</div>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Titulo</span>
+			{{ form.title }}
+			{{ form.title.errors }}
+		</div class="ContainerItemForm">
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Cantidad</span>
+			{{ form.quantity }}
+			{{ form.quantity.errors }}
+		</div>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Descripcion</span>
+			{{ form.description }}
+			{{ form.description.errors }}
+		</div>
+	</section>
+	
+	<section class="GroupItemsForm">
+		<h2>Clasifica el producto</h2>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Categoria A</span>
+			{{ form.itemsCatA }}
+			{{ form.itemsCatA.errors }}
+		</div>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Categoria B</span>
+			{{ form.itemsCatB }}
+			{{ form.itemsCatB.errors }}
+		</div>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Categoria C</span>
+			{{ form.itemsCatC }}
+			{{ form.itemsCatC.errors }}
+		</div>
+	</section>
+
+	<section class="GroupItemsForm">
+		<h2>Acerca del Producto</h2>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Marca</span>
+			{{ form.brand }}
+			{{ form.brand.errors }}
+		</div>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Modelo</span>
+			{{ form.model }}
+			{{ form.model.errors }}
+		</div>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Estado</span>
+			{{ form.state }}
+			{{ form.state.errors }}
+			</div>
+	</section>
+
+	<section class="GroupItemsForm">
+		<h2>Detalles de envio</h2>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Direccion de Envio</span>
+			{{ form.addressDelivery }}
+			{{ form.addressDelivery.errors }}
+		</div>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Dias limite</span>
+			{{ form.daysLimit }}
+			{{ form.daysLimit.errors }}
+		</div>
+	</section>
+		<input class="button-blue" type="submit" value="SUBIR">
 </form>
 
 
