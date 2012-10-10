@@ -62,10 +62,12 @@ nav ul li{
 	display:inline-block;
 }
 nav ul li a{
-	text-decoration: none;
 	color:white;
-	padding:10px;
 	font-family: 'Archivo Narrow', sans-serif;
+	padding:10px;
+	text-decoration: none;
+	text-shadow: 0px 0px .5px #000000;
+    filter: dropshadow(color=#000000, offx=0, offy=0);
 }
 nav ul li a:hover{
 	background: #49c0f0;
@@ -75,9 +77,9 @@ label.LabelFormRequestItem{
 	font-family: 'Archivo Narrow', sans-serif;
 }
 .inputRequestItem{
-	border-radius: 3px;
+	border-radius: 2px;
 	border:0;
-	padding: 3px;
+	padding: 5px;
 	background: white;
 }
 .itemHeader{	
@@ -103,6 +105,8 @@ BUTTONS
 	font-size: 12px;
 	padding:5px 60px;
 	width:77px;	
+	text-shadow: 0px 0px .3px #000000;
+    filter: dropshadow(color=#000000, offx=0, offy=0);
 }
 .button-blue:hover{
 	background: #00acea;
@@ -117,6 +121,9 @@ BUTTONS
 	font-size: 12px;
 	padding:5px 60px;
 	width:77px;	
+	text-shadow: 0px 0px .3px #000000;
+    filter: dropshadow(color=#000000, offx=0, offy=0);
+
 }
 .button-green:hover{
 	background: #82c800;
@@ -131,6 +138,8 @@ BUTTONS
 	font-size: 12px;
 	padding:5px 60px;
 	width:77px;	
+	text-shadow: 0px 0px .3px #000000;
+    filter: dropshadow(color=#000000, offx=0, offy=0);
 }
 
 .button-yellow:hover{
@@ -147,6 +156,8 @@ BUTTONS
 	font-size: 12px;
 	padding:5px 60px;
 	width:77px;	
+	text-shadow: 0px 0px .3px #000000;
+    filter: dropshadow(color=#000000, offx=0, offy=0);
 }
 .button-red:hover{
 	background: #ff4319;
@@ -170,7 +181,7 @@ BUTTONS
 	border-radius: 3px;
 	background:white;
 	padding:7px;
-	width:380px;
+	width:500px;
 }
 .InputFormRequestItem:focus{
 	background: #f2f9fe;
@@ -178,13 +189,19 @@ BUTTONS
 .GroupItemsForm{
 	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
 	border-radius: 5px;
-	padding:10px;
+	padding:20px;
 	margin:10px;
 	width:600px;
 }
 .SellButton{
 	margin-left: 470px;
 	
+}
+.errorlist{
+	list-style: none;
+	color:red;
+
+
 }
 span#descriptionItemTitle{
 	text-decoration: underline;
@@ -205,6 +222,19 @@ span#descriptionItemPrice{
 span.LabelItemForm{
 	display:block;
 }
+p.help-text{
+	-webkit-box-shadow: 0px 0px 1px 0px ;
+	box-shadow: 0px 0px 1px 0px ; 
+	padding: 5px;
+	margin-left: 400px;
+	width:400px;
+}
+p.LegalInfo{
+	font-size: 10px;
+	text-align: center;
+	width:600px;
+	margin:11px auto;
+}
 article.TitleItem span{
 	font-family: 'Archivo Narrow', sans-serif;
 }
@@ -216,6 +246,11 @@ article.BrandModelItem span{
 section.GroupItemsForm h2{
 	font-family: 'Archivo Narrow', sans-serif;
 	font-size: 30px;
+	margin-left: 180px;
+
+}
+section.RequestItemForm, section.EditProfileForm{
+	width:800px !important;
 }
 
 

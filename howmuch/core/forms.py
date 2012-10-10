@@ -10,14 +10,14 @@ class RequestItemForm(ModelForm):
 		model = RequestItem
 		exclude = ('owner','date','pictures',)
 		widgets = {
-			'price' : TextInput(attrs={'class':'InputFormRequestItem',}),
-			'title' : TextInput(attrs={'class':'InputFormRequestItem', }),
+			'price' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. 500'}),
+			'title' : TextInput(attrs={'class':'InputFormRequestItem', 'placeholder' : 'Ej. Samsung Galaxy S3 Blanco' }),
             'description': Textarea(attrs={'class':'InputFormRequestItem','cols': 40, 'rows': 10}),
             'quantity' : TextInput(attrs={'class':'InputFormRequestItem',}),
-            'brand' : TextInput(attrs={'class':'InputFormRequestItem',}),
-            'model' : TextInput(attrs={'class':'InputFormRequestItem',}),
+            'brand' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. Samsung'}),
+            'model' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. Galaxy S3'}),
             'state' : Select(attrs={'class':'InputFormRequestItem',}),
-            'daysLimit' : TextInput(attrs={'class':'InputFormRequestItem',}),
+            'daysLimit' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. 10'}),
             'addressDelivery' : Textarea(attrs={'class':'InputFormRequestItem', 'cols' : 40, 'rows' : '5'}),
         }
 

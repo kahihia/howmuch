@@ -8,63 +8,79 @@
 
 {% block content %}
 
-<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-	<section class="GroupItemsForm">
+<section class="EditProfileForm GroupItemsForm">
+
+	<h2>Edita tu Información</h2>
+
+	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Nombre de tu Empresa</span>
 			{{ form.company }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.company.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Dirección 1</span>
 			{{ form.address }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.address.errors }}
 		</div >
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Dirección 2</span>
 			{{ form.address2 }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.address2.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Ciudad</span>
 			{{ form.city }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.city.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Codigo Postal</span>
 			{{ form.zipcode }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.zipcode.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Estado</span>
 			{{ form.state }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.state.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Telefono</span>
 			{{ form.phone }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.phone.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Banco</span>
 			{{ form.bank }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.bank.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Cuenta Bancaria</span>
 			{{ form.account_bank }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.account_bank.errors }}
 		</div>
 		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Cuenta Paypal</span>
 			{{ form.account_paypal }}
+			<p class="help-text">Introduce un precio de acuerdo al producto, de esta manera sera mas facil que te lo vendan</p>
 			{{ form.account_paypal.errors }}
 		</div>		
 
-	</section>
-		<input type="submit" value="SUBIR">
+		<input type="submit" class="button-blue" value="SUBIR">
 </form>
+
+
+
+</section>
 
 
 {% endblock %}
