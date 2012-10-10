@@ -7,8 +7,8 @@ from smart_selects.db_fields import ChainedForeignKey
 
 STATES_CHOICES = (
 
-	('NEW' , 'NUEVO'),
-	('USED' , 'USADO'),
+	('NUEVO' , 'NUEVO'),
+	('USADO' , 'USADO'),
 
 )
 

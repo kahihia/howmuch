@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/normalize.css">
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css">
         <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/south-street/jquery-ui.css" media="all" />
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
@@ -29,35 +30,31 @@
                 </div>
 
                 <div class="itemHeader formRequestItem">
-                    <form action="/item/new/" method="GET">{% csrf_token %}
-                        <label class="labelFormRequestItem" for ="precio-encargo">Pago: </label>
-                        <input id="precio-encargo" class="inputRequestItem" name = "precio" type="text" placeholder="$$$" size="3">
-                        <label class="labelFormRequestItem" for = "descripcion-encargo">Por: </label>
-                        <input id="descripcion-encargo" class="inputRequestItem" name = "descripcion" type="text"  placeholder="Producto..." size="12">
-                        <input class="button-green" id="goencargo" type="submit" value="GO">
+                    <form action="" method="GET">{% csrf_token %}
+                        <input id="searchInput" class="inputRequestItem" name = "q" type="text" placeholder="Vender Articulo..." size="30">
+                        <input class="button-green" id="goencargo" type="submit" value="BUSCAR">
                     </form>
                 </div>
 
                 <nav class="itemHeader" id ="menu">
                     <ul>
+                        <li><a href="/item/new">COMPRAR</a></li>
                         <li><a href="/sales/possible">Ventas</a></li>
                         <li><a href="/sales/possible">Inbox</a></li>
                         <li><a href="/purchases/published">Compras</a></li>
-                        <li><a href="/sales/possible">Cuenta</a></li>
+                        <li><a href="/sales/possible">{{ user }}</a></li>
                     </ul> 
                 </nav>
-
-                <div class="itemHeader">
-                    <span>{{ user }}</span>
-                </div>
 
         </header>
 
         <section id="content">
-        {% block content %}
+            
+                {% block content %}
 
 
-        {% endblock %}
+                {% endblock %}
+       
         </section>
 
         <footer>

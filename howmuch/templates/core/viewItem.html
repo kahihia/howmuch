@@ -7,46 +7,64 @@
 {% block media %}
 
 
+
 {% endblock %}
 
 {% block content %}
 
-<div>
-	{{ item.title }}
-</div>
-<div>
-	{{ item.owner }}
-</div>
-<div>
-	{{ item.description }}
-</div>
-<div>
-	{{ item.quantity }}
-</div>
-<div>
-	{{ item.date }}
-</div>
-<div>
-	{{ item.itemsCatA}}
-</div>
-<div>
-	{{ item.itemsCatB}}
-</div>
-<div>
-	{{ item.itemsCatC}}
-</div>
-<div>
-	{{ item.brand }}
-</div>
-<div>		
-	{{ item.model }}
-</div>
-<div>
-	{{ item.state }}
-</div>
-<div>
-	{{ item.daysLimit}}
-</div>
+<section class="SectionContent">
+	<article class="TitleItem GroupItemsForm" >
+
+		<span id="descriptionItemTitle">{{ item.title }}</span>
+
+		<div>
+			<span id="descriptionItemState">   {{ item.state }}</span> por <span id="descriptionItemPrice">$ {{ item.price }}</span>
+		</div>
+
+		<div>
+			<button class="button-yellow SellButton">VENDER</button>
+		</div>
+		
+	</article>
+
+	<article class="BrandModelItem GroupItemsForm">
+
+		marca <span>{{ item.brand }}</span>
+		model <span>{{ item.model }}</span>
+
+	</article>
+
+	<article class="DescriptionItem GroupItemsForm">
+
+		<span id="aboutItem">Acerca del Producto</span>
+
+		<p>{{ item.description }}</p>
+
+	</article>
+
+
+	<article class="GroupItemsForm ">
+
+		{% for picture in item.pictures.all %}
+
+			<img src="{{ picture.picture.url}}">
+
+		{% endfor %}
+
+	</article>
+
+	<article>
+
+		<span>Publicado el {{ item.date }}</span>
+		<span>Por {{ item.owner }}</span>
+
+	</article>
+
+</section>
+
+
+
+
 
 <a href="/proffer/new/{{ item.pk }}">Ofertar al comprador</a>
 

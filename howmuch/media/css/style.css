@@ -1,5 +1,10 @@
+section#content{
+	width:800px;
+	margin: 20px auto;
+}
+section.SectionContent{
 
-
+}
 /*
 
 LOGO
@@ -41,16 +46,16 @@ HEADER
 */
 header{
 	background: #00b7ea; /* Old browsers */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwYjdlYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDllYzMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background: -moz-linear-gradient(top, #00b7ea 0%, #009ec3 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00b7ea), color-stop(100%,#009ec3)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #00b7ea 0%,#009ec3 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #00b7ea 0%,#009ec3 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #00b7ea 0%,#009ec3 100%); /* IE10+ */
-background: linear-gradient(to bottom, #00b7ea 0%,#009ec3 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 ); /* IE6-8 */
-	min-width:2000px;
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwYjdlYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDllYzMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top, #00b7ea 0%, #009ec3 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00b7ea), color-stop(100%,#009ec3)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #00b7ea 0%,#009ec3 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #00b7ea 0%,#009ec3 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #00b7ea 0%,#009ec3 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #00b7ea 0%,#009ec3 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 ); /* IE6-8 */
+	min-width:1200px;
 	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
 }
 nav ul li{
@@ -60,10 +65,14 @@ nav ul li a{
 	text-decoration: none;
 	color:white;
 	padding:10px;
+	font-family: 'Archivo Narrow', sans-serif;
 }
 nav ul li a:hover{
 	background: #49c0f0;
 
+}
+label.LabelFormRequestItem{
+	font-family: 'Archivo Narrow', sans-serif;
 }
 .inputRequestItem{
 	border-radius: 3px;
@@ -74,9 +83,7 @@ nav ul li a:hover{
 .itemHeader{	
 	display: inline-block;
 }
-.labelFormRequestItem{
-	color:white;
-}
+
 
 /*
 HEADER
@@ -88,31 +95,61 @@ BUTTONS
 */
 .button-blue{
 	background: #00b7ea;
-	border-radius: 3px;
+	border-radius: 2px;
 	border:0px;
-	padding:7px;
-	width:77px;
+	-webkit-box-shadow: 0px 0px 1px 0px ;
+	box-shadow: 0px 0px 1px 0px ; 
+	color:black;
+	font-size: 12px;
+	padding:5px 60px;
+	width:77px;	
+}
+.button-blue:hover{
+	background: #00acea;
 }
 .button-green{
 	background: #8fc800;
-	border-radius: 3px;
+	border-radius: 2px;
 	border:0px;
-	padding:7px;
+	-webkit-box-shadow: 0px 0px 1px 0px ;
+	box-shadow: 0px 0px 1px 0px ; 
+	color:black;
+	font-size: 12px;
+	padding:5px 60px;
 	width:77px;	
+}
+.button-green:hover{
+	background: #82c800;
 }
 .button-yellow{
-	background: #febf01;
-	border-radius: 3px;
+	background: #fee502;
+	border-radius: 2px;
 	border:0px;
-	padding:7px;
+	-webkit-box-shadow: 0px 0px 1px 0px ;
+	box-shadow: 0px 0px 1px 0px ; 
+	color:black;
+	font-size: 12px;
+	padding:5px 60px;
 	width:77px;	
 }
+
+.button-yellow:hover{
+	background: #fedc02;
+
+}
 .button-red{
-	background: #ff1a00;
+	background: #ff3019;
 	border-radius: 3px;
 	border:0px;
-	padding:7px;
+	-webkit-box-shadow: 0px 0px 1px 0px ;
+	box-shadow: 0px 0px 1px 0px ; 
+	color:black;
+	font-size: 12px;
+	padding:5px 60px;
 	width:77px;	
+}
+.button-red:hover{
+	background: #ff4319;
 }
 /*
 BUTTONS
@@ -127,9 +164,7 @@ BUTTONS
 .ContainerItemForm{
 	width:400px;
 }
-span.LabelItemForm{
-	display:block;
-}
+
 .InputFormRequestItem{
 	border:2px solid #00b7ea;
 	border-radius: 3px;
@@ -140,13 +175,47 @@ span.LabelItemForm{
 .InputFormRequestItem:focus{
 	background: #f2f9fe;
 }
-section.GroupItemsForm{
+.GroupItemsForm{
 	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
 	border-radius: 5px;
 	padding:10px;
 	margin:10px;
 	width:600px;
 }
+.SellButton{
+	margin-left: 470px;
+	
+}
+span#descriptionItemTitle{
+	text-decoration: underline;
+}
+span#aboutItem{
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 20px;
+}
+span#descriptionItemTitle{
+	font-size:30px;
+}
+span#descriptionItemState{
+	font-size:20px;
+}
+span#descriptionItemPrice{
+	font-size:27px;
+}	
+span.LabelItemForm{
+	display:block;
+}
+article.TitleItem span{
+	font-family: 'Archivo Narrow', sans-serif;
+}
+article.BrandModelItem span{
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 30px;
+}
 
+section.GroupItemsForm h2{
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 30px;
+}
 
 

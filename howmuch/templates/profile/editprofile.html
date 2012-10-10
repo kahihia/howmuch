@@ -9,56 +9,60 @@
 {% block content %}
 
 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<div>
-			<span>Nombre de tu Empresa</span>
+	<section class="GroupItemsForm">
+
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Nombre de tu Empresa</span>
 			{{ form.company }}
 			{{ form.company.errors }}
 		</div>
-		<div>
-			<span>Dirección 1</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Dirección 1</span>
 			{{ form.address }}
 			{{ form.address.errors }}
-		</div>
-		<div>
-			<span>Dirección 2</span>
+		</div >
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Dirección 2</span>
 			{{ form.address2 }}
 			{{ form.address2.errors }}
 		</div>
-		<div>
-			<span>Ciudad</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Ciudad</span>
 			{{ form.city }}
 			{{ form.city.errors }}
 		</div>
-		<div>
-			<span>Codigo Postal</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Codigo Postal</span>
 			{{ form.zipcode }}
 			{{ form.zipcode.errors }}
 		</div>
-		<div>
-			<span>Estado</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Estado</span>
 			{{ form.state }}
 			{{ form.state.errors }}
 		</div>
-		<div>
-			<span>Telefono</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Telefono</span>
 			{{ form.phone }}
 			{{ form.phone.errors }}
 		</div>
-		<div>
-			<span>Banco</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Banco</span>
 			{{ form.bank }}
 			{{ form.bank.errors }}
 		</div>
-		<div>
-			<span>Cuenta Bancaria</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Cuenta Bancaria</span>
 			{{ form.account_bank }}
 			{{ form.account_bank.errors }}
 		</div>
-		<div>
-			<span>Cuenta Paypal</span>
+		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Cuenta Paypal</span>
 			{{ form.account_paypal }}
 			{{ form.account_paypal.errors }}
 		</div>		
+
+	</section>
 		<input type="submit" value="SUBIR">
 </form>
 

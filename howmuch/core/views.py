@@ -19,8 +19,6 @@ def home(request):
 
 @login_required(login_url="/login/")
 def requestItem(request):
-	if request.method == 'GET':
-		title = request.GET['descripcion'] 
 	if request.method == 'POST':
 		form = RequestItemForm(request.POST)
 		if form.is_valid():
@@ -30,7 +28,7 @@ def requestItem(request):
 			newItem.save()
 			return HttpResponseRedirect('/pictures/addpicture/requestitem/' + str(newItem.pk) )
 	else:
-		form = RequestItemForm(initial={'title' : title, 'price' : request.GET['precio'], 'addressDelivery' : request.user.get_profile().getAddressDelivery()})
+		form = RequestItemForm(initial={'addressDelivery' : request.user.get_profile().getAddressDelivery()})
 	return render_to_response('core/newitem.html', {'form' : form}, context_instance=RequestContext(request))
 
 def viewItem(request, itemID):
