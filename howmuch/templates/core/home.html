@@ -5,5 +5,36 @@
 
 {% block content %}
 
+<section class="ItemThumbsContainer">
+	{% for item in items %}
+	<article class="ItemThumbs">
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.get_first_picture_100x100 }}">
+		</div>
+
+		<div class="ItemThumbsPriceTitle">
+			<div class="ItemThumbsPrice">
+				<b><span>{{ item.state }}</span></b> en <b><span>$ {{ item.price }}</span></b>
+			</div>
+
+			<div clas="ItemThumbsTitle">
+				<span> {{ item.title }} </span>
+			</div>
+		</div>
+
+		<div class="ItemThumbsMoreButtonSell">
+			<div class="ItemThumbsMore">
+				<a href="/item/{{ item.pk }}">Leer mas</a>
+			</div>
+			<div class="ItemThumbsButtonSell">
+				<button class="button-yellow">VENDER</button>
+			</div>
+		</div>
+	</article>
+
+	{% empty %}
+		<p>No hay Articulos publicados!!</p>
+	{% endfor %}
+</section>
 
 {% endblock %}

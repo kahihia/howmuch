@@ -64,7 +64,7 @@ class RequestItem(models.Model):
 	#True si el item ya posee asignacion
 	def has_assignment(self):
 		try:
-			Assignment.objecs.get(requestItem = self)
+			Assignment.objects.get(requestItem = self)
 		except Assignment.DoesNotExist:
 			return False
 		return True
@@ -79,7 +79,11 @@ class RequestItem(models.Model):
 			return True
 		return False
 
-
+	#Regresa el link de la primer imagen en miniatura del item
+	def get_first_picture_100x100(self):
+		for p in self.pictures.all()[:1]:
+			return p.get_url_100x100()
+		
 class RequestItemPicture(models.Model):
 	requestItem = models.ForeignKey(RequestItem)
 	picture = models.ForeignKey(Picture)

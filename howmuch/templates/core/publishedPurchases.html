@@ -9,11 +9,47 @@
 
 {% block content %}
 
-<ul>
- {% for item in publishedPurchases %}
- 	<li>{{ item.title }}</li>
- {% endfor %}
-</ul>
+
+<section>
+	{% for item in publishedPurchases %}
+
+	<article class="ItemThumbsPurchases">
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.get_first_picture_100x100 }}">
+		</div>
+
+		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
+			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
+				<b><span>{{ item.state }}</span></b> en <b><span>$ {{ item.price }}</span></b>
+			</div>
+
+			<div clas="ItemThumbsTitle ItemThumbsPurchasesInfo">
+				<span> {{ item.title }} </span>
+			</div>
+
+			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
+				<div class="ItemThumbsMore">
+					<a href="/item/{{ item.pk }}">Leer mas</a> ||
+					<a href="">Modificar</a>
+					<button class="button-blue">VENDEDORES</button>
+					
+				</div>
+			</div>
+
+
+
+		</div>
+
+	
+	</article>
+
+	{% empty %}
+
+	<p>Aun no has solicitado ningun articulo</p>
+
+	{% endfor %}
+
+</section>
 
 
 {% endblock %}

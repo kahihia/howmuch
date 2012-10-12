@@ -12,8 +12,15 @@
 
 {% block content %}
 
-<section class="SectionContent">
-	<article class="TitleItem GroupItemsForm" >
+<section class="ViewItemContent GroupItemsForm">
+
+	<article class="DateOwnerItem">
+		<span>Publicado el {{ item.date }} por <a href="#">{{ item.owner }}</a></span></br>
+		<span>Restan Ndias para cerrar</span></br>
+		<span>Restan NArticulos por Vender</span>
+	</article>
+
+	<article class="TitleItem GroupItemsForm GroupItemsFormView" >
 
 		<span id="descriptionItemTitle">{{ item.title }}</span>
 
@@ -27,14 +34,25 @@
 		
 	</article>
 
-	<article class="BrandModelItem GroupItemsForm">
+	<article class="PicturesItem GroupItemsForm ">
 
-		marca <span>{{ item.brand }}</span>
-		model <span>{{ item.model }}</span>
+		{% for picture in item.pictures.all %}
+
+		<img src="{{ picture.get_url_100x100 }}">
+
+		{% endfor%}
+
 
 	</article>
 
-	<article class="DescriptionItem GroupItemsForm">
+	<article class="BrandModelItem GroupItemsForm GroupItemsFormView">
+
+		marca <span>{{ item.brand }}</span>
+		modelo <span>{{ item.model }}</span>
+
+	</article>
+
+	<article class="DescriptionItem GroupItemsForm GroupItemsFormView">
 
 		<span id="aboutItem">Acerca del Producto</span>
 
@@ -42,29 +60,15 @@
 
 	</article>
 
-
-	<article class="GroupItemsForm ">
-
-		{% for picture in item.pictures.all %}
-
-			<img src="{{ picture.picture.url}}">
-
-		{% endfor %}
-
+	<article class="AddressDeliveryAboutItem">
+		<span>Con envio al C.P <b>{{ item.owner.get_profile.zipcode }}</b></span>
 	</article>
 
-	<article>
-
-		<span>Publicado el {{ item.date }}</span>
-		<span>Por {{ item.owner }}</span>
-
-	</article>
+	<div>
+			<button class="button-yellow">VENDER</button>
+	</div>
 
 </section>
-
-
-
-
 
 <a href="/proffer/new/{{ item.pk }}">Ofertar al comprador</a>
 

@@ -50,7 +50,7 @@ def newProffer(request,itemId):
 	userRequestItem = UserRequestItem(request.user, itemId)
 
 	"""
-	Se valida la instancia: USer is not candidate, is not owner, is not assigned
+	Se valida la instancia: User is not candidate, is not owner, is not assigned
 	"""
 
 	if userRequestItem.is_valid():
@@ -91,6 +91,8 @@ def newAssignment(request, itemId, candidateID):
 	candidate = get_object_or_404(Proffer, owner = candidateID, requestItem = item)
 	candidateUser = get_object_or_404(User, pk = candidateID)
 
+	#Validar que no exista Asignacion
+
 	try:
 		Assignment.objects.get(requestItem = item )
 	except Assignment.DoesNotExist:
@@ -130,7 +132,7 @@ def publishedPurchasesView(request):
 	items = RequestItem.objects.filter(owner = request.user)
 	publishedPurchases = []
 	for item in items:
-		if not item.has_candidates():
+		if not item.has_assignment():
 			publishedPurchases.append(item)
 	return render_to_response('core/publishedPurchases.html', {'publishedPurchases' : publishedPurchases }, context_instance = RequestContext(request))
 
@@ -140,7 +142,7 @@ def processPurchasesView(request):
 	items = RequestItem.objects.filter(owner = request.user)
 	processPurchases = []
 	for item in items:
-		if item.has_candidates():
+		if item.has_assignment():
 			processPurchases.append(item)
 	return render_to_response('core/processPurchases.html', {'processPurchases' : processPurchases }, context_instance = RequestContext(request))
 

@@ -194,7 +194,7 @@ BUTTONS
 	width:600px;
 }
 .SellButton{
-	margin-left: 470px;
+	margin-left: 630px;
 	
 }
 .errorlist{
@@ -249,8 +249,78 @@ section.GroupItemsForm h2{
 	margin-left: 180px;
 
 }
-section.RequestItemForm, section.EditProfileForm{
+article.GroupItemsFormView{
+	width:750px !important;
+}
+section.RequestItemForm, section.EditProfileForm, section.ViewItemContent{
 	width:800px !important;
 }
+section.ItemThumbsContainer{
+	width:900px;
+}
+article.DateOwnerItem{
+	font-size: 12px;
+	text-align: right;
+}
+article.AddressDeliveryAboutItem{
+	font-size: 14px;
+	text-align: right;
+}
+article.PicturesItem{
+	margin-left:100px !important;
+}
+article.ItemThumbs{
+	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
+	border-radius: 3px;
+	width:400px;
+	padding:10px;
+	display: inline-block;
+	margin:5px;
+}
+article.ItemThumbsPurchases{
+	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
+	border-radius: 3px;
+	width:700px;
+	padding:10px;
+	margin:5px;
+}
+article.ItemThumbsPurchases:hover{
+	background: #f2f9fe;
+
+}
+.ItemThumbsPicture,.ItemThumbsPriceTitle{
+	display:inline-block;
+	vertical-align: top;
+}
+.ItemThumbsPrice{
+	width:292px;
+	border-bottom: 2px solid green;
+	text-align: right;
+}
+.ItemThumbsButtonSell{
+	text-align: right;
+	display: inline-block;
+	width:320px;
+}
+.ItemThumbsMore{
+	display: inline-block;
+}
+.ItemThumbsMoreButtonSell{
+	border-top: 2px solid rgb(0,113,138);
+	padding-top: 5px;
+}
+.ItemThumbsPurchasesInfo{
+	width: auto !important;
+}
+.PurchasesInfoContainer{
+	width:570px;
+}
+.PurchasesInfoStatePrice{
+	padding:10px;
+}
+.ItemThumbsMore button{
+	margin-left: 270px;
+}
+
 
 
