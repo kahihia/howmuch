@@ -1,4 +1,1 @@
-{{ activation_key }}
-{{ expiration_days }}
-{{ site }}
-
+Codigo de Activacion para howmuch.do

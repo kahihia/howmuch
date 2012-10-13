@@ -8,7 +8,30 @@
   <meta name="viewport" content="width=device-width">
   <link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
   <style type="text/css">
-    .logo-howmuch {
+
+      input[type=submit]{
+        background: rgb(0,113,138);
+        color:white; 
+      }
+      p.LegalInfo{
+        font-size: 10px;
+        text-align: center;
+        width:600px;
+        margin:11px auto;
+      }
+      span.how{
+        background: rgb(0,59,72);
+        padding: 0px;
+      }
+      span.punto-do{
+        background: rgb(0,113,138);
+        padding: 0px;
+      }
+      .error{
+        background:red;
+        color:white;
+      }
+      .logo-howmuch {
         background: rgb(0,185,226); 
         background: -moz-linear-gradient(-45deg,  rgba(0,185,226,1) 0%, rgba(0,161,190,1) 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,185,226,1)), color-stop(100%,rgba(0,161,190,1))); /* Chrome,Safari4+ */
@@ -18,61 +41,43 @@
         background: linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b9e2', endColorstr='#00a1be',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
         color:white;
-        width:auto;
-        text-align:center;
-        font-family: 'Norican', cursive;
-        text-shadow: 0px 0px 10px #000;
-        filter: dropshadow(color=#000, offx=0, offy=0);
-        margin:0px;
         display:inline-block;
-        width:100%;
+        filter: dropshadow(color=#000, offx=0, offy=0);
+        font-family: 'Norican', cursive;
         font-size:30px;
+        margin:0px;
         position:relative;
-        top:3px   
+        text-align:center;
+        text-shadow: 0px 0px 10px #000;
+        top:3px;
+        width:100%;
        }
-
-    .login-signup{
+      .login-signup{
+        background-color: rgba(255, 255, 255, .7);
         display:inline-block;
         margin:50px;
-        background-color: rgba(255, 255, 255, .7);
-        padding:10px; 
+        padding:20px;
       }
-      .error{
-        background:red;
-        color:white;
-      }
-      span.how{
-        background: rgb(0,59,72);
-        padding: 0px;
-      }
-
-      span.punto-do{
-        background: rgb(0,113,138);
-        padding: 0px;
-
-      }
-
-      input[type=submit]{
-        background: rgb(0,113,138);
-        color:white; 
-      }
-
-      #login-form input {
-        display:block;
-        padding: 10px;
-        font-size:16px;
-        border:0px;
+      .middle{
+        background-image:url('{{ MEDIA_URL }}bg.jpg');
         margin:10px;
+      }
+      #login-form input {
+        border:0px;
+        display:block;
+        font-size:16px;
+        margin:10px;
+        padding: 10px;
         width:400px;
       }
       #signup a#newuser{
-        color:white;
         background: rgb(0,185,226); /* Old browsers */
+        color:white;
+        filter: dropshadow(color=#000, offx=0, offy=0);
+        font-family: 'Norican', cursive;
         font-size:30px;
         padding:10px;
-        font-family: 'Norican', cursive;
         text-shadow: 0px 0px 10px #000;
-        filter: dropshadow(color=#000, offx=0, offy=0);
       }
 
   </style>
@@ -125,6 +130,20 @@
   </div>
 
 
+        <footer>
+
+            <p class="LegalInfo">
+                <span>
+                    El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
+                </span>
+
+                <span>
+                    Copyright © 2012 ALIEN Technology
+                </span>
+            </p>
+
+
+        </footer>
 
 
 

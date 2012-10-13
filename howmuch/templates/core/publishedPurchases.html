@@ -1,14 +1,6 @@
-{% extends "base.html" %}
-{% block title %}
+{% extends "core/PurchasesMiddle.html" %}
 
-{% endblock %}
-
-{% block media %}
-
-{% endblock %}
-
-{% block content %}
-
+{% block PurchasesMiddle%}
 
 <section>
 	{% for item in publishedPurchases %}
@@ -31,8 +23,7 @@
 				<div class="ItemThumbsMore">
 					<a href="/item/{{ item.pk }}">Leer mas</a> ||
 					<a href="">Modificar</a>
-					<button class="button-blue">VENDEDORES</button>
-					
+					<a class="button-blue GoItemThumbsMore" href="/item/candidates/{{ item.pk }}">Vendedores</a>					
 				</div>
 			</div>
 

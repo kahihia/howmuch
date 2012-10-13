@@ -1,20 +1,46 @@
-{% extends "base.html" %}
-{% block title %}
+{% extends "core/PurchasesMiddle.html" %}
 
-{% endblock %}
+{% block PurchasesMiddle%}
 
-{% block media %}
+<section>
+	{% for item in completedPurchases %}
+
+	<article class="ItemThumbsPurchases">
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.get_first_picture_100x100 }}">
+		</div>
+
+		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
+			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
+				<b><span>{{ item.state }}</span></b> en <b><span>$ {{ item.price }}</span></b>
+			</div>
+
+			<div clas="ItemThumbsTitle ItemThumbsPurchasesInfo">
+				<span> {{ item.title }} </span>
+			</div>
+
+			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
+				<div class="ItemThumbsMore">
+					<a href="/item/{{ item.pk }}">Leer mas</a> ||
+					<a href="">Modificar</a>
+					<a class="button-blue GoItemThumbsMore" href="/item/candidates/{{ item.pk }}">Vendedores</a>					
+				</div>
+			</div>
 
 
 
-{% endblock %}
+		</div>
 
-{% block content %}
+	
+	</article>
 
-<ul>
- {% for item in completedPurchases %}
- 	<li>{{ item.title }}</li>
- {% endfor %}
-</ul>
+	{% empty %}
+
+	<p>Aun no tienes Compras Terminadas</p>
+
+	{% endfor %}
+
+</section>
+
 
 {% endblock %}

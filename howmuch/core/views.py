@@ -73,7 +73,7 @@ def newProffer(request,itemId):
 
 @login_required(login_url="/login/")
 def viewCandidates(request, itemId):
-	candidates = get_list_or_404(Proffer, requestItem = itemId)
+	candidates = Proffer.objects.filter(requestItem = itemId)
 	return render_to_response('core/candidatesList.html', {'candidates' : candidates }, context_instance=RequestContext(request))
 
 

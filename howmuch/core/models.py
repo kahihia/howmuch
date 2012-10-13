@@ -5,6 +5,7 @@ from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
 from smart_selects.db_fields import ChainedForeignKey
 
 
+
 STATES_CHOICES = (
 
 	('NUEVO' , 'NUEVO'),
@@ -83,6 +84,7 @@ class RequestItem(models.Model):
 	def get_first_picture_100x100(self):
 		for p in self.pictures.all()[:1]:
 			return p.get_url_100x100()
+
 		
 class RequestItemPicture(models.Model):
 	requestItem = models.ForeignKey(RequestItem)
@@ -138,6 +140,7 @@ class Assignment(models.Model):
 			return True
 		else:
 			return False
+
 
 
 

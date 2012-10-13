@@ -1,13 +1,109 @@
 <!DOCTYPE html>
-<html lang ="en">
+<html lang ="es-MX">
 <head>
-	<link rel="stylesheet" type="text/css" href="/media/css/registration.css">
+	<title>Registrate a howmuch.do y empieza a comprar y vender al reves</title>
 	<link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
+	 <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
 </head>
+<style type="text/css">
+	p.LegalInfo{
+        font-size: 10px;
+        text-align: center;
+        width:600px;
+        margin:11px auto;
+    }
+    .logo-howmuch {
+        background: rgb(0,185,226); 
+        background: -moz-linear-gradient(-45deg,  rgba(0,185,226,1) 0%, rgba(0,161,190,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,185,226,1)), color-stop(100%,rgba(0,161,190,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* IE10+ */
+        background: linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b9e2', endColorstr='#00a1be',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+        color:white;
+        width:auto;
+        text-align:center;
+        font-family: 'Norican', cursive;
+        text-shadow: 0px 0px 10px #000;
+        filter: dropshadow(color=#000, offx=0, offy=0);
+        margin:0px;
+        display:inline-block;
+        width:100%;
+        font-size:30px;
+        position:relative;
+        top:3px   
+       }
+    span.how{
+        background: rgb(0,59,72);
+        padding: 0px;
+      }
+
+    span.punto-do{
+        background: rgb(0,113,138);
+        padding: 0px;
+
+      }
+     form#registrationForm input{
+        padding: 5px;
+        font-size:14px;
+        border: 2px solid #00b7ea;
+        margin:10px;
+        width:250px;  
+        background: white;
+     }
+     form#registrationForm input:focus{
+     	
+     }
+     form#registrationForm{
+     	width:600px;
+     	margin: 20px auto;
+     	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
+     	padding: 10px;
+
+     }
+     div.registerField{
+     	display: inline-block;
+     }
+     h2{
+     	font-family: 'Archivo Narrow', sans-serif;
+     	text-align: center;
+     }
+     span.TermsConds{
+     	font-family: 'Archivo Narrow', sans-serif;
+     }
+     #submitRegister{
+     	background: rgb(0,185,226) !important;
+     	margin-left: 200px !important;
+     }
+     p#label-errors{
+     	background: red;
+     	color:white;
+     	font-family: 'Archivo Narrow', sans-serif;
+     	padding: 5px;
+     	text-align: center;
+     }
+
+
+
+
+
+</style>
 <body>
+
+	<div>
+
+    	<div class="logo-howmuch">
+        
+        	<span class="how">how</span><span class="much">much</span><span class="punto-do">.do</span>
+          
+    	</div>
+
+  	</div>
 	
 	<form id="registrationForm" action="" method="POST">{% csrf_token %}
-		<h1>Registrate, es GRATIS</h1>
+		<h2>Registrate, es GRATIS</h2>
 		<div class="registerField">
 			<div class="form-field">{{ form.username}}</div>
 		</div>
@@ -28,16 +124,32 @@
 		</div>	
 		<div class="registerField">
 			{{ form.tos}}
-			<p><strong>{{ form.tos.label}}</strong></p>
+			<span class="TermsConds">Acepto los Terminos y Condiciones de Howmuch.do</span>
 		</div>	
 		<div class="registerField">
-			<input id="submitRegister" type="submit" value="Registarme">
+			<input id="submitRegister" type="submit" value="REGISTRARME">
 		</div>
 		{% if form.errors%}
 			<p id="label-errors">Llena Correctamente todos los campos</p>
 		{% endif%}
 		
 	</form>
+
+	    <footer>
+
+            <p class="LegalInfo">
+                <span>
+                    El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
+                </span>
+
+                <span>
+                    Copyright © 2012 ALIEN Technology
+                </span>
+            </p>
+
+
+        </footer>
+
 
 </body>
 </html>

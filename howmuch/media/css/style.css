@@ -165,43 +165,50 @@ BUTTONS
 /*
 BUTTONS
 */
-#id_itemsCatA,#id_itemsCatB, #id_itemsCatC{
-	border:2px solid #00b7ea;
-	border-radius: 3px;
-	background:white;
-	padding:7px;
-	width:380px;
-}
-.ContainerItemForm{
-	width:400px;
-}
-
-.InputFormRequestItem{
-	border:2px solid #00b7ea;
-	border-radius: 3px;
-	background:white;
-	padding:7px;
-	width:500px;
-}
-.InputFormRequestItem:focus{
-	background: #f2f9fe;
-}
-.GroupItemsForm{
-	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
-	border-radius: 5px;
-	padding:20px;
-	margin:10px;
-	width:600px;
-}
-.SellButton{
-	margin-left: 630px;
-	
-}
-.errorlist{
-	list-style: none;
-	color:red;
 
 
+section.GroupItemsForm h2{
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 30px;
+	margin-left: 180px;
+
+}
+section.RequestItemForm, section.EditProfileForm, section.ViewItemContent{
+	width:800px !important;
+}
+section.ItemThumbsContainer{
+	width:900px;
+}
+section.PurchasesMiddleNav{
+	background: #66C2FC;
+	width: 730px;
+}
+section.SalesMiddleNav{
+	background: #8BFF43;
+	width: 730px;
+}
+section.PurchasesMiddleNav ul li, section.SalesMiddleNav ul li{
+	display: inline-block;
+	font-size:16px;
+	height:50px;
+	line-height:50px;
+	vertical-align: top;
+	width:31%;
+}
+section.PurchasesMiddleNav ul li:hover{
+	background:#009EFF;
+}
+section.SalesMiddleNav ul li:hover{
+	background: #71FC1B;
+}
+section.PurchasesMiddleNav ul li a, section.SalesMiddleNav ul li a{
+	text-decoration: none;
+	text-align: center;
+	display: block;
+	color:white;
+	font-family: 'Archivo Narrow', sans-serif;
+	text-shadow: 0px 0px 3px #000000;
+    filter: dropshadow(color=#000000, offx=0, offy=0);
 }
 span#descriptionItemTitle{
 	text-decoration: underline;
@@ -242,21 +249,8 @@ article.BrandModelItem span{
 	font-family: 'Archivo Narrow', sans-serif;
 	font-size: 30px;
 }
-
-section.GroupItemsForm h2{
-	font-family: 'Archivo Narrow', sans-serif;
-	font-size: 30px;
-	margin-left: 180px;
-
-}
 article.GroupItemsFormView{
 	width:750px !important;
-}
-section.RequestItemForm, section.EditProfileForm, section.ViewItemContent{
-	width:800px !important;
-}
-section.ItemThumbsContainer{
-	width:900px;
 }
 article.DateOwnerItem{
 	font-size: 12px;
@@ -286,6 +280,10 @@ article.ItemThumbsPurchases{
 }
 article.ItemThumbsPurchases:hover{
 	background: #f2f9fe;
+
+}
+a.GoItemThumbsMore{
+	margin-left: 200px;
 
 }
 .ItemThumbsPicture,.ItemThumbsPriceTitle{
@@ -318,8 +316,42 @@ article.ItemThumbsPurchases:hover{
 .PurchasesInfoStatePrice{
 	padding:10px;
 }
-.ItemThumbsMore button{
-	margin-left: 270px;
+
+.ContainerItemForm{
+	width:400px;
+}
+
+.InputFormRequestItem{
+	border:2px solid #00b7ea;
+	border-radius: 3px;
+	background:white;
+	padding:7px;
+	width:500px;
+}
+.InputFormRequestItem:focus{
+	background: #f2f9fe;
+}
+.GroupItemsForm{
+	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
+	border-radius: 5px;
+	padding:20px;
+	margin:10px;
+	width:600px;
+}
+.SellButton{
+	margin-left: 630px;
+	
+}
+.errorlist{
+	list-style: none;
+	color:red;
+}
+#id_itemsCatA,#id_itemsCatB, #id_itemsCatC{
+	border:2px solid #00b7ea;
+	border-radius: 3px;
+	background:white;
+	padding:7px;
+	width:380px;
 }
 
 

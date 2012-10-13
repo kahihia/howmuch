@@ -1,5 +1,6 @@
 from howmuch.core.models import RequestItem, Proffer, Assignment
 from howmuch.prestige.models import PayConfirm, DeliveryConfirm, Prestige
+from howmuch.messages.models import Conversation
 
 
 

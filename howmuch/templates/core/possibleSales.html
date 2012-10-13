@@ -1,19 +1,42 @@
-{% extends "base.html" %}
-{% block title %}
+{% extends "core/SalesMiddle.html" %}
 
-{% endblock %}
+{% block SalesMiddle %}
 
-{% block media %}
 
-{% endblock %}
+<section>
 
-{% block content %}
+	{% for item in possibleSales %}
 
-<ul>
- {% for item in possibleSales %}
- 	<li>{{ item.requestItem.title }}</li>
- {% endfor %}
-</ul>
+	<article class="ItemThumbsPurchases">
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.requestItem.get_first_picture_100x100 }}">
+		</div>
 
+		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
+			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
+				<b><span>{{ item.requestItem.state }}</span></b> en <b><span>$ {{ item.requestItem.price }}</span></b>
+			</div>
+
+			<div clas="ItemThumbsTitle ItemThumbsPurchasesInfo">
+				<span> {{ item.requestItem.title }} </span>
+			</div>
+
+			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
+				<div class="ItemThumbsMore">
+					<a href="/item/{{ item.requestItem.pk }}">Leer mas</a> ||
+					<a class="button-blue" href="/">PALABRA</a>					
+				</div>
+			</div>
+		</div>
+		
+	</article>
+
+	{% empty %}
+
+	<p>Aun no has aplicado para vender algun articulo</p>
+
+	{% endfor %}
+
+</section>
 
 {% endblock %}
