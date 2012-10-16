@@ -80,10 +80,15 @@ class RequestItem(models.Model):
 			return True
 		return False
 
-	#Regresa el link de la primer imagen en miniatura del item
+	#Regresa el link de la primer imagen en miniatura 100x100 del item
 	def get_first_picture_100x100(self):
 		for p in self.pictures.all()[:1]:
 			return p.get_url_100x100()
+
+	#Regresa el link de la primer imagen en miniatura 250x250 del item
+	def get_first_picture_250x250(self):
+		for p in self.pictures.all()[:1]:
+			return p.get_url_250x250()
 
 		
 class RequestItemPicture(models.Model):

@@ -1,0 +1,68 @@
+{% extends "newitem/base.html" %}
+
+{% block media %}
+<style type="text/css">
+
+section.NavNewItem ul li span#tabDescription{
+	-moz-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-webkit-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -o-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -ms-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block steps %}
+
+
+	{% load i18n %}
+
+	{% block head %}
+		{{ wizard.form.media }}
+	{% endblock %}
+<section class="GroupItemsForm">
+
+<form action="" method="post">{% csrf_token %}
+
+{{ wizard.management_form }}
+
+<div class="NewItemPriceQuantity">
+<span class="LabelItemForm">Precio</span>
+{{ wizard.form.price }}
+{{ wizard.form.price.errors }}
+</div>
+
+<div class="NewItemPriceQuantity">
+<span class="LabelItemForm">Cantidad</span>
+{{ wizard.form.quantity }}
+{{ wizard.form.quantity.errors }}
+</div>
+
+<div class="NewItemTitleDescription">
+<span class="LabelItemForm">Titulo</span>
+{{ wizard.form.title }}
+{{ wizard.form.title.errors }}
+</div>
+
+<div class="NewItemTitleDescription">
+<span class="LabelItemForm">Descripción </span>
+{{ wizard.form.description }}
+{{ wizard.form.description.errors }}
+</div>
+
+<div class="NewItemButtons">
+
+<input class="button-blue" type="submit" value="{% trans "Continuar" %}"/>
+
+</div>
+
+</form>
+
+</section>
+
+
+{% endblock %}

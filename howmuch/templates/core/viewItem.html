@@ -12,29 +12,44 @@
 
 {% block content %}
 
-<section class="ViewItemContent GroupItemsForm">
+<section class="ViewItemContent">
 
 	<article class="DateOwnerItem">
+		<span>Con envio al <b class="BBigItem"> C.P {{ item.owner.get_profile.zipcode }}</b></span></br>
 		<span>Publicado el {{ item.date }} por <a href="#">{{ item.owner }}</a></span></br>
-		<span>Restan Ndias para cerrar</span></br>
-		<span>Restan NArticulos por Vender</span>
+		<span>Restan <b class="BBigItem">Ndias</b> para cerrar</span></br>
+		<span>Restan <b class="BBigItem">NArticulos</b> por Vender</span>
 	</article>
 
-	<article class="TitleItem GroupItemsForm GroupItemsFormView" >
+	<article>
+			<span>{{ item.itemsCatA}}</span> --> <span>{{ item.itemsCatB}}</span> --> <span>{{ item.itemsCatC}}</span> 
+	</article>
 
-		<span id="descriptionItemTitle">{{ item.title }}</span>
-
-		<div>
-			<span id="descriptionItemState">   {{ item.state }}</span> por <span id="descriptionItemPrice">$ {{ item.price }}</span>
+	<article class="ItemOverview">
+		<div class="ItemOverviewPicture">
+			<img src="{{ item.get_first_picture_250x250 }}">
 		</div>
 
-		<div>
-			<button class="button-yellow SellButton">VENDER</button>
+		<div class="ItemOverviewPrincipal">
+			<span id="itemTitle">{{ item.title }}</span>
+			<div id="itemBrandModel">
+				marca <span class="ItemSpanBig">{{ item.brand }}</span> modelo <span class="ItemSpanBig">{{ item.model }}</span>
+			</div>
+			<div id="itemStatePrice">	
+				<span class="ItemSpanBig">{{ item.state }}</span> por <span class="ItemSpanBig">$ {{ item.price }}</span>
+			</div>
+
+			<div class="ViewItemButtons">
+				<button class="button-blue">Vender</button>
+			</div>
+		
 		</div>
+
 		
 	</article>
 
-	<article class="PicturesItem GroupItemsForm ">
+
+	<article class="ItemPictures">
 
 		{% for picture in item.pictures.all %}
 
@@ -42,32 +57,20 @@
 
 		{% endfor%}
 
-
 	</article>
 
-	<article class="BrandModelItem GroupItemsForm GroupItemsFormView">
+	<article class="ItemDescription">
 
-		marca <span>{{ item.brand }}</span>
-		modelo <span>{{ item.model }}</span>
-
-	</article>
-
-	<article class="DescriptionItem GroupItemsForm GroupItemsFormView">
-
-		<span id="aboutItem">Acerca del Producto</span>
+		<span class="ItemSpanBig">Acerca del Producto</span>
 
 		<p>{{ item.description }}</p>
 
 	</article>
 
-	<article class="AddressDeliveryAboutItem">
-		<span>Con envio al C.P <b>{{ item.owner.get_profile.zipcode }}</b></span>
-	</article>
-
-	<div>
-			<button class="button-yellow">VENDER</button>
+	<div class="ViewItemButtons">
+		<button class="button-blue">Vender</button>
 	</div>
-
+	
 </section>
 
 <a href="/proffer/new/{{ item.pk }}">Ofertar al comprador</a>

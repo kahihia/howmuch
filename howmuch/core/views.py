@@ -11,6 +11,25 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import timedelta, date
 from django.template import RequestContext
 import datetime
+from django.contrib.formtools.wizard.views import SessionWizardView
+
+TEMPLATES = {'description': 'newitem/description.html',
+             'clasification': 'newitem/clasification.html',
+             'delivery': 'newitem/delivery.html',
+      	}
+
+class NewItemWizard(SessionWizardView):
+	def get_template_names(self):
+		return [TEMPLATES[self.steps.current]]
+
+	def done(self, form_list,**kwargs):
+		instance = RequestItem()
+		for form in form_list:
+			for field, value in form.cleaned_data.iteritems():
+				setattr(instance, field, value)
+		instance.owner = self.request.user
+		instance.save()
+		return HttpResponse('/thanks/')
 
 @login_required(login_url="/login/")
 def home(request):

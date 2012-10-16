@@ -1,8 +1,41 @@
+# -*- coding: utf-8 -*- 
+
 from django import forms
 from django.forms import ModelForm, Textarea, TextInput, Select
 from django.contrib.admin import widgets   
 from howmuch.core.models import RequestItem, Proffer, Assignment
 from captcha.fields import CaptchaField
+
+class NewItemForm1(ModelForm):
+	class Meta:
+		model = RequestItem
+		exclude = {'owner','itemsCatA','itemsCatB','itemsCatC','brand','model','state','date','daysLimit','addressDelivery','pictures'}
+		widgets = {
+			'price' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. 500'},),
+			'title' : TextInput(attrs={'class':'InputFormRequestItem', 'placeholder' : 'Ej. Samsung Galaxy S3 Blanco' }),
+            'description': Textarea(attrs={'class':'InputFormRequestItem','cols': 40, 'rows': 10, 'placeholder' : 'Ej. Quiero un Samsung Galaxy S3 de preferencia en color blanco con las siguientes caracteristicas ....'}),
+            'quantity' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. 2 ó 3 ó 4'}),
+        }
+
+class NewItemForm2(ModelForm):
+	class Meta:
+		model = RequestItem
+		exclude = {'owner','price','title','description','quantity','date','daysLimit','addressDelivery','pictures'}
+		widgets = {
+            'brand' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. Samsung'}),
+            'model' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. Galaxy S3'}),
+            'state' : Select(attrs={'class':'InputFormRequestItem',}),
+        }
+
+
+class NewItemForm3(ModelForm):
+	class Meta:
+		model = RequestItem
+		exclude = {'owner','price','title','description','quantity','itemsCatA','itemsCatB','itemsCatC','brand','model','state','pictures'}
+		widgets = {
+            'daysLimit' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. 10'}),
+            'addressDelivery' : Textarea(attrs={'class':'InputFormRequestItem', 'cols' : 40, 'rows' : '5'}),
+        }
 
 class RequestItemForm(ModelForm):
 	#captcha = CaptchaField()	
