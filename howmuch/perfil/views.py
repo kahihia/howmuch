@@ -9,7 +9,7 @@ from howmuch.perfil.models import Perfil
 def edit(request):
 	current = get_object_or_404(Perfil, user=request.user)
 	if request.method == 'POST':
-		form = PerfilForm(request.POST, instance=current)
+		form = PerfilForm(request.POST, request.FILES ,instance=current)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect("/profile/edit/")

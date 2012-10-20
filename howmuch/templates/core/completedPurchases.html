@@ -6,9 +6,7 @@
 	{% for item in completedPurchases %}
 
 	<article class="ItemThumbsPurchases">
-		<div class="ItemThumbsPicture">
-			<img src="{{ item.get_first_picture_100x100 }}">
-		</div>
+	
 
 		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
 			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
@@ -21,14 +19,16 @@
 
 			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
 				<div class="ItemThumbsMore">
-					<a href="/item/{{ item.pk }}">Leer mas</a> ||
-					<a href="">Modificar</a>
-					<a class="button-blue GoItemThumbsMore" href="/item/candidates/{{ item.pk }}">Vendedores</a>					
+					<a class="button-green" href="">Ver Status</a>
+					<a class="button-blue" href="/messages/{{ item.assignment.conversation.pk }}">Ir a Conversación</a>	
+
 				</div>
 			</div>
 
+		</div>
 
-
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.get_first_picture_100x100 }}">
 		</div>
 
 	

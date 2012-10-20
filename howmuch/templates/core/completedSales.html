@@ -2,11 +2,47 @@
 
 {% block SalesMiddle %}
 
-<ul>
+<section>
+
+
  {% for item in completedSales %}
- 	<li>{{ item.requestItem.title }}</li>
+
+ 	<article class="ItemThumbsPurchases">
+	
+
+		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
+			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
+				<b><span>{{ item.requestItem.state }}</span></b> en <b><span>$ {{ item.requestItem.price }}</span></b>
+			</div>
+
+			<div clas="ItemThumbsTitle ItemThumbsPurchasesInfo">
+				<span> {{ item.requestItem.title }} </span>
+			</div>
+
+			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
+				<div class="ItemThumbsMore">
+					<a class="button-green" href="">Ver Status</a>
+					<a class="button-blue" href="/item/candidates/{{ item.requestItem.pk }}">Ir a Conversación</a>					
+				</div>
+			</div>
+
+		</div>
+
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.requestItem.get_first_picture_100x100 }}">
+		</div>
+
+	
+	</article>
+
+ {% empty %}
+
+ 	<p>Aun no tienes ventas completadas</p>
+
  {% endfor %}
-</ul>
+
+
+</section>
 
 
 {% endblock %}

@@ -21,6 +21,12 @@
 			{{ form.company.errors }}
 		</div>
 		<div class="ContainerItemForm">
+			<span class="LabelItemForm">Foto de Perfil</span>
+			{{ form.profile_picture }}
+			<p class="help-text">Una Imagen que te represente</p>
+			{{ form.profile_picture.errors }}
+		</div>
+		<div class="ContainerItemForm">
 			<span class="LabelItemForm">Dirección 1</span>
 			{{ form.address }}
 			<p class="help-text">Se refiere a la Calle, Numero y Colonia, proporciona informacion veridica ya que en caso que compres, sera a esta direccion donde se te envie el producto</p>

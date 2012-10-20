@@ -1,12 +1,79 @@
-{% extends "base.html" %}
-{% block title %}
-
-{% endblock %}
-{% block media %}
-
-{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+	h3{
+		text-align: center;
+	}
+	section.content{
+		width: 690px;
+		font-family: "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;
+	}
+	span.LabelItemForm{
+	font-family: 'Archivo Narrow', sans-serif !important;
+	font-size: 20px;
+	letter-spacing: -1px;
+	}
+	img.ProfferImage{
+	-webkit-box-shadow:  0px 0px 5px 1px rgba(71, 71, 71, 1);
+     box-shadow:  0px 0px 5px 1px rgba(71, 71, 71, 1);
+	}
+	.InputFormRequestItem{
+	border:1px solid #979797;
+	border-radius: 3px;
+	background:white;
+	padding:7px;
+	margin: 5px;
+	}
+	.InputFormRequestItem:focus{
+	-webkit-box-shadow:  0px 0px 3px 1px rgba(0, 168, 214, 1);
+    box-shadow:  0px 0px 3px 1px rgba(0, 168, 214, 1);
+	}
+	.button-green{
+	background: rgb(157,213,58); /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: -moz-linear-gradient(top,  rgba(157,213,58,1) 0%, rgba(161,213,79,1) 50%, rgba(128,194,23,1) 51%, rgba(124,188,10,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(157,213,58,1)), color-stop(50%,rgba(161,213,79,1)), color-stop(51%,rgba(128,194,23,1)), color-stop(100%,rgba(124,188,10,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9dd53a', endColorstr='#7cbc0a',GradientType=0 ); /* IE6-8 */
+	border-radius: 3px;
+	border: 0px;
+	color:white;
+	font-size: 15px;
+	padding: 7px;
+	text-shadow: 0px 0px 2px #000000;     
+    filter: dropshadow(color=#000000, offx=0, offy=0);
+    font-family: 'Archivo Narrow', sans-serif;
+}
+	.errorlist{
+	list-style: none;
+	color:red;
+}
+	.ProfferImageCprice{
+		display: inline-block;
+		vertical-align: top;
+	}
+	.CpriceWerrors{
+		display: inline-block;
+	}
+	.ProfferImageCpriceContainer{
+		margin-top:5px;
+	}
+	.ProfferFormButtons,.ProfferMessage,#cpriceField{
+		text-align: center;
+	}
+	#profferCprice{
+		width: 550px;
+	}
+	</style>
+</head>
+<body>
+	<section class="content">
 
 			{% if errors %}
 				<ul>
@@ -17,21 +84,44 @@
 
 			{% else %}
 
-			<h1><span>{{user}}</span> Confirma</h1>
-			<h2>Aplico para Vender el Articulo <span>{{ requestItem.title }}</span></h2>
+			<h3><span class="LabelItemForm">Aplico para Vender el Articulo {{ requestItem.title }}</span></h3>
 			<form action="" id="confirmaCandidatura" method="POST">{% csrf_token %}
-				<p>Enviale un mensaje a <span>{{ requestItem.owner }}</span> acerca del producto que estas dispuesto a venderle asi como informacion complementaria que le pueda ayudar a seleccionarte a ti para su vendedor </p>
-				<h4>Este es el precio contraoferta, es decir el precio al que desean comprar el articulo + Gastos de Envio</h4>
-				{{ form.cprice}}
-				{{ form.cprice.errors}}
-				<h4>Enviale un mensaje a tu posible Comprador</h4>
-				{{ form.message}}
-				{{ form.message.errors}}
-				<input type="submit" value="Venderselo">
-				<p>Al Aplicarte para esta venta estas Aceptando los Terminos y Condiciones de esta pagina</p>
+
+				<div class="ProfferImageCpriceContainer">
+
+				<div class="ProfferImageCprice">
+					<img class="ProfferImage" src="{{ requestItem.get_first_picture_100x100 }}">
+				</div>
+				<div id="profferCprice" class="ProfferImageCprice">
+					<p>Escribe el precio <span class="LabelItemForm">"contraoferta"</span>, es decir el precio al que venderas el articulo: <span class="LabelItemForm">$ {{ requestItem.price }} + Gastos de Envio + Otros, </span> considera envio al C.P <span class="LabelItemForm">{{ requestItem.owner.get_profile.zipcode }}</span></p>
+					<div id="cpriceField">
+						{{ form.cprice}}
+					</div>
+				</div>
+
+				</div>
+
+				<div class="ProfferMessage">
+					<p>Enviale un mensaje a <span  class="LabelItemForm">{{ requestItem.owner }}</span> acerca del producto e informacion complementaria que te seleccione como vendedor </p>
+					{{ form.message}}
+				</div>
+
+				<div class="ProfferFormButtons">
+					<input class="button-green" type="submit" value="Venderselo">
+				</div>
+				
+			
+
 			</form>
 
 			{% endif %}
 
+	</section>
 
-{% endblock %}
+</body>
+
+</html>
+
+
+
+

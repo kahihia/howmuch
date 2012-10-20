@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block title %}
 
+
+{% endblock %}
+
+{% block media %}
+
+ <script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -27,7 +34,7 @@
 				<a class="button-green"href="/item/{{ item.pk }}">Leer mas</a>
 			</div>
 			<div class="ItemThumbsButtonSell">
-				<button class="button-blue">Vender</button>
+				<button class="button-blue small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>Vender</button>
 			</div>
 		</div>
 	</article>
@@ -35,6 +42,16 @@
 	{% empty %}
 		<p>No hay Articulos publicados!!</p>
 	{% endfor %}
+
+	<div id="popup2" style="display:none">
+        <span class="button-blue bClose"><span>cerrar</span></span>
+        <div class="content">
+        </div>
+    </div>
+
+
 </section>
+
+ 
 
 {% endblock %}

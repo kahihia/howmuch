@@ -4,6 +4,7 @@ from howmuch.messages.functions import ConversationFeatures
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
+from django.db.models import Q
 
 
 def newMessage(request, conversationID):
@@ -31,4 +32,8 @@ def newMessage(request, conversationID):
 	else:
 		form = MessageForm()
 	messages = Message.objects.filter(conversation = conversation).order_by('date')
-	return render_to_response('messages/conversation.html', {'form' : form, 'messages' : messages, 'user' : request.user }, context_instance = RequestContext(request))
+	return render_to_response('messages/conversation.html', {'form' : form, 'messages' : messages, 'user' : request.user, 'conversation' : conversation }, context_instance = RequestContext(request))
+
+def viewInbox(request):
+	conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__requestItem__owner = request.user))
+	return render_to_response('messages/inbox.html',{'conversations' : conversations}, context_instance = RequestContext(request))

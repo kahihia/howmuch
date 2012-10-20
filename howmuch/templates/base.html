@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css">
         <!--   <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/south-street/jquery-ui.css" media="all" />  -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
@@ -48,7 +49,7 @@
                 <nav class="itemHeader" id ="menu">
                     <ul>
                         <li><a href="/sales/possible">(0)Ventas</a></li>
-                        <li><a href="/sales/possible">(0)Inbox</a></li>
+                        <li><a href="/messages/inbox">(0)Inbox</a></li>
                         <li><a href="/purchases/published">(0)Compras</a></li>
                     </ul> 
                 </nav>
@@ -80,8 +81,8 @@
         </footer>
 
 
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        <script src="{{ MEDIA_URL }}js/plugins.js"></script>
+        <script src="{{ MEDIA_URL }}js/main.js"></script>
         <script src="{{ MEDIA_URL }}js/vendor/modernizr-2.6.2.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.ize.js"></script>
@@ -90,6 +91,7 @@
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.ajaxsearch.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.renderer.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.instantsearch.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.bpopup-0.7.0.min.js"></script>
         {% block media %}
         {% endblock %}
 

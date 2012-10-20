@@ -5,49 +5,55 @@
 
 {% block media %}
 <link href='http://fonts.googleapis.com/css?family=Actor|Muli|Istok+Web' rel='stylesheet' type='text/css' />
-<style type="text/css">
-h1{
-	font-family:'Muli',sans-serif;
-}
-.MessageContainer{
-	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
-	border-radius: 5px;
-	font-family:'Muli',sans-serif;
-	width:600px;
-	padding:3px;
-	margin:10px;
-}
-.owner{
-	margin-left:50px !important;
-	
-}
-
-
-
-</style>
 {% endblock %}
 
 {% block content %}
 
-	<h1>Conversación</h1>
-	{% for message in messages %}
-	{% if message.owner == user %}
-	<div class="MessageContainer owner">
-	{% else %}
-	<div class="MessageContainer">
-	{% endif %}
-		<p>{{ message.message }}</p>
-		<span>{{ message.owner.username }}</span>
-	</div>
-	{% endfor %}
+<section class="ConversationContainer">
 
-	
+	<section class="ConversationAssignmentRequestItem">
+		<span>Asignacion: <b>{{ conversation.assignment.pk }}</b></span>
+		<span>Articulo: <b>{{ conversation.assignment.requestItem.pk }}</b></span>
+	</section>
+
+	<section class="ConversationPictureTitle">
+		<div id="conversationItemPicture">
+			<img src="{{ conversation.assignment.requestItem.get_first_picture_100x100 }}">
+		</div id="conversationItemTitle">
+			<span class="ItemSpanBig">{{ conversation.assignment.requestItem.title }}</span>
+		<div>
+	</section>
+
+	<section class="ConversationAssignmentStatus">
 
 
-	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		{{ form.message }}
-		{{ form.message.errors }}
-		<input type="submit" value="ENVIAR">
-	</form>
+
+	</section>
+
+	<section class="ConversationMessages">
+		{% for message in messages %}
+			{% if message.owner == user %}
+				<article class="MessageContainer MessageContainerOwner">
+			{% else %}
+				<article class="MessageContainer">
+			{% endif %}
+					<p>{{ message.message }}</p>
+				</article>
+		{% endfor %}
+	</section>
+
+	<section classs="ConversationSendMessage">
+		<form class="ConversationFormMessage" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="ConversationInputMessage">
+				{{ form.message }}
+			</div>
+
+			<input class="button-blue" type="submit" value="ENVIAR">
+		</form>
+	</section>
+
+</section>
+
+
 
 {% endblock %}

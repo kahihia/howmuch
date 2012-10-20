@@ -8,9 +8,7 @@
 	{% for item in possibleSales %}
 
 	<article class="ItemThumbsPurchases">
-		<div class="ItemThumbsPicture">
-			<img src="{{ item.requestItem.get_first_picture_100x100 }}">
-		</div>
+	
 
 		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
 			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
@@ -23,12 +21,19 @@
 
 			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
 				<div class="ItemThumbsMore">
-					<a href="/item/{{ item.requestItem.pk }}">Leer mas</a> ||
-					<a class="button-blue" href="/">PALABRA</a>					
+					<a class="button-green" href="/item/{{ item.requestItem.pk }}">Leer mas</a>
+					<a class="button-green" href="">Modificar</a>
+					<a class="button-blue" href="/item/candidates/{{ item.requestItem.pk }}">Vendedores</a>					
 				</div>
 			</div>
+
 		</div>
-		
+
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.requestItem.get_first_picture_100x100 }}">
+		</div>
+
+	
 	</article>
 
 	{% empty %}

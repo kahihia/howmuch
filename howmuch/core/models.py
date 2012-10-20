@@ -90,7 +90,6 @@ class RequestItem(models.Model):
 		for p in self.pictures.all()[:1]:
 			return p.get_url_250x250()
 
-		
 class RequestItemPicture(models.Model):
 	requestItem = models.ForeignKey(RequestItem)
 	picture = models.ForeignKey(Picture)
@@ -125,7 +124,7 @@ class ProfferPicture(models.Model):
 
 class Assignment(models.Model):
 	owner = models.ForeignKey(User)
-	requestItem = models.ForeignKey(RequestItem)
+	requestItem = models.OneToOneField(RequestItem)
 	date = models.DateTimeField(auto_now_add=True)
 	duedate = models.DateTimeField(null=True, blank=True)
 	comment = models.CharField(max_length=144)

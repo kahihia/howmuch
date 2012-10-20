@@ -58,6 +58,10 @@ class ProfferForm(ModelForm):
 	class Meta:
 		model = Proffer
 		exclude = ('owner', 'requestItem' ,'date', 'pictures',)
+		widgets = {
+			'cprice' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Ej. 500'}),
+			'message' : Textarea(attrs={'class' : 'InputFormRequestItem', 'cols': 60, 'rows': 2, 'placeholder' : 'Ej. Debes comprarme el articulo por esta razon, esta otra y esta otra ... '}),
+		}
 
 class AssignmentForm(ModelForm):
 	duedate = forms.DateTimeField(widget=widgets.AdminSplitDateTime)

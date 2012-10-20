@@ -11,11 +11,17 @@ STATUS_CHOICES = (
 
 class Conversation(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
-	assignment = models.ForeignKey(Assignment)
+	assignment = models.OneToOneField(Assignment)
 	status = models.CharField(max_length=2, default = "1")
 
 	def __unicode__(self):
 		return u'Assignment to: %s ' % (self.assignment.requestItem)
+
+	def get_latest_message(self):
+		messages =  Message.objects.filter(conversation=self).order_by('-date')[:1]
+		for message in messages:
+			return message
+
 
 class Message(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by Message")
