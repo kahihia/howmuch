@@ -10,8 +10,11 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import timedelta, date
 from django.template import RequestContext
-import datetime
 from django.contrib.formtools.wizard.views import SessionWizardView
+from django.core.mail import send_mail
+import datetime
+
+
 
 TEMPLATES = {'description': 'newitem/description.html',
              'clasification': 'newitem/clasification.html',
@@ -29,7 +32,7 @@ class NewItemWizard(SessionWizardView):
 				setattr(instance, field, value)
 		instance.owner = self.request.user
 		instance.save()
-		return HttpResponse('/thanks/')
+		return HttpResponseRedirect('/pictures/addpicture/requestitem/' + str(instance.pk))
 
 @login_required(login_url="/login/")
 def home(request):
@@ -84,6 +87,19 @@ def newProffer(request,itemId):
 			newProffer.owner = request.user
 			newProffer.requestItem = requestItem
 			newProffer.save()
+
+			"""
+			Se envia email al comprador de que hay un nuevo candidato dispuesto a venderle el articulo
+			"""
+
+			subject = 'Hay un nuevo Vendedor para el articulo %s' % (newProffer.requestItem.title)
+
+			message = '%s quiere venderte el articulo a $ %s, y para que lo elijas te dice lo siguiente: %s' % (newProffer.owner, newProffer.cprice,newProffer.message)
+
+			to = [newProffer.requestItem.owner.email]
+
+			send_mail(subject,message,'',to)
+
 			return HttpResponseRedirect('/pictures/addpicture/proffer/' + str(newProffer.pk) )
 	else:
 		form = ProfferForm()
@@ -126,6 +142,16 @@ def newAssignment(request, itemId, candidateID):
 			newAssignment.owner = candidateUser 
 			newAssignment.requestItem = item
 			newAssignment.save()
+
+			"""
+			Se notifica al Candidato que ha sido seleccionado para vender el articulo por email
+			"""
+
+			subject = 'Has sido seleccionado para vender el articulo %s' % (newAssignment.requestItem.title)
+			message = 'Esta es una confirmacion de que eres el Vendedor del articulo %s, enseguida recibiras un correo con la informacion de envio del articulo, el mensaje que el comprador te ha dejado es: %s ,puedes conversar con el comprador en el INBOX de howmuch' % (newAssignment.requestItem.title, newAssignment.comment)
+			to = [newAssignment.owner.email]
+			send_mail(subject, message, '', to)
+
 			"""
 			Se crea la Conversation correspondiente a la Asignacion
 			"""

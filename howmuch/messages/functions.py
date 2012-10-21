@@ -57,6 +57,16 @@ class ConversationFeatures:
 		else:
 			return False
 
+	def is_buyer(self):
+		if self.conversation.assignment.requestItem.owner == self.user:
+			return True
+		return False
+
+	def is_seller(self):
+		if self.conversation.assignment.owner == self.user:
+			return True
+		return False
+
 
 
 

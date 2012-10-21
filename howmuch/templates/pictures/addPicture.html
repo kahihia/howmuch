@@ -9,6 +9,12 @@
 
 {% block content %}
 
+	{% for picture in pictures %}
+
+		<img src="{{ picture.get_url_100x100 }}">
+
+	{% endfor %}
+
 	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
 		{{ form.picture }}
