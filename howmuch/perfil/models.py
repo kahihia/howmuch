@@ -8,7 +8,7 @@ from howmuch.pictures.thumbs import ImageWithThumbsField
 
 class Perfil(models.Model):
 	user = models.OneToOneField(User)
-	profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((100,100),(250,250),(250,500),(200,450),(300,450),(250,400),(500,250),(450,200)))
+	profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)) )
 	company = models.CharField(max_length=77, null = True, blank=True)
 	address = models.CharField(max_length=77)
 	address2 = models.CharField(max_length=77, null = True, blank=True)
@@ -33,3 +33,10 @@ class Perfil(models.Model):
 
 	def isComplete(self):
 		return 0
+
+	def get_profile_picture_50x50(self):
+		return str(self.profile_picture.url_50x50).split("?")[0]
+
+	def get_profile_picture_100x100(self):
+		return str(self.profile_picture.url_100x100).split("?")[0]
+

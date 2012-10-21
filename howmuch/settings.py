@@ -193,4 +193,6 @@ EMAIL_HOST_PASSWORD = 'f1djpkod'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+DEFAULT_FROM_EMAIL = 'howmuch@howmuch'
+
 #EMAIL

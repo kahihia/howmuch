@@ -1,19 +1,30 @@
-{% extends "base.html" %}
-{% block title %}
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
 
-{% endblock %}
 
-{% block media %}
 
-{% endblock %}
 
-{% block content %}
-	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		{{ form.duedate }}
-		{{ form.duedate.errors }}
-		{{ form.comment }}
-		{{ form.comment.errors }}
-		<input type="submit" value="ENVIAR">
-	</form>
-{% endblock %}
+	</style>
+</head>
+
+<body>
+	<section class="content">
+		<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div>
+				{{ form.duedate }}
+				{{ form.duedate.errors }}
+			</div>
+
+			<div>
+				{{ form.comment }}
+				{{ form.comment.errors }}
+			</div>	
+			<input type="submit" value="ENVIAR">
+		</form>
+	</section>
+</body>
+</html>
 

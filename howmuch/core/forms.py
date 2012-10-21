@@ -69,4 +69,7 @@ class AssignmentForm(ModelForm):
 	class Meta:
 		model = Assignment
 		exclude = ('owner', 'requestItem', 'date', 'status', )
+		widgets = {
+			'comment' : Textarea(attrs={'class' : 'InputFormRequestItem', 'cols' : 60, 'rows' : 10}),
+			}
 

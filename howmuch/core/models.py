@@ -115,6 +115,11 @@ class Proffer(models.Model):
 			return True
 		return False
 
+	def get_first_picture_100x100(self):
+		for p in self.pictures.all()[:1]:
+			return p.get_url_100x100()
+
+
 class ProfferPicture(models.Model):
 	proffer = models.ForeignKey(Proffer)
 	picture = models.ForeignKey(Picture)
