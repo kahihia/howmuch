@@ -3,9 +3,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.views import login, logout
 
+
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^login/$',  login),
@@ -19,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
 	url(r'^chaining/', include('smart_selects.urls')),
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^admin/', include(admin.site.urls)),
 
    
     # Examples:
