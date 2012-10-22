@@ -4,9 +4,30 @@
 	<title>Registrate a howmuch.do y empieza a comprar y vender al reves</title>
 	<link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
-	 <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
-</head>
-<style type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+    body{
+        background: url("/media/background.png") repeat;
+    }
+    .button-green{
+        background: rgb(157,213,58); /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: -moz-linear-gradient(top,  rgba(157,213,58,1) 0%, rgba(161,213,79,1) 50%, rgba(128,194,23,1) 51%, rgba(124,188,10,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(157,213,58,1)), color-stop(50%,rgba(161,213,79,1)), color-stop(51%,rgba(128,194,23,1)), color-stop(100%,rgba(124,188,10,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9dd53a', endColorstr='#7cbc0a',GradientType=0 ); /* IE6-8 */
+        border-radius: 3px;
+        border: 0px;
+        color:white;
+        font-size: 15px;
+        padding: 7px;
+        text-shadow: 0px 0px 2px #000000;     
+        filter: dropshadow(color=#000000, offx=0, offy=0);
+        font-family: 'Archivo Narrow', sans-serif;
+    }
 	p.LegalInfo{
         font-size: 10px;
         text-align: center;
@@ -45,7 +66,7 @@
         padding: 0px;
 
       }
-     form#registrationForm input{
+     form#registrationForm input[type="text"], form#registrationForm input[type="password"]{
         padding: 5px;
         font-size:14px;
         border: 2px solid #00b7ea;
@@ -53,18 +74,28 @@
         width:250px;  
         background: white;
      }
+     form#registrationForm input[type="checkbox"]{
+        width: 20px !important;
+     }
      form#registrationForm input:focus{
      	
      }
      form#registrationForm{
      	width:600px;
      	margin: 20px auto;
-     	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
      	padding: 10px;
-
+        background: white;
+        border: 1px solid rgb(221, 221, 221);
+        box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
      }
      div.registerField{
      	display: inline-block;
+     }
+     div.registerCheckbox{
+        text-align: center;
+     }
+     div.registerSubmit{
+        text-align: center;
      }
      h2{
      	font-family: 'Archivo Narrow', sans-serif;
@@ -73,23 +104,8 @@
      span.TermsConds{
      	font-family: 'Archivo Narrow', sans-serif;
      }
-     #submitRegister{
-     	background: rgb(0,185,226) !important;
-     	margin-left: 200px !important;
-     }
-     p#label-errors{
-     	background: red;
-     	color:white;
-     	font-family: 'Archivo Narrow', sans-serif;
-     	padding: 5px;
-     	text-align: center;
-     }
-
-
-
-
-
-</style>
+    </style>
+    </head>
 <body>
 
 	<div>
@@ -101,11 +117,16 @@
     	</div>
 
   	</div>
+
+    {% if form.errors %}
+
+
+    {% endif %}
 	
 	<form id="registrationForm" action="" method="POST">{% csrf_token %}
 		<h2>Registrate, es GRATIS</h2>
 		<div class="registerField">
-			<div class="form-field">{{ form.username}}</div>
+			{{ form.username}}
 		</div>
 		<div class="registerField">
 			{{ form.first_name}}
@@ -122,17 +143,13 @@
         <div class="registerField">
 			{{ form.password2}}
 		</div>	
-		<div class="registerField">
+		<div class="registerCheckbox">
 			{{ form.tos}}
 			<span class="TermsConds">Acepto los Terminos y Condiciones de Howmuch.do</span>
 		</div>	
-		<div class="registerField">
-			<input id="submitRegister" type="submit" value="REGISTRARME">
+		<div class="registerSubmit">
+			<input class="button-green" type="submit" value="REGISTRARME">
 		</div>
-		{% if form.errors%}
-			<p id="label-errors">Llena Correctamente todos los campos</p>
-		{% endif%}
-		
 	</form>
 
 	    <footer>

@@ -9,8 +9,18 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.colorbox-min.js" async="true"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/background.js"></script>
+  
   <style type="text/css">
+      canvas#background{
+        position:absolute;
+        top:0;
+        left:0;
+        z-index:-1;
+      }
       p.LegalInfo{
         font-size: 10px;
         text-align: center;
@@ -26,13 +36,14 @@
         padding: 0px;
       }
       section.RegistrationCompleteContainer{
-      	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
-      	width:700px;
-      	margin:10px auto;
-      	padding: 10px;
-      	text-align: center;
-      	font-family: 'Courgette', cursive;
-      	font-size: 20px;
+        padding: 10px;
+        background-color: rgba(255,255,255,.5);
+        border: 1px solid rgb(221, 221, 221);
+        box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+        width: 600px;
+        margin:10px auto;
+        font-family: 'Archivo Narrow', sans-serif;
+        text-align: center;
 
       }
       section.RegistrationCompleteContainer p span{
@@ -69,6 +80,8 @@
 </head>
 
 <body>
+
+  <canvas id="background"></canvas>
 
   <div>
 
