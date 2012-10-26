@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from howmuch.pictures.models import Picture
 from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
 from smart_selects.db_fields import ChainedForeignKey
+import datetime
 
 
 
@@ -80,6 +81,12 @@ class RequestItem(models.Model):
 			return True
 		return False
 
+	def get_first_100_letters(self):
+		return str(self.title)[:100]
+
+	def get_left_time(self):
+		return self.date + datetime.timedelta(days=daysLimit) - datetime.datetime.now()
+
 	#Regresa el link de la primer imagen en miniatura 100x100 del item
 	def get_first_picture_100x100(self):
 		for p in self.pictures.all()[:1]:
@@ -89,6 +96,8 @@ class RequestItem(models.Model):
 	def get_first_picture_250x250(self):
 		for p in self.pictures.all()[:1]:
 			return p.get_url_250x250()
+
+
 
 class RequestItemPicture(models.Model):
 	requestItem = models.ForeignKey(RequestItem)

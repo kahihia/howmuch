@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from howmuch.pictures.models import make_upload_path
 from howmuch.pictures.thumbs import ImageWithThumbsField
 
+
 class Perfil(models.Model):
 	user = models.OneToOneField(User)
 	profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)) )
@@ -39,4 +40,10 @@ class Perfil(models.Model):
 
 	def get_profile_picture_100x100(self):
 		return str(self.profile_picture.url_100x100).split("?")[0]
+
+	def get_profile_picture_250x250(self):
+		return str(self.profile_picture.url_250x250).split("?")[0]
+
+
+
 

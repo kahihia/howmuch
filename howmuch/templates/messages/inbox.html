@@ -13,20 +13,63 @@
 
 	{% for conversation in conversations %}
 
-		<article class="InboxMessageWrapper">
-			<div class="InboxMessagePicture">
-				<img src="{{ conversation.assignment.requestItem.get_first_picture_100x100 }}">
-			</div>
+		{% if conversation.has_unread_messages %}
 
-			<div class="InboxMessageContent">
-				<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.requestItem.title }}</a></span></br>
-				<span>{{ conversation.get_latest_message.message }}</span></br>
-				<div class="MessageTimestampWrapper">
-					<span class="MessageTimestamp">hace X Minutos</span>
-				</div>
+			{% if conversation.assignment.owner == user %}
+
+				{% if conversation.getNumber_unread_messages_seller > 0 %}
+
+				<article class="InboxMessageWrapper InboxUnchecked">
+
 				
-			</div>
-		</article>
+					<b><span class="NumberMessagesUnread">({{ conversation.getNumber_unread_messages_seller }})</span></b>
+	
+
+				{% else %}
+					
+				<article class="InboxMessageWrapper">
+
+				{% endif %}
+
+
+			{% else %}
+
+			{% if conversation.assignment.requestItem.owner == user %}
+
+				{% if conversation.getNumber_unread_messages_buyer > 0%}
+
+				<article class="InboxMessageWrapper InboxUnchecked">
+
+					
+					<b><span class="NumberMessagesUnread">({{ conversation.getNumber_unread_messages_buyer }})</span></b>
+			
+					
+				{% else %}
+
+				<article class="InboxMessageWrapper">
+
+				{% endif %}
+
+			{% endif %}{% endif %}
+
+		{% else %}
+				<article class="InboxMessageWrapper">
+		{% endif %}
+
+	
+					<div class="InboxMessagePicture">
+						<img src="{{ conversation.assignment.requestItem.get_first_picture_100x100 }}">
+					</div>
+
+					<div class="InboxMessageContent">
+						<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.requestItem.title }}</a></span></br>
+						<span>{{ conversation.get_latest_message.message }}</span></br>
+						<div class="MessageTimestampWrapper">
+							<span class="MessageTimestamp">hace X Minutos</span>
+						</div>
+				
+					</div>
+				</article>
 
 	{% endfor %}
 

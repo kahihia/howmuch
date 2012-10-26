@@ -14,14 +14,40 @@ def newMessage(request, conversationID):
 	"""
 	conversation = get_object_or_404(Conversation, pk = conversationID)
 
+	
+	#Crea una instancia de conversationFeatures y verifica que quien publica el mensaje en la conversacion sea ya sea el buyer o el saller
+	
+	#conversationFeature = ConversationFeatures(conversation, request.user)
+
 	"""
-	Crea una instancia de conversationFeatures y verifica que quien publica el mensaje en la conversacion sea ya sea el buyer o el saller
+	Se verifica que quien publica el mensaje en la conversacion sea el buyer o seller
 	"""
-	conversationFeature = ConversationFeatures(conversation, request.user)
-	if conversationFeature.is_inside():
+	if conversation.user_inside(request.user):
 		pass
 	else:
 		return HttpResponse("No tienes permiso para publicar en esta conversacion")
+
+
+	"""
+	Verifica si es comprador y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
+	"""
+	if conversation.is_buyer(request.user) and conversation.getNumber_unread_messages_buyer() > 0:
+		messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
+		for message in messages:
+			message.has_been_readed = True
+			message.save()
+
+	"""
+	Verifica si es el vendedor y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
+	"""
+
+	if conversation.is_seller(request.user) and conversation.getNumber_unread_messages_seller() > 0:
+		messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
+		for message in messages:
+			message.has_been_readed = True
+			message.save()
+
+
 	if request.method == 'POST':
 		form = MessageForm(request.POST)
 		if form.is_valid():
@@ -43,7 +69,7 @@ def newMessage(request, conversationID):
 			"""
 			Si el comprador envia el mensaje, el correo le llega al vendedor y viceversa
 			"""
-			if conversationFeature.is_buyer():
+			if conversation.is_buyer(request.user):
 				to = [conversation.assignment.owner.email]
 			else:
 				to = [conversation.assignment.requestItem.owner.email]
@@ -53,8 +79,8 @@ def newMessage(request, conversationID):
 			return HttpResponseRedirect('/messages/' + conversationID)
 	else:
 		form = MessageForm()
-	messages = Message.objects.filter(conversation = conversation).order_by('date')
-	return render_to_response('messages/conversation.html', {'form' : form, 'messages' : messages, 'user' : request.user, 'conversation' : conversation }, context_instance = RequestContext(request))
+	allmessages = Message.objects.filter(conversation = conversation).order_by('date')
+	return render_to_response('messages/conversation.html', {'form' : form, 'messages' : allmessages, 'user' : request.user, 'conversation' : conversation }, context_instance = RequestContext(request))
 
 def viewInbox(request):
 	conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__requestItem__owner = request.user))

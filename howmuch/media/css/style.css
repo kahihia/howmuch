@@ -155,7 +155,6 @@ BUTTONS
 	text-shadow: 0px 0px 2px #000000;     
     filter: dropshadow(color=#000000, offx=0, offy=0);
     font-family: 'Archivo Narrow', sans-serif;
-
 }
 .button-green:hover{
 	
@@ -515,6 +514,10 @@ article.InboxMessageWrapper{
 	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
 	background: white;
 	width:700px;
+	position: relative;
+}
+article.InboxUnchecked{
+	border: 1px solid #3BB4FF !important;
 }
 
 a.GoItemThumbsMore{
@@ -662,6 +665,24 @@ form.ConversationFormMessage{
 }
 .CandidatesTitleWrapper{
 	text-align: center;
+}
+.ProfilePictureWrapper,.CompanyProfilePictureWrapper{
+	display: inline-block;
+}
+.CompanyProfilePictureWrapper, .CompanyProfilePictureWrapper input{
+	width: 540px;
+}
+.AddressInfoDiv{
+	display: inline-block;
+	width: 390px;
+}
+.AddressInfoDiv input{
+	width: 380px;
+}
+.NumberMessagesUnread{
+	position: absolute;
+	top:5px;
+	right: 5px;
 }
 #id_itemsCatA,#id_itemsCatB, #id_itemsCatC{
 	border:2px solid #00b7ea;
