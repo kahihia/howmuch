@@ -43,6 +43,11 @@
 					<div class="MessageContainerMsg">
 						<p>{{ message.message }}</p>
 					</div>
+
+					<span class="MessageTimeStamp">hace {{ message.get_timestamp }}</span>
+					
+							
+				
 				</article>
 		{% endfor %}
 	</section>

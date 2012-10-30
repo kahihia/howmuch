@@ -21,6 +21,8 @@ urlpatterns = patterns('',
 	url(r'^chaining/', include('smart_selects.urls')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^backend/', include('howmuch.backend.urls')),
+    url(r'^notifications/', include('howmuch.notifications.urls')),
 
    
     # Examples:

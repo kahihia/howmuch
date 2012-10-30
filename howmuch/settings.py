@@ -145,6 +145,8 @@ INSTALLED_APPS = (
     'howmuch.messages',
     'howmuch.prestige',
     'howmuch.searchengine',
+    'howmuch.backend',
+    'howmuch.notifications',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',

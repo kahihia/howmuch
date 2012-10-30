@@ -411,13 +411,21 @@ span.ItemSpanBig{
 span#ItemAbout{
 	font-size: 30px !important;
 }
-span.MessageTimestamp{
+span.ConversationTimestamp{
 
 }
 span.ProfferCpriceSpan{
 	font-size: 35px !important;
 }
 span.CandidatesListTitle{
+
+}
+span.MessageTimeStamp{
+	position: absolute;
+	right: 5px;
+	bottom: 0px;
+	font-family: 'Open Sans Condensed', sans-serif !important;
+	font-size: 14px !important;
 
 }
 p.help-text{
@@ -492,6 +500,7 @@ article.MessageContainer{
     color:#2F2F2F;
     text-shadow: 1px 2px 3px #cccccc;
     filter: dropshadow(color=#cccccc, offx=1, offy=2);
+    position: relative;
 }
 article.MessageContainerOwner{
 	margin-left:150px !important;

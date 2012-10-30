@@ -3,6 +3,7 @@ from howmuch.core.models import RequestItem, Proffer, Assignment
 from howmuch.messages.models import Conversation
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
 from howmuch.messages.functions import InitialConversationContext
+from howmuch.notifications.models import Notification
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -100,6 +101,17 @@ def newProffer(request,itemId):
 
 			send_mail(subject,message,'',to)
 
+			"""
+			Se crea la notificacion para el Comprador de que tiene un nuevo Candidato
+			"""
+
+			redirectNotification = '/item/candidates/%s' % (requestItem.pk)
+
+			#El titulo de la notificacion es el mismo que el subject del email enviado anteriormente
+
+			newNotification = Notification(owner = newProffer.requestItem.owner, tipo = '1', title = subject , redirect = redirectNotification)
+			newNotification.save()
+
 			return HttpResponseRedirect('/pictures/addpicture/proffer/' + str(newProffer.pk) )
 	else:
 		form = ProfferForm()
@@ -165,6 +177,17 @@ def newAssignment(request, itemId, candidateID):
 
 			newContext.createMessageByBuyer()
 			newContext.createMessageBySaller()
+
+
+			"""
+			Se crea la notificacion 
+			"""
+
+			redirectNotification = '/messages/%s' % (conversation.pk) 
+
+			newNotification = Notification(owner=newAssignment.owner, tipo='2', title = subject, redirect = redirectNotification)
+			newNotification.save()
+
 
 			return HttpResponseRedirect("/Thanks/")
 	else:

@@ -1,6 +1,9 @@
+# -*- coding: utf8 -*- 
+
 from django.db import models
 from howmuch.core.models import Assignment
 from django.contrib.auth.models import User
+import datetime
 
 STATUS_CHOICES = (
 
@@ -50,9 +53,10 @@ class Conversation(models.Model):
 		return Message.objects.filter(owner= self.assignment.requestItem.owner , conversation=self, has_been_readed=False).count()
 
 	def has_unread_messages(self):
-		if self.getNumber_unread_messages_buyer > 0 or self.getNumber_unread_messages_seller > 0 :
+		if self.getNumber_unread_messages_seller() > 0 or self.getNumber_unread_messages_buyer() > 0:
 			return True
 		return False
+
 
 
 class Message(models.Model):
@@ -64,5 +68,22 @@ class Message(models.Model):
 
 	def __unicode__(self):
 		return u'message: %s' % (self.message)
+
+	def get_timestamp(self):
+		delta = datetime.datetime.now() - self.date
+		deltaSeconds = delta.total_seconds()
+
+		if deltaSeconds < 60:
+			return "%s segundos" % (int(deltaSeconds))
+		elif deltaSeconds >= 60 and deltaSeconds < 3600:
+			return "%s minutos" % (int(deltaSeconds/60))
+		elif deltaSeconds >= 3600 and deltaSeconds < 86400:
+			return "%s horas" % (int(deltaSeconds/3600))
+		elif deltaSeconds >= 86400 and deltaSeconds < 31536000:
+			return "%s dias" % (int(deltaSeconds/86400))
+		else:
+			return "%s años" % (int(deltaSeconds/31536000)) 
+
+
 
 

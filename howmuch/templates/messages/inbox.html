@@ -65,7 +65,7 @@
 						<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.requestItem.title }}</a></span></br>
 						<span>{{ conversation.get_latest_message.message }}</span></br>
 						<div class="MessageTimestampWrapper">
-							<span class="MessageTimestamp">hace X Minutos</span>
+							<span class="ConversationTimestamp">hace {{ conversation.get_latest_message.get_timestamp }}</span>
 						</div>
 				
 					</div>
