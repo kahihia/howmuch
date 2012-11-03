@@ -10,10 +10,66 @@
 {% block content %}
 
 Fueron encontrados {{searchresults.matches }} Resultados
-{% for result in searchresults.results %}
 
-<li>{{result.text}}</li>
+<section class="SearchResultsWrapper">
 
-{% endfor %}
+	{% for result in searchresults.results %}
+
+	<article class="ItemResultWrapper">
+
+		<div class="ItemResultPicture">
+
+			<a href="{{ result.docid }}">
+
+				<img src='{{ result.picture }}'>
+
+			</a>
+			
+
+		</div>
+
+		<div class="ItemResultContent">
+
+			<div class="ItemResultContentAbout">
+
+				 <a href="">{{ result.owner }}</a> paga <span class="ItemSpanBig">$ {{ result.price }}</span>
+
+			</div>
+
+			<div class="ItemResultContentTitle">
+
+				<a href="{{ result.docid }}">{{ result.text }}</a>
+
+			</div>
+
+			<div class="ItemResultContentExtra">
+
+				<span>{{ result.candidates }}</span>
+				<a href="">VENDER</a>
+
+			</div>
+
+
+
+		</div>
+		
+
+		
+
+		
+
+		
+
+		
+
+	
+
+	</article>
+
+	{% endfor %}
+
+
+</section>
+
 
 {% endblock %}

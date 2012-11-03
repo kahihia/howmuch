@@ -1,10 +1,11 @@
 # Django settings for howmuch project.
-
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 import os
+import dj_database_url
 
 gettext_noop = lambda s: s
 
-import dj_database_url
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -117,6 +118,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+)
+
 ROOT_URLCONF = 'howmuch.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -147,6 +152,7 @@ INSTALLED_APPS = (
     'howmuch.searchengine',
     'howmuch.backend',
     'howmuch.notifications',
+    'endless_pagination',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',

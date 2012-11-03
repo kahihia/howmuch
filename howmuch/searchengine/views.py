@@ -12,19 +12,33 @@ def defineIndex():
 	index = api.get_index('idx')
 	return({"api": api, "index": index})
 
+def indexRequestItem(item):
+	resource = defineIndex()
+	index = resource['index']
+	index.add_document(item.get_url(), {'text' : item.title, 
+		'candidates' : item.getNumber_candidates(), 'state' : item.state, 'price' : item.price, 'picture' : item.get_first_picture_100x100(),
+		'owner' : item.owner.username })
+
 def indexsearch(request):
 	resource = defineIndex()
-	allObjs = RequestItem.objects.all()
+	items = RequestItem.objects.all()
 	index = resource['index']
 
-	for obj in allObjs:
+	for item in items:
 		try:
-			objtitle = str(obj.title)
+			itemtitle = str(item.title)
 		except UnicodeEncodeError:
-			objtitle = False
-		if objtitle:
+			itemtitle = False
+		if itemtitle:
 			index.add_document(str(obj.pk), {'text': objtitle})
 	return(HttpResponse('Indexing: %s' % datetime.datetime.now() ))
+
+def to_str(key, value):
+    if isinstance(key, unicode):
+        key = str(key)
+    if isinstance(value, unicode):
+        value = str(value)
+    return key, value
 
 def searchservice(request):
 	q = urllib.unquote(request.GET.get('q', '')) # uncode the request
@@ -41,16 +55,7 @@ def searchservice(request):
 		# because the user is still typing.
 		finalq = ' AND text:'.join(q)
 		finalq += "*" # Wildcard at the end!
-		searchresults = index.search( 'text:%s' % finalq , fetch_fields=['text']) # Run the search
-		#for result in searchresults['results']: # For each searchresults
-		#	try:
-				# Grab the object in django, if it's published!
-		#		obj = RequestItem.objects.get(pk=result['docid'])
-		#		results.append(obj)
-		#	except RequestItem.DoesNotExist: # Model wasn't found.
-		#		pass
-		# Return the results in a serialized JSON response.
-		#return HttpResponse(serializers.serialize("json", searchresults))
+		searchresults = index.search( 'text:%s' % finalq , fetch_fields=['picture','text', 'candidates', 'state', 'price', 'owner']) # Run the search
+		
 		return render_to_response('searchengine/results.html', {'searchresults' : searchresults}, context_instance = RequestContext(request) )
-	# Or some raw JSON saying none were found.
 	return HttpResponse('{"results": "none"}') 

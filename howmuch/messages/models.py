@@ -2,6 +2,7 @@
 
 from django.db import models
 from howmuch.core.models import Assignment
+from howmuch.backend.functions import get_timestamp
 from django.contrib.auth.models import User
 import datetime
 
@@ -70,20 +71,5 @@ class Message(models.Model):
 		return u'message: %s' % (self.message)
 
 	def get_timestamp(self):
-		delta = datetime.datetime.now() - self.date
-		deltaSeconds = delta.total_seconds()
-
-		if deltaSeconds < 60:
-			return "%s segundos" % (int(deltaSeconds))
-		elif deltaSeconds >= 60 and deltaSeconds < 3600:
-			return "%s minutos" % (int(deltaSeconds/60))
-		elif deltaSeconds >= 3600 and deltaSeconds < 86400:
-			return "%s horas" % (int(deltaSeconds/3600))
-		elif deltaSeconds >= 86400 and deltaSeconds < 31536000:
-			return "%s dias" % (int(deltaSeconds/86400))
-		else:
-			return "%s años" % (int(deltaSeconds/31536000)) 
-
-
-
+		return get_timestamp(self.date)
 

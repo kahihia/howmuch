@@ -1,11 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 from howmuch.pictures.models import Picture
 from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
 from smart_selects.db_fields import ChainedForeignKey
 import datetime
-
-
 
 STATES_CHOICES = (
 
@@ -63,6 +62,9 @@ class RequestItem(models.Model):
 		else:
 			return False
 
+	def getNumber_candidates(self):
+		return Proffer.objects.filter(requestItem = self).count()
+
 	#True si el item ya posee asignacion
 	def has_assignment(self):
 		try:
@@ -96,6 +98,11 @@ class RequestItem(models.Model):
 	def get_first_picture_250x250(self):
 		for p in self.pictures.all()[:1]:
 			return p.get_url_250x250()
+
+	def get_url(self):
+		return '/item/%s' % (self.pk)
+
+
 
 
 

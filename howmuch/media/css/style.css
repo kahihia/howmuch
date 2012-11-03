@@ -392,6 +392,15 @@ section.ConversationContainer{
 	padding:10px;
 	width:700px;
 }
+section.NotificationsWrapper{
+	background: white;
+	border-radius: 2px;
+	border: 1px solid rgb(221, 221, 221);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	margin:5px;
+	padding:10px;
+	width:700px;
+}
 span.LabelItemForm{
 	display:block;
 	font-family: 'Archivo Narrow', sans-serif;
@@ -528,7 +537,21 @@ article.InboxMessageWrapper{
 article.InboxUnchecked{
 	border: 1px solid #3BB4FF !important;
 }
-
+article.NotificationContainer{
+	border-bottom: 1px solid black;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 18px;
+}
+article.NotificationUnread{
+	background: #FDC7C7;
+}
+article.NotificationContainer div.NotificationDescription a{
+	text-decoration: none;
+}
+article.ItemResultWrapper{
+	height: 100px;
+	margin-bottom: 15px;
+}
 a.GoItemThumbsMore{
 }
 form.ConversationFormMessage{
@@ -644,7 +667,7 @@ form.ConversationFormMessage{
 	display:inline-block;
 	vertical-align: top;
 }
-.MessageTimestampWrapper{
+.MessageTimestampWrapper,.NotificationTimestamp{
 	text-align: right;
 }
 .CandidateItemWrapper{
@@ -692,6 +715,28 @@ form.ConversationFormMessage{
 	position: absolute;
 	top:5px;
 	right: 5px;
+}
+
+.ItemResultPicture, .ItemResultContent{
+	display: inline-block;
+	vertical-align: middle;
+} 
+.ItemResultContent{
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 18px;
+	border: 1px solid rgb(221, 221, 221);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	background: white;
+	position: relative;
+	width:600px;
+	height: 90px;
+}
+.ItemResultPicture{
+	border:4px solid white;
+	border-radius: 5px;
+}
+.ItemResultContentAbout{
+	text-align: right;
 }
 #id_itemsCatA,#id_itemsCatB, #id_itemsCatC{
 	border:2px solid #00b7ea;

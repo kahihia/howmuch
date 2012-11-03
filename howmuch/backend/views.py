@@ -1,13 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from howmuch.messages.models import Conversation
+from howmuch.notifications.models import Notification
 from django.db.models import Q
 import json
-
-@login_required(login_url="/login/")
-def salesCount(request):
-	return 0
 
 @login_required(login_url="/login/")
 def inboxCount(request):
@@ -22,7 +20,9 @@ def inboxCount(request):
 			
 	return HttpResponse(json.dumps({ 'numConversations' : numConversations }))
 
-@login_required(login_url="/login")
-def purchasesCount(request):
-	return 0
+@login_required(login_url="/login/")
+def notificationsCount(request):
+	numNotifications = Notification.objects.filter(owner=request.user, has_been_readed = False).count()
+
+	return HttpResponse(json.dumps({'numNotifications' : numNotifications }))
 

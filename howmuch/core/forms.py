@@ -37,6 +37,11 @@ class NewItemForm3(ModelForm):
             'addressDelivery' : Textarea(attrs={'class':'InputFormRequestItem', 'cols' : 40, 'rows' : '5'}),
         }
 
+class NewItemForm4(forms.Form):
+	picture1 = forms.ImageField()
+	picture2 = forms.ImageField(required=False)
+	picture3 = forms.ImageField(required=False)
+	
 class RequestItemForm(ModelForm):
 	#captcha = CaptchaField()	
 	class Meta:

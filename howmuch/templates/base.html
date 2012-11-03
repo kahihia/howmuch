@@ -49,9 +49,10 @@
 
                 <nav class="itemHeader" id ="menu">
                     <ul>
-                        <li><a href="/sales/possible">(0)Ventas</a></li>
-                        <li><a href="/messages/inbox">(<span id="unreadInboxNotification"></span>)Inbox</a></li>
-                        <li><a href="/purchases/published">(0)Compras</a></li>
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/notifications/">(<span id="unreadNotifications"></span>)</a></li>
+                        <li><a href="/messages/inbox">(<span id="unreadInboxNotification"></span>)</a></li>
+                        <li><a href="#">Cuenta</a></li>
                     </ul> 
                 </nav>
 
@@ -109,6 +110,9 @@
                 $.getJSON("/backend/inboxcount/", function(json) {
                     $("#unreadInboxNotification").html(json.numConversations);
                 });
+                $.getJSON("/backend/notificationscount", function(json){
+                     $("#unreadNotifications").html(json.numNotifications);
+                })
             })
         </script>
     </body>

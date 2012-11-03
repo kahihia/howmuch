@@ -10,6 +10,7 @@ celery==3.0.9
 distribute==0.6.27
 dj-database-url==0.2.1
 django-celery==3.0.9
+django-endless-pagination==1.1
 django-simple-captcha==0.3.4
 django-storages==1.1.5
 gunicorn==0.14.6

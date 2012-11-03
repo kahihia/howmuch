@@ -8,11 +8,42 @@
 
 {% block content %}
 
+<section class="NotificationsWrapper">
+
 {% for notification in notifications %}
 
-	{{ notification.title }}
+	{% if not notification.has_been_readed %}
+
+	<article class="NotificationContainer NotificationUnread">
+
+	{% else %}
+
+	<article class="NotificationContainer">
+
+	{% endif %}
+
+		<div class="NotificationPicture">
+
+		</div>
+
+		<div class="NotificationDescription">
+
+			<a href="{{notification.redirect}}">{{ notification.title }}</a>
+
+		</div>
+
+		<div class="NotificationTimestamp">
+
+			<span>hace {{ notification.get_timestamp }}</span>
+
+		</div>
+
+	</article>
+
+	
 
 {% endfor %}
 
+</section>
 
 {% endblock %}

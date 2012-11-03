@@ -1,0 +1,37 @@
+{% load endless %}
+
+	{% paginate items %}
+	{% for item in items %}
+	<article class="ItemThumbs">
+		<div class="ItemThumbsPicture">
+			<img src="{{ item.get_first_picture_100x100 }}">
+		</div>
+
+		<div class="ItemThumbsPriceTitle">
+			<div class="ItemThumbsPrice">
+				<b><span>{{ item.state }}</span></b> en <b><span>$ {{ item.price }}</span></b>
+			</div>
+
+			<div clas="ItemThumbsTitle">
+				<span> {{ item.title }} </span>
+			</div>
+		</div>
+
+		<div class="ItemThumbsMoreButtonSell">
+			<div class="ItemThumbsMore">
+				<a class="button-green"href="/item/{{ item.pk }}">Leer mas</a>
+			</div>
+			<div class="ItemThumbsButtonSell">
+				<button class="button-blue small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>Vender</button>
+			</div>
+		</div>
+	</article>
+
+	{% empty %}
+		<p>No hay Articulos publicados!!</p>
+	{% endfor %}
+	{% show_more %}
+
+
+ 
+

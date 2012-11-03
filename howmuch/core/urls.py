@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
 
-from howmuch.core.forms import NewItemForm1, NewItemForm2, NewItemForm3
+from howmuch.core.forms import NewItemForm1, NewItemForm2, NewItemForm3, NewItemForm4
 from howmuch.core.views import NewItemWizard
 
 FORMS = [('description', NewItemForm1),
          ('clasification', NewItemForm2),
-         ('delivery', NewItemForm3)]
+         ('delivery', NewItemForm3),
+         ('pictures', NewItemForm4 )]
 
 
 urlpatterns = patterns('howmuch.core.views',

@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from howmuch.messages.forms import MessageForm
 from howmuch.messages.models import Conversation, Message
+from howmuch.notifications.models import Notification
 from howmuch.messages.functions import ConversationFeatures
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -27,6 +29,23 @@ def newMessage(request, conversationID):
 	else:
 		return HttpResponse("No tienes permiso para publicar en esta conversacion")
 
+	
+
+	"""
+	Si vienes de una notificacion, realizar las verificaciones y actualizar a True el status de la notificacion
+	"""
+	if request.GET.__contains__('notif_type') and request.GET.__contains__('idBack'):
+		if request.GET['notif_type'] in ['assignment', 'confirm_pay', 'confirm_delivery'] and request.GET['idBack'] is not '' :
+			notif_type = request.GET['notif_type']
+			idBack = request.GET['idBack']
+			try:
+				#Me aseguro que el usuario sea el dueño de la notificacion, que la notificacion este en False y la paso a True
+				notification = Notification.objects.get(owner=request.user, tipo = notif_type, has_been_readed = False ,idBack = idBack)
+			except Notification.DoesNotExist:
+				pass
+			else:
+				notification.has_been_readed = True
+				notification.save()		
 
 	"""
 	Verifica si es comprador y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion

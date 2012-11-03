@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
 from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
-from howmuch.core.models import RequestItem, Proffer, Assignment
+from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture
 from howmuch.messages.models import Conversation
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
+from howmuch.pictures.models import Picture
 from howmuch.messages.functions import InitialConversationContext
 from howmuch.notifications.models import Notification
+from howmuch.searchengine.views import indexRequestItem
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -12,33 +15,76 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import timedelta, date
 from django.template import RequestContext
 from django.contrib.formtools.wizard.views import SessionWizardView
+from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
+from django.conf import settings
+from endless_pagination.decorators import page_template
 import datetime
-
 
 
 TEMPLATES = {'description': 'newitem/description.html',
              'clasification': 'newitem/clasification.html',
              'delivery': 'newitem/delivery.html',
+             'pictures' : 'newitem/pictures.html',
       	}
 
 class NewItemWizard(SessionWizardView):
+	file_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
+
 	def get_template_names(self):
 		return [TEMPLATES[self.steps.current]]
 
 	def done(self, form_list,**kwargs):
+		"""
+		Se gurdan los primeros 3 formularios
+		"""
 		instance = RequestItem()
-		for form in form_list:
+		for form in form_list[0:3]:
 			for field, value in form.cleaned_data.iteritems():
 				setattr(instance, field, value)
 		instance.owner = self.request.user
 		instance.save()
-		return HttpResponseRedirect('/pictures/addpicture/requestitem/' + str(instance.pk))
+
+		"""
+		Se gurdan el 4 formulario correspondiente a las imagenes
+		"""
+	
+		for field, value in form_list[3].cleaned_data.iteritems():
+			if value is not None:
+				instancePicture = Picture()
+				setattr(instancePicture, 'picture', value)
+				instancePicture.owner = self.request.user
+				instancePicture.save()
+				instanceRequestItemPicture = RequestItemPicture(requestItem = instance, picture = instancePicture)
+				instanceRequestItemPicture.save()
+	
+		#Se anexa a la base de datos del motor de busqueda
+		indexRequestItem(instance)
+
+		return HttpResponseRedirect('/item/' + str(instance.pk) )
+
+"""
 
 @login_required(login_url="/login/")
 def home(request):
 	items = RequestItem.objects.all()
 	return render_to_response('core/home.html',{'items' : items } ,context_instance=RequestContext(request))
+
+
+"""
+
+
+@page_template('core/home_index_page.html')  # just add this decorator
+def home(
+        request, template='core/home_index.html', extra_context=None):
+    context = {
+        'items': RequestItem.objects.all(),
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+    return render_to_response(
+        template, context, context_instance=RequestContext(request))
+
 
 @login_required(login_url="/login/")
 def requestItem(request):
@@ -105,11 +151,11 @@ def newProffer(request,itemId):
 			Se crea la notificacion para el Comprador de que tiene un nuevo Candidato
 			"""
 
-			redirectNotification = '/item/candidates/%s' % (requestItem.pk)
+			redirectNotification = '/item/candidates/%s?notif_type=proffer&idBack=%s' % (requestItem.pk, newProffer.pk)
 
 			#El titulo de la notificacion es el mismo que el subject del email enviado anteriormente
 
-			newNotification = Notification(owner = newProffer.requestItem.owner, tipo = '1', title = subject , redirect = redirectNotification)
+			newNotification = Notification(owner = newProffer.requestItem.owner, tipo = 'proffer', title = subject , redirect = redirectNotification, idBack = newProffer.pk )
 			newNotification.save()
 
 			return HttpResponseRedirect('/pictures/addpicture/proffer/' + str(newProffer.pk) )
@@ -120,6 +166,21 @@ def newProffer(request,itemId):
 
 @login_required(login_url="/login/")
 def viewCandidates(request, itemId):
+	"""
+	Si cuenta con los parametros get notif_type and idBack, se hacen verificaciones y se actualiza la notificacion a has_been_readed = True
+	"""
+	if request.GET.__contains__('notif_type') and request.GET.__contains__('idBack'):
+		if request.GET['notif_type'] == 'proffer' and request.GET['idBack'] is not '' :
+			idBack = request.GET['idBack']
+			try:
+				#Me aseguro que el usuario sea el dueño de la notificacion, que la notificacion este en False y la paso a True
+				notification = Notification.objects.get(owner=request.user, tipo = 'proffer', has_been_readed = False ,idBack = idBack)
+			except Notification.DoesNotExist:
+				pass
+			else:
+				notification.has_been_readed = True
+				notification.save()
+
 	candidates = Proffer.objects.filter(requestItem = itemId)
 	return render_to_response('core/candidatesList.html', {'candidates' : candidates }, context_instance=RequestContext(request))
 
@@ -183,9 +244,9 @@ def newAssignment(request, itemId, candidateID):
 			Se crea la notificacion 
 			"""
 
-			redirectNotification = '/messages/%s' % (conversation.pk) 
+			redirectNotification = '/messages/%s?notif_type=assignment&idBack=%s' % (conversation.pk, newAssignment.pk) 
 
-			newNotification = Notification(owner=newAssignment.owner, tipo='2', title = subject, redirect = redirectNotification)
+			newNotification = Notification(owner=newAssignment.owner, tipo='assignment', title = subject, redirect = redirectNotification, idBack=newAssignment.pk)
 			newNotification.save()
 
 

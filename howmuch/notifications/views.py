@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from howmuch.notifications.models import Notification
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
