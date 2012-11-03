@@ -536,6 +536,7 @@ article.InboxMessageWrapper{
 }
 article.InboxUnchecked{
 	border: 1px solid #3BB4FF !important;
+	background: #E2EFFF !important;
 }
 article.NotificationContainer{
 	border-bottom: 1px solid black;
@@ -641,7 +642,7 @@ form.ConversationFormMessage{
 	margin:0 auto;
 }
 .NewItemButtons{
-	text-align: center;
+	text-align: right;
 }
 .ViewItemButtons{
 	text-align: left;

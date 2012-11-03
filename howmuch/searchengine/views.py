@@ -17,7 +17,7 @@ def indexRequestItem(item):
 	index = resource['index']
 	index.add_document(item.get_url(), {'text' : item.title, 
 		'candidates' : item.getNumber_candidates(), 'state' : item.state, 'price' : item.price, 'picture' : item.get_first_picture_100x100(),
-		'owner' : item.owner.username })
+		'owner' : item.owner.username, 'pk' : item.pk })
 
 def indexsearch(request):
 	resource = defineIndex()
@@ -32,13 +32,6 @@ def indexsearch(request):
 		if itemtitle:
 			index.add_document(str(obj.pk), {'text': objtitle})
 	return(HttpResponse('Indexing: %s' % datetime.datetime.now() ))
-
-def to_str(key, value):
-    if isinstance(key, unicode):
-        key = str(key)
-    if isinstance(value, unicode):
-        value = str(value)
-    return key, value
 
 def searchservice(request):
 	q = urllib.unquote(request.GET.get('q', '')) # uncode the request
@@ -55,7 +48,7 @@ def searchservice(request):
 		# because the user is still typing.
 		finalq = ' AND text:'.join(q)
 		finalq += "*" # Wildcard at the end!
-		searchresults = index.search( 'text:%s' % finalq , fetch_fields=['picture','text', 'candidates', 'state', 'price', 'owner']) # Run the search
+		searchresults = index.search( 'text:%s' % finalq , fetch_fields=['picture','text', 'candidates', 'state', 'price', 'owner', 'pk']) 
 		
 		return render_to_response('searchengine/results.html', {'searchresults' : searchresults}, context_instance = RequestContext(request) )
 	return HttpResponse('{"results": "none"}') 

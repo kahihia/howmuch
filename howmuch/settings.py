@@ -7,7 +7,7 @@ gettext_noop = lambda s: s
 
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

@@ -1,4 +1,4 @@
-{% extends "newitem/base.html" %}
+{% extends "newproffer/base.html" %}
 
 {% block media %}
 
@@ -35,7 +35,7 @@
     	{{ wizard.form.picture3.errors }}
 	</div>
 
-	<div class="NewItemButtons">
+	<div class="">
 		{% if wizard.steps.prev %}
 			<button class="button-blue" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Regresar" %}</button>
 		{% endif %}

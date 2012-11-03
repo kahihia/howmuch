@@ -41,7 +41,9 @@ class NewItemForm4(forms.Form):
 	picture1 = forms.ImageField()
 	picture2 = forms.ImageField(required=False)
 	picture3 = forms.ImageField(required=False)
-	
+
+
+
 class RequestItemForm(ModelForm):
 	#captcha = CaptchaField()	
 	class Meta:
@@ -59,6 +61,8 @@ class RequestItemForm(ModelForm):
             'addressDelivery' : Textarea(attrs={'class':'InputFormRequestItem', 'cols' : 40, 'rows' : '5'}),
         }
 
+
+
 class ProfferForm(ModelForm):
 	class Meta:
 		model = Proffer
@@ -67,6 +71,23 @@ class ProfferForm(ModelForm):
 			'cprice' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Ej. 500'}),
 			'message' : Textarea(attrs={'class' : 'InputFormRequestItem', 'cols': 60, 'rows': 2, 'placeholder' : 'Ej. Debes comprarme el articulo por esta razon, esta otra y esta otra ... '}),
 		}
+
+
+class NewProfferForm1(ModelForm):
+	class Meta:
+		model = Proffer
+		exclude = ('owner', 'requestItem', 'date', 'pictures', )
+		widgets = {
+			'cprice' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Ej. 500'}),
+			'message' : Textarea(attrs={'class' : 'InputFormRequestItem', 'cols' : 60, 'rows' : 2, 'placeholder' : 'Ej. Debes comprarme el articulo por esta razon, esta otra y esta otra ... '}),
+		}
+
+
+class NewProfferForm2(forms.Form):
+	picture1 = forms.ImageField()
+	picture2 = forms.ImageField(required=False)
+	picture3 = forms.ImageField(required=False)
+
 
 class AssignmentForm(ModelForm):
 	duedate = forms.DateTimeField(widget=widgets.AdminSplitDateTime)

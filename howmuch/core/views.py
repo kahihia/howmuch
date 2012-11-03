@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
-from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture
+from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture, ProfferPicture
 from howmuch.messages.models import Conversation
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
 from howmuch.pictures.models import Picture
@@ -22,17 +22,21 @@ from endless_pagination.decorators import page_template
 import datetime
 
 
-TEMPLATES = {'description': 'newitem/description.html',
+TEMPLATES_NEWITEM = {'description': 'newitem/description.html',
              'clasification': 'newitem/clasification.html',
              'delivery': 'newitem/delivery.html',
              'pictures' : 'newitem/pictures.html',
       	}
 
+TEMPLATES_NEWPROFFER = { 'description' : 'newproffer/description.html',
+			'pictures' : 'newproffer/pictures.html'	
+}
+
 class NewItemWizard(SessionWizardView):
 	file_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
 
 	def get_template_names(self):
-		return [TEMPLATES[self.steps.current]]
+		return [TEMPLATES_NEWITEM[self.steps.current]]
 
 	def done(self, form_list,**kwargs):
 		"""
@@ -63,7 +67,93 @@ class NewItemWizard(SessionWizardView):
 
 		return HttpResponseRedirect('/item/' + str(instance.pk) )
 
+
+class NewProfferWizard(SessionWizardView):
+	file_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
+
+	def validate_form(self):
+		"""
+		Validar que el RequestItem exista, si no existe regresa error 404
+		"""
+
+		requestItem = get_object_or_404(RequestItem, pk = self.request.GET['item_id'])
+
+		"""
+		Se crea una instancia de UserRequestItem
+		"""
+
+		userRequestItem = UserRequestItem(self.request.user, self.request.GET['item_id'])
+
+		"""
+		Se valida la instancia: User is not candidate, is not owner, is not assigned
+		"""
+
+		if userRequestItem.is_valid():
+			return True
+		else:
+			return HttpResponseRedirect('/errors/')
+
+	def get_template_names(self):
+		if self.validate_form():
+			return [TEMPLATES_NEWPROFFER[self.steps.current]]
+		
+	def done(self, form_list,**kwargs):
+		"""
+		Se gurda el primer formulario
+		"""
+		instance = Proffer()
+		for form in form_list[0:1]:
+			for field, value in form.cleaned_data.iteritems():
+				setattr(instance, field, value)
+		instance.requestItem = get_object_or_404(RequestItem, pk = self.request.GET['item_id'])
+		instance.owner = self.request.user
+		instance.save()
+
+		"""
+		Se gurdan el 2 formulario correspondiente a las imagenes
+		"""
+	
+		for field, value in form_list[1].cleaned_data.iteritems():
+			if value is not None:
+				instancePicture = Picture()
+				setattr(instancePicture, 'picture', value)
+				instancePicture.owner = self.request.user
+				instancePicture.save()
+				instanceProfferPicture = ProfferPicture(proffer = instance, picture = instancePicture)
+				instanceProfferPicture.save()
+
+
+
+
+		"""
+		Se envia email al comprador de que hay un nuevo candidato dispuesto a venderle el articulo
+		"""
+
+		subject = 'Hay un nuevo Vendedor para el articulo %s' % (instance.requestItem.title)
+
+		message = '%s quiere venderte el articulo a $ %s, y para que lo elijas te dice lo siguiente: %s' % (instance.owner, instance.cprice,instance.message)
+
+		to = [instance.requestItem.owner.email]
+
+		send_mail(subject,message,'',to)
+
+		"""
+		Se crea la notificacion para el Comprador de que tiene un nuevo Candidato
+		"""
+
+		redirectNotification = '/item/candidates/%s?notif_type=proffer&idBack=%s' % (instance.requestItem.pk, instance.pk)
+
+		#El titulo de la notificacion es el mismo que el subject del email enviado anteriormente
+
+		newNotification = Notification(owner = instance.requestItem.owner, tipo = 'proffer', title = subject , redirect = redirectNotification, idBack = instance.pk )
+		newNotification.save()
+
+		return HttpResponse("Has aplicado correctamente, espera instrucciones")
+
+
 """
+
+
 
 @login_required(login_url="/login/")
 def home(request):
@@ -73,7 +163,7 @@ def home(request):
 
 """
 
-
+@login_required(login_url="/login/")
 @page_template('core/home_index_page.html')  # just add this decorator
 def home(
         request, template='core/home_index.html', extra_context=None):
