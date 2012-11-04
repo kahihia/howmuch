@@ -17,7 +17,7 @@ from django.template import RequestContext
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
-from django.conf import settings
+from storages.backends.s3boto import S3BotoStorage
 from endless_pagination.decorators import page_template
 import datetime
 
@@ -33,7 +33,8 @@ TEMPLATES_NEWPROFFER = { 'description' : 'newproffer/description.html',
 }
 
 class NewItemWizard(SessionWizardView):
-	file_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
+
+	file_storage = S3BotoStorage(location='pictures_temp')
 
 	def get_template_names(self):
 		return [TEMPLATES_NEWITEM[self.steps.current]]
@@ -69,7 +70,8 @@ class NewItemWizard(SessionWizardView):
 
 
 class NewProfferWizard(SessionWizardView):
-	file_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
+
+	file_storage = S3BotoStorage(location='pictures_temp')
 
 	def validate_form(self):
 		"""
