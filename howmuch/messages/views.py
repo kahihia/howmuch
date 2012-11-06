@@ -17,7 +17,7 @@ def newMessage(request, conversationID):
 	conversation = get_object_or_404(Conversation, pk = conversationID)
 
 	
-	#Crea una instancia de conversationFeatures y verifica que quien publica el mensaje en la conversacion sea ya sea el buyer o el saller
+	#Crea una instancia de conversationFeatures y verifica que quien publica el mensaje en la conversacion sea ya sea el buyer o el seller
 	
 	#conversationFeature = ConversationFeatures(conversation, request.user)
 

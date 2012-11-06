@@ -22,7 +22,7 @@
 				<a class="button-green"href="/item/{{ item.pk }}">Leer mas</a>
 			</div>
 			<div class="ItemThumbsButtonSell">
-				<a class="button-blue" href="/proffer/new/?item_id={{item.pk}}">VENDER</a>
+				<button class="button-blue small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>Vender</button>
 			</div>
 		</div>
 	</article>

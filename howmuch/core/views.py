@@ -91,13 +91,12 @@ class NewProfferWizard(SessionWizardView):
 		"""
 
 		if userRequestItem.is_valid():
-			return True
+			pass
 		else:
-			return HttpResponseRedirect('/errors/')
+			return HttpResponse(userRequestItem.errors())
 
 	def get_template_names(self):
-		if self.validate_form():
-			return [TEMPLATES_NEWPROFFER[self.steps.current]]
+		return [TEMPLATES_NEWPROFFER[self.steps.current]]
 		
 	def done(self, form_list,**kwargs):
 		"""
@@ -152,19 +151,6 @@ class NewProfferWizard(SessionWizardView):
 
 		return HttpResponse("Has aplicado correctamente, espera instrucciones")
 
-
-"""
-
-
-
-@login_required(login_url="/login/")
-def home(request):
-	items = RequestItem.objects.all()
-	return render_to_response('core/home.html',{'items' : items } ,context_instance=RequestContext(request))
-
-
-"""
-
 @login_required(login_url="/login/")
 @page_template('core/home_index_page.html')  # just add this decorator
 def home(
@@ -178,6 +164,7 @@ def home(
         template, context, context_instance=RequestContext(request))
 
 
+"""
 @login_required(login_url="/login/")
 def requestItem(request):
 	if request.method == 'POST':
@@ -191,6 +178,7 @@ def requestItem(request):
 	else:
 		form = RequestItemForm(initial={'addressDelivery' : request.user.get_profile().getAddressDelivery()})
 	return render_to_response('core/newitem.html', {'form' : form}, context_instance=RequestContext(request))
+"""
 
 def viewItem(request, itemID):
 	item = get_object_or_404(RequestItem, pk=itemID)

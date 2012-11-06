@@ -9,6 +9,27 @@
 
 {% block content %}
 
+<section class="PrestigeOptions">
+
+
+
+		<ul>
+			{% if conversation.assignment.requestItem.owner == user%}
+			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
+			<li><a href="/prestige/setprestigetoseller/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
+			{% else %}
+			{% if conversation.assignment.owner == user %}
+			<li><a href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
+			<li><a href="/prestige/setprestigetobuyer/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
+			{% endif %}{% endif %}
+			
+			<li><a href="#">Solucionar Problemas</a></li>
+		</ul>
+
+
+
+</section>
+
 <section class="ConversationContainer">
 
 	<section class="ConversationAssignmentRequestItem">

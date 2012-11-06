@@ -2,10 +2,12 @@ from howmuch.prestige.models import Prestige
 from howmuch.core.models import Assignment
 from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeForm
 from howmuch.messages.models import Conversation, Message
+from howmuch.notifications.models import Notification
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from django.core.mail import send_mail
 from howmuch.core.functions import AssignmentFeatures
 
 STATUS_ASSIGNMENT = (
@@ -21,6 +23,10 @@ STATUS_ASSIGNMENT = (
 
 @login_required(login_url="/login/")
 def confirmPay(request, assignmentID):
+
+	"""
+	Se Verifica que quien confirme el pago sea el COMPRADOR
+	"""
 	assignment = get_object_or_404(Assignment, pk = assignmentID, requestItem__owner = request.user)
 
 	"""
@@ -35,8 +41,7 @@ def confirmPay(request, assignmentID):
 	#Se valida que el pago no haya sido confirmado anteriormente
 	if assignmentFeature.has_been_paid():
 		return HttpResponse("Ya has confirmado este pago, no puedes confirmarlo nuevamente")
-
-	if request.method == 'POST':
+	elif request.method == 'POST':
 		form = PayConfirmForm(request.POST)
 		if form.is_valid():
 			newPay = form.save(commit = False)
@@ -51,16 +56,42 @@ def confirmPay(request, assignmentID):
 			"""
 			Se agrega a la conversacion de la asignacion el mensaje enviado en ConfirmPay
 			"""
-			newMessage = Message.objects.create(owner = request.user, message = newPay.message, conversation = conversation)
-			newMessage.save()
+			#newMessage = Message.objects.create(owner = request.user, message = newPay.message, conversation = conversation)
+			#newMessage.save()
 
-			return HttpResponseRedirect('/thanks/')
+			"""
+			Se envia email al VENDEDOR de que ya ha sido confirmado el pago
+			"""
+
+			subject = 'Confirmacion de PAGO del articulo %s' % (assignment.requestItem.title)
+
+			message = '%s acaba de confirmarte el pago del articulo %s por una cantidad de %s y te ha dejado el siguiente mensaje: %s' % (newPay.owner, assignment.requestItem.title, newPay.amount, newPay.message)
+
+			to = [assignment.owner.email]
+
+			send_mail(subject,message,'',to)
+
+			"""
+			Se crea una notificacion al VENDEDOR
+			"""
+
+			redirectNotification = '/messages/%s?notif_type=confirm_pay&idBack=%s' % (conversation.pk, newPay.pk )
+
+			#El titulo de la notificacion es el mismo que el subject del email enviado anteriormente
+
+			newNotification = Notification(owner = assignment.owner, tipo = 'confirm_pay', title = subject , redirect = redirectNotification, idBack = newPay.pk )
+			newNotification.save()
+
+			return HttpResponse('Has confirmado el pago correctamente')
 	else:
 		form = PayConfirmForm()
 	return render_to_response('prestige/payConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
 																			 
 @login_required(login_url="/login/")
 def confirmDelivery(request, assignmentID):
+	"""
+	Se verifica que quien confirma el envio sea el Vendedor
+	"""
 	assignment = get_object_or_404(Assignment, pk = assignmentID, owner = request.user)
 
 	"""
@@ -79,8 +110,7 @@ def confirmDelivery(request, assignmentID):
 	#Se valida que la confirmacion del envio no haya sido confirmado anteriormente
 	if assignmentFeature.has_been_delivered():
 		return HttpResponse("Ya has confirmado el envio de este articulo, no puedes confirmarlo nuevamente")
-
-	if request.method == 'POST':
+	elif request.method == 'POST':
 		form = DeliveryConfirmForm(request.POST)
 		if form.is_valid():
 			newDelivery = form.save(commit = False )
@@ -95,8 +125,33 @@ def confirmDelivery(request, assignmentID):
 			"""
 			Se agrega a la conversacion de la asignacion el mensaje enviado en ConfirmPay
 			"""
-			newMessage = Message.objects.create(owner = request.user, message = newDelivery.message, conversation = conversation)
-			newMessage.save()
+			#newMessage = Message.objects.create(owner = request.user, message = newDelivery.message, conversation = conversation)
+			#newMessage.save()
+
+			"""
+			Se envia email al COMPRADOR de que ya ha sido confirmado el pago
+			"""
+
+			subject = 'Confirmacion de ENVIO del articulo %s' % (assignment.requestItem.title)
+
+			message = '%s acaba de confirmarte el ENVIO del articulo %s y te ha dejado el siguiente mensaje: %s' % (newDelivery.owner, assignment.requestItem.title, newDelivery.message)
+
+			to = [assignment.requestItem.owner.email]
+
+			send_mail(subject,message,'',to)
+
+			"""
+			Se crea una notificacion al COMPRADOR
+			"""
+
+			redirectNotification = '/messages/%s?notif_type=confirm_delivery&idBack=%s' % (conversation.pk, newDelivery.pk )
+
+			#El titulo de la notificacion es el mismo que el subject del email enviado anteriormente
+
+			newNotification = Notification(owner = assignment.requestItem.owner, tipo = 'confirm_delivery', title = subject , redirect = redirectNotification, idBack = newDelivery.pk )
+			newNotification.save()
+
+			return HttpResponse('Has confirmado el envio correctamente')
 
 			return HttpResponseRedirect('/thanks/')
 	else:
@@ -104,7 +159,7 @@ def confirmDelivery(request, assignmentID):
 	return render_to_response('prestige/deliveryConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
-def setPrestigeSaller(request, assignmentID):
+def setPrestigeToSeller(request, assignmentID):
 	assignment = get_object_or_404(Assignment, pk= assignmentID)
 
 	#Valida que seas el Comprador del articulo para que puedas CRITICAR al vendedor
@@ -126,25 +181,32 @@ def setPrestigeSaller(request, assignmentID):
 	if request.method == 'POST':
 		form = PrestigeForm(request.POST)
 		if form.is_valid():
-			newPrestigeSaller = form.save(commit = False)
-			newPrestigeSaller.de = request.user
-			newPrestigeSaller.to = assignment.owner
-			newPrestigeSaller.assignment = assignment
-			newPrestigeSaller.save()
+			newPrestigeSeller = form.save(commit = False)
+			newPrestigeSeller.de = request.user
+			newPrestigeSeller.to = assignment.owner
+			newPrestigeSeller.assignment = assignment
+			newPrestigeSeller.save()
 			"""
-			Se cambia el estado de la asignacion a 3
+			Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
 			"""
-			assignment.status = "3"
-			assignment.save()
-			return HttpResponseRedirect('/thanks/')
+			if assignment.has_been_critiqued_before():
+				assignment.status = "4"
+				assignment.save()
+			elif assignment.status == "2":
+				assignment.status = "3"
+				assignment.save()
+			return HttpResponse('Has criticado a tu vendedor Correctamente')
 	else:
 		form = PrestigeForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
-def setPrestigeBuyer(request, assignmentID):
+def setPrestigeToBuyer(request, assignmentID):
 	assignment = get_object_or_404(Assignment, pk= assignmentID)
-	if assignment.is_saller(request.user):
+
+	#Valida que seas el Vendedor del articulo para que puedas CRITICAR al Comprador
+
+	if assignment.is_seller(request.user):
 		pass
 	else:
 		return HttpResponse("No tienes permiso para prestigiar a este usuario")
@@ -163,17 +225,22 @@ def setPrestigeBuyer(request, assignmentID):
 	if request.method == 'POST':
 		form = PrestigeForm(request.POST)
 		if form.is_valid():
-			newPrestigeSaller = form.save(commit = False)
-			newPrestigeSaller.de = request.user
-			newPrestigeSaller.to = assignment.requestItem.owner
-			newPrestigeSaller.assignment = assignment
-			newPrestigeSaller.save()
+			newPrestigeSeller = form.save(commit = False)
+			newPrestigeSeller.de = request.user
+			newPrestigeSeller.to = assignment.requestItem.owner
+			newPrestigeSeller.assignment = assignment
+			newPrestigeSeller.save()
 			"""
-			Se cambia el estado de la asignacion a 3
+			Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
 			"""
-			assignment.status = "3"
-			assignment.save()
-			return HttpResponseRedirect('/thanks/')
+			if assignment.has_been_critiqued_before():
+				assignment.status = "4"
+				assignment.save()
+			elif assignment.status == "2":
+				assignment.status = "3"
+				assignment.save()
+	
+			return HttpResponse('Has criticado a tu comprador correctamente')
 	else:
 		form = PrestigeForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))

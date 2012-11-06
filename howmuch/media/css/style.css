@@ -5,7 +5,7 @@ body{
 }
 
 section#content{
-	width:800px;
+	width:1200px;
 	margin: 20px auto;
 }
 section.SectionContent{
@@ -384,13 +384,29 @@ section.ConversationPictureTitle div{
 	display: inline-block;
 }
 section.ConversationContainer{
+	display: inline-block;
 	background: white;
 	border-radius: 2px;
 	border: 1px solid rgb(221, 221, 221);
 	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
-	margin:5px;
 	padding:10px;
 	width:700px;
+	vertical-align: top;
+}
+section.PrestigeOptions{
+	display: inline-block;
+	vertical-align: top;
+	background: white;
+	border-radius: 2px;
+	border: 1px solid rgb(221, 221, 221);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	width:150px;
+}
+section.PrestigeOptions ul li{
+	list-style: none;
+}
+section.PrestigeOptions ul li a{
+	text-decoration: none;
 }
 section.NotificationsWrapper{
 	background: white;

@@ -135,6 +135,11 @@ class Proffer(models.Model):
 		for p in self.pictures.all()[:1]:
 			return p.get_url_100x100()
 
+	def is_complete(self):
+		if self.pictures.all().count() > 0:
+			return True
+		return False
+
 
 class ProfferPicture(models.Model):
 	proffer = models.ForeignKey(Proffer)
@@ -154,7 +159,7 @@ class Assignment(models.Model):
 	def __unicode__(self):
 		return u'Owner: %s and item: %s' % (self.owner, self.requestItem)
 
-	def is_saller(self,user):
+	def is_seller(self,user):
 		if self.owner == user:
 			return True
 		else: 
@@ -165,6 +170,15 @@ class Assignment(models.Model):
 			return True
 		else:
 			return False
+
+	def has_been_critiqued_before(self):
+		if self.status == "3":
+			return True
+		return False
+
+
+
+
 
 
 
