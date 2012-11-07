@@ -9,7 +9,7 @@ TYPE_CHOICES = (
 	('assignment','Has sido seleccionado'),
 	('confirm_pay','Te han confirmado el pago'),
 	('confirm_delivery','Te han confirmado el envio'),
-	('has_been_critiqued','Has sido criticado'),
+	('critique','Has sido criticado'),
 
 	)
 

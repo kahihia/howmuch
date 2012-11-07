@@ -48,3 +48,14 @@ class Prestige(models.Model):
 
 	def __unicode__(self):
 		return u'Assignment : %s Prestige: %s message: %s ' % (self.assignment, self.prestige, self.message)
+
+	def is_buyer(self):
+		if self.assignment.is_buyer(self.to):
+			return True
+		return False
+
+	def is_seller(self):
+		if self.assignment.is_seller(self.to):
+			return True
+		return False
+

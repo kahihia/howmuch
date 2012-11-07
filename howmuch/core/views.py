@@ -6,6 +6,7 @@ from howmuch.core.functions import UserRequestItem, AssignmentFeatures
 from howmuch.pictures.models import Picture
 from howmuch.messages.functions import InitialConversationContext
 from howmuch.notifications.models import Notification
+from howmuch.notifications.functions import SendNotification
 from howmuch.searchengine.views import indexRequestItem
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
@@ -216,27 +217,12 @@ def newProffer(request,itemId):
 			newProffer.save()
 
 			"""
-			Se envia email al comprador de que hay un nuevo candidato dispuesto a venderle el articulo
+			Se activa el sistema de Notificaciones
 			"""
 
-			subject = 'Hay un nuevo Vendedor para el articulo %s' % (newProffer.requestItem.title)
+			newNotification = SendNotification(newProffer, 'proffer')
+			newNotification.sendNotification()
 
-			message = '%s quiere venderte el articulo a $ %s, y para que lo elijas te dice lo siguiente: %s' % (newProffer.owner, newProffer.cprice,newProffer.message)
-
-			to = [newProffer.requestItem.owner.email]
-
-			send_mail(subject,message,'',to)
-
-			"""
-			Se crea la notificacion para el Comprador de que tiene un nuevo Candidato
-			"""
-
-			redirectNotification = '/item/candidates/%s?notif_type=proffer&idBack=%s' % (requestItem.pk, newProffer.pk)
-
-			#El titulo de la notificacion es el mismo que el subject del email enviado anteriormente
-
-			newNotification = Notification(owner = newProffer.requestItem.owner, tipo = 'proffer', title = subject , redirect = redirectNotification, idBack = newProffer.pk )
-			newNotification.save()
 
 			return HttpResponseRedirect('/pictures/addpicture/proffer/' + str(newProffer.pk) )
 	else:
@@ -297,15 +283,6 @@ def newAssignment(request, itemId, candidateID):
 			newAssignment.save()
 
 			"""
-			Se notifica al Candidato que ha sido seleccionado para vender el articulo por email
-			"""
-
-			subject = 'Has sido seleccionado para vender el articulo %s' % (newAssignment.requestItem.title)
-			message = 'Esta es una confirmacion de que eres el Vendedor del articulo %s, enseguida recibiras un correo con la informacion de envio del articulo, el mensaje que el comprador te ha dejado es: %s ,puedes conversar con el comprador en el INBOX de howmuch' % (newAssignment.requestItem.title, newAssignment.comment)
-			to = [newAssignment.owner.email]
-			send_mail(subject, message, '', to)
-
-			"""
 			Se crea la Conversation correspondiente a la Asignacion
 			"""
 			conversation = Conversation.objects.create(assignment = newAssignment)
@@ -315,22 +292,17 @@ def newAssignment(request, itemId, candidateID):
 			Se crea una instancia de InitialConversationContext
 			"""
 			newContext = InitialConversationContext(item.owner, newAssignment.owner, conversation)
-
 			newContext.createMessageByBuyer()
 			newContext.createMessageBySaller()
 
-
 			"""
-			Se crea la notificacion 
+			Se Activa el Sistema de Notificaciones
 			"""
 
-			redirectNotification = '/messages/%s?notif_type=assignment&idBack=%s' % (conversation.pk, newAssignment.pk) 
+			newNotification = SendNotification(newAssignment,'assignment')
+			newNotification.sendNotification()
 
-			newNotification = Notification(owner=newAssignment.owner, tipo='assignment', title = subject, redirect = redirectNotification, idBack=newAssignment.pk)
-			newNotification.save()
-
-
-			return HttpResponseRedirect("/Thanks/")
+			return HttpResponse('Asignacion Correcta')
 	else:
 		form = AssignmentForm()
 	return render_to_response('core/newAssignment.html', {'form' : form}, context_instance=RequestContext(request))

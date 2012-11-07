@@ -35,7 +35,7 @@ def newMessage(request, conversationID):
 	Si vienes de una notificacion, realizar las verificaciones y actualizar a True el status de la notificacion
 	"""
 	if request.GET.__contains__('notif_type') and request.GET.__contains__('idBack'):
-		if request.GET['notif_type'] in ['assignment', 'confirm_pay', 'confirm_delivery'] and request.GET['idBack'] is not '' :
+		if request.GET['notif_type'] in ['assignment', 'confirm_pay', 'confirm_delivery', 'critique'] and request.GET['idBack'] is not '' :
 			notif_type = request.GET['notif_type']
 			idBack = request.GET['idBack']
 			try:

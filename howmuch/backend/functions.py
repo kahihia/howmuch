@@ -15,3 +15,5 @@ def get_timestamp(date):
 		return "%s dias" % (int(deltaSeconds/86400))
 	else:
 		return "%s años" % (int(deltaSeconds/31536000)) 
+
+
