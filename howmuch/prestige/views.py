@@ -1,6 +1,6 @@
-from howmuch.prestige.models import Prestige
+from howmuch.prestige.models import Prestige, PrestigeLikeBuyer, PrestigeLikeSeller
 from howmuch.core.models import Assignment
-from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeForm
+from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.models import Notification
 from howmuch.notifications.functions import SendNotification
@@ -143,14 +143,14 @@ def setPrestigeToSeller(request, assignmentID):
 	#Se valida que esta critica no haya sido efectuado anteriormente
 
 	try:
-		Prestige.objects.get(assignment = assignment, de = request.user)
-	except Prestige.DoesNotExist:
+		PrestigeLikeSeller.objects.get(assignment = assignment, de = request.user)
+	except PrestigeLikeSeller.DoesNotExist:
 		pass
 	else:
 		return HttpResponse("Ya has criticado al Vendedor de este articulo, no puedes hacerlo nuevamente")
 
 	if request.method == 'POST':
-		form = PrestigeForm(request.POST)
+		form = PrestigeLikeSellerForm(request.POST)
 		if form.is_valid():
 			newPrestigeToSeller = form.save(commit = False)
 			newPrestigeToSeller.de = request.user
@@ -194,15 +194,15 @@ def setPrestigeToBuyer(request, assignmentID):
 	#Se valida que esta critica no haya sido efectuado anteriormente
 
 	try:
-		Prestige.objects.get(assignment = assignment, de = request.user)
-	except Prestige.DoesNotExist:
+		PrestigeLikeBuyer.objects.get(assignment = assignment, de = request.user)
+	except PrestigeLikeBuyer.DoesNotExist:
 		pass
 	else:
 		return HttpResponse("Ya has criticado al Comprador de este articulo, no puedes hacerlo nuevamente")
 
 
 	if request.method == 'POST':
-		form = PrestigeForm(request.POST)
+		form = PrestigeLikeBuyerForm(request.POST)
 		if form.is_valid():
 			newPrestigeToBuyer = form.save(commit = False)
 			newPrestigeToBuyer.de = request.user

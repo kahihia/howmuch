@@ -417,6 +417,12 @@ section.NotificationsWrapper{
 	padding:10px;
 	width:700px;
 }
+section.ViewProfileWrapper{
+	background: white;
+	border: 1px solid rgb(221, 221, 221);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	width:720px;
+}
 span.LabelItemForm{
 	display:block;
 	font-family: 'Archivo Narrow', sans-serif;
@@ -733,7 +739,6 @@ form.ConversationFormMessage{
 	top:5px;
 	right: 5px;
 }
-
 .ItemResultPicture, .ItemResultContent{
 	display: inline-block;
 	vertical-align: middle;
@@ -754,6 +759,15 @@ form.ConversationFormMessage{
 }
 .ItemResultContentAbout{
 	text-align: right;
+}
+.ViewProfilePicture, .ViewProfileInfo,.ProfilePurchasesTotal, .ProfileSalesTotal{
+	display: inline-block;
+	vertical-align: top;
+}
+.ProfilePrestigeLikeBuyerWrapper, .ProfilePrestigeLikeSellerWrapper{
+	display: inline-block;
+	vertical-align: top;
+	width:350px;
 }
 #id_itemsCatA,#id_itemsCatB, #id_itemsCatC{
 	border:2px solid #00b7ea;

@@ -4,20 +4,14 @@
 	<meta charset="UTF-8">
 	<style type="text/css">
 
-
-
-
 	</style>
 </head>
 
 <body>
 	<section class="content">
 		<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<div>
-				{{ form.duedate }}
-				{{ form.duedate.errors }}
-			</div>
 
+			{{ form.errors }}
 			<div>
 				{{ form.comment }}
 				{{ form.comment.errors }}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="ViewProfileWrapper">
+
+	<div>
+
+		<div class="ViewProfilePicture">
+
+			<img src="{{ perfil.get_profile_picture_100x100 }}">
+
+		</div>
+
+		<div class="ViewProfileInfo">
+
+			<div>
+				<span>{{ perfil.user.get_full_name }}</span>
+			</div>
+
+			<div>
+
+				<img src="{{ perfil.get_prestige_picture }}">
+
+			</div>
+
+			<div>
+
+				<div class="ProfilePurchasesTotal">
+
+					<span>Total de compras: </span><span>{{ perfil.total_purchases }}</span>
+
+				</div>
+
+				<div class="ProfileSalesTotal">
+
+					<span>Total de Ventas: </span><span>{{ perfil.total_sales }}</span>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<div>
+
+		<div class="ProfilePrestigeLikeBuyerWrapper">
+
+			<h3>Criticas como Comprador</h3>
+
+			{% for critique in prestigeLikeBuyer %}
+
+				{{ critique.assignment.requestItem.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
+
+			{% empty %}
+
+				<span>No hay criticas como Comprador para este usuario </span>
+
+			{% endfor %}
+
+			<a href="#">VER MAS</a>
+
+		</div>
+
+
+		<div class="ProfilePrestigeLikeSellerWrapper">
+
+			<h3>Criticas como Vendedor</h3>
+
+			{% for critique in prestigeLikeSeller %}
+
+				{{ critique.assignment.requestItem.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
+
+			{% empty %}
+
+				<span>No hay criticas como vendedor para este usuario</span>
+
+			{% endfor %}
+
+			<a href="#">VER MAS</a>
+
+		</div>
+
+
+	</div>
+
+</section>
+
+{% endblock %}

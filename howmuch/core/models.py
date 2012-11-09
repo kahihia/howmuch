@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from howmuch.pictures.models import Picture
 from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
+from howmuch.perfil.models import Address
 from smart_selects.db_fields import ChainedForeignKey
 import datetime
 
@@ -50,7 +51,7 @@ class RequestItem(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	daysLimit = models.IntegerField()
 	pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
-	addressDelivery = models.CharField(max_length=177)
+	addressDelivery = models.ForeignKey(Address)
 
 	def __unicode__(self):
 		return u'Title: %s' % (self.title)
@@ -140,6 +141,11 @@ class Proffer(models.Model):
 			return True
 		return False
 
+	def has_pictures(self):
+		if self.pictures.all().count() > 0:
+			return True
+		return False
+
 
 class ProfferPicture(models.Model):
 	proffer = models.ForeignKey(Proffer)
@@ -152,7 +158,6 @@ class Assignment(models.Model):
 	owner = models.ForeignKey(User)
 	requestItem = models.OneToOneField(RequestItem)
 	date = models.DateTimeField(auto_now_add=True)
-	duedate = models.DateTimeField(null=True, blank=True)
 	comment = models.CharField(max_length=144)
 	status = models.CharField(max_length=2, default = 0)
 
@@ -175,6 +180,7 @@ class Assignment(models.Model):
 		if self.status == "3":
 			return True
 		return False
+
 
 
 

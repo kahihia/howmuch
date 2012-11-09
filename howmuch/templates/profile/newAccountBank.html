@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block media %}
+
+{% endblock %}
+
+{% block content %}
+
+<section>
+
+	<form action='' method='POST'>{% csrf_token %}
+
+		{{ form.errors }}
+
+		{{ form.bank }}
+		{{ form.account }}
+
+		<input type="submit" value="Guardar">
+
+	</form>
+
+</section>
+
+{% endblock %}

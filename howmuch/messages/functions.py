@@ -4,16 +4,16 @@ from howmuch.core.models import Assignment, RequestItem
 from howmuch.messages.models import Conversation, Message
 
 class InitialConversationContext:
-	def __init__(self,buyer,saller, conversation):
+	def __init__(self,buyer,seller, conversation):
 		self.buyer = buyer
-		self.saller = saller
+		self.seller = seller
 		self.conversation = conversation
 
 	def createMessageByBuyer(self):
 		"""
 		Se crea el mensaje de inicio del comprador
 		"""
-		theMessage = "Hola " + str(self.saller.first_name) + ", la Direccion a la que quiero que envies el producto es: " + str(self.buyer.get_profile().getAddressDelivery()) 
+		theMessage = "Hola " + str(self.seller.first_name) + ", la Direccion a la que quiero que envies el producto es: " + str(self.conversation.assignment.requestItem.addressDelivery.get_address())
 		newMessage = Message.objects.create(owner = self.buyer, message = theMessage ,conversation = self.conversation )
 		newMessage.save()
 
@@ -24,14 +24,14 @@ class InitialConversationContext:
 		subject = 'Direccion de envio del articulo %s' % (self.conversation.assignment.requestItem.title)
 		message = theMessage
 		de = ''
-		to = [str(self.saller.email)] 
+		to = [str(self.seller.email)] 
 
 		send_mail(subject,message,de,to)
 
 
-	def createMessageBySaller(self):
-		theMessage = "Gracias, mi Banco es: " + str(self.saller.get_profile().bank) + " y mi CTA es: " + str(self.saller.get_profile().account_bank) + " , En cuanto este confirmado el Deposito, yo te enviare el Producto"
-		newMessage = Message.objects.create(owner = self.saller, message = theMessage, conversation = self.conversation)
+	def createMessageBySeller(self):
+		theMessage = "Gracias, las cuentas bancarias a las que me puedes depositar son: " + self.seller.perfil.get_banks() + " , En cuanto este confirmado el Deposito, yo te enviare el Producto"
+		newMessage = Message.objects.create(owner = self.seller, message = theMessage, conversation = self.conversation)
 		newMessage.save()
 
 		"""

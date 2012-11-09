@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from howmuch.core.models import Assignment
 
 PRESTIGE_CHOICES = (
-	('0','MALO'),
-	('1','EXCELENTE'),
+	('Malo','MALO'),
+	('Excelente','EXCELENTE'),
 	)
 
 STATUS_ASSIGNMENT = (
@@ -43,7 +43,7 @@ class Prestige(models.Model):
 	to = models.ForeignKey(User, related_name = "prestige to")
 	assignment = models.ForeignKey(Assignment)
 	date = models.DateTimeField(auto_now_add = True)
-	prestige = models.CharField(max_length = 2, choices = PRESTIGE_CHOICES)
+	prestige = models.CharField(max_length = 10, choices = PRESTIGE_CHOICES)
 	message = models.CharField(max_length = 255)
 
 	def __unicode__(self):
@@ -58,4 +58,28 @@ class Prestige(models.Model):
 		if self.assignment.is_seller(self.to):
 			return True
 		return False
+
+class PrestigeLikeBuyer(models.Model):
+	de = models.ForeignKey(User, related_name = "prestigeLikeBuyer from")
+	to = models.ForeignKey(User, related_name = "prestigeLikeBuyer to")
+	assignment = models.ForeignKey(Assignment)
+	date = models.DateTimeField(auto_now_add = True)
+	prestige = models.CharField(max_length = 10, choices = PRESTIGE_CHOICES)
+	message = models.CharField(max_length = 255)
+
+	def __unicode__(self):
+		return u'Assignment : %s Prestige: %s message: %s ' % (self.assignment, self.prestige, self.message)
+
+
+class PrestigeLikeSeller(models.Model):
+	de = models.ForeignKey(User, related_name = "prestigeLikeSeller from")
+	to = models.ForeignKey(User, related_name = "prestigeLikeSeller to")
+	assignment = models.ForeignKey(Assignment)
+	date = models.DateTimeField(auto_now_add = True)
+	prestige = models.CharField(max_length = 10, choices = PRESTIGE_CHOICES)
+	message = models.CharField(max_length = 255)
+
+	def __unicode__(self):
+		return u'Assignment : %s Prestige: %s message: %s ' % (self.assignment, self.prestige, self.message)
+
 

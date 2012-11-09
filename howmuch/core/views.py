@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
 from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture, ProfferPicture
-from howmuch.messages.models import Conversation
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
-from howmuch.pictures.models import Picture
+from howmuch.messages.models import Conversation
 from howmuch.messages.functions import InitialConversationContext
+from howmuch.pictures.models import Picture
 from howmuch.notifications.models import Notification
 from howmuch.notifications.functions import SendNotification
 from howmuch.searchengine.views import indexRequestItem
+from howmuch.perfil.models import Perfil
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -38,7 +39,14 @@ class NewItemWizard(SessionWizardView):
 	file_storage = S3BotoStorage(location='pictures_temp')
 
 	def get_template_names(self):
+
 		return [TEMPLATES_NEWITEM[self.steps.current]]
+
+	def get_form(self, step=None, data=None, files=None):
+		form = super(NewItemWizard, self).get_form(step, data, files)
+		if step == 'delivery':
+			form.fields['addressDelivery'].queryset = self.request.user.perfil.addresses.all()
+		return form
 
 	def done(self, form_list,**kwargs):
 		"""
@@ -64,8 +72,18 @@ class NewItemWizard(SessionWizardView):
 				instanceRequestItemPicture = RequestItemPicture(requestItem = instance, picture = instancePicture)
 				instanceRequestItemPicture.save()
 	
-		#Se anexa a la base de datos del motor de busqueda
+		"""
+		Se anexa a la base de datos del motor de busqueda
+		"""
 		indexRequestItem(instance)
+
+		"""
+		Se añade un +1 al total_purchases del usario
+		"""
+
+		perfilUser = get_object_or_404(Perfil, user = self.request.user)
+		perfilUser.total_purchases += 1
+		perfilUser.save()
 
 		return HttpResponseRedirect('/item/' + str(instance.pk) )
 
@@ -73,28 +91,6 @@ class NewItemWizard(SessionWizardView):
 class NewProfferWizard(SessionWizardView):
 
 	file_storage = S3BotoStorage(location='pictures_temp')
-
-	def validate_form(self):
-		"""
-		Validar que el RequestItem exista, si no existe regresa error 404
-		"""
-
-		requestItem = get_object_or_404(RequestItem, pk = self.request.GET['item_id'])
-
-		"""
-		Se crea una instancia de UserRequestItem
-		"""
-
-		userRequestItem = UserRequestItem(self.request.user, self.request.GET['item_id'])
-
-		"""
-		Se valida la instancia: User is not candidate, is not owner, is not assigned
-		"""
-
-		if userRequestItem.is_valid():
-			pass
-		else:
-			return HttpResponse(userRequestItem.errors())
 
 	def get_template_names(self):
 		return [TEMPLATES_NEWPROFFER[self.steps.current]]
@@ -124,31 +120,12 @@ class NewProfferWizard(SessionWizardView):
 				instanceProfferPicture = ProfferPicture(proffer = instance, picture = instancePicture)
 				instanceProfferPicture.save()
 
-
-
-
 		"""
-		Se envia email al comprador de que hay un nuevo candidato dispuesto a venderle el articulo
+		Se activa el sistema de Notificaciones
 		"""
 
-		subject = 'Hay un nuevo Vendedor para el articulo %s' % (instance.requestItem.title)
-
-		message = '%s quiere venderte el articulo a $ %s, y para que lo elijas te dice lo siguiente: %s' % (instance.owner, instance.cprice,instance.message)
-
-		to = [instance.requestItem.owner.email]
-
-		send_mail(subject,message,'',to)
-
-		"""
-		Se crea la notificacion para el Comprador de que tiene un nuevo Candidato
-		"""
-
-		redirectNotification = '/item/candidates/%s?notif_type=proffer&idBack=%s' % (instance.requestItem.pk, instance.pk)
-
-		#El titulo de la notificacion es el mismo que el subject del email enviado anteriormente
-
-		newNotification = Notification(owner = instance.requestItem.owner, tipo = 'proffer', title = subject , redirect = redirectNotification, idBack = instance.pk )
-		newNotification.save()
+		newNotification = SendNotification(instance, 'proffer')
+		newNotification.sendNotification()
 
 		return HttpResponse("Has aplicado correctamente, espera instrucciones")
 
@@ -164,22 +141,6 @@ def home(
     return render_to_response(
         template, context, context_instance=RequestContext(request))
 
-
-"""
-@login_required(login_url="/login/")
-def requestItem(request):
-	if request.method == 'POST':
-		form = RequestItemForm(request.POST)
-		if form.is_valid():
-			#human = True
-			newItem = form.save(commit=False)
-			newItem.owner = request.user
-			newItem.save()
-			return HttpResponseRedirect('/pictures/addpicture/requestitem/' + str(newItem.pk) )
-	else:
-		form = RequestItemForm(initial={'addressDelivery' : request.user.get_profile().getAddressDelivery()})
-	return render_to_response('core/newitem.html', {'form' : form}, context_instance=RequestContext(request))
-"""
 
 def viewItem(request, itemID):
 	item = get_object_or_404(RequestItem, pk=itemID)
@@ -293,7 +254,7 @@ def newAssignment(request, itemId, candidateID):
 			"""
 			newContext = InitialConversationContext(item.owner, newAssignment.owner, conversation)
 			newContext.createMessageByBuyer()
-			newContext.createMessageBySaller()
+			newContext.createMessageBySeller()
 
 			"""
 			Se Activa el Sistema de Notificaciones
@@ -301,6 +262,15 @@ def newAssignment(request, itemId, candidateID):
 
 			newNotification = SendNotification(newAssignment,'assignment')
 			newNotification.sendNotification()
+
+			"""
+			se añade un +1 al total_sales del usuario
+			"""
+
+			perfilUser = get_object_or_404(Perfil, user = newAssignment.owner)
+			perfilUser.total_sales += 1
+			perfilUser.save()
+
 
 			return HttpResponse('Asignacion Correcta')
 	else:

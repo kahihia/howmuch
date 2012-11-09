@@ -22,6 +22,8 @@
 
 	<div class="CompanyProfilePictureWrapper" >
 
+		{{ form.errors }}
+
 		<div class="">
 			<span class="LabelItemForm">Nombre de tu Empresa</span>
 			{{ form.company }}
@@ -35,81 +37,65 @@
 
 	</div>
 
-	<div>
+	<input type="submit" class="button-blue" value="SUBIR">
 
-		<div class="">
-			<span class="LabelItemForm">Dirección 1</span>
-			{{ form.address }}
-			{{ form.address.errors }}
-		</div >
-		<div class="">
-			<span class="LabelItemForm">Dirección 2</span>
-			{{ form.address2 }}
-			{{ form.address2.errors }}
-		</div>
-
-	</div>
-
-	<div class="StateCityWrapper"> 
-
-		<div class="AddressInfoDiv">
-			<span class="LabelItemForm">Estado</span>
-			{{ form.state }}
-			{{ form.state.errors }}
-		</div>
-		<div class="AddressInfoDiv">
-			<span class="LabelItemForm">Ciudad</span>
-			{{ form.city }}
-			{{ form.city.errors }}
-		</div>
-
-	</div>
-
-	<div>
-
-		<div class="AddressInfoDiv">
-			<span class="LabelItemForm">Codigo Postal</span>
-			{{ form.zipcode }}
-			{{ form.zipcode.errors }}
-		</div>
-
-		<div class="AddressInfoDiv">
-			<span class="LabelItemForm">Telefono</span>
-			{{ form.phone }}
-			{{ form.phone.errors }}
-		</div>
-
-	</div>
-
-	<div>
-
-		<div class="">
-			<span class="LabelItemForm">Banco</span>
-			{{ form.bank }}
-			{{ form.bank.errors }}
-		</div>
-		<div class="">
-			<span class="LabelItemForm">Cuenta Bancaria</span>
-			{{ form.account_bank }}
-			{{ form.account_bank.errors }}
-		</div>
-		<div class="">
-			<span class="LabelItemForm">Cuenta Paypal</span>
-			{{ form.account_paypal }}
-			{{ form.account_paypal.errors }}
-		</div>	
-
-	</div>
-
-
-
-
-	
-
-		<input type="submit" class="button-blue" value="SUBIR">
+		
 </form>
 
+</section>
 
+<section>
+
+	</div>
+
+	<div>
+
+		{% for address in user.perfil.addresses.all %}
+
+			{{ address }}
+
+		{% empty %}
+
+		<span>No has agregado ninguna direccion</span>
+
+		{% endfor %}
+
+		<a href="/profile/newaddress">+ Direcciones</a>
+
+	</div>
+
+	<div>
+
+		{% for phone in user.perfil.phones.all %}
+
+			{{ phone }}
+
+		{% empty %}
+
+			<span>No has agregado ningun Telefono</span>
+
+		{% endfor %}
+
+		<a href="/profile/newphone">+ Telefono</a>
+
+	</div>
+
+	<div>
+
+		{% for account in user.perfil.banks.all %}
+
+			{{ account }}
+
+		{% empty %}
+
+			<span>No has agregado ninguna cuenta Bancaria</span>
+
+		{% endfor %}
+
+
+		<a href="/profile/newaccountbank">+ Cuenta Bancaria</a>
+
+	</div>
 
 </section>
 

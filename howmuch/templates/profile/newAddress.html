@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block media %}
+
+{% endblock %}
+
+{% block content %}
+
+<section>
+
+	<form action='' method='POST'>{% csrf_token %}
+
+		{{ form.errors }}
+
+		{{ form.street }}
+		{{ form.number }}
+		{{ form.suburb }}
+		{{ form.city }}
+		{{ form.state }}
+		{{ form.country }}
+		{{ form.zipcode }}
+
+		<input type="submit" value="Guardar">
+
+	</form>
+
+</section>
+
+{% endblock %}

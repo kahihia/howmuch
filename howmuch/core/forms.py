@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*- 
 
 from django import forms
-from django.forms import ModelForm, Textarea, TextInput, Select
+from django.forms import ModelForm, Textarea, TextInput, Select, ModelChoiceField
 from django.contrib.admin import widgets   
 from howmuch.core.models import RequestItem, Proffer, Assignment
+from howmuch.perfil.models import Address
 from captcha.fields import CaptchaField
 
 class NewItemForm1(ModelForm):
@@ -34,7 +35,6 @@ class NewItemForm3(ModelForm):
 		exclude = {'owner','price','title','description','quantity','itemsCatA','itemsCatB','itemsCatC','brand','model','state','pictures'}
 		widgets = {
             'daysLimit' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Ej. 10'}),
-            'addressDelivery' : Textarea(attrs={'class':'InputFormRequestItem', 'cols' : 40, 'rows' : '5'}),
         }
 
 class NewItemForm4(forms.Form):
@@ -90,8 +90,7 @@ class NewProfferForm2(forms.Form):
 
 
 class AssignmentForm(ModelForm):
-	duedate = forms.DateTimeField(widget=widgets.AdminSplitDateTime)
-
+	
 	class Meta:
 		model = Assignment
 		exclude = ('owner', 'requestItem', 'date', 'status', )
