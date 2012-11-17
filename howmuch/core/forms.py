@@ -43,7 +43,67 @@ class NewItemForm4(forms.Form):
 	picture3 = forms.ImageField(required=False)
 
 
+"""
+Nuevos Formularios de Prueba
+"""
+class NewItemNewForm1(ModelForm):
+	class Meta:
+		model = RequestItem
+		fields = {'title'}
+		widgets = {
+			'title' : TextInput(attrs={'class' : 'InputFormRequestItemNew', 'placeholder' : 'Titulo del Articulo'}, ),
+		}
 
+class NewItemNewForm2(ModelForm):
+	class Meta:
+		model = RequestItem
+		fields = {'price'}
+		widgets = {
+			'price' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Precio al que lo vas a comprar'},),
+		}
+
+class NewItemNewForm3(ModelForm):
+	class Meta:
+		model = RequestItem
+		fields = {'quantity'}
+		widgets = {
+			'quantity' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Cuantos Necesitas'}, ),
+		}
+
+class NewItemNewForm4(ModelForm):
+	class Meta:
+		model = RequestItem
+		fields = {'description'}
+		widgets = {
+			 'description': Textarea(attrs={'class':'InputFormRequestItemNew','cols': 40, 'rows': 10, 'placeholder' : 'Describe tu producto'}),
+		}
+
+class NewItemNewForm5(ModelForm):
+	class Meta:
+		model = RequestItem
+		fields = {'itemsCatA','itemsCatB','itemsCatC','brand','model','state'}
+		widgets = {
+            'brand' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. Samsung'}),
+            'model' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. Galaxy S3'}),
+            'state' : Select(attrs={'class':'InputFormRequestItemNew',}),
+        }
+
+class NewItemNewForm6(ModelForm):
+	class Meta:
+		model = RequestItem
+		fields = {'daysLimit','addressDelivery'}
+		widgets = {
+            'daysLimit' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. 10'}),
+            #'addressDelivery' : ModelChoiceField(attrs={'class':'InputFormRequestItemNew'}),
+        }
+
+class NewItemNewForm7(forms.Form):
+	picture1 = forms.ImageField()
+	picture2 = forms.ImageField(required=False)
+	picture3 = forms.ImageField(required=False)
+"""
+Nuevos Formularios de Prueba
+"""
 class RequestItemForm(ModelForm):
 	#captcha = CaptchaField()	
 	class Meta:

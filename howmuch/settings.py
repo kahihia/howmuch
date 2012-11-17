@@ -205,3 +205,9 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'howmuch@howmuch'
 
 #EMAIL
+
+
+#endless_pagination
+ENDLESS_PAGINATION_PER_PAGE = 10
+#endless_pagination
+

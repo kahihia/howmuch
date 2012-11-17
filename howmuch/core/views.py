@@ -30,6 +30,16 @@ TEMPLATES_NEWITEM = {'description': 'newitem/description.html',
              'pictures' : 'newitem/pictures.html',
       	}
 
+TEMPLATES_NEWITEM_NEW = {'title' : 'newitemnew/title.html',
+			'price' : 'newitemnew/price.html',
+			'quantity' : 'newitemnew/quantity.html',
+			'description' : 'newitemnew/description.html',
+			'clasification' : 'newitemnew/clasification.html',
+			'delivery' : 'newitemnew/delivery.html',
+			'pictures' : 'newitemnew/pictures.html',
+	
+}
+
 TEMPLATES_NEWPROFFER = { 'description' : 'newproffer/description.html',
 			'pictures' : 'newproffer/pictures.html'	
 }
@@ -40,7 +50,7 @@ class NewItemWizard(SessionWizardView):
 
 	def get_template_names(self):
 
-		return [TEMPLATES_NEWITEM[self.steps.current]]
+		return [TEMPLATES_NEWITEM_NEW[self.steps.current]]
 
 	def get_form(self, step=None, data=None, files=None):
 		form = super(NewItemWizard, self).get_form(step, data, files)
@@ -50,10 +60,10 @@ class NewItemWizard(SessionWizardView):
 
 	def done(self, form_list,**kwargs):
 		"""
-		Se gurdan los primeros 3 formularios
+		Se gurdan los primeros 6 formularios
 		"""
 		instance = RequestItem()
-		for form in form_list[0:3]:
+		for form in form_list[0:6]:
 			for field, value in form.cleaned_data.iteritems():
 				setattr(instance, field, value)
 		instance.owner = self.request.user
@@ -63,7 +73,7 @@ class NewItemWizard(SessionWizardView):
 		Se gurdan el 4 formulario correspondiente a las imagenes
 		"""
 	
-		for field, value in form_list[3].cleaned_data.iteritems():
+		for field, value in form_list[6].cleaned_data.iteritems():
 			if value is not None:
 				instancePicture = Picture()
 				setattr(instancePicture, 'picture', value)

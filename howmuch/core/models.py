@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from howmuch.pictures.models import Picture
 from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
 from howmuch.perfil.models import Address
+from howmuch.backend.functions import get_timestamp
 from smart_selects.db_fields import ChainedForeignKey
 import datetime
 
@@ -87,9 +88,6 @@ class RequestItem(models.Model):
 	def get_first_100_letters(self):
 		return str(self.title)[:100]
 
-	def get_left_time(self):
-		return self.date + datetime.timedelta(days=daysLimit) - datetime.datetime.now()
-
 	#Regresa el link de la primer imagen en miniatura 100x100 del item
 	def get_first_picture_100x100(self):
 		for p in self.pictures.all()[:1]:
@@ -102,6 +100,11 @@ class RequestItem(models.Model):
 
 	def get_url(self):
 		return '/item/%s' % (self.pk)
+
+	def get_timestamp(self):
+		return get_timestamp(self.date)
+
+
 
 
 
@@ -170,11 +173,17 @@ class Assignment(models.Model):
 		else: 
 			return False
 
+	def get_seller(self):
+		return self.owner
+
 	def is_buyer(self,user):
 		if self.requestItem.owner == user:
 			return True
 		else:
 			return False
+
+	def get_buyer(self):
+		return self.requestItem.owner
 
 	def has_been_critiqued_before(self):
 		if self.status == "3":

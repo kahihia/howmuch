@@ -37,17 +37,21 @@
 		<span>Articulo: <b>{{ conversation.assignment.requestItem.pk }}</b></span>
 	</section>
 
-	<section class="ConversationPictureTitle">
-		<div id="conversationItemPicture">
-			<img src="{{ conversation.assignment.requestItem.get_first_picture_100x100 }}">
-		</div id="conversationItemTitle">
-			<span class="ItemSpanBig">{{ conversation.assignment.requestItem.title }}</span>
+	<section class="ConversationTitle">
+		<div id="conversationItemTitle">
+			<span class="ItemTitle">{{ conversation.assignment.requestItem.title }}</span>
+		</div>
 		<div>
+
+			<a href="/profile/{{ conversation.assignment.get_seller.username }}">{{ conversation.assignment.get_seller.username }}</a> >
+			<a href="/profile/{{ conversation.assignment.get_buyer.username }}">{{ conversation.assignment.get_buyer.username }}</a>
+
+		</div>
 	</section>
 
 	<section class="ConversationAssignmentStatus">
 
-
+		
 
 	</section>
 
@@ -62,10 +66,10 @@
 						<img src="{{ message.owner.get_profile.get_profile_picture_50x50}}">
 					</div>
 					<div class="MessageContainerMsg">
-						<p>{{ message.message }}</p>
+						<span>{{ message.message }}</span>
 					</div>
 
-					<span class="MessageTimeStamp">hace {{ message.get_timestamp }}</span>
+					<b><span class="MessageTimeStamp">hace {{ message.get_timestamp }}</span></b>
 					
 							
 				
@@ -73,13 +77,12 @@
 		{% endfor %}
 	</section>
 
-	<section classs="ConversationSendMessage">
+	<section class="ConversationSendMessage">
 		<form class="ConversationFormMessage" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 			<div class="ConversationInputMessage">
 				{{ form.message }}
 			</div>
-
-			<input class="button-blue" type="submit" value="ENVIAR">
+			<input class="button-green ConversationInputMessage" type="submit" value="ENVIAR">
 		</form>
 	</section>
 

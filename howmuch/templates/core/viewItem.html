@@ -6,7 +6,21 @@
 
 {% block media %}
 
- <script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
+<script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script>
+$(function () {
+    $('.pics').glisse({
+        changeSpeed: 550, 
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    }); 
+});
+</script>
+
+
 
 {% endblock %}
 
@@ -21,26 +35,34 @@
 		<span>Restan <b class="BBigItem">NArticulos</b> por Vender</span>
 	</article>
 
-	<article>
+	<article class="ItemOverviewClasification">
 			<span>{{ item.itemsCatA}}</span> --> <span>{{ item.itemsCatB}}</span> --> <span>{{ item.itemsCatC}}</span> 
 	</article>
 
 	<article class="ItemOverview">
 		<div class="ItemOverviewPicture">
+			
 			<img src="{{ item.get_first_picture_250x250 }}">
+			
+			<div class="ItemOverviewPictureInfo">
+				<b><span class="ItemOverviewPictureInfoState">{{ item.state }}</span></b>
+				<b><span class="ItemOverviewPictureInfoPrice">$ {{ item.price }}</span></b>
+			</div>
+
 		</div>
 
 		<div class="ItemOverviewPrincipal">
+
 			<span class="ItemTitle">{{ item.title }}</span>
-			<div id="itemBrandModel">
-				marca <span class="ItemSpanBig">{{ item.brand }}</span> modelo <span class="ItemSpanBig">{{ item.model }}</span>
-			</div>
-			<div id="itemStatePrice">	
-				<span class="ItemSpanBig">{{ item.state }}</span> por <span class="ItemSpanBig">$ {{ item.price }}</span>
+
+			<div class="ItemPictures">
+				{% for picture in item.pictures.all %}
+					<img class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+				{% endfor%}
 			</div>
 
 			<div class="ViewItemButtons">
-				<button class="button-blue small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>Vender</button>
+				<button class="button-sell small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
 			</div>
 		
 		</div>
@@ -48,27 +70,12 @@
 		
 	</article>
 
-
-	<article class="ItemPictures">
-
-		{% for picture in item.pictures.all %}
-
-		<img src="{{ picture.get_url_100x100 }}">
-
-		{% endfor%}
-
-	</article>
-
-	<article class="ItemDescription">
-
-		<span id="ItemAbout">Acerca del Producto</span>
-
+	<div class="ItemDescription">
 		<p>{{ item.description }}</p>
-
-	</article>
+	</div>
 
 	<div class="ViewItemButtons">
-		<button class="button-blue small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>Vender</button>
+		<button class="button-sell small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
 	</div>
 
 	<div id="popup2" style="display:none">

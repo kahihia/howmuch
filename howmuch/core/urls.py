@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from howmuch.core.forms import NewItemForm1, NewItemForm2, NewItemForm3, NewItemForm4, NewProfferForm1, NewProfferForm2
+from howmuch.core.forms import NewItemForm1, NewItemForm2, NewItemForm3, NewItemForm4, NewProfferForm1, NewProfferForm2, NewItemNewForm1, NewItemNewForm2, NewItemNewForm3, NewItemNewForm4, NewItemNewForm5, NewItemNewForm6, NewItemNewForm7
 from howmuch.core.views import NewItemWizard, NewProfferWizard
 
 FORMS_NEWITEM = [('description', NewItemForm1),
@@ -8,12 +8,21 @@ FORMS_NEWITEM = [('description', NewItemForm1),
          ('delivery', NewItemForm3),
          ('pictures', NewItemForm4 )]
 
+FORMS_NEWITEM_NEW = [('title', NewItemNewForm1),
+		('price', NewItemNewForm2),
+		('quantity', NewItemNewForm3),
+		('description', NewItemNewForm4),
+		('clasification', NewItemNewForm5),
+		('delivery', NewItemNewForm6),
+		('pictures', NewItemNewForm7)]
+
 FORMS_NEWPROFFER = [('description', NewProfferForm1),
 		('pictures', NewProfferForm2),]
 
 
 urlpatterns = patterns('howmuch.core.views',
-		url(r'^item/new/$', NewItemWizard.as_view(FORMS_NEWITEM)),
+		#url(r'^item/new/$', NewItemWizard.as_view(FORMS_NEWITEM)),
+		url(r'^item/new/$', NewItemWizard.as_view(FORMS_NEWITEM_NEW)),
 		#url(r'^item/new/$', 'requestItem' , name = "coreNewItem"),
 		url(r'^item/(?P<itemID>\d+)/$', 'viewItem' , name = "coreViewItem"),
 		url(r'^item/candidates/(?P<itemId>\d+)/$', 'viewCandidates', name="coreViewCandidates"),

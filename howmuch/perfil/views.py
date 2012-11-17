@@ -43,14 +43,14 @@ def newAddress(request):
 @login_required(login_url='/login/')
 def newPhone(request):
 	if request.method == 'POST':
-		form  = PhoneForm(request.POST)
+		form = PhoneForm(request.POST)
 		if form.is_valid():
 			newPhone = form.save()
 			request.user.perfil.phones.add(newPhone)
 			return HttpResponseRedirect('/profile/e/edit')
 	else:
 		form = PhoneForm()
-	return render_to_response('profile/newPhone.html', {'form' : form }, context_instance=RequestContext(request))
+	return render_to_response('profile/newPhone.html', {'form' : form}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def newAccountBank(request):

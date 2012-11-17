@@ -1,0 +1,39 @@
+{% extends "newitemnew/base.html" %}
+
+{% block media %}
+
+{% endblock %}
+
+
+{% block steps %}
+
+
+	{% load i18n %}
+
+	{% block head %}
+		{{ wizard.form.media }}
+	{% endblock %}
+<section>
+
+<form class="NewItemForm" action="" method="post">{% csrf_token %}
+
+{{ wizard.management_form }}
+
+<div>
+{{ wizard.form.description }}
+{{ wizard.form.description.errors }}
+</div>
+
+<div class="NewItemButtons">
+		{% if wizard.steps.prev %}
+		<button class="button-blue" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Regresar" %}</button>
+		{% endif %}
+		<input class="button-blue" type="submit" value="{% trans "Continuar" %}"/>
+</div>
+
+</form>
+
+</section>
+
+
+{% endblock %}

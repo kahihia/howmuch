@@ -15,48 +15,39 @@ Fueron encontrados {{searchresults.matches }} Resultados
 
 	{% for result in searchresults.results %}
 
-	<article class="ItemResultWrapper">
+	<article class="ItemThumbs">
+		<div class="ItemThumbsPriceTitle">
+			<div class="ItemThumbsPrice">
+				<a href="/profile/{{ result.owner }}">{{ result.owner }}</a><span> lo quiere </span>
+			</div>
 
-		<div class="ItemResultPicture">
+			<div clas="ItemThumbsTitle">
+				<a href="/item/{{ result.pk }}"><span> {{ result.text }} </span></a>
+			</div>
 
-			<a href="{{ result.docid }}">
 
-				<img src='{{ result.picture }}'>
+		</div>
 
+		<div class="ItemThumbsPicture">
+			<a href="/item/{{ result.pk }}">
+				<img src="{{ result.picture }}">
 			</a>
-			
-
+			<div class="ItemThumbsPictureInfo">
+				<b><span class="ItemThumbsPictureInfoState">{{ result.state }}</span></b>
+				<b><span class="ItemThumbsPictureInfoPrice">$ {{ result.price }}</span></b>
+			</div>
 		</div>
 
-		<div class="ItemResultContent">
-
-			<div class="ItemResultContentAbout">
-
-				 <a href="">{{ result.owner }}</a> paga <span class="ItemSpanBig">$ {{ result.price }}</span>
-
+		<div class="ItemThumbsMoreButtonSell">
+			<div class="ItemThumbsButtonSell">
+				<button class="button-sell button-sell-mini small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ result.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
 			</div>
-
-			<div class="ItemResultContentTitle">
-
-				<a href="{{ result.docid }}">{{ result.text }}</a>
-
+			<div class="ItemThumbsTimeStamp">
+				<span>hace <b></b></span>
 			</div>
-
-			<div class="ItemResultContentExtra">
-
-				<span>{{ result.candidates }}</span>
-				
-				<div class="ItemThumbsButtonSell">
-					<button class="button-blue small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ result.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>Vender</button>
-				</div>
-			</div>
-
-
-
 		</div>
-	
-
 	</article>
+
 
 	{% endfor %}
 

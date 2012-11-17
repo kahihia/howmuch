@@ -1,7 +1,9 @@
 {% load endless %}
-	
+
 	{% paginate items %}
+
 	{% for item in items %}
+
 	<article class="ItemThumbs">
 		<div class="ItemThumbsPriceTitle">
 			<div class="ItemThumbsPrice">
@@ -9,7 +11,7 @@
 			</div>
 
 			<div clas="ItemThumbsTitle">
-				<a href="/item/{{ item.pk }}"><span> {{ item.title }} </span></a>
+				<a href="/item/{{ item.pk }}"><span> {{ item.text }} </span></a>
 			</div>
 
 
@@ -17,7 +19,7 @@
 
 		<div class="ItemThumbsPicture">
 			<a href="/item/{{ item.pk }}">
-				<img src="{{ item.get_first_picture_100x100 }}">
+				<img src="{{ item.picture }}">
 			</a>
 			<div class="ItemThumbsPictureInfo">
 				<b><span class="ItemThumbsPictureInfoState">{{ item.state }}</span></b>
@@ -30,16 +32,19 @@
 				<button class="button-sell button-sell-mini small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
 			</div>
 			<div class="ItemThumbsTimeStamp">
-				<span>hace <b>{{ item.get_timestamp }}</b></span>
+				<span>hace <b></b></span>
 			</div>
 		</div>
 	</article>
 
 	{% empty %}
-		<p>No hay Articulos publicados!!</p>
+
+	<span>Lo sentimos tu busqueda no ha producido resultados</span>
+
 	{% endfor %}
 
-{% show_more %}
+
+	{% show_more %}
 
 
  

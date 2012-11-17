@@ -7,5 +7,5 @@ class MessageForm(ModelForm):
 		model = Message
 		exclude = ('owner', 'date', 'conversation')
 		widgets = {
-			'message' : TextInput(attrs={'class':'InputFormRequestItem','placeholder' : 'Escribe un mensaje aqui...'},),
+			'message' : TextInput(attrs={'class':'InputSendMessage','placeholder' : 'Escribe un mensaje aqui...'},),
 		}

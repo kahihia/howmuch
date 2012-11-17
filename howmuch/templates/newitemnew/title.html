@@ -1,0 +1,38 @@
+{% extends "newitemnew/base.html" %}
+
+{% block media %}
+
+{% endblock %}
+
+
+{% block steps %}
+
+
+	{% load i18n %}
+
+	{% block head %}
+		{{ wizard.form.media }}
+	{% endblock %}
+<section>
+
+<form class="NewItemForm" action="" method="post">{% csrf_token %}
+
+{{ wizard.management_form }}
+
+<div>
+{{ wizard.form.title }}
+{{ wizard.form.title.errors }}
+</div>
+
+<div class="">
+
+<input class="button-blue" type="submit" value="{% trans "Continuar" %}"/>
+
+</div>
+
+</form>
+
+</section>
+
+
+{% endblock %}

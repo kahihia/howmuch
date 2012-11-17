@@ -11,146 +11,176 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   <style type="text/css">
 
-      canvas#background{
-        position:absolute;
-        top:0;
-        left:0;
-        z-index:-1;
-      }
+  body{
+    font-family: 'Archivo Narrow', sans-serif;
+    background: url("/media/background.png") repeat !important;
+  }
+  form#login-form input{
+    background: white;
+  }
+  header{
+    text-align: center;
+  }
+  .HowSellwrapper, .HowBuyWrapper{
+    text-align: center;
+  }
+  h1{
+    font-size: 20px;
+  }
+  p.LegalInfo{
+    font-size: 10px;
+    text-align: center;
+    width:600px;
+    margin:11px auto;
+  }
+  .BuyStep, .SellStep{
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+  }
+  .StepPicture{
+    width:150px;
+    height: 150px;
+    background: white;
+    margin: 0 auto;
+  }
+  #username, #password{
+    border: 0px;
+    padding: 10px;
+    border-radius: 3px;
+    width:300px;
+  }
+  #username:focus{
+    -moz-transform: scale(1.2) rotate(3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -webkit-transform: scale(1.2) rotate(3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -o-transform: scale(1.2) rotate(3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -ms-transform: scale(1.2) rotate(3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    transform: scale(1.2) rotate(3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+  }
+  #password:focus{
+    -moz-transform: scale(1.2) rotate(-3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -webkit-transform: scale(1.2) rotate(-3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -o-transform: scale(1.2) rotate(-3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -ms-transform: scale(1.2) rotate(-3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    transform: scale(1.2) rotate(-3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+  }
 
-      input[type=submit]{
-        background: rgb(0,113,138);
-        color:white; 
-        width: 200px !important;
-        display: inline-block !important;
-      }
-      p.LegalInfo{
-        font-size: 10px;
-        text-align: center;
-        width:600px;
-        margin:11px auto;
-      }
-      span.how{
-        background: rgb(0,59,72);
-        padding: 0px;
-      }
-      span.punto-do{
-        background: rgb(0,113,138);
-        padding: 0px;
-      }
-      label.LabelFormLogin{
-         font-family: 'Archivo Narrow', sans-serif;
-      }
-      .error{
-        background:red;
-        color:white;
-      }
-      .logo-howmuch {
-        background: rgb(0,185,226); 
-        background: -moz-linear-gradient(-45deg,  rgba(0,185,226,1) 0%, rgba(0,161,190,1) 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,185,226,1)), color-stop(100%,rgba(0,161,190,1))); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* IE10+ */
-        background: linear-gradient(-45deg,  rgba(0,185,226,1) 0%,rgba(0,161,190,1) 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b9e2', endColorstr='#00a1be',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
-        color:white;
-        display:inline-block;
-        filter: dropshadow(color=#000, offx=0, offy=0);
-        font-family: 'Norican', cursive;
-        font-size:30px;
-        margin:0px;
-        position:relative;
-        text-align:center;
-        text-shadow: 0px 0px 10px #000;
-        top:3px;
-        width:100%;
-       }
-      .login-signup{
-        background-color: rgba(0,113,138,.3);
-        display:inline-block;
-        margin:50px;
-        padding:20px;
-        vertical-align: top;
-      }
-      .login-signup h2{
-        font-family: 'Archivo Narrow', sans-serif;
-      }
-      .middle{
-        margin:10px;
-      }
-      .SubmitLoginWrapper{
-        text-align: center !important;
-      }
-      #login-form input {
-        border:0px;
-        display:block;
-        font-size:16px;
-        margin:10px;
-        padding: 10px;
-        width:400px;
-      }
-      #signup a#newuser{
-        background: rgb(0,185,226); /* Old browsers */
-        color:white;
-        filter: dropshadow(color=#000, offx=0, offy=0);
-        font-family: 'Norican', cursive;
-        font-size:30px;
-        padding:10px;
-        text-shadow: 0px 0px 10px #000;
-      }
+  ::-webkit-input-placeholder {
+   text-align: center;
 
+  }
+  :-moz-placeholder {  
+   text-align: center;
+  }
+
+ 
+
+
+     
   </style>
 
 </head>
 
 <body>
 
-  <canvas id="background"></canvas>
-
-  <div>
+  <header>
 
     <div class="logo-howmuch">
         
-        <span class="how">how</span><span class="much">much</span><span class="punto-do">.do</span>
+      <img src="{{ MEDIA_URL }}howmuch_home.png" width="171" height="62">
+
+      <h1>Esta vez el comprador pone el precio</h1>
           
     </div>
 
-  </div>
-
-  <div class="middle">
-
-    <div class="login-signup" id="login-form">
-
-      <h2>Iniciar Sesión</h2>
-          {% if form.errors %}
-          <p class="error">Error! Intenta nuevamente</p>
-          {% endif %}
+    <div class="LoginWrapper">
 
         <form id ="login-form" action="" method="post">{% csrf_token %}
 
-          <label class="LabelFormLogin" for="username">USUARIO</label>
           <input type="text" name="username" value="" id="username" placeholder="USUARIO">
-          <label class="LabelFormLogin" for="password">CONTRASEÑA</label>
           <input type="password" name="password" value="" id="password" placeholder="CONTRASEÑA">
-          <div class="SubmitLoginWrapper">
-            <input type="submit" value="Entrar" />
+          
+          <div>
+            <input type="submit" id="signin" value="Entrar" />
+            <input type="hidden" name="next" value="{{ next|escape }}" />
+            <a href="/accounts/register">Registrarse</a>
           </div>
-          <input type="hidden" name="next" value="{{ next|escape }}" />
+          
+
         </form>
 
+      
 
     </div>
 
-    <div class="login-signup" id="signup">
 
-        <h2>Eres nuevo?</h2>
 
-        <a id="newuser" href="/accounts/register"><span class="how">r e</span><span class="much">g i s</span><span class="punto-do">t r a r s e</span></a>
+
+  </header>
+
+ 
+
+
+
+
+
+
+    <div class="HowBuyWrapper">
+      <h4>Como Comprar</h4>
+      <div class="BuyStep" id="buy1">
+        <div class="StepPicture">
+          1
+        </div>
+        <span>1</span>
+        <span class="InfoStep">Publica lo que quieras comprar al precio que quieras</span>
+      </div>
+
+      <div  class="BuyStep" id="buy2">
+        <div class="StepPicture">
+          2
+        </div>
+        <span>2</span>
+        <span>Selecciona la oferta del vendedor que mas te agrade</span>
+      </div>
+
+      <div class="BuyStep" id="buy3">
+        <div class="StepPicture">
+          3
+        </div>
+        <span>3</span>
+        <span>Paga y recibe el producto al mejor precio</span>
+      </div>
 
     </div>
 
-  </div>
+    <div class="HowSellwrapper">
+      <h4>Como Vender</h4>
+      <div class="SellStep" id="sell1">
+        <div class="StepPicture">
+          1
+        </div>
+        <span>1</span>
+        <span>Encuentra un producto que quieras Vender</span>
+      </div>
+
+      <div class="SellStep" id="sell2">
+        <div class="StepPicture">
+          2
+        </div>
+        <span>2</span>
+        <span>Envia tu oferta al Comprador</span>
+      </div>
+
+      <div class="SellStep" id="sell3">
+        <div class="StepPicture">
+          3
+        </div>
+        <span>3</span>
+        <span>Envia el producto y gana mucho dinero</span>
+      </div>
+
+    </div>
 
 
   <footer>

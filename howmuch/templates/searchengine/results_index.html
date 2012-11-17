@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}
+
+
+{% endblock %}
+
+{% block media %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
+{% block js %}
+<script src="https://s3.amazonaws.com/howmuch/endless_pagination/js/endless.js"></script>
+<script>$.endlessPaginate();</script>
+{% endblock %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="SearchResultsWrapper">
+
+{% include page_template %}
+<div id="popup2" style="display:none">
+	<span class="button-blue bClose"><span>cerrar</span></span>
+    <div class="content">
+    </div>
+</div>
+</section>
+{% endblock %}

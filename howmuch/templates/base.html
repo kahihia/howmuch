@@ -28,22 +28,17 @@
 
 
         <header>
-                
-                <div class="WelcomeUser">
-                    <span id="username">tu->{{ user }}!</span>
-                    <span><a class="button-blue"href="/item/new/">COMPRAR</a></span>
-                    <span id="logout"><a class="button-red" href="/logout/">salir</a></span>
-                 </div>
 
-
-                <div class="itemHeader logo-howmuch">
-                    <a class="alogo" href="/"><span class="how">how</span><span class="much">much</span><span class="punto-do">.do</span></a>
+                <div class="itemHeader LogoHeader">
+                    <a href="/">
+                        <img src="{{ MEDIA_URL }}howmuch.png" height="39" width="107">
+                    </a>
                 </div>
 
-                <div class="itemHeader formRequestItem">
+                <div class="itemHeader">
                     <form action="/search/" method="GET">
-                        <input id="searchInput" class="inputRequestItem" name = "q" type="text" placeholder="Vender Articulo..." size="30">
-                        <input class="button-green" id="goencargo" type="submit" value="VENDER">
+                        <input id="searchInput" class="inputRequestItem" name = "q" type="text" placeholder="Busca articulos a vender..." size="30">
+                       
                     </form>
                 </div>
 
@@ -52,9 +47,16 @@
                         <li><a href="/">Inicio</a></li>
                         <li><a href="/notifications/">(<span id="unreadNotifications"></span>)</a></li>
                         <li><a href="/messages/inbox">(<span id="unreadInboxNotification"></span>)</a></li>
-                        <li><a href="/profile/e/edit">Perfil</a></li>
+                        <li><a href="/profile/e/edit">{{ user }}</a></li>
                     </ul> 
                 </nav>
+
+                <div class="itemHeader">
+                    <a class= "ButtonBuy" href="/item/new">
+                        <img src="{{ MEDIA_URL }}buy-button.png" heigth="32" width="105">
+                    </a>
+                </div>
+
 
         </header>
 
