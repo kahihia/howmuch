@@ -51,7 +51,7 @@ class NewItemNewForm1(ModelForm):
 		model = RequestItem
 		fields = {'title'}
 		widgets = {
-			'title' : TextInput(attrs={'class' : 'InputFormRequestItemNew', 'placeholder' : 'Titulo del Articulo'}, ),
+			'title' : TextInput(attrs={'class' : 'InputFormRequestItemNew', 'placeholder' : 'Ej. iPhone 5 32 Gb Color Blanco en Buen Estado'}, ),
 		}
 
 class NewItemNewForm2(ModelForm):
@@ -59,7 +59,7 @@ class NewItemNewForm2(ModelForm):
 		model = RequestItem
 		fields = {'price'}
 		widgets = {
-			'price' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Precio al que lo vas a comprar'},),
+			'price' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. 10000.00'},),
 		}
 
 class NewItemNewForm3(ModelForm):
@@ -67,7 +67,7 @@ class NewItemNewForm3(ModelForm):
 		model = RequestItem
 		fields = {'quantity'}
 		widgets = {
-			'quantity' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Cuantos Necesitas'}, ),
+			'quantity' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. 2'}, ),
 		}
 
 class NewItemNewForm4(ModelForm):
@@ -75,7 +75,7 @@ class NewItemNewForm4(ModelForm):
 		model = RequestItem
 		fields = {'description'}
 		widgets = {
-			 'description': Textarea(attrs={'class':'InputFormRequestItemNew','cols': 40, 'rows': 10, 'placeholder' : 'Describe tu producto'}),
+			 'description': Textarea(attrs={'class':'InputFormRequestItemNew','cols': 40, 'rows': 10, 'placeholder' : 'Describe tu producto Aqui'}),
 		}
 
 class NewItemNewForm5(ModelForm):
@@ -93,8 +93,8 @@ class NewItemNewForm6(ModelForm):
 		model = RequestItem
 		fields = {'daysLimit','addressDelivery'}
 		widgets = {
-            'daysLimit' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. 10'}),
-            #'addressDelivery' : ModelChoiceField(attrs={'class':'InputFormRequestItemNew'}),
+			'daysLimit' : Select(attrs={'class':'InputFormRequestItemNew',}),
+            'addressDelivery' : Select(attrs={'class':'InputFormRequestItemNew'}),
         }
 
 class NewItemNewForm7(forms.Form):
@@ -128,8 +128,8 @@ class ProfferForm(ModelForm):
 		model = Proffer
 		exclude = ('owner', 'requestItem' ,'date', 'pictures',)
 		widgets = {
-			'cprice' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Ej. 500'}),
-			'message' : Textarea(attrs={'class' : 'InputFormRequestItem', 'cols': 60, 'rows': 2, 'placeholder' : 'Ej. Debes comprarme el articulo por esta razon, esta otra y esta otra ... '}),
+			'cprice' : TextInput(attrs={'class' : 'InputForm', 'placeholder' : 'Ej. 500'}),
+			'message' : Textarea(attrs={'class' : 'InputForm TextareaForm', 'cols': 60, 'rows': 2, 'placeholder' : 'Ej. Debes comprarme el articulo por esta razon, esta otra y esta otra ... '}),
 		}
 
 
@@ -155,6 +155,6 @@ class AssignmentForm(ModelForm):
 		model = Assignment
 		exclude = ('owner', 'requestItem', 'date', 'status', )
 		widgets = {
-			'comment' : Textarea(attrs={'class' : 'InputFormRequestItem', 'cols' : 60, 'rows' : 10}),
+			'comment' : Textarea(attrs={'class' : 'InputForm TextareaForm', 'cols' : 60, 'rows' : 10}),
 			}
 

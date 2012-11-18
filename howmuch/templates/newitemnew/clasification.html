@@ -11,12 +11,12 @@
 		{{ wizard.form.media }}
 	{% endblock %}
 
-<section>
+<section class="NewItemFormWrapper">
 
 <form class="NewItemForm" action="" method="post">{% csrf_token %}
 
 {{ wizard.management_form }}
-	
+	<span class="NewItemFormSpan">Clasifica tu Producto</span>
 	<div>
     	{{ wizard.form.itemsCatA }}
     	{{ wizard.form.itemsCatA.errors }}
@@ -31,27 +31,30 @@
     	{{ wizard.form.itemsCatC }}
     	{{ wizard.form.itemsCatC.errors }}
 	</div>
-
+	
 	<div>
+		<span class="NewItemFormSpan">Que marca es</span>
 		{{ wizard.form.brand }}
 		{{ wizard.form.brand.errors }}
 	</div>
-
+	
 	<div>
+		<span class="NewItemFormSpan">Que modelo es</span>
 		{{ wizard.form.model }}
 		{{ wizard.form.model.errors }}
 	</div>
 
 	<div> 
+		<span class="NewItemFormSpan">Nuevo o Usado?</span>
 		{{ wizard.form.state }}
 		{{ wizard.form.state.errors }}
 	</div>
 
 	<div class="NewItemButtons">
 		{% if wizard.steps.prev %}
-			<button class="button-blue" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Regresar" %}</button>
+		<button class="ButtonBack" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans " " %}</button>
 		{% endif %}
-		<input class="button-blue" type="submit" value="{% trans "Continuar" %}"/>
+		<input class="ButtonNext" type="submit" value="{% trans " " %}"/>
 	</div>
 
 </form>

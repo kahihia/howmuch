@@ -57,6 +57,9 @@ html{height:100%}
     background:rgba(0,0,0,.6) url('/media/loader.gif') center center no-repeat;
     border-radius:6px;
 }
+#glisse-wrapper{
+   
+}
 
 /* Glisse: Controls bar */
 /* Wrapper */

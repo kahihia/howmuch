@@ -8,9 +8,22 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.mousewheel.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.contentcarousel.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<script src="{{ MEDIA_URL }}js/glisse.js"></script>
 <script type="text/javascript">
 	$('#ca-container').contentcarousel();
 </script>
+<script>
+$(function () {
+    $('.pics').glisse({
+        changeSpeed: 550, 
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    }); 
+});
+</script>
+
 
 {% endblock %}
 
@@ -59,16 +72,16 @@
 
 							</div>
 
-							<div class="">
+							<div class="ProfferPicturePrincipal">
 							
 
-								<img src="{{ candidate.get_first_picture_100x100 }}">
+								<img src="{{ candidate.get_first_picture_250x250 }}">
 
 							
 							</div>
 
 							
-							<button class="button-green small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/assignment/new/{{ candidate.requestItem.pk }}/{{ candidate.owner.pk}}", "modalColor" : "white", "positionStyle" : "fixed" }'>Escojer</button>
+							<button class="button-sell button-select-candidate small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/assignment/new/{{ candidate.requestItem.pk }}/{{ candidate.owner.pk}}", "modalColor" : "white", "positionStyle" : "fixed" }'>SELECCIONAR</button>
 
 
 							<a href="#" class="ca-more button-blue">mas...</a>
@@ -77,9 +90,40 @@
 						<div class="ca-content-wrapper">
 							<div class="ca-content">
 								<a href="#" class="ca-close">close</a>
-								<div class="CaContentProfferPictures">
+								<div>
+									<div style="text-align:center">
+										<span><b>{{candidate.owner}}</b> es:</span>
+										<div style="width:250px; height:100px; background:red; margin: 5px auto">
+											<img src="">
+										</div>	
+									</div>
+
+
+									<div style="text-align:center">
+										<div style="display:inline-block">
+											<div>
+												<span>Total de Compras: <b>{{ candidate.owner.perfil.total_purchases }}</b></span>
+											</div>
+											<div>
+												<a href="#">Ver Criticas</a>
+											</div>
+										</div>
+										<div style="display:inline-block">
+											<div>
+												<span>Total de Ventas: <b>{{ candidate.owner.perfil.total_sales }}</b></span>
+											</div>
+											<div>
+												<a href="#">Ver Criticas</a>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="CaContentProfferPictures" style="text-align:center">
+									<h4>Imagenes del Articulo</h4>
 									{% for picture in candidate.pictures.all %}
-										<img src="{{ picture.get_url_100x100 }}">
+										<img class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
 									{% endfor %}
 								</div>
 

@@ -13,21 +13,27 @@
 	{% block head %}
 		{{ wizard.form.media }}
 	{% endblock %}
-<section>
+<section class="NewItemFormWrapper">
 
 <form class="NewItemForm" action="" method="post">{% csrf_token %}
+
+<div id="TitlePictureNewItem">
+
+</div>
 
 {{ wizard.management_form }}
 
 <div>
+<span class="NewItemFormSpan">Que quieres comprar</span>
 {{ wizard.form.title }}
 {{ wizard.form.title.errors }}
 </div>
 
-<div class="">
-
-<input class="button-blue" type="submit" value="{% trans "Continuar" %}"/>
-
+<div class="NewItemButtons">
+		{% if wizard.steps.prev %}
+		<button class="ButtonBack" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans " " %}</button>
+		{% endif %}
+		<input class="ButtonNext" type="submit" value="{% trans " " %}"/>
 </div>
 
 </form>

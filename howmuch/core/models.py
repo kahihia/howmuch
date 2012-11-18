@@ -26,6 +26,13 @@ STATUS_ASSIGNMENT = (
 
 )
 
+DAYS_CHOICES = (
+	(1, 'UN DIA'),
+	(5, 'CINCO'),
+	(10, 'DIEZ'),
+	(30, 'TREINTA'),
+	)
+
 
 
 class RequestItem(models.Model):
@@ -50,7 +57,7 @@ class RequestItem(models.Model):
 	model = models.CharField(max_length=25)
 	state = models.CharField(max_length=7, choices=STATES_CHOICES)
 	date = models.DateTimeField(auto_now_add=True)
-	daysLimit = models.IntegerField()
+	daysLimit = models.IntegerField(choices = DAYS_CHOICES)
 	pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
 	addressDelivery = models.ForeignKey(Address)
 
@@ -138,6 +145,10 @@ class Proffer(models.Model):
 	def get_first_picture_100x100(self):
 		for p in self.pictures.all()[:1]:
 			return p.get_url_100x100()
+
+	def get_first_picture_250x250(self):
+		for p in self.pictures.all()[:1]:
+			return p.get_url_250x250()
 
 	def is_complete(self):
 		if self.pictures.all().count() > 0:

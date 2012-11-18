@@ -14,9 +14,20 @@
   body{
     font-family: 'Archivo Narrow', sans-serif;
     background: url("/media/background.png") repeat !important;
+    
   }
-  form#login-form input{
-    background: white;
+  a#signup{
+    text-decoration: none;
+    color: black;
+
+  }
+  form#login-form{
+        -webkit-box-shadow:  0px 0px 1px 2px rgba(68, 255, 30, .7);
+    box-shadow:  0px 0px 1px 2px rgba(68, 255, 30, .7);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+  
   }
   header{
     text-align: center;
@@ -24,8 +35,13 @@
   .HowSellwrapper, .HowBuyWrapper{
     text-align: center;
   }
-  h1{
-    font-size: 20px;
+  h1,h4{
+    font-size: 30px;
+    text-shadow: 0px 1px 2px #828282;
+    filter: dropshadow(color=#828282, offx=0, offy=1);
+  }
+  h4{
+    font-size: 25px !important;
   }
   p.LegalInfo{
     font-size: 10px;
@@ -38,6 +54,12 @@
     display: inline-block;
     text-align: center;
     vertical-align: top;
+    -webkit-box-shadow:  0px 0px 1px 2px rgba(68, 255, 30, .7);
+    box-shadow:  0px 0px 1px 2px rgba(68, 255, 30, .7);
+    padding: 5px;
+    margin: 10px;
+    background: white;
+    border-radius: 3px;
   }
   .StepPicture{
     width:150px;
@@ -45,11 +67,53 @@
     background: white;
     margin: 0 auto;
   }
+  .LoginButton{
+    background: rgb(180,246,0); /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2I0ZjYwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2YWMyMTgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(180,246,0,1) 0%, rgba(106,194,24,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(180,246,0,1)), color-stop(100%,rgba(106,194,24,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4f600', endColorstr='#6ac218',GradientType=0 ); /* IE6-8 */
+    border: 1px solid #6c8f04;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+    text-shadow: 1px 1px 2px #6c8f04;
+    filter: dropshadow(color=#6c8f04, offx=1, offy=1);
+
+}
+.LoginButton:hover{
+    background: rgb(175,238,0); /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2FmZWUwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2N2JkMTciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(175,238,0,1) 0%, rgba(103,189,23,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(175,238,0,1)), color-stop(100%,rgba(103,189,23,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#afee00', endColorstr='#67bd17',GradientType=0 ); /* IE6-8 */
+
+}
+.LoginFormButtons{
+    padding: 10px;
+}
+.logo-howmuch img:hover{
+  opacity: .9;
+
+}
   #username, #password{
     border: 0px;
     padding: 10px;
     border-radius: 3px;
     width:300px;
+    background: white;
+    -webkit-box-shadow:  0px 0px 3px 1px rgba(50, 160, 255, .7);
+    box-shadow:  0px 0px 3px 1px rgba(50, 160, 255, .7);
   }
   #username:focus{
     -moz-transform: scale(1.2) rotate(3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
@@ -66,13 +130,7 @@
     transform: scale(1.2) rotate(-3deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
   }
 
-  ::-webkit-input-placeholder {
-   text-align: center;
 
-  }
-  :-moz-placeholder {  
-   text-align: center;
-  }
 
  
 
@@ -101,10 +159,10 @@
           <input type="text" name="username" value="" id="username" placeholder="USUARIO">
           <input type="password" name="password" value="" id="password" placeholder="CONTRASEÑA">
           
-          <div>
-            <input type="submit" id="signin" value="Entrar" />
+          <div class="LoginFormButtons">
+            <input class="LoginButton" type="submit" id="signin" value="Entrar" />
             <input type="hidden" name="next" value="{{ next|escape }}" />
-            <a href="/accounts/register">Registrarse</a>
+            <a id="signup" href="/accounts/register">Registrarse</a>
           </div>
           
 

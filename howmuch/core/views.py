@@ -285,7 +285,7 @@ def newAssignment(request, itemId, candidateID):
 			return HttpResponse('Asignacion Correcta')
 	else:
 		form = AssignmentForm()
-	return render_to_response('core/newAssignment.html', {'form' : form}, context_instance=RequestContext(request))
+	return render_to_response('core/newAssignment.html', {'form' : form, 'candidateUser' : candidateUser, 'item' : item }, context_instance=RequestContext(request))
 
 
 @login_required(login_url="/login/")
