@@ -2,6 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from howmuch.core.models import Assignment
+from howmuch.pictures.models import make_upload_path
+from howmuch.pictures.thumbs import ImageWithThumbsField
 
 PRESTIGE_CHOICES = (
 	('Malo','MALO'),
@@ -25,6 +27,7 @@ class PayConfirm(models.Model):
 	date = models.DateTimeField(auto_now_add = True)
 	amount = models.IntegerField()
 	message = models.CharField(max_length = 255)
+	picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((100,100),(250,250)), blank=True )
 
 	def __unicode__(self):
 		return u'Assignment : %s message: %s ' % (self.assignment, self.message)
@@ -34,6 +37,7 @@ class DeliveryConfirm(models.Model):
 	assignment = models.ForeignKey(Assignment)
 	date = models.DateTimeField(auto_now_add = True)
 	message = models.CharField(max_length = 255)
+	picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((100,100),(250,250)), blank=True )
 
 	def __unicode__(self):
 		return u'Assignment : %s message: %s ' % (self.assignment, self.message)

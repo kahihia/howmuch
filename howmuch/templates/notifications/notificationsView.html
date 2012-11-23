@@ -10,7 +10,13 @@
 
 <section class="NotificationsWrapper">
 
-{% for notification in notifications %}
+{% for group in notifications_result %}
+
+<section>
+
+	<div>{{ group.title }}</div>
+
+	{% for notification in group.notifications %}
 
 	{% if not notification.has_been_readed %}
 
@@ -22,8 +28,21 @@
 
 	{% endif %}
 
-		<div class="NotificationPicture">
-
+		{% if notification.tipo == 'proffer' %}
+		<div class="NotificationPicture NotificationProffer">
+		{% else %}
+		{% if notification.tipo == 'assignment' %}
+		<div class="NotificationPicture NotificationAssignment">
+		{% else %}
+		{% if notification.tipo == 'confirm_pay' %} 
+		<div class="NotificationPicture NotificationConfirmPay">
+		{% else %}
+		{% if notification.tipo == 'confirm_delivery' %} 
+		<div class="NotificationPicture NotificationConfirmDelivery">
+		{% else %}
+		{% if notification.tipo == 'critique' %} 
+		<div class="NotificationPicture NotificationCritique">
+		{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
 		</div>
 
 		<div class="NotificationDescription">
@@ -34,13 +53,20 @@
 
 		<div class="NotificationTimestamp">
 
-			<span>hace {{ notification.get_timestamp }}</span>
+			<span><b>hace {{ notification.get_timestamp }}</b></span>
 
 		</div>
 
 	</article>
 
-	
+
+	{% endfor %}
+
+</section>
+
+{% empty %}
+
+<h4>Aun no tienes notificaciones</h4>
 
 {% endfor %}
 

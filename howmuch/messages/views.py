@@ -3,23 +3,26 @@ from howmuch.messages.forms import MessageForm
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.models import Notification
 from howmuch.messages.functions import ConversationFeatures
+from howmuch.perfil.models import Perfil
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.db.models import Q
 from django.core.mail import send_mail
 
+def create_unread_conversation(owner):
+	perfil = Perfil.objects.get(user = owner)
+	perfil.unread_conversations += 1
+	perfil.save()
 
 def newMessage(request, conversationID):
+
+	perfilUser = Perfil.objects.get(user = request.user)
+
 	"""
 	Verificar que la conversacion Exista
 	"""
 	conversation = get_object_or_404(Conversation, pk = conversationID)
-
-	
-	#Crea una instancia de conversationFeatures y verifica que quien publica el mensaje en la conversacion sea ya sea el buyer o el seller
-	
-	#conversationFeature = ConversationFeatures(conversation, request.user)
 
 	"""
 	Se verifica que quien publica el mensaje en la conversacion sea el buyer o seller
@@ -28,8 +31,6 @@ def newMessage(request, conversationID):
 		pass
 	else:
 		return HttpResponse("No tienes permiso para publicar en esta conversacion")
-
-	
 
 	"""
 	Si vienes de una notificacion, realizar las verificaciones y actualizar a True el status de la notificacion
@@ -46,6 +47,11 @@ def newMessage(request, conversationID):
 			else:
 				notification.has_been_readed = True
 				notification.save()		
+				"""
+				Se le quita una notificacion al total de notificaciones del usuario
+				"""
+				perfilUser.unread_notifications -= 1
+				perfilUser.save()
 
 	"""
 	Verifica si es comprador y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
@@ -55,6 +61,11 @@ def newMessage(request, conversationID):
 		for message in messages:
 			message.has_been_readed = True
 			message.save()
+		"""
+		Se le quita una conversacion sin leer al total de conversaciones sin leer
+		"""
+		perfilUser.unread_conversations -= 1
+		perfilUser.save()
 
 	"""
 	Verifica si es el vendedor y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
@@ -65,11 +76,25 @@ def newMessage(request, conversationID):
 		for message in messages:
 			message.has_been_readed = True
 			message.save()
+		"""
+		Se le quita una conversacion sin leer al total de conversaciones sin leer
+		"""
+		perfilUser.unread_conversations -= 1
+		perfilUser.save()
 
 
 	if request.method == 'POST':
 		form = MessageForm(request.POST)
 		if form.is_valid():
+			
+			"""
+			Si es comprador y en esta conversacion el vendedor No tiene mensajes sin leer, se agrega un mensaje sin leer al vendedor y viceversa
+			"""
+			if conversation.is_buyer(request.user) and conversation.getNumber_unread_messages_seller() == 0:
+				create_unread_conversation(conversation.assignment.owner)
+			elif conversation.is_seller(request.user) and conversation.getNumber_unread_messages_buyer() == 0:
+				create_unread_conversation(conversation.assignment.requestItem.owner)
+
 			"""
 			Crear el mensaje
 			"""
@@ -77,6 +102,13 @@ def newMessage(request, conversationID):
 			newMessage.owner = request.user
 			newMessage.conversation = conversation
 			newMessage.save()
+
+			"""
+			Se sobre escribe el valor de last_message en la conversacion
+			"""
+			conversation.last_message = newMessage.date
+			conversation.save()
+
 			"""
 			Envia el mensaje por mail al destinatario
 			"""
@@ -102,5 +134,5 @@ def newMessage(request, conversationID):
 	return render_to_response('messages/conversation.html', {'form' : form, 'messages' : allmessages, 'user' : request.user, 'conversation' : conversation }, context_instance = RequestContext(request))
 
 def viewInbox(request):
-	conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__requestItem__owner = request.user))
+	conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__requestItem__owner = request.user)).order_by('-last_message')
 	return render_to_response('messages/inbox.html',{'conversations' : conversations}, context_instance = RequestContext(request))

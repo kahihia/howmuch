@@ -9,25 +9,18 @@
 
 {% block content %}
 
-<section class="PrestigeOptions">
+<section class="TransactionInfo">
+	<article>
+		<h4>Dirección de Envio</h4>
 
+		{{ conversation.assignment.requestItem.addressDelivery }}
 
+	</article>
 
-		<ul>
-			{% if conversation.assignment.requestItem.owner == user%}
-			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
-			<li><a href="/prestige/setprestigetoseller/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
-			{% else %}
-			{% if conversation.assignment.owner == user %}
-			<li><a href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
-			<li><a href="/prestige/setprestigetobuyer/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
-			{% endif %}{% endif %}
-			
-			<li><a href="#">Solucionar Problemas</a></li>
-		</ul>
+	<article>
+		<h4>Datos de Pago</h4>
 
-
-
+	</article>
 </section>
 
 <section class="ConversationContainer">
@@ -85,6 +78,31 @@
 			<input class="button-green ConversationInputMessage" type="submit" value="ENVIAR">
 		</form>
 	</section>
+
+</section>
+
+<section class="PrestigeOptions">
+	<article>
+		<h4>Opciones</h4>
+		<ul>
+			{% if conversation.assignment.requestItem.owner == user%}
+			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
+			<li><a href="/prestige/setprestigetoseller/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
+			{% else %}
+			{% if conversation.assignment.owner == user %}
+			<li><a href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
+			<li><a href="/prestige/setprestigetobuyer/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
+			{% endif %}{% endif %}
+			
+			<li><a href="#">Solucionar Problemas</a></li>
+		</ul>
+	</article>
+
+	<article>
+		<h4>Status</h4>
+	</article>
+
+
 
 </section>
 

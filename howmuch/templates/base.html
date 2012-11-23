@@ -45,9 +45,16 @@
                 <nav class="itemHeader" id ="menu">
                     <ul>
                         <li><a href="/">Inicio</a></li>
-                        <li><a href="/notifications/">(<span id="unreadNotifications"></span>)</a></li>
-                        <li><a href="/messages/inbox">(<span id="unreadInboxNotification"></span>)</a></li>
-                        <li><a href="/profile/e/edit">{{ user }}</a></li>
+                        <li><a href="/notifications/">(<span id="unreadNotifications">{{ user.perfil.unread_notifications }}</span>)</a></li>
+                        <li><a href="/messages/inbox">(<span id="unreadInboxNotification">{{ user.perfil.unread_conversations }}</span>)</a></li>
+                        <li><a href="#">{{ user }}</a>
+                            <ul class="dropmenu">
+                                <li><a href="/purchases/published">Mis Compras</a></li>
+                                <li><a href="/sales/possible">Mis Ventas</a></li>
+                                <li><a href="/profile/e/edit">Acerca de Mi</a></li>
+                                <li><a href="#">Configuracion</a></li>
+                            </ul>
+                        </li>
                     </ul> 
                 </nav>
 
@@ -107,6 +114,7 @@
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
 
+<!-- 
         <script type="text/javascript">
             $(document).ready(function(){
                 $.getJSON("/backend/inboxcount/", function(json) {
@@ -117,5 +125,7 @@
                 })
             })
         </script>
+ -->
+
     </body>
 </html>

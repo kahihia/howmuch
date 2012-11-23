@@ -27,7 +27,7 @@
 
 		<div class="ItemThumbsMoreButtonSell">
 			<div class="ItemThumbsButtonSell">
-				<button class="button-sell button-sell-mini small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
+				<a class="button-sell button-sell-mini" href="/proffer/new/{{ item.pk }}">VENDER</a>
 			</div>
 			<div class="ItemThumbsTimeStamp">
 				<span>hace <b>{{ item.get_timestamp }}</b></span>

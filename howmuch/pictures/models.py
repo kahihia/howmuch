@@ -33,6 +33,3 @@ class Picture(models.Model):
 
     def get_url_250x250(self):
         return str(self.picture.url_250x250).split("?")[0]
-
-
-

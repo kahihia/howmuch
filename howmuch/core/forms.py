@@ -133,6 +133,16 @@ class ProfferForm(ModelForm):
 		}
 
 
+class ProfferFormNew(forms.Form):
+	cprice = forms.IntegerField()
+	message = forms.CharField(max_length=140)
+	picture1 = forms.ImageField()
+	picture2 = forms.ImageField(required=False)
+	picture3 = forms.ImageField(required=False)
+	picture4 = forms.ImageField(required=False)
+	picture5 = forms.ImageField(required=False)
+
+
 class NewProfferForm1(ModelForm):
 	class Meta:
 		model = Proffer

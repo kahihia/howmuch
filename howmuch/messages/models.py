@@ -17,6 +17,7 @@ class Conversation(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	assignment = models.OneToOneField(Assignment)
 	status = models.CharField(max_length=2, default = "1")
+	last_message = models.DateTimeField(default = datetime.datetime.now())
 
 	def __unicode__(self):
 		return u'Assignment to: %s ' % (self.assignment.requestItem)

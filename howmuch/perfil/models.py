@@ -52,8 +52,9 @@ class Perfil(models.Model):
 	banks = models.ManyToManyField(AccountBank, blank = True)
 	total_purchases = models.IntegerField(default = 0)
 	total_sales = models.IntegerField(default = 0)
-	prestige_buyer = models.CharField(max_length=15, default = "amateur")
-	prestige_seller = models.CharField(max_length=15, default = "amateur")
+	prestige = models.CharField(max_length=1, default = 'A')
+	unread_notifications = models.IntegerField(default = 0)
+	unread_conversations = models.IntegerField(default = 0)
 
 	def __unicode__(self):
 		return u'%s' % (self.user)
@@ -61,6 +62,7 @@ class Perfil(models.Model):
 	def create_user_profile(sender, instance, created, **kwargs):
 		if created:
 			Perfil.objects.create(user=instance)
+
 	post_save.connect(create_user_profile, sender=User)
 
 	def getAddressDelivery(self):
@@ -83,6 +85,8 @@ class Perfil(models.Model):
 		for bank in self.banks.all():
 			banks += 'Banco: %s, Cta: %s' % (bank.bank, bank.account)
 		return str(banks)
+
+
 
 
 

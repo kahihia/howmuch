@@ -31,6 +31,8 @@ $(function () {
 
 <section class="CandidatesWrapper">
 
+	{% if candidates.count > 0 %}
+
 	<div class="CandidatesTitleWrapper">
 
 		<span class = "ItemSpanBig">Selecciona la mejor opción para ti</span>
@@ -133,10 +135,6 @@ $(function () {
 
 					</div>
 
-					{% empty %}
-
-						<span>Este Articulo aun no dispone de Posibles Vendedores</span>
-
 					{% endfor %}
 
 					<div class="ca-item CandidateItemWrapper ">
@@ -156,6 +154,12 @@ $(function () {
 
 				</div>
 	</div>
+
+	{% else %}
+
+	<span>Este articulo aun no tiene candidatos</span>
+
+	{% endif %}
 
 	<div id="popup2" style="display:none">
         <span class="button-blue bClose"><span>cerrar</span></span>

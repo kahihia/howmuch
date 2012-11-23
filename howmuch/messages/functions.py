@@ -14,9 +14,7 @@ class InitialConversationContext:
 		Se crea el mensaje de inicio del comprador
 		"""
 		theMessage = "Hola " + str(self.seller.first_name) + ", la Direccion a la que quiero que envies el producto es: " + str(self.conversation.assignment.requestItem.addressDelivery.get_address())
-		newMessage = Message.objects.create(owner = self.buyer, message = theMessage ,conversation = self.conversation )
-		newMessage.save()
-
+		
 		"""
 		se envia un mail con el mensaje de inicio del comprador para el vendedor
 		"""
@@ -31,8 +29,6 @@ class InitialConversationContext:
 
 	def createMessageBySeller(self):
 		theMessage = "Gracias, las cuentas bancarias a las que me puedes depositar son: " + self.seller.perfil.get_banks() + " , En cuanto este confirmado el Deposito, yo te enviare el Producto"
-		newMessage = Message.objects.create(owner = self.seller, message = theMessage, conversation = self.conversation)
-		newMessage.save()
 
 		"""
 		se envia un mail con el mensaje de inicio del vendedor para el comprador

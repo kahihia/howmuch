@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm
+from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm, ProfferFormNew
 from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture, ProfferPicture
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
 from howmuch.messages.models import Conversation
@@ -180,12 +180,31 @@ def newProffer(request,itemId):
 		return render_to_response('core/candidatura.html', {'errors' : userRequestItem.errors() }, context_instance=RequestContext(request))
 
 	if request.method == 'POST':
-		form = ProfferForm(request.POST)
+		form = ProfferFormNew(request.POST, request.FILES)
 		if form.is_valid():
-			newProffer = form.save(commit=False)
-			newProffer.owner = request.user
-			newProffer.requestItem = requestItem
+			pictures = []
+			cprice = form.cleaned_data['cprice']
+			message = form.cleaned_data['message']
+
+			pictures.append(form.cleaned_data['picture1'])
+			if form.cleaned_data['picture2'] is not None:
+				pictures.append(form.cleaned_data['picture2'])
+			if form.cleaned_data['picture3'] is not None:
+				pictures.append(form.cleaned_data['picture3'])
+			if form.cleaned_data['picture4'] is not None:
+				pictures.append(form.cleaned_data['picture4'])
+			if form.cleaned_data['picture5'] is not None:
+				pictures.append(form.cleaned_data['picture5'])
+
+
+			newProffer = Proffer(owner=request.user, requestItem = requestItem, cprice = cprice, message = message)
 			newProffer.save()
+
+			for picture in pictures:
+				newPicture = Picture(owner = request.user, picture = picture)
+				newPicture.save()
+				newProfferPicture = ProfferPicture(proffer = newProffer, picture = newPicture)
+				newProfferPicture.save()
 
 			"""
 			Se activa el sistema de Notificaciones
@@ -195,9 +214,9 @@ def newProffer(request,itemId):
 			newNotification.sendNotification()
 
 
-			return HttpResponseRedirect('/pictures/addpicture/proffer/' + str(newProffer.pk) )
+			return HttpResponse('Se ha registrado correctamente')
 	else:
-		form = ProfferForm()
+		form = ProfferFormNew()
 	return render_to_response('core/candidatura.html', {'form' : form, 'requestItem' : requestItem, 'user' : request.user }, context_instance=RequestContext(request))
 
 
@@ -217,6 +236,13 @@ def viewCandidates(request, itemId):
 			else:
 				notification.has_been_readed = True
 				notification.save()
+				"""
+				Se le quita una notificacion al total de notificaciones del usuario
+				"""
+				perfilUser = Perfil.objects.get(user = request.user)
+				perfilUser.unread_notifications -= 1
+				perfilUser.save()
+
 
 	candidates = Proffer.objects.filter(requestItem = itemId)
 	return render_to_response('core/candidatesList.html', {'candidates' : candidates }, context_instance=RequestContext(request))
@@ -303,7 +329,7 @@ def processPurchasesView(request):
 	items = RequestItem.objects.filter(owner = request.user)
 	processPurchases = []
 	for item in items:
-		if item.has_assignment():
+		if item.has_assignment() and not item.has_been_completed():
 			processPurchases.append(item)
 	return render_to_response('core/processPurchases.html', {'processPurchases' : processPurchases }, context_instance = RequestContext(request))
 

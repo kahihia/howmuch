@@ -1,6 +1,7 @@
 from howmuch.prestige.models import Prestige, PrestigeLikeBuyer, PrestigeLikeSeller
 from howmuch.core.models import Assignment
 from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
+from howmuch.prestige.functions import update_prestige
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.models import Notification
 from howmuch.notifications.functions import SendNotification
@@ -43,7 +44,7 @@ def confirmPay(request, assignmentID):
 	if assignmentFeature.has_been_paid():
 		return HttpResponse("Ya has confirmado este pago, no puedes confirmarlo nuevamente")
 	elif request.method == 'POST':
-		form = PayConfirmForm(request.POST)
+		form = PayConfirmForm(request.POST, request.FILES)
 		if form.is_valid():
 			newPay = form.save(commit = False)
 			newPay.owner = request.user
@@ -68,7 +69,7 @@ def confirmPay(request, assignmentID):
 			newNotification.sendNotification()
 
 
-			return HttpResponse('Has confirmado el pago correctamente')
+			return HttpResponseRedirect('/messages/' + str(conversation.pk) )
 	else:
 		form = PayConfirmForm()
 	return render_to_response('prestige/payConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
@@ -97,7 +98,7 @@ def confirmDelivery(request, assignmentID):
 	if assignmentFeature.has_been_delivered():
 		return HttpResponse("Ya has confirmado el envio de este articulo, no puedes confirmarlo nuevamente")
 	elif request.method == 'POST':
-		form = DeliveryConfirmForm(request.POST)
+		form = DeliveryConfirmForm(request.POST, request.FILES)
 		if form.is_valid():
 			newDelivery = form.save(commit = False )
 			newDelivery.owner = request.user
@@ -122,9 +123,8 @@ def confirmDelivery(request, assignmentID):
 			newNotification.sendNotification()
 
 
-			return HttpResponse('Has confirmado el envio correctamente')
-
-			return HttpResponseRedirect('/thanks/')
+			return HttpResponseRedirect('/messages/' + str(conversation.pk) )
+			
 	else:
 		form = DeliveryConfirmForm()
 	return render_to_response('prestige/deliveryConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
@@ -163,6 +163,8 @@ def setPrestigeToSeller(request, assignmentID):
 			if assignment.has_been_critiqued_before():
 				assignment.status = "4"
 				assignment.save()
+				update_prestige(request.user)
+				update_prestige(assignment.owner)
 			elif assignment.status == "2":
 				assignment.status = "3"
 				assignment.save()
@@ -174,7 +176,7 @@ def setPrestigeToSeller(request, assignmentID):
 			newNotification = SendNotification(newPrestigeToSeller, 'critique')
 			newNotification.sendNotification()
 				
-			return HttpResponse('Has criticado a tu vendedor Correctamente')
+			return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
 	else:
 		form = PrestigeForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
@@ -215,6 +217,8 @@ def setPrestigeToBuyer(request, assignmentID):
 			if assignment.has_been_critiqued_before():
 				assignment.status = "4"
 				assignment.save()
+				update_prestige(request.user)
+				update_prestige(assignment.requestItem.owner)
 			elif assignment.status == "2":
 				assignment.status = "3"
 				assignment.save()
@@ -226,7 +230,7 @@ def setPrestigeToBuyer(request, assignmentID):
 			newNotification = SendNotification(newPrestigeToBuyer, 'critique')
 			newNotification.sendNotification()
 	
-			return HttpResponse('Has criticado a tu comprador correctamente')
+			return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
 	else:
 		form = PrestigeForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
