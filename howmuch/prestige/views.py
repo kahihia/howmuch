@@ -1,6 +1,6 @@
-from howmuch.prestige.models import Prestige, PrestigeLikeBuyer, PrestigeLikeSeller
+from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
 from howmuch.core.models import Assignment
-from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
+from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
 from howmuch.prestige.functions import update_prestige
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.models import Notification
@@ -178,7 +178,7 @@ def setPrestigeToSeller(request, assignmentID):
 				
 			return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
 	else:
-		form = PrestigeForm()
+		form = PrestigeLikeSellerForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
@@ -232,7 +232,7 @@ def setPrestigeToBuyer(request, assignmentID):
 	
 			return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
 	else:
-		form = PrestigeForm()
+		form = PrestigeLikeBuyerForm()
 	return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
 
 

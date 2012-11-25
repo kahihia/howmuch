@@ -245,7 +245,8 @@ def viewCandidates(request, itemId):
 
 
 	candidates = Proffer.objects.filter(requestItem = itemId)
-	return render_to_response('core/candidatesList.html', {'candidates' : candidates }, context_instance=RequestContext(request))
+	item = get_object_or_404(RequestItem, pk = itemId)
+	return render_to_response('core/candidatesList.html', {'candidates' : candidates, 'item' : item }, context_instance=RequestContext(request))
 
 
 @login_required(login_url="/login/")

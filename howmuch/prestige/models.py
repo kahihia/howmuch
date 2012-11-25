@@ -42,27 +42,6 @@ class DeliveryConfirm(models.Model):
 	def __unicode__(self):
 		return u'Assignment : %s message: %s ' % (self.assignment, self.message)
 
-class Prestige(models.Model):
-	de = models.ForeignKey(User, related_name = "prestige from")
-	to = models.ForeignKey(User, related_name = "prestige to")
-	assignment = models.ForeignKey(Assignment)
-	date = models.DateTimeField(auto_now_add = True)
-	prestige = models.CharField(max_length = 10, choices = PRESTIGE_CHOICES)
-	message = models.CharField(max_length = 255)
-
-	def __unicode__(self):
-		return u'Assignment : %s Prestige: %s message: %s ' % (self.assignment, self.prestige, self.message)
-
-	def is_buyer(self):
-		if self.assignment.is_buyer(self.to):
-			return True
-		return False
-
-	def is_seller(self):
-		if self.assignment.is_seller(self.to):
-			return True
-		return False
-
 class PrestigeLikeBuyer(models.Model):
 	de = models.ForeignKey(User, related_name = "prestigeLikeBuyer from")
 	to = models.ForeignKey(User, related_name = "prestigeLikeBuyer to")

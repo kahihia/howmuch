@@ -41,7 +41,7 @@ class AccountBank(models.Model):
 	account = models.CharField(max_length=33)
 
 	def __unicode__(self):
-		return u'%s' % (self.account)
+		return u'%s %s' % (self.bank, self.account)
 
 class Perfil(models.Model):
 	user = models.OneToOneField(User)

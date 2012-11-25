@@ -1,5 +1,5 @@
 from howmuch.core.models import RequestItem, Proffer, Assignment
-from howmuch.prestige.models import PayConfirm, DeliveryConfirm, Prestige
+from howmuch.prestige.models import PayConfirm, DeliveryConfirm, PrestigeLikeBuyer, PrestigeLikeSeller
 from howmuch.messages.models import Conversation
 
 
@@ -95,23 +95,26 @@ class AssignmentFeatures:
 			return False
 		return True
 
-	def has_been_critiqued(self):
-		prestige = Prestige.objects.filter(assignment = self.assignment)
-		if prestige.exists():
-			return True
-		return False
-
-	def has_been_completed(self):
-		if Prestige.objects.filter(assignment = self.assignment).count() == 2:
-			return True
-		return False
-
-	def user_has_critiqued(self, user):
+	def has_been_critiqued_by_buyer(self):
 		try:
-			Prestige.objects.filter(assignment = self.assignment, de = user)
-		except Prestige.DoesNotExist:
+			PrestigeLikeSeller.objects.get(assignment = self.assignment, de = self.assignment.requestItem.owner )
+		except PrestigeLikeSeller.DoesNotExist:
 			return False
 		return True
+
+	def has_been_critiqued_by_seller(self):
+		try:
+			PrestigeLikeBuyer.objects.get(assignment = self.assignment, de = self.assignment.owner )
+		except PrestigeLikeBuyer.DoesNotExist:
+			return False
+		return True
+
+	def user_has_critiqued(self, user):
+		if self.assignment.is_buyer(user) and has_been_critiqued_by_buyer():
+			return True
+		elif self.assignment.is_seller(user) and has_been_critiqued_by_seller():
+			return True
+		return False
 
 	def is_in_process(self):
 		if self.assignment.status in ["0", "1", "2", "3"]:

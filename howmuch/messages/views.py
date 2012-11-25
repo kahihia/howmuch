@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from howmuch.core.functions import AssignmentFeatures
 from howmuch.messages.forms import MessageForm
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.models import Notification
@@ -82,6 +83,12 @@ def newMessage(request, conversationID):
 		perfilUser.unread_conversations -= 1
 		perfilUser.save()
 
+	"""
+	Se crea una instancia de AssignmentFeatures para utilizar esa informacion en la conversacion
+	"""
+
+	assignmentFeatures = AssignmentFeatures(conversation.assignment)
+
 
 	if request.method == 'POST':
 		form = MessageForm(request.POST)
@@ -131,7 +138,8 @@ def newMessage(request, conversationID):
 	else:
 		form = MessageForm()
 	allmessages = Message.objects.filter(conversation = conversation).order_by('date')
-	return render_to_response('messages/conversation.html', {'form' : form, 'messages' : allmessages, 'user' : request.user, 'conversation' : conversation }, context_instance = RequestContext(request))
+	return render_to_response('messages/conversation.html', {'form' : form, 
+			'messages' : allmessages, 'user' : request.user, 'conversation' : conversation, 'assignmentFeatures' : assignmentFeatures }, context_instance = RequestContext(request))
 
 def viewInbox(request):
 	conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__requestItem__owner = request.user)).order_by('-last_message')

@@ -184,9 +184,6 @@ class Assignment(models.Model):
 		else: 
 			return False
 
-	def get_seller(self):
-		return self.owner
-
 	def is_buyer(self,user):
 		if self.requestItem.owner == user:
 			return True
@@ -196,8 +193,16 @@ class Assignment(models.Model):
 	def get_buyer(self):
 		return self.requestItem.owner
 
+	def get_seller(self):
+		return self.owner
+
 	def has_been_critiqued_before(self):
 		if self.status == "3":
+			return True
+		return False
+
+	def is_complete(self):
+		if self.status == "4":
 			return True
 		return False
 

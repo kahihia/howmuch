@@ -2,47 +2,49 @@
 
 {% block SalesMiddle %}
 
-<section>
+<section class="SalesList">
 
+	{% for item in completedSales %}
 
- {% for item in completedSales %}
+	<article class="ItemThumbsSales" style="position:relative !important">
 
- 	<article class="ItemThumbsPurchases">
-	
+		<ul class="MoreOptions">
+			<li><a class="MoreOptionsIcon" href="#">+</a>
+				<ul>
+					<li><a href="#">Editar</a></li>
+					<li><a href="#">Eliminar</a></li>
+				</ul>
+			</li>
+		</ul>
 
-		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
-			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
-				<b><span>{{ item.requestItem.state }}</span></b> en <b><span>$ {{ item.requestItem.price }}</span></b>
-			</div>
+		<div class="SalesListPicture">
 
-			<div clas="ItemThumbsTitle ItemThumbsPurchasesInfo">
-				<span> {{ item.requestItem.title }} </span>
-			</div>
-
-			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
-				<div class="ItemThumbsMore">
-					<a class="button-green" href="">Ver Status</a>
-					<a class="button-blue" href="/item/candidates/{{ item.requestItem.pk }}">Ir a Conversación</a>					
-				</div>
-			</div>
+			<img src="{{ item.requestItem.get_first_picture_100x100 }}" width="50" height="50">
 
 		</div>
 
-		<div class="ItemThumbsPicture">
-			<img src="{{ item.requestItem.get_first_picture_100x100 }}">
-		</div>
+		<div class="SalesItemWrapper">
+			<div>
+				<a href="/item/{{ item.requestItem.pk }}">{{ item.requestItem.title }}</a> en <a href="/item/{{ item.requestItem.pk }}">${{ item.requestItem.price }}</a>
+			</div>
 
+			<div>
+					<a  href="/messages/{{ item.conversation.pk }}">Ver Conversacíon</a>
+					<a  href="#">Ver Critica</a>
+					<span class="SalesItemTimeStamp">hace {{ item.requestItem.get_timestamp }}</span>				
+			</div>
+
+
+		</div>
 	
 	</article>
 
- {% empty %}
+	{% empty %}
 
- 	<p>Aun no tienes ventas completadas</p>
+	<p>Aun no has solicitado ningun articulo</p>
 
- {% endfor %}
-
+	{% endfor %}
 
 </section>
-
 
 {% endblock %}

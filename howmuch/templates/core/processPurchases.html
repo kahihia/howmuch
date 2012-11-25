@@ -2,45 +2,52 @@
 
 {% block PurchasesMiddle%}
 
-<section>
+<section class="PurchasesList">
+
 	{% for item in processPurchases %}
 
-	<article class="ItemThumbsPurchases">
-	
+	<article class="ItemThumbsPurchases" style="position:relative !important">
 
-		<div class="ItemThumbsPriceTitle PurchasesInfoContainer">
-			<div class="ItemThumbsPrice ItemThumbsPurchasesInfo PurchasesInfoStatePrice">
-				<b><span>{{ item.state }}</span></b> en <b><span>$ {{ item.price }}</span></b>
-			</div>
+		<ul class="MoreOptions">
+			<li><a class="MoreOptionsIcon" href="#">+</a>
+				<ul>
+					<li><a href="#">Editar</a></li>
+					<li><a href="#">Eliminar</a></li>
+				</ul>
+			</li>
+		</ul>
 
-			<div clas="ItemThumbsTitle ItemThumbsPurchasesInfo">
-				<span> {{ item.title }} </span>
-			</div>
+		<div class="PurchasesListPicture">
 
-			<div class="ItemThumbsMoreButtonSell ItemThumbsPurchasesInfo">
-				<div class="ItemThumbsMore">
-					<a class="button-green" href="">Ver Status</a>
-					<a class="button-blue" href="/messages/{{ item.assignment.conversation.pk }}">Ir a Conversación</a>					
-				</div>
-			</div>
+			<img src="{{ item.get_first_picture_100x100 }}" width="50" height="50">
 
 		</div>
 
-		<div class="ItemThumbsPicture">
-			<img src="{{ item.get_first_picture_100x100 }}">
-		</div>
+		<div class="PurchasesItemWrapper">
+			<div>
+				<a href="/item/{{ item.pk }}">{{ item.title }}</a> en <a href="/item/{{ item.pk }}">${{ item.price }}</a>
+			</div>
 
+			<div>
+					<a  href="/messages/{{ item.assignment.conversation.pk }}">Ver Conversación</a>
+					<a  href="#">Ver Detalles</a>
+					<span class="PurchasesItemTimeStamp">hace {{ item.get_timestamp }}</span>				
+			</div>
+
+
+		</div>
 	
 	</article>
 
-
 	{% empty %}
 
-	<p>Aun no tienes Articulos con Vendedores Asignados</p>
+	<p>Aun no has solicitado ningun articulo</p>
 
 	{% endfor %}
 
 </section>
+
+
 
 
 {% endblock %}

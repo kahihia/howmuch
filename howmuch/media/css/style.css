@@ -1,5 +1,3 @@
-
-
 body{
 	background: url("/media/background.png") repeat;
 }
@@ -68,16 +66,11 @@ nav ul li a{
 	padding:10px;
 	text-decoration: none;
 }
-nav ul li:hover{
-
-
-}
 nav ul li a:hover{
 	background: #49c0f0;
 	text-shadow: 0px 1px 2px #828282;
     filter: dropshadow(color=#828282, offx=0, offy=1);
     color:white;
-
 }
 nav ul ul{
 	display: none;
@@ -85,6 +78,7 @@ nav ul ul{
 nav ul li:hover > ul{
 	display: block;
 	position: absolute;
+	top: -5px;
 }
 ul.dropmenu{
 	background: white;
@@ -131,6 +125,72 @@ label.LabelFormRequestItem{
    	text-align: center;
 }
 
+
+
+ul.MoreOptions{
+	position: absolute;
+	top: -20px;
+	right: 0px;
+}
+ul.MoreOptions ul{
+	display: none;
+}
+ul.MoreOptions li{
+	list-style: none;
+}
+ul.MoreOptions li a{
+	text-decoration: none;
+	color: black;
+}
+ul.MoreOptions li:hover > ul{
+	display: block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+ul.MoreOptions ul{
+	background: white;
+	border-radius: 2px;
+	border: 1px solid rgb(221, 221, 221);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	z-index: 99;
+}
+ul.MoreOptions ul li a:hover{
+	background: #49c0f0;
+}
+a.MoreOptionsIcon{
+	font-size: 30px;
+}
+
+section.CategoriesList li{
+	list-style: none;
+}
+section.CategoriesList a{
+	text-decoration: none;
+	color: black;
+}
+section.CategoriesList ul ul{
+	display: none;
+	background: white;
+	border-radius: 2px;
+	border: 1px solid rgb(221, 221, 221);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	z-index: 99;
+	width: 400px;
+}
+section.CategoriesList ul li{
+	position: relative;
+}
+section.CategoriesList ul li ul li{
+	display: inline-block;
+	padding: 10px;
+}
+section.CategoriesList ul li:hover > ul{
+	display: block;
+	position: absolute;
+	top: -40px;
+	left: -440px;
+}
 
 
 
@@ -392,6 +452,10 @@ section.ItemThumbsContainer, section.SearchResultsWrapper{
 	width:900px;
 	font-family: 'Open Sans Condensed', sans-serif;
 }
+section.ItemThumbsContainer, section.CategoriesList{
+	display: inline-block;
+	vertical-align: top;
+}
 section.PurchasesMiddleNav, section.SalesMiddleNav{
 	background: white;
 	width: 630px;
@@ -450,7 +514,7 @@ section.NavNewItem ul li span{
 section.ConversationPictureTitle div{
 	display: inline-block;
 }
-section.ConversationContainer, section.PrestigeOptions article, section.TransactionInfo article{
+section.ConversationContainer, section.PrestigeOptions article, section.TransactionInfo article, section.ExtraTransactionInfo article{
 	display: inline-block;
 	background: white;
 	border-radius: 2px;
@@ -481,7 +545,20 @@ section.PrestigeOptions ul li a{
 	color:black;
 }
 section.TransactionInfo{
-	width: 200px;
+	width: 250px;
+	font-family: 'Open Sans Condensed', sans-serif !important;
+}
+section.ExtraTransactionInfo{
+	font-family: 'Open Sans Condensed', sans-serif !important;
+	width: 1100px;
+	margin-left: 10px;
+}
+section.ExtraTransactionInfo article{
+	width:540px;
+}
+
+section.TransactionInfo p, section.ExtraTransactionInfo p{
+	margin: 0px !important;
 }
 section.NotificationsWrapper{
 	background: white;
@@ -518,8 +595,14 @@ section.NewItemFormWrapper{
 	width: 800px;
 	max-height: 600px;
 	background: white;
-
-
+}
+section.CategoriesList{
+	background: white;
+	border-radius: 2px;
+	border: 1px solid rgb(221, 221, 221);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	margin:5px;
+	width:200px;
 }
 span.LabelItemForm{
 	display:block;
@@ -537,14 +620,8 @@ span.ItemSpanBig{
 	text-shadow: 1px 1px 2px #8f8f8f;
     filter: dropshadow(color=#8f8f8f, offx=1, offy=1);
 }
-span.ConversationTimestamp{
-
-}
 span.ProfferCpriceSpan{
 	font-size: 35px !important;
-}
-span.CandidatesListTitle{
-
 }
 span.MessageTimeStamp{
 	position: absolute;
@@ -553,7 +630,11 @@ span.MessageTimeStamp{
 	font-family: 'Open Sans Condensed', sans-serif !important;
 	font-size: 14px !important;
 	color: black !important;
-
+}
+span.PurchasesItemTimeStamp, span.SalesItemTimeStamp{
+	position: absolute;
+	right: 5px;
+	bottom: 0px;
 }
 p.help-text{
 	-webkit-box-shadow: 0px 0px 1px 0px ;
@@ -585,7 +666,7 @@ article.ItemThumbs{
 	height: auto;
 	padding: 5px;
 }
-article.ItemThumbsPurchases{
+article.ItemThumbsPurchases, article.ItemThumbsSales{
 	font-family: 'Open Sans Condensed', sans-serif;
 	background: white;
 	border-radius: 2px;
@@ -724,12 +805,17 @@ input[type="file"]{
 	display:inline-block;
 	vertical-align: top;
 }
+.PurchasesListPicture, .PurchasesItemWrapper, .SalesListPicture, .SalesItemWrapper{
+	display:inline-block;
+	vertical-align: top;
+
+}
 .ItemThumbsPicture a img:hover{
 	-moz-transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
-		-webkit-transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
-        -o-transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
-        -ms-transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
-        transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-webkit-transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -o-transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    -ms-transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+    transform: scale(1.3) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
 
 }
 .ItemOverviewPicture{
@@ -782,20 +868,6 @@ input[type="file"]{
 	width:210px;
 	text-align: right;
 }
-.ItemThumbsMoreButtonSell{
-	padding-top: 5px;
-	width: 290px;
-}
-.ItemThumbsPurchasesInfo{
-	width: auto !important;
-}
-.PurchasesInfoContainer{
-	width:490px;
-}
-.PurchasesInfoStatePrice{
-	padding:10px;
-}
-
 .ContainerItemForm{
 	width:400px;
 }
@@ -992,6 +1064,7 @@ span.NewItemFormSpan{
 .NotificationTimestamp{
 	width: 100px;
 }
+
 #TitlePictureNewItem{
 	background: ;
     width:;
@@ -1008,19 +1081,16 @@ span.NewItemFormSpan{
 	width:380px;
 }
 
-
-div#popup2 iframe{
-	min-width: 700px;
-	min-height: 400px;
-}
-
-
 div.content{
-	min-width:700px;
-	min-height:400px;
+	width:700px;
+	height:500px;
 	-webkit-box-shadow:  0px 0px 5px 1px rgba(71, 71, 71, 1);
     box-shadow:  0px 0px 5px 1px rgba(71, 71, 71, 1);
     background: white;
+}
+div.content iframe{
+	width:700px;
+	height:500px;
 }
 
 
