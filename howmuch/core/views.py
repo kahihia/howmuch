@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from howmuch.core.forms import RequestItemForm, ProfferForm, AssignmentForm, ProfferFormNew
+from howmuch.core.forms import AssignmentForm, ProfferFormNew
 from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture, ProfferPicture
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
 from howmuch.messages.models import Conversation
@@ -24,12 +24,6 @@ from endless_pagination.decorators import page_template
 import datetime
 
 
-TEMPLATES_NEWITEM = {'description': 'newitem/description.html',
-             'clasification': 'newitem/clasification.html',
-             'delivery': 'newitem/delivery.html',
-             'pictures' : 'newitem/pictures.html',
-      	}
-
 TEMPLATES_NEWITEM_NEW = {'title' : 'newitemnew/title.html',
 			'price' : 'newitemnew/price.html',
 			'quantity' : 'newitemnew/quantity.html',
@@ -38,10 +32,6 @@ TEMPLATES_NEWITEM_NEW = {'title' : 'newitemnew/title.html',
 			'delivery' : 'newitemnew/delivery.html',
 			'pictures' : 'newitemnew/pictures.html',
 	
-}
-
-TEMPLATES_NEWPROFFER = { 'description' : 'newproffer/description.html',
-			'pictures' : 'newproffer/pictures.html'	
 }
 
 class NewItemWizard(SessionWizardView):
@@ -70,6 +60,12 @@ class NewItemWizard(SessionWizardView):
 		instance.save()
 
 		"""
+		Se agrega el title_url
+		"""
+		instance.title_url = instance.title.replace(u'\xf1','n').replace(' ','-')
+		instance.save()
+
+		"""
 		Se gurdan el 4 formulario correspondiente a las imagenes
 		"""
 	
@@ -95,49 +91,9 @@ class NewItemWizard(SessionWizardView):
 		perfilUser.total_purchases += 1
 		perfilUser.save()
 
-		return HttpResponseRedirect('/item/' + str(instance.pk) )
+		return HttpResponseRedirect(str(instance.get_url()))
 
 
-class NewProfferWizard(SessionWizardView):
-
-	file_storage = S3BotoStorage(location='pictures_temp')
-
-	def get_template_names(self):
-		return [TEMPLATES_NEWPROFFER[self.steps.current]]
-		
-	def done(self, form_list,**kwargs):
-		"""
-		Se gurda el primer formulario
-		"""
-		instance = Proffer()
-		for form in form_list[0:1]:
-			for field, value in form.cleaned_data.iteritems():
-				setattr(instance, field, value)
-		instance.requestItem = get_object_or_404(RequestItem, pk = self.request.GET['item_id'])
-		instance.owner = self.request.user
-		instance.save()
-
-		"""
-		Se gurdan el 2 formulario correspondiente a las imagenes
-		"""
-	
-		for field, value in form_list[1].cleaned_data.iteritems():
-			if value is not None:
-				instancePicture = Picture()
-				setattr(instancePicture, 'picture', value)
-				instancePicture.owner = self.request.user
-				instancePicture.save()
-				instanceProfferPicture = ProfferPicture(proffer = instance, picture = instancePicture)
-				instanceProfferPicture.save()
-
-		"""
-		Se activa el sistema de Notificaciones
-		"""
-
-		newNotification = SendNotification(instance, 'proffer')
-		newNotification.sendNotification()
-
-		return HttpResponse("Has aplicado correctamente, espera instrucciones")
 
 @login_required(login_url="/login/")
 @page_template('core/home_index_page.html')  # just add this decorator
@@ -152,7 +108,7 @@ def home(
         template, context, context_instance=RequestContext(request))
 
 
-def viewItem(request, itemID):
+def viewItem(request, itemID, title_url):
 	item = get_object_or_404(RequestItem, pk=itemID)
 	return render_to_response('core/viewItem.html', {'item' : item }, context_instance = RequestContext(request))
 

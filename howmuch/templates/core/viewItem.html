@@ -4,6 +4,18 @@
 
 {% endblock %}
 
+{% block facebooktags %}
+
+<meta property="og:title" content="Pagan ${{ item.price }} por {{ item.title}}"/>
+<meta property="og:type" content="Articulo en Compra"/>
+<meta property="og:url" content="http://www.howmuch.do{{ item.get_url }}"/>
+<meta property="og:image" content="{{ item.get_first_picture_250x250 }}"/>
+<meta property="og:site_name" content="howmuch"/>
+<meta property="og:description"
+    content="{{ item.description|truncatechars:100}}"/>
+
+{% endblock %}
+
 {% block media %}
 
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
@@ -29,9 +41,9 @@ $(function () {
 <section class="ViewItemContent">
 
 	<article class="DateOwnerItem">
-		<span>Con envio al <b class="BBigItem"> C.P {{ item.owner.get_profile.zipcode }}</b></span></br>
-		<span>Publicado el {{ item.date }} por <a href="#">{{ item.owner }}</a></span></br>
-		<span>Restan <b class="BBigItem">Ndias</b> para cerrar</span></br>
+		<span>Para ser enviado al <b class="BBigItem"> C.P {{ item.addressDelivery.zipcode }}</b></span>
+		<span>Publicado el {{ item.date }} por <a href="#">{{ item.owner }}</a></span>
+		<span>Vence en <b class="BBigItem">Ndias</b></span>
 		<span>Restan <b class="BBigItem">NArticulos</b> por Vender</span>
 	</article>
 
@@ -66,6 +78,9 @@ $(function () {
 							<button class="button-sell small pop2" data-bpopup ='{"contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
 				 -->
 				<a class="button-sell" href="/proffer/new/{{ item.pk }}">VENDER</a>
+			</div>
+			<div>
+				<div class="fb-like" data-href="http://www.howmuch.do{{ item.get_url }}" data-send="true" data-layout="box_count" data-width="450" data-show-faces="true" data-font="arial"></div>
 			</div>
 		
 		</div>

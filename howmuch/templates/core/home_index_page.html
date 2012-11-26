@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="ItemThumbsPicture">
-			<a href="/item/{{ item.pk }}">
+			<a href="{{ item.get_url }}">
 				<img src="{{ item.get_first_picture_100x100 }}">
 			</a>
 			<div class="ItemThumbsPictureInfo">

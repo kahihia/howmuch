@@ -54,28 +54,40 @@ header{
 	box-shadow: 0pt 2px 6px rgba(0, 0, 0, 0.5), 0pt 1px rgba(255, 255, 255, 0.3) inset, 0pt 10px rgba(255, 255, 255, 0.2) inset, 0pt 10px 20px rgba(255, 255, 255, 0.25) inset, 0pt -15px 30px rgba(0, 0, 0, 0.1) inset;
 
 }
-nav#menu{
-
+nav div.NotificationWrapper{
+	position: relative;
+}
+nav div.NotificationWrapper div.NumberUnread{
+	position: absolute;
+	top: -5px;
+	right: 5px;
+	background: red;
+	color:white;
+	padding: 0 5px;
 }
 nav ul li{
 	display:inline-block;
 }
-nav ul li a{
+nav div a{
 	color:black;
 	font-family: 'Archivo Narrow', sans-serif;
-	padding:10px;
 	text-decoration: none;
+	padding: 5px;
 }
-nav ul li a:hover{
+nav div a:hover{
 	background: #49c0f0;
 	text-shadow: 0px 1px 2px #828282;
     filter: dropshadow(color=#828282, offx=0, offy=1);
     color:white;
 }
-nav ul ul{
+nav div{
+	display: inline-block;
+	vertical-align: middle;
+}
+nav div#menu-user ul{
 	display: none;
 }
-nav ul li:hover > ul{
+nav div#menu-user:hover > ul{
 	display: block;
 	position: absolute;
 	top: -5px;
@@ -742,6 +754,7 @@ article.InboxMessageWrapper{
 	background: white;
 	width:700px;
 	position: relative;
+	height: 50px;
 }
 article.InboxUnchecked{
 	border: 1px solid #3BB4FF !important;
@@ -824,7 +837,6 @@ input[type="file"]{
 	height: 250px;
 	vertical-align: top;
 	border: 10px solid rgb(0,183,234);
-	border-radius: 5px;
 }
 .ItemThumbsPriceTitle{
 	width:290px;
@@ -929,7 +941,9 @@ span.NewItemFormSpan{
 	vertical-align: top;
 }
 .MessageTimestampWrapper{
-	text-align: right;
+	position: absolute;
+	top:5px;
+	right: 5px;
 }
 .CandidateItemWrapper{
 	font-family: 'Open Sans Condensed', sans-serif;
@@ -988,7 +1002,7 @@ span.NewItemFormSpan{
 }
 .NumberMessagesUnread{
 	position: absolute;
-	top:5px;
+	top:24px;
 	right: 5px;
 }
 .ItemResultPicture, .ItemResultContent{
@@ -1034,25 +1048,33 @@ span.NewItemFormSpan{
 	height: 30px;
 	background: red;
 }
-.NotificationPicture{
-    width: 51px;
-    height: 49px;
+.NotificationPicture, .NotificationAreaHome{
+    width: 36px;
+    height: 34px;
     border: 0px;
 }
+#notificationsUnread{
+	background: url("/media/notifications.png") no-repeat scroll 0px -210px transparent !important;
+	top: 0px !important;
+}
+#conversationsUnread{
+	background: url("/media/notifications.png") no-repeat scroll 0px -175px transparent !important;
+	top: 4px !important;
+}
 .NotificationProffer{
-	background: url("/media/notifications.png") no-repeat scroll 0px -103px transparent !important;
+	background: url("/media/notifications.png") no-repeat scroll 0px -69px transparent !important;
 }
 .NotificationAssignment{
-	background: url("/media/notifications.png") no-repeat scroll 0px -205px transparent !important;
+	background: url("/media/notifications.png") no-repeat scroll 0px -137px transparent !important;
 }
 .NotificationConfirmPay{
 	background: url("/media/notifications.png") no-repeat scroll 0px 0px transparent !important;
 }
 .NotificationConfirmDelivery{
-	background: url("/media/notifications.png") no-repeat scroll 0px -154px transparent !important;
+	background: url("/media/notifications.png") no-repeat scroll 0px -103px transparent !important;
 }
 .NotificationCritique{
-	background: url("/media/notifications.png") no-repeat scroll 0px -51px transparent !important;
+	background: url("/media/notifications.png") no-repeat scroll 0px -35px transparent !important;
 }
 .NotificationPicture, .NotificationDescription, .NotificationTimestamp{
 	display: inline-block;

@@ -60,6 +60,7 @@ class RequestItem(models.Model):
 	daysLimit = models.IntegerField(choices = DAYS_CHOICES)
 	pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
 	addressDelivery = models.ForeignKey(Address)
+	title_url = models.CharField(max_length=100, null=True, blank = True)
 
 	def __unicode__(self):
 		return u'Title: %s' % (self.title)
@@ -106,7 +107,7 @@ class RequestItem(models.Model):
 			return p.get_url_250x250()
 
 	def get_url(self):
-		return '/item/%s' % (self.pk)
+		return '/item/%s/%s' % (self.pk, self.title_url)
 
 	def get_timestamp(self):
 		return get_timestamp(self.date)

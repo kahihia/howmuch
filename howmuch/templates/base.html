@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{% block title %}{% endblock%}</title>
+        {% block facebooktags %}{% endblock %}
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/normalize.css">
@@ -15,15 +16,16 @@
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css">
-        <!--   <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/south-street/jquery-ui.css" media="all" />  -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ MEDIA_URL}}js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
-        
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
+
+
+
 
 
 
@@ -43,19 +45,37 @@
                 </div>
 
                 <nav class="itemHeader" id ="menu">
-                    <ul>
-                        <li><a href="/">Inicio</a></li>
-                        <li><a href="/notifications/">(<span id="unreadNotifications">{{ user.perfil.unread_notifications }}</span>)</a></li>
-                        <li><a href="/messages/inbox">(<span id="unreadInboxNotification">{{ user.perfil.unread_conversations }}</span>)</a></li>
-                        <li><a href="#">{{ user }}</a>
-                            <ul class="dropmenu">
+                    <div>   
+                        <a href="/">Inicio</a>
+                    </div>
+                    <div class="NotificationWrapper">
+                        <a  href="/notifications/">
+                                {% if user.perfil.unread_notifications > 0 %}
+                                <div class="NumberUnread">{{ user.perfil.unread_notifications }}</div>
+                                {% endif %}
+                                <div id="notificationsUnread" class="NotificationAreaHome">
+                                </div>
+                        </a>
+                    </div>
+                    <div class="NotificationWrapper">
+                        <a href="/messages/inbox">
+                                {% if user.perfil.unread_conversations > 0 %}
+                                <div  class="NumberUnread">{{ user.perfil.unread_conversations }}</div>
+                                {% endif %}
+                                <div id="conversationsUnread" class="NotificationAreaHome">
+                                </div>
+                        </a>
+                    </div>
+                    <div id="menu-user">
+                        <a href="#">{{ user }}</a>
+                        <ul class="dropmenu">
                                 <li><a href="/purchases/published">Mis Compras</a></li>
                                 <li><a href="/sales/possible">Mis Ventas</a></li>
                                 <li><a href="/profile/e/edit">Acerca de Mi</a></li>
                                 <li><a href="#">Configuracion</a></li>
-                            </ul>
-                        </li>
-                    </ul> 
+                        </ul>
+                    </div>
+                    
                 </nav>
 
                 <div class="itemHeader">
@@ -63,6 +83,7 @@
                         <img src="{{ MEDIA_URL }}buy-button.png" heigth="32" width="105">
                     </a>
                 </div>
+ 
 
 
         </header>
@@ -103,6 +124,7 @@
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.renderer.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.instantsearch.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.bpopup-0.7.0.min.js"></script>
+
         {% block media %}
         {% endblock %}
 
