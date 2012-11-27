@@ -268,6 +268,9 @@ BUTTONS
 
 }
 
+a.button-sell{
+	text-decoration: none;
+}
 .button-sell{
 	background: rgb(180,246,0); /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -285,6 +288,7 @@ BUTTONS
 	color: white;
 	text-shadow: 1px 1px 2px #6c8f04;
     filter: dropshadow(color=#6c8f04, offx=1, offy=1);
+    font-family: 'Archivo Narrow', sans-serif !important;
 
 }
 .button-sell:hover{
@@ -452,12 +456,17 @@ section.EditProfileForm{
 	width: 700px;
 
 }
-section.ViewItemContent{
+section.ViewItemContent, section.NewProfferWrapper{
 	background: white;
 	border: 1px solid rgb(221, 221, 221);
 	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
 	margin:10px;
 	padding:20px;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+section.NewProfferWrapper{
+	width: 700px;
+	text-align: center;
 }
 
 section.ItemThumbsContainer, section.SearchResultsWrapper{
@@ -664,7 +673,8 @@ p.LegalInfo{
 article.DateOwnerItem, section.ConversationAssignmentRequestItem{
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size: 14px;
-	text-align: right;
+	text-align: center;
+	margin: 10px;
 }
 article.ItemThumbs{
 	background: white;
@@ -688,21 +698,38 @@ article.ItemThumbsPurchases, article.ItemThumbsSales{
 	padding:10px;
 	width:600px;
 }
-article.ItemThumbsPurchases:hover{
-
+article.ItemOverviewClasification div div{
+	display: inline-block;
+	background: rgb(0,183,234);
+	vertical-align: middle;
+	padding: 5px;
+	max-width: 25%;
 }
-article.ItemOverviewClasification{
+article.ItemOverviewClasification div div a{
+	text-decoration: none;
+	color:white;
+	font-weight: bold;
+	text-shadow: 0px 0px 2px #0062a8;
+        filter: dropshadow(color=#0062a8, offx=0, offy=0);
+}
+article.ItemOverviewClasification div#categoriesWrapper{
 	text-align: center;
-	margin:20px;
 }
 article.ItemOverview{
 	padding: 5px;
 	margin:5px;
 	border-radius: 2px;
 }
+article.NotificationsItem div{
+	text-align: center;
+	background: #DEFF00
+}
+article.NotificationsItem div div{
+	display: inline-block;
+}
 div.ItemDescription p{
 	font-size: 18px;
-	font-family: 'Open Sans Condensed', sans-serif;
+	margin: 0px !important;
 }
 div.ItemPictures img, div.CaContentProfferPictures img{
 	border: 5px solid white;
@@ -727,6 +754,9 @@ article.ItemOverview div.ItemOverviewPrincipal{
 	vertical-align: top;
 	width: 500px;
 	text-align: center;
+}
+div.ItemOverviewPrincipal, div.ItemOverviewPicture{
+	vertical-align: middle !important;
 }
 article.MessageContainer{
 	border-radius: 5px;
@@ -887,6 +917,37 @@ input[type="file"]{
 	list-style: none;
 	color:red;
 }
+.InputForm{
+border: 0px;
+padding: 10px;
+border-radius: 3px;
+background: white;
+-webkit-box-shadow:  0px 0px 3px 1px rgba(50, 160, 255, .7);
+box-shadow:  0px 0px 3px 1px rgba(50, 160, 255, .7);
+font-family: 'Open Sans Condensed', sans-serif;
+}
+.InputForm:focus{
+-webkit-box-shadow:  0px 0px 6px 2px rgba(50, 160, 255, .7);
+box-shadow:  0px 0px 6px 2px rgba(50, 160, 255, .7);
+}
+.TextareaForm{
+margin: 2px;
+width: 661px;
+height: 114px;
+}
+.InputFile{
+	display: none;
+}
+.ImagePreviewWrapper{
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+	display: inline-block;
+	border: 5px solid black;
+}
+.ImagePreviewWrapper:hover{
+	background: url("/media/more-picture.png") no-repeat scroll transparent !important;
+}
 .NewItemPriceQuantity{
 	display: inline-block;
 }
@@ -918,6 +979,11 @@ input[type="file"]{
 }
 .ViewItemButtons{
 	margin: 20px;
+	text-align: center;
+}
+.ViewItemButtons div{
+	display: inline-block;
+	vertical-align: middle;
 }
 .NewItemBrandModelState{
 	display: inline-block;
@@ -927,7 +993,7 @@ input[type="file"]{
 }
 
 span.ItemTitle{
-	font-family: 'Archivo Narrow', sans-serif;
+	font-family: 'Archivo Narrow', sans-serif !important;
 	display: block;
 	font-size: 40px;
 	text-decoration: underline;

@@ -32,6 +32,16 @@
     	{{ wizard.form.picture3.errors }}
 	</div>
 
+	<div class="">
+    	{{ wizard.form.picture4 }}
+    	{{ wizard.form.picture4.errors }}
+	</div>
+
+	<div class="">
+    	{{ wizard.form.picture5 }}
+    	{{ wizard.form.picture5.errors }}
+	</div>
+
 	<div class="NewItemButtons">
 		{% if wizard.steps.prev %}
 		<button class="ButtonBack" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans " " %}</button>

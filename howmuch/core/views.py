@@ -170,7 +170,7 @@ def newProffer(request,itemId):
 			newNotification.sendNotification()
 
 
-			return HttpResponse('Se ha registrado correctamente')
+			return HttpResponseRedirect('/sales/possible/')
 	else:
 		form = ProfferFormNew()
 	return render_to_response('core/candidatura.html', {'form' : form, 'requestItem' : requestItem, 'user' : request.user }, context_instance=RequestContext(request))

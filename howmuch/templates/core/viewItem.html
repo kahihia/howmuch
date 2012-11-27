@@ -40,15 +40,50 @@ $(function () {
 
 <section class="ViewItemContent">
 
+	<article class="NotificationsItem">
+
+	{% if item.owner == user %}
+
+	<div>
+		<div>
+			<p>Esta Es Tu Publicación</p>
+		</div>
+		<div>
+			<a href="#">Editar</a>
+		</div>
+	</div>
+
+	{% else %}{% if item.has_been_completed %}
+	<div>
+		<div>
+			<p>Esta Publicación Ha Finalizado</p>
+		</div>
+		<div>
+			<a href="/item/new">Comprar un articulo</a>
+		</div>
+	</div>
+	{% endif %}{% endif %}
+
+
+	</article>
+
 	<article class="DateOwnerItem">
-		<span>Para ser enviado al <b class="BBigItem"> C.P {{ item.addressDelivery.zipcode }}</b></span>
-		<span>Publicado el {{ item.date }} por <a href="#">{{ item.owner }}</a></span>
-		<span>Vence en <b class="BBigItem">Ndias</b></span>
-		<span>Restan <b class="BBigItem">NArticulos</b> por Vender</span>
+		<span>Para ser enviado al <b class="BBigItem"> C.P {{ item.addressDelivery.zipcode }},</b></span>
+		<span>Publicado <b>hace {{ item.date|timesince }}</b> por <a href="#">{{ item.owner }}</a></span>
 	</article>
 
 	<article class="ItemOverviewClasification">
-			<span>{{ item.itemsCatA}}</span> --> <span>{{ item.itemsCatB}}</span> --> <span>{{ item.itemsCatC}}</span> 
+		<div id="categoriesWrapper">
+			<div>
+				<a href="#">{{ item.itemsCatA }}</a>
+			</div>
+			<div>
+				<a href="#">{{ item.itemsCatB }}</a>
+			</div>
+			<div>
+				<a href="#">{{ item.itemsCatC }}</a>
+			</div>
+		</div>
 	</article>
 
 	<article class="ItemOverview">
@@ -65,11 +100,11 @@ $(function () {
 
 		<div class="ItemOverviewPrincipal">
 
-			<span class="ItemTitle">{{ item.title }}</span>
+			<span class="ItemTitle">Pagan ${{ item.price }} por {{ item.title }}</span>
 
 			<div class="ItemPictures">
 				{% for picture in item.pictures.all %}
-					<img class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+					<img width="70" height="70" class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
 				{% endfor%}
 			</div>
 
@@ -77,12 +112,12 @@ $(function () {
 				<!-- 
 							<button class="button-sell small pop2" data-bpopup ='{"contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
 				 -->
-				<a class="button-sell" href="/proffer/new/{{ item.pk }}">VENDER</a>
-			</div>
-			<div>
+				<div>
+					<a class="button-sell" href="/proffer/new/{{ item.pk }}">VENDER</a>
+				</div>
 				<div class="fb-like" data-href="http://www.howmuch.do{{ item.get_url }}" data-send="true" data-layout="box_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+				
 			</div>
-		
 		</div>
 
 		

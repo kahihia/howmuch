@@ -62,15 +62,24 @@ class NewItemNewForm7(forms.Form):
 	picture1 = forms.ImageField()
 	picture2 = forms.ImageField(required=False)
 	picture3 = forms.ImageField(required=False)
-
-class ProfferFormNew(forms.Form):
-	cprice = forms.IntegerField()
-	message = forms.CharField(max_length=140)
-	picture1 = forms.ImageField()
-	picture2 = forms.ImageField(required=False)
-	picture3 = forms.ImageField(required=False)
 	picture4 = forms.ImageField(required=False)
 	picture5 = forms.ImageField(required=False)
+
+class ProfferFormNew(forms.Form):
+	cprice = forms.IntegerField(
+		widget = forms.TextInput(attrs = {'class' : 'InputForm'}))
+	message = forms.CharField(
+		widget = forms.Textarea(attrs = {'class' : 'InputForm TextareaForm'}))
+	picture1 = forms.ImageField(
+		widget = forms.ClearableFileInput(attrs = {'class' : 'InputFile', 'onChange' : "readURL(this,'image1')"}))
+	picture2 = forms.ImageField(required=False,
+		widget = forms.ClearableFileInput(attrs = {'class' : 'InputFile', 'onChange' : "readURL(this,'image2')"}))
+	picture3 = forms.ImageField(required=False, 
+		widget = forms.ClearableFileInput(attrs = {'class' : 'InputFile', 'onChange' : "readURL(this,'image3')"}))
+	picture4 = forms.ImageField(required=False, 
+		widget = forms.ClearableFileInput(attrs = {'class' : 'InputFile', 'onChange' : "readURL(this,'image4')"}))
+	picture5 = forms.ImageField(required=False, 
+		widget = forms.ClearableFileInput(attrs = {'class' : 'InputFile', 'onChange' : "readURL(this,'image5')"}))
 
 class AssignmentForm(ModelForm):
 	
