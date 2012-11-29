@@ -15,7 +15,7 @@
 
 		{% if conversation.has_unread_messages %}
 
-			{% if conversation.assignment.owner == user %}
+			{% if conversation.assignment.owner == user %} 
 
 				{% if conversation.getNumber_unread_messages_seller > 0 %}
 
@@ -30,7 +30,6 @@
 				<article class="InboxMessageWrapper">
 
 				{% endif %}
-
 
 			{% else %}
 

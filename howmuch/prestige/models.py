@@ -32,6 +32,9 @@ class PayConfirm(models.Model):
 	def __unicode__(self):
 		return u'Assignment : %s message: %s ' % (self.assignment, self.message)
 
+	def get_picture_url_100x100(self):
+		return str(self.picture.url_100x100.split("?")[0])
+
 class DeliveryConfirm(models.Model):
 	owner = models.ForeignKey(User, related_name = "owner by Confirm Delivery")
 	assignment = models.ForeignKey(Assignment)
@@ -41,6 +44,9 @@ class DeliveryConfirm(models.Model):
 
 	def __unicode__(self):
 		return u'Assignment : %s message: %s ' % (self.assignment, self.message)
+
+	def get_picture_url_100x100(self):
+		return str(self.picture.url_100x100.split("?")[0])
 
 class PrestigeLikeBuyer(models.Model):
 	de = models.ForeignKey(User, related_name = "prestigeLikeBuyer from")

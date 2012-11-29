@@ -1,0 +1,74 @@
+{% extends "base-modal.html" %}
+{% block title %}
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+<section class="InfoUsersConversation">
+
+	{% if not errors %}
+
+	<div class="InfoUserPictures">
+		<div>
+			<img src="{{ seller.perfil.get_profile_picture_100x100 }}">
+		</div>
+		<div style="width:250px; height:100px; background:red; margin: 5px auto">
+			<img src="">
+		</div>	
+	</div>
+	<div>
+		<div>
+			<h3>Información del Vendedor</h3>
+			<p>
+				<span class="SpanLabel">Total de Compras:</span>
+				<span>{{ seller.perfil.total_purchases }}</span>
+				<a href="#">Ver Criticas</a>
+			</p>
+			<p>
+				<span class="SpanLabel">Total de Ventas:</span>
+				<span>{{ seller.perfil.total_sales }}</span>	
+				<a href="#">Ver Criticas</a>		
+			</p>
+			<p>
+				<span class="SpanLabel">Usuario:</span>
+				<span>{{ seller }}</span>
+			</p>
+			<p>
+				<span class="SpanLabel">Nombre:</span>
+				<span>{{ seller.get_full_name }}</span>
+			</p>
+			<p>
+				<span class="SpanLabel">Email:</span>
+				<span>{{ seller.email }}</span>
+			</p>
+			<p>
+				<span class="SpanLabel">Telefonos:</span>
+				{% for phone in seller.perfil.phones.all %}
+				<span>{{ phone }}</span>
+				{% empty %}
+				<span>No se han registrado Telefonos</span>
+				{% endfor %}
+			</p>
+		</div>
+		<div>
+			<h3>Datos de Deposito Bancario</h3>
+			{% for account in seller.perfil.banks.all %}
+				<div>{{ account }}</div>
+			{% empty %}
+				<span>Este usuario aun no registra sus datos bancarios</span>
+			{% endfor %}
+		</div>
+	</div>
+
+	{% else %}
+
+	<p>No tienes permiso para ver esta informacion</p>
+
+	{% endif %}
+</section>
+{% endblock %}

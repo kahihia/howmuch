@@ -27,21 +27,6 @@ class Conversation(models.Model):
 		for message in messages:
 			return message
 
-	def is_buyer(self,user):
-		if self.assignment.requestItem.owner == user:
-			return True
-		return False
-
-	def is_seller(self,user):
-		if self.assignment.owner == user:
-			return True
-		return False
-
-	def user_inside(self,user):
-		if self.is_buyer(user) or self.is_seller(user):
-			return True
-		return False
-
 	"""
 	Mensajes sin leer para el buyer
 	"""

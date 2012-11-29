@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from howmuch.core.models import Assignment, RequestItem
 from howmuch.messages.models import Conversation, Message
 
-class InitialConversationContext:
+class InitialConversationContext(object):
 	def __init__(self,buyer,seller, conversation):
 		self.buyer = buyer
 		self.seller = seller
@@ -40,28 +40,6 @@ class InitialConversationContext:
 		to = [str(self.buyer.email)] 
 
 		send_mail(subject,message,de,to)
-
-
-class ConversationFeatures:
-	def __init__(self, conversation, user):
-		self.conversation = conversation
-		self.user = user
-
-	def is_inside(self):
-		if self.conversation.assignment.owner == self.user or self.conversation.assignment.requestItem.owner == self.user:
-			return True
-		else:
-			return False
-
-	def is_buyer(self):
-		if self.conversation.assignment.requestItem.owner == self.user:
-			return True
-		return False
-
-	def is_seller(self):
-		if self.conversation.assignment.owner == self.user:
-			return True
-		return False
 
 
 

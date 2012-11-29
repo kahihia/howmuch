@@ -11,8 +11,6 @@
 			<div clas="ItemThumbsTitle">
 				<a href="/item/{{ item.pk }}"><span> {{ item.title }} </span></a>
 			</div>
-
-
 		</div>
 
 		<div class="ItemThumbsPicture">
@@ -27,7 +25,10 @@
 
 		<div class="ItemThumbsMoreButtonSell">
 			<div class="ItemThumbsButtonSell">
-				<a class="button-sell button-sell-mini" href="/proffer/new/{{ item.pk }}">VENDER</a>
+				<a href="/proffer/new/{{ item.pk }}" class="button-sell button-sell-mini">VENDER</a>
+				<!-- 
+				<button class="button-sell button-sell-mini small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white" }'>VENDER</button>
+				 -->
 			</div>
 			<div class="ItemThumbsTimeStamp">
 				<span>hace <b>{{ item.get_timestamp }}</b></span>

@@ -1,0 +1,36 @@
+{% extends "base-modal.html" %}
+{% block title %}
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+<section class="InfoConfirmations">
+
+	{% if not errors %}
+	<h3>Confirmacíon de Envio</h3>
+	<div>
+
+		<p>{{ confirmDelivery.message }}</p>
+
+	</div>
+
+	<div>
+		<div>
+			<img src="{{ confirmDelivery.get_picture_url_100x100 }}">
+		</div>
+
+		<div>
+			<p>{{ confirmDelivery.date|timesince }}</p>
+		</div>
+	</div>
+
+	{% else %}
+	<p>No tienes permiso para ver esta informacion</p>
+	{% endif %}
+</section>
+{% endblock %}

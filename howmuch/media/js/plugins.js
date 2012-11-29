@@ -35,3 +35,23 @@ window.fbAsyncInit = function() {
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=425319577517230";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+
+
+// ImagePreview Input File 
+
+function readURL(input, val) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#' + val)
+                        .attr('src', e.target.result)
+                        .width(100)
+                        .height(100);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+

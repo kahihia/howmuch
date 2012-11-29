@@ -83,9 +83,11 @@ class Perfil(models.Model):
 	def get_banks(self):
 		banks = ''
 		for bank in self.banks.all():
-			banks += 'Banco: %s, Cta: %s' % (bank.bank, bank.account)
+			banks += 'Banco: %s, Cta: %s. ' % (bank.bank, bank.account)
 		return str(banks)
 
+	def get_phones(self):
+		return 0
 
 
 

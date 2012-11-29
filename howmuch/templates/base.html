@@ -124,7 +124,7 @@
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.renderer.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.indextank.instantsearch.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.bpopup-0.7.0.min.js"></script>
-
+        
         {% block media %}
         {% endblock %}
 
@@ -142,18 +142,6 @@
   })();
 
 </script>
-<!-- 
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $.getJSON("/backend/inboxcount/", function(json) {
-                    $("#unreadInboxNotification").html(json.numConversations);
-                });
-                $.getJSON("/backend/notificationscount", function(json){
-                     $("#unreadNotifications").html(json.numNotifications);
-                })
-            })
-        </script>
- -->
 
     </body>
 </html>

@@ -456,7 +456,7 @@ section.EditProfileForm{
 	width: 700px;
 
 }
-section.ViewItemContent, section.NewProfferWrapper{
+section.ViewItemContent, section.NewProfferWrapper, section.InfoUsersConversation, section.InfoConfirmations{
 	background: white;
 	border: 1px solid rgb(221, 221, 221);
 	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
@@ -467,6 +467,11 @@ section.ViewItemContent, section.NewProfferWrapper{
 section.NewProfferWrapper{
 	width: 700px;
 	text-align: center;
+	margin: 0px !important;
+	padding: 0px !important;
+}
+section.InfoUsersConversation{
+	width: 400px;
 }
 
 section.ItemThumbsContainer, section.SearchResultsWrapper{
@@ -820,8 +825,8 @@ form.ConversationFormMessage{
 	background: linear-gradient(to right,  rgba(0,183,234,1) 0%,rgba(0,158,195,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=1 ); /* IE6-8 */
 }
-input[type="file"]{
-
+span.SpanLabel{
+	font-weight: bold;
 }
 .InputFormRequestItem{
 	border: 0px;
@@ -944,6 +949,7 @@ height: 114px;
 	margin: 5px;
 	display: inline-block;
 	border: 5px solid black;
+	cursor: pointer;
 }
 .ImagePreviewWrapper:hover{
 	background: url("/media/more-picture.png") no-repeat scroll transparent !important;
@@ -991,7 +997,10 @@ height: 114px;
 .InboxMessageContent{
 	width:590px;
 }
-
+.InfoUserPictures div{
+	display: inline-block;
+	vertical-align: middle;
+}
 span.ItemTitle{
 	font-family: 'Archivo Narrow', sans-serif !important;
 	display: block;
@@ -1170,11 +1179,10 @@ span.NewItemFormSpan{
 }
 
 div.content{
-	width:700px;
-	height:500px;
 	-webkit-box-shadow:  0px 0px 5px 1px rgba(71, 71, 71, 1);
     box-shadow:  0px 0px 5px 1px rgba(71, 71, 71, 1);
-    background: white;
+    width:700px;
+	height:500px;
 }
 div.content iframe{
 	width:700px;

@@ -197,6 +197,11 @@ class Assignment(models.Model):
 	def get_seller(self):
 		return self.owner
 
+	def is_inside(self,user):
+		if self.is_seller(user) or self.is_buyer(user):
+			return True
+		return False
+
 	def has_been_critiqued_before(self):
 		if self.status == "3":
 			return True

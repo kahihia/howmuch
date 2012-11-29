@@ -21,7 +21,7 @@
 			<b>{{ conversation.assignment.get_seller.get_full_name }}</b> Te ha confirmado el Envio de tu Articulo
 		</p>
 
-		<a href="#">Ver Detalles de envio</a>
+		<a href="/messages/infoconfirmdelivery/{{ conversation.pk }}">Ver Detalles de envio</a>
 
 		{% else %}
 
@@ -57,7 +57,7 @@
 		{% if assignmentFeatures.has_been_paid %}
 
 		<p><b>{{ conversation.assignment.get_buyer.get_full_name }}</b> Te ha confirmado el Pago tu Articulo</p>
-		<a href="#">Ver Detalles de Pago</a>
+		<a href="/messages/infoconfirmpay/{{ conversation.pk }}">Ver Detalles de Pago</a>
 		{% else %}
 
 		<p>Aun no te han confirmado el Pago de tu Articulo</p>
@@ -115,7 +115,7 @@
 		</div>
 
 		<div>
-			<a href="#">Mas Información</a>
+			<a href="/messages/infobuyer/{{ conversation.pk }}">Mas Información</a>
 		</div>
 	</article>
 
@@ -147,7 +147,7 @@
 		</div>
 
 		<div>
-			<a href="#">Mas Información</a>
+			<a href="/messages/infoseller/{{ conversation.pk }}">Mas Información</a>
 		</div>
 	</article>
 </section>
@@ -228,7 +228,5 @@
 
 
 </section>
-
-
 
 {% endblock %}

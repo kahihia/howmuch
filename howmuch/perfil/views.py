@@ -1,10 +1,12 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from howmuch.perfil.forms import PerfilForm, AddressForm, PhoneForm, AccountBankForm
 from howmuch.perfil.models import Perfil
 from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
+
+
 
 def viewProfile(request, username):
 	prestigeLikeBuyer = PrestigeLikeBuyer.objects.filter(to__username = username).order_by('date')[:10]
@@ -63,6 +65,9 @@ def newAccountBank(request):
 	else:
 		form = AccountBankForm()
 	return render_to_response('profile/newAccountBank.html', {'form' : form }, context_instance=RequestContext(request))
+
+
+	
 
 
 

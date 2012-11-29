@@ -3,13 +3,16 @@ from howmuch.core.functions import AssignmentFeatures
 from howmuch.messages.forms import MessageForm
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.models import Notification
-from howmuch.messages.functions import ConversationFeatures
 from howmuch.perfil.models import Perfil
+from howmuch.prestige.models import PayConfirm, DeliveryConfirm, PrestigeLikeBuyer, PrestigeLikeSeller
 from django.shortcuts import get_object_or_404, render_to_response
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.db.models import Q
 from django.core.mail import send_mail
+import json
+
 
 def create_unread_conversation(owner):
 	perfil = Perfil.objects.get(user = owner)
@@ -28,7 +31,7 @@ def newMessage(request, conversationID):
 	"""
 	Se verifica que quien publica el mensaje en la conversacion sea el buyer o seller
 	"""
-	if conversation.user_inside(request.user):
+	if conversation.assignment.is_inside(request.user):
 		pass
 	else:
 		return HttpResponse("No tienes permiso para publicar en esta conversacion")
@@ -57,7 +60,7 @@ def newMessage(request, conversationID):
 	"""
 	Verifica si es comprador y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
 	"""
-	if conversation.is_buyer(request.user) and conversation.getNumber_unread_messages_buyer() > 0:
+	if conversation.assignment.is_buyer(request.user) and conversation.getNumber_unread_messages_buyer() > 0:
 		messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
 		for message in messages:
 			message.has_been_readed = True
@@ -72,7 +75,7 @@ def newMessage(request, conversationID):
 	Verifica si es el vendedor y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
 	"""
 
-	if conversation.is_seller(request.user) and conversation.getNumber_unread_messages_seller() > 0:
+	if conversation.assignment.is_seller(request.user) and conversation.getNumber_unread_messages_seller() > 0:
 		messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
 		for message in messages:
 			message.has_been_readed = True
@@ -97,9 +100,9 @@ def newMessage(request, conversationID):
 			"""
 			Si es comprador y en esta conversacion el vendedor No tiene mensajes sin leer, se agrega un mensaje sin leer al vendedor y viceversa
 			"""
-			if conversation.is_buyer(request.user) and conversation.getNumber_unread_messages_seller() == 0:
+			if conversation.assignment.is_buyer(request.user) and conversation.getNumber_unread_messages_seller() == 0:
 				create_unread_conversation(conversation.assignment.owner)
-			elif conversation.is_seller(request.user) and conversation.getNumber_unread_messages_buyer() == 0:
+			elif conversation.assignment.is_seller(request.user) and conversation.getNumber_unread_messages_buyer() == 0:
 				create_unread_conversation(conversation.assignment.requestItem.owner)
 
 			"""
@@ -127,7 +130,7 @@ def newMessage(request, conversationID):
 			"""
 			Si el comprador envia el mensaje, el correo le llega al vendedor y viceversa
 			"""
-			if conversation.is_buyer(request.user):
+			if conversation.assignment.is_buyer(request.user):
 				to = [conversation.assignment.owner.email]
 			else:
 				to = [conversation.assignment.requestItem.owner.email]
@@ -144,3 +147,56 @@ def newMessage(request, conversationID):
 def viewInbox(request):
 	conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__requestItem__owner = request.user)).order_by('-last_message')
 	return render_to_response('messages/inbox.html',{'conversations' : conversations}, context_instance = RequestContext(request))
+
+"""
+Solicitudes de Información en la Conversacion
+"""
+
+@login_required(login_url = '/login/')
+def getInfoBuyer(request,conversationID):
+	conversation = get_object_or_404(Conversation, pk = conversationID)
+	if conversation.assignment.is_inside(request.user):
+		buyer = conversation.assignment.get_buyer()
+		return render_to_response('messages/infoBuyer.html', {'conversation' : conversation, 'buyer' : buyer},
+			context_instance = RequestContext(request))
+	else:
+		return render_to_response('messages/infoBuyer.html', {'errors' : True },
+			context_instance = RequestContext(request))
+	
+
+@login_required(login_url = '/login/')
+def getInfoSeller(request, conversationID):
+	conversation = get_object_or_404(Conversation, pk = conversationID)
+	if conversation.assignment.is_inside(request.user):
+		seller = conversation.assignment.get_seller()
+		return render_to_response('messages/infoSeller.html', {'conversation' : conversation, 'seller' : seller},
+			context_instance = RequestContext(request))
+	else:
+		return render_to_response('messages/infoSeller.html', {'errors' : True },
+			context_instance = RequestContext(request))
+
+@login_required(login_url = '/login/')
+def getInfoConfirmPay(request, conversationID):
+	conversation = get_object_or_404(Conversation, pk = conversationID)
+	confirmPay = get_object_or_404(PayConfirm, assignment = conversation.assignment )
+	if conversation.assignment.is_inside(request.user):
+		return render_to_response('messages/infoConfirmPay.html', {'confirmPay' : confirmPay},
+			context_instance = RequestContext(request))
+	else:
+		return render_to_response('messages/infoConfirmPay.html', {'errors' : True },
+			context_instance = RequestContext(request))
+	
+@login_required(login_url = '/login/')
+def getInfoConfirmDelivery(request, conversationID):
+	conversation = get_object_or_404(Conversation, pk = conversationID)
+	confirmDelivery = get_object_or_404(DeliveryConfirm, assignment = conversation.assignment )
+	if conversation.assignment.is_inside(request.user):
+		return render_to_response('messages/infoConfirmDelivery.html', {'confirmDelivery' : confirmDelivery},
+			context_instance = RequestContext(request))
+	else:
+		return render_to_response('messages/infoConfirmDelivery.html', {'errors' : True },
+			context_instance = RequestContext(request))
+
+@login_required(login_url='/login/')
+def getInfoCritique(request, conversationID):
+	return 0
