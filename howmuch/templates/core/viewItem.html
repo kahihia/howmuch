@@ -53,7 +53,9 @@ $(function () {
 		</div>
 	</div>
 
-	{% else %}{% if item.has_been_completed %}
+	{% endif %}
+
+	{% if item.has_assignment %}
 	<div>
 		<div>
 			<p>Esta Publicación Ha Finalizado</p>
@@ -62,7 +64,7 @@ $(function () {
 			<a href="/item/new">Comprar un articulo</a>
 		</div>
 	</div>
-	{% endif %}{% endif %}
+	{% endif %}
 
 
 	</article>

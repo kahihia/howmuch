@@ -456,7 +456,11 @@ section.EditProfileForm{
 	width: 700px;
 
 }
-section.ViewItemContent, section.NewProfferWrapper, section.InfoUsersConversation, section.InfoConfirmations{
+section.ViewItemContent, 
+section.NewProfferWrapper, 
+section.InfoUsersConversation, 
+section.InfoConfirmations, 
+section.InfoCritiqueConversation{
 	background: white;
 	border: 1px solid rgb(221, 221, 221);
 	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);

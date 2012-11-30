@@ -11,7 +11,37 @@
 
 <section class="InfoCritiqueConversation">
 
+{% if not errors %}
 
+<div>
+
+<p>{{ critique.de }} Te ha Criticado</p>
+
+</div>
+
+<div>
+
+<p>{{ critique.prestige }}</p>
+
+</div>
+
+<div>
+
+<p>{{ critique.message }}</p>
+
+</div>
+
+<div>
+
+<p>{{ critique.date|timesince }}</p>
+
+</div>
+
+{% else %}
+
+<p>No hay Informacíon Disponible al momento</p>
+
+{% endif %}
 
 </section>
 

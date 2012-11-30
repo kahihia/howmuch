@@ -199,4 +199,15 @@ def getInfoConfirmDelivery(request, conversationID):
 
 @login_required(login_url='/login/')
 def getInfoCritique(request, conversationID):
-	return 0
+	conversation = get_object_or_404(Conversation, pk = conversationID)
+	try:
+		critique = PrestigeLikeBuyer.objects.get(to = request.user, assignment = conversation.assignment)
+	except PrestigeLikeBuyer.DoesNotExist:
+		try:
+			critique = PrestigeLikeSeller.objects.get(to = request.user, assignment = conversation.assignment)
+		except PrestigeLikeSeller.DoesNotExist:
+			return render_to_response('messages/infoCritique.html', {'errors' : True },
+				context_instance = RequestContext(request))
+	return render_to_response('messages/infoCritique.html', {'critique' : critique }, 
+			context_instance = RequestContext(request))
+

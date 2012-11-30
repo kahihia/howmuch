@@ -39,7 +39,7 @@
 			<b>{{ conversation.assignment.get_seller.get_full_name }}</b> Te ha criticado
 		</p>
 
-		<a href="#">Ver Critica</a>
+		<a href="/messages/infocritique/{{ conversation.pk }}">Ver Critica</a>
 
 		{% else %}
 
@@ -74,7 +74,7 @@
 		<p>
 			<b>{{ conversation.assignment.get_buyer.get_full_name }}</b> Te ha criticado
 		</p>
-		<a href="#">Ver Critica</a>
+		<a href="/messages/infocritique/{{ conversation.pk }}">Ver Critica</a>
 		{% else %}
 		<p>Aun no te han criticado</p>
 		{% endif %}

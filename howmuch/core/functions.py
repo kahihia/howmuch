@@ -4,7 +4,7 @@ from howmuch.messages.models import Conversation
 
 
 
-class UserRequestItem:
+class UserRequestItem(object):
 	def __init__(self, user, itemid):
 		self.user = user
 		self.requestItemId = itemid
@@ -77,7 +77,7 @@ class UserRequestItem:
 			return False
 		return True
 
-class AssignmentFeatures:
+class AssignmentFeatures(object):
 	def __init__(self, assignment):
 		self.assignment = assignment
 
