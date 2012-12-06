@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^backend/', include('howmuch.backend.urls')),
     url(r'^notifications/', include('howmuch.notifications.urls')),
+    url(r'^config/', include('howmuch.config.urls')),
 
    
     # Examples:

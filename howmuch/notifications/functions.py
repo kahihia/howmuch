@@ -1,5 +1,9 @@
 # -*- coding: utf8 -*- 
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives, send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.template.loader import get_template
+from django.template import Context
 from howmuch.notifications.models import Notification
 from howmuch.perfil.models import Perfil
 
@@ -17,45 +21,85 @@ class SendNotification(object):
 	def sendNotification(self):
 		if self.tipo == "assignment":
 			subject = 'Has sido seleccionado para vender el articulo %s' % (self.objeto.requestItem.title)
-			message = 'Esta es una confirmacion de que eres el Vendedor del articulo %s, enseguida recibiras un correo con la informacion de envio del articulo, el mensaje que el comprador te ha dejado es: %s ,puedes conversar con el comprador en el INBOX de howmuch' % (self.objeto.requestItem.title, self.objeto.comment)
-			to = [self.objeto.owner.email]
+			to = self.objeto.owner
 			redirectNotification = '/messages/%s?notif_type=assignment&idBack=%s' % (self.objeto.conversation.pk, self.objeto.pk) 
-			newNotification = Notification(owner=self.objeto.owner, requestItem = self.objeto.requestItem ,tipo='assignment', title = subject, redirect = redirectNotification, idBack=self.objeto.pk)
-			self.create_unread_notification(self.objeto.owner)
+			newNotification = Notification(owner=to, requestItem = self.objeto.requestItem ,tipo='assignment', title = subject, redirect = redirectNotification, idBack=self.objeto.pk)
+			self.create_unread_notification(to)
+			#Renderiza las variables para enviarlas por email
+			dic_render = Context({'assignment' : self.objeto, 'redirect' : redirectNotification})
+			html_content = get_template('emails/new_assignment.html').render(dic_render)
+			text_content = strip_tags(html_content)
+			#Se verifica si el usuario tiene configurado recibir un email para el caso de esta notificacion
+			if to.notificationsconfig.new_sale:
+				new_mail = EmailMultiAlternatives(subject, text_content, '', [to.email])
+				new_mail.attach_alternative(html_content, "text/html")
+				new_mail.send()
 
 		elif self.tipo == "proffer":			
 			subject = 'Hay un nuevo Vendedor para el articulo %s' % (self.objeto.requestItem.title)
-			message = '%s quiere venderte el articulo a $ %s, y para que lo elijas te dice lo siguiente: %s' % (self.objeto.owner, self.objeto.cprice, self.objeto.message)
-			to = [self.objeto.requestItem.owner.email]
+			to = self.objeto.requestItem.owner
 			redirectNotification = '/item/candidates/%s?notif_type=proffer&idBack=%s' % (self.objeto.requestItem.pk, self.objeto.pk)
-			newNotification = Notification(owner = self.objeto.requestItem.owner, requestItem = self.objeto.requestItem, tipo = 'proffer', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
-			self.create_unread_notification(self.objeto.requestItem.owner)
+			newNotification = Notification(owner = to, requestItem = self.objeto.requestItem, tipo = 'proffer', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
+			self.create_unread_notification(to)
+			#Renderiza las variables para enviarlas por email
+			dic_render = Context({ 'proffer' : self.objeto ,'redirect' : redirectNotification})
+			html_content = get_template('emails/new_proffer.html').render(dic_render)
+			text_content = strip_tags(html_content) 
+			#Se verifica si el usuario tiene configurado recibir un email para el caso de esta notificacion
+			if to.notificationsconfig.new_offer:
+				new_mail = EmailMultiAlternatives(subject, text_content,'', [to.email])
+				new_mail.attach_alternative(html_content, "text/html")
+				new_mail.send()
 
 		elif self.tipo == "confirm_pay":
 			subject = 'Confirmacion de PAGO del articulo %s' % (self.objeto.assignment.requestItem.title)
-			message = '%s acaba de confirmarte el pago del articulo %s por una cantidad de %s y te ha dejado el siguiente mensaje: %s' % (self.objeto.owner, self.objeto.assignment.requestItem.title, self.objeto.amount, self.objeto.message)
-			to = [self.objeto.assignment.owner.email]
+			to = self.objeto.assignment.owner
 			redirectNotification = '/messages/%s?notif_type=confirm_pay&idBack=%s' % (self.objeto.assignment.conversation.pk, self.objeto.pk )
-			newNotification = Notification(owner = self.objeto.assignment.owner, requestItem = self.objeto.assignment.requestItem ,tipo = 'confirm_pay', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
-			self.create_unread_notification(self.objeto.assignment.owner)
+			newNotification = Notification(owner = to, requestItem = self.objeto.assignment.requestItem ,tipo = 'confirm_pay', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
+			self.create_unread_notification(to)
+			#Renderiza las variables para enviarlas por email
+			dic_render = Context({'confirm_pay' : self.objeto, 'redirect' : redirectNotification})
+			html_content = get_template('emails/confirm_pay.html').render(dic_render)
+			text_content = strip_tags(html_content)
+			#Se verifica si el usuario tiene configurado recibir un email para el caso de esta notificacion
+			if to.notificationsconfig.confirm_pay:
+				new_mail = EmailMultiAlternatives(subject, text_content,'', [to.email])
+				new_mail.attach_alternative(html_content, "text/html")
+				new_mail.send()
 		
 		elif self.tipo == "confirm_delivery":
 			subject = 'Confirmacion de ENVIO del articulo %s' % (self.objeto.assignment.requestItem.title)
-			message = '%s acaba de confirmarte el ENVIO del articulo %s y te ha dejado el siguiente mensaje: %s' % (self.objeto.owner, self.objeto.assignment.requestItem.title, self.objeto.message)
-			to = [self.objeto.assignment.requestItem.owner.email]
+			to = self.objeto.assignment.requestItem.owner
 			redirectNotification = '/messages/%s?notif_type=confirm_delivery&idBack=%s' % (self.objeto.assignment.conversation.pk, self.objeto.pk )
-			newNotification = Notification(owner = self.objeto.assignment.requestItem.owner, requestItem = self.objeto.assignment.requestItem, tipo = 'confirm_delivery', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
-			self.create_unread_notification(self.objeto.assignment.requestItem.owner)
+			newNotification = Notification(owner = to, requestItem = self.objeto.assignment.requestItem, tipo = 'confirm_delivery', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
+			self.create_unread_notification(to)
+			#Renderiza las variables para enviarlas por email
+			dic_render = Context({'confirm_delivery' : self.objeto, 'redirect' : redirectNotification})
+			html_content = get_template('emails/confirm_delivery.html').render(dic_render)
+			text_content = strip_tags(html_content)
+			#Se verifica si el usuario tiene configurado recibir un email para el caso de esta notificacion
+			if to.notificationsconfig.confirm_delivery:
+				new_mail = EmailMultiAlternatives(subject, text_content, '', [to.email])
+				new_mail.attach_alternative(html_content, "text/html")
+				new_mail.send()
 
 		elif self.tipo == "critique":
 			subject = 'Has sido Criticado por %s en el articulo %s' % (self.objeto.de, self.objeto.assignment.requestItem.title)
-			message = '%s te ha criticado %s, y te ha dejado este mensaje %s' % (self.objeto.de, self.objeto.prestige, self.objeto.message)
-			to = [self.objeto.to.email]
+			to = self.objeto.to
 			redirectNotification = '/messages/%s?notif_type=critique&idBack=%s' % (self.objeto.assignment.conversation.pk, self.objeto.pk )
-			newNotification = Notification(owner = self.objeto.to, requestItem = self.objeto.assignment.requestItem ,tipo = 'critique', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
-			self.create_unread_notification(self.objeto.to)
+			newNotification = Notification(owner = to, requestItem = self.objeto.assignment.requestItem ,tipo = 'critique', title = subject , redirect = redirectNotification, idBack = self.objeto.pk )
+			self.create_unread_notification(to)
+			#Renderiza las variables para enviarlas por email
+			dic_render = Context({'critique' : self.objeto, 'redirect' : redirectNotification})
+			html_content = get_template('emails/critique.html').render(dic_render)
+			text_content = strip_tags(html_content)
+			#Se verifica si el usuario tiene configurado recibir un email para el caso de esta notificacion
+			if to.notificationsconfig.new_critique:
+				new_mail = EmailMultiAlternatives(subject, text_content, '', [to.email])
+				new_mail.attach_alternative(html_content, "text/html")
+				new_mail.send()
 
-		send_mail(subject,message,'',to)
+	
 		newNotification.save()
 
 

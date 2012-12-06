@@ -131,11 +131,13 @@ def newMessage(request, conversationID):
 			Si el comprador envia el mensaje, el correo le llega al vendedor y viceversa
 			"""
 			if conversation.assignment.is_buyer(request.user):
-				to = [conversation.assignment.owner.email]
+				to = conversation.assignment.owner
 			else:
-				to = [conversation.assignment.requestItem.owner.email]
+				to = conversation.assignment.requestItem.owner
 
-			send_mail(subject,message,'',to)
+			#Se envia un email solo si el receptor tiene activada la opcion
+			if to.notificationsconfig.new_message:
+				send_mail(subject,message,'',[to.email])
 
 			return HttpResponseRedirect('/messages/' + conversationID)
 	else:

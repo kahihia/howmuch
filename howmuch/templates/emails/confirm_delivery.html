@@ -1,0 +1,22 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+
+<div>
+Estimado {{confirm_delivery.assignment.requestItem.owner.get_full_name }}
+</div>
+
+<div>
+{{ confirm_delivery.assignment.owner.get_full_name }} te esta CONFIRMANDO el ENVIO del articulo
+{{ confirm_delivery.assignment.requestItem.title }} y te ha dejado el siguiente mensaje
+</div>
+
+<div>
+{{ confirm_delivery.message }}
+</div>
+
+<div>
+<img src="{{ confirm_delivery.get_picture_url_100x100 }}">
+</div>
+{% endblock %}
+

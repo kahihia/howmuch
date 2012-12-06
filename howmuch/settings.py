@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'howmuch.searchengine',
     'howmuch.backend',
     'howmuch.notifications',
+    'howmuch.config',
     'endless_pagination',
 
     # Uncomment the next line to enable the admin:

@@ -204,7 +204,18 @@ section.CategoriesList ul li:hover > ul{
 	left: -440px;
 }
 
+a.newitem-button{
+	background: rgb(180,246,0) !important;
+	font-size: 20px !important;
+	text-shadow: 0px 1px 2px #274200;
+    filter: dropshadow(color=#274200, offx=0, offy=1);
+    color:white;
+    border-radius: 5px;
+   
+}
+a.newitem-button:hover{
 
+}
 
 /*
 HEADER
@@ -460,7 +471,8 @@ section.ViewItemContent,
 section.NewProfferWrapper, 
 section.InfoUsersConversation, 
 section.InfoConfirmations, 
-section.InfoCritiqueConversation{
+section.InfoCritiqueConversation, 
+section.ConfigWrapper{
 	background: white;
 	border: 1px solid rgb(221, 221, 221);
 	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);

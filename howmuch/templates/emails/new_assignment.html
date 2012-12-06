@@ -1,0 +1,31 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+Estimado {{ assignment.owner.get_full_name }}
+
+Has sido Seleccionado para vender el articulo
+
+<div>
+	<div>
+		<img src="{{ assignment.requestItem.get_first_picture_100x100 }}">
+	</div>
+	<div>
+		{{ assignment.requestItem.title }}
+	</div>
+</div>
+
+<div>
+Mensaje:
+{{ assignment.comment }}
+</div>
+<div>
+Para que howmuch te conecte con el comprador a traves del portal, donde podras ver su informacion y chater con el es necesario
+pagar $10 pesos de comision. 
+Muchas Gracias
+</div>
+
+<a href="{{ redirect }}">Aceptar</a>
+
+
+{% endblock %}
+

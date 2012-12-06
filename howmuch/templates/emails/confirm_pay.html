@@ -1,0 +1,22 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+
+<div>
+Estimado {{confirm_pay.assignment.owner.get_full_name }}
+</div>
+
+<div>
+{{ confirm_pay.assignment.requestItem.owner.get_full_name }} te esta CONFIRMANDO el PAGO del articulo
+{{ confirm_pay.assignment.requestItem.title }} y te ha dejado el siguiente mensaje
+</div>
+
+<div>
+{{ confirm_pay.message }}
+</div>
+
+<div>
+<img src="{{ confirm_pay.get_picture_url_100x100 }}">
+</div>
+{% endblock %}
+

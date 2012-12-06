@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}
+{% endblock %}
+{% block media %}
+{% endblock %}
+{% block content %}
+
+<section class="ConfigWrapper">
+	<section>
+		<form action="" method="POST" >{% csrf_token %}
+			<div>
+				<div>
+					{{form.new_offer }}
+				</div>
+				<div>
+					<p>Recibir email cuando tenga una nueva oferta para alguno de mis articulos publicados</p>
+				</div>
+			</div>
+			<div>
+				<div>
+					{{ form.new_sale }}
+				</div>
+				<div>
+					<p>Recibir email cuando sea seleccionado como Vendedor</p>
+				</div>
+			</div>
+			<div>
+				<div>
+					{{ form.new_message }}
+				</div>
+				<div>	
+					<p>Recibir email cuando reciba un nuevo mensaje</p>
+				</div>
+			</div>
+			<div>
+				<div>
+					{{ form.confirm_pay }}
+				</div>
+				<div>
+					<p>Recibir email cuando me confirmen el pago de algun articulo</p>
+				</div>
+			</div>
+			<div>
+				<div>
+					{{ form.confirm_delivery }}
+				</div>
+				<div>
+					<p>Recibir email cuando me confirmen el envio de algun articulo</p>
+				</div>
+			</div>
+			<div>
+				<div>
+					{{ form.new_critique }}
+				</div>
+				<div>
+					<p>Recibir email cuando reciba alguna critica</p>
+				</div>
+			</div>
+			<div>
+				<input type="submit" class="button-sale" value="Guardar">
+			</div>
+		</form>
+	</section>
+</section>
+{% endblock %}
