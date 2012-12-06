@@ -3,12 +3,12 @@ from django.forms import ModelForm, Textarea, TextInput, FileInput, Select
 from howmuch.perfil.models import Perfil, Address, Phone, AccountBank
 
 class PerfilForm(ModelForm):
-	class Meta:
-		model = Perfil
-		exclude = ('user', 'addresses', 'phones', 'banks','total_purchases', 'total_sales', 'prestige','unread_notifications', 'unread_conversations')
-		widgets = {
+    class Meta:
+        model = Perfil
+        exclude = ('user', 'addresses', 'phones', 'banks','total_purchases', 'total_sales', 'prestige','unread_notifications', 'unread_conversations')
+        widgets = {
             'profile_picture' : FileInput(attrs={'class':'',}),
-			'company' : TextInput(attrs={'class':'InputFormRequestItem',}),
+            'company' : TextInput(attrs={'class':'InputFormRequestItem',}),
         }
 
 class AddressForm(ModelForm):

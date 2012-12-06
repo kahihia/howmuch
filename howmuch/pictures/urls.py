@@ -4,6 +4,6 @@ from django.conf import settings
 
 
 urlpatterns = patterns('howmuch.pictures.views',
-		url(r'^addpicture/proffer/(?P<profferID>\d+)/$','addPictureProffer', name = "addPicture"),
-		url(r'^addpicture/requestitem/(?P<requestItemID>\d+)/$','addPictureRequestItem', name = "addPicture"),
+        url(r'^addpicture/proffer/(?P<profferID>\d+)/$','addPictureProffer', name = "addPicture"),
+        url(r'^addpicture/requestitem/(?P<requestItemID>\d+)/$','addPictureRequestItem', name = "addPicture"),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

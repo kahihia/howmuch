@@ -3,6 +3,6 @@ from django.forms import ModelForm
 from howmuch.config.models import NotificationsConfig
 
 class NotificationsConfigForm(ModelForm):
-	class Meta:
-		model = NotificationsConfig
-		exclude = {'user',}
+    class Meta:
+        model = NotificationsConfig
+        exclude = {'user',}

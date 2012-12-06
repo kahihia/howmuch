@@ -1,9 +1,12 @@
 import os
 import uuid
+
 from django.db import models
-from howmuch.Pictures.thumbs import ImageWithThumbsField
 from django.contrib.auth.models import User
 from django.conf import settings
+
+from howmuch.Pictures.thumbs import ImageWithThumbsField
+
 
 def make_upload_path(instance, filename): ##Autor: msamoylov by Stackoverflow
     file_root, file_ext = os.path.splitext(filename)
@@ -21,10 +24,9 @@ def make_upload_path(instance, filename): ##Autor: msamoylov by Stackoverflow
 
 
 class Picture(models.Model):
-	picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((250,250),(500,500)))
-	owner = models.ForeignKey(User)
-	date = models.DateTimeField(auto_now=True, auto_now_add=True)
+    picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((250,250),(500,500)))
+    owner = models.ForeignKey(User)
+    date = models.DateTimeField(auto_now=True, auto_now_add=True)
 
-	def __unicode__(self):
-			return self.photo.url
-
+    def __unicode__(self):
+        return self.photo.url
