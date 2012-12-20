@@ -21,18 +21,13 @@ def indexRequestItem(item):
         'owner' : item.owner.username, 'pk' : item.pk })
 
 def searchservice_test(request):
-    q = urllib.unquote(request.GET.get('q', '')) # uncode the request
-    q = q.strip() # Get rid of white space, it will mess with results from Searchify
-    resource = defineIndex() # Grab our Searchify object
+    q = urllib.unquote(request.GET.get('q', '')) 
+    q = q.strip() 
+    resource = defineIndex() 
     index = resource['index']
-    results = [] # Hold our results
-    if q != '': # If q is a string
-        q = q.split(' ') # split by space into an array
-        # Join it together again, with an AND clause
-        # We want each word to be seperated by an AND clause
-        # This will make sure that all words appear in the title
-        # But the last word will have a wildcard at the end,
-        # because the user is still typing.
+    results = [] 
+    if q != '': 
+        q = q.split(' ') 
         finalq = ' AND text:'.join(q)
         finalq += "*" # Wildcard at the end!
         searchresults = index.search( 'text:%s' % finalq , fetch_fields=['picture','text', 'candidates', 'state', 'price', 'owner', 'pk']) 

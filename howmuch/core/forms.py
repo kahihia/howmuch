@@ -7,7 +7,7 @@ from howmuch.core.models import RequestItem, Proffer, Assignment
 from howmuch.perfil.models import Address
 from captcha.fields import CaptchaField
 
-class NewItemNewForm1(ModelForm):
+class NewItemForm1(ModelForm):
     class Meta:
         model = RequestItem
         fields = {'title'}
@@ -15,7 +15,7 @@ class NewItemNewForm1(ModelForm):
             'title' : TextInput(attrs={'class' : 'InputFormRequestItemNew', 'placeholder' : 'Ej. iPhone 5 32 Gb Color Blanco en Buen Estado'}, ),
         }
 
-class NewItemNewForm2(ModelForm):
+class NewItemForm2(ModelForm):
     class Meta:
         model = RequestItem
         fields = {'price'}
@@ -23,7 +23,7 @@ class NewItemNewForm2(ModelForm):
             'price' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. 10000.00'},),
         }
 
-class NewItemNewForm3(ModelForm):
+class NewItemForm3(ModelForm):
     class Meta:
         model = RequestItem
         fields = {'quantity'}
@@ -31,7 +31,7 @@ class NewItemNewForm3(ModelForm):
             'quantity' : TextInput(attrs={'class':'InputFormRequestItemNew','placeholder' : 'Ej. 2'}, ),
         }
 
-class NewItemNewForm4(ModelForm):
+class NewItemForm4(ModelForm):
     class Meta:
         model = RequestItem
         fields = {'description'}
@@ -39,7 +39,7 @@ class NewItemNewForm4(ModelForm):
              'description': Textarea(attrs={'class':'InputFormRequestItemNew','cols': 40, 'rows': 10, 'placeholder' : 'Describe tu producto Aqui'}),
         }
 
-class NewItemNewForm5(ModelForm):
+class NewItemForm5(ModelForm):
     class Meta:
         model = RequestItem
         fields = {'itemsCatA','itemsCatB','itemsCatC','brand','model','state'}
@@ -49,7 +49,7 @@ class NewItemNewForm5(ModelForm):
             'state' : Select(attrs={'class':'InputFormRequestItemNew',}),
         }
 
-class NewItemNewForm6(ModelForm):
+class NewItemForm6(ModelForm):
     class Meta:
         model = RequestItem
         fields = {'daysLimit','addressDelivery'}
@@ -58,14 +58,14 @@ class NewItemNewForm6(ModelForm):
             'addressDelivery' : Select(attrs={'class':'InputFormRequestItemNew'}),
         }
 
-class NewItemNewForm7(forms.Form):
+class NewItemForm7(forms.Form):
     picture1 = forms.ImageField()
     picture2 = forms.ImageField(required=False)
     picture3 = forms.ImageField(required=False)
     picture4 = forms.ImageField(required=False)
     picture5 = forms.ImageField(required=False)
 
-class ProfferFormNew(forms.Form):
+class ProfferForm(forms.Form):
     cprice = forms.IntegerField(
         widget = forms.TextInput(attrs = {'class' : 'InputForm'}))
     message = forms.CharField(

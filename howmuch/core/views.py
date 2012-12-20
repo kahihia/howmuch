@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from howmuch.core.forms import AssignmentForm, ProfferFormNew
+from howmuch.core.forms import AssignmentForm, ProfferForm
 from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture, ProfferPicture
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
 from howmuch.messages.models import Conversation
@@ -24,7 +24,7 @@ from endless_pagination.decorators import page_template
 import datetime
 
 
-TEMPLATES_NEWITEM_NEW = {'title' : 'newitemnew/title.html',
+TEMPLATES_NEWITEM = {'title' : 'newitemnew/title.html',
             'price' : 'newitemnew/price.html',
             'quantity' : 'newitemnew/quantity.html',
             'description' : 'newitemnew/description.html',
@@ -40,7 +40,7 @@ class NewItemWizard(SessionWizardView):
 
     def get_template_names(self):
 
-        return [TEMPLATES_NEWITEM_NEW[self.steps.current]]
+        return [TEMPLATES_NEWITEM[self.steps.current]]
 
     def get_form(self, step=None, data=None, files=None):
         form = super(NewItemWizard, self).get_form(step, data, files)
@@ -136,7 +136,7 @@ def newProffer(request,itemId):
         return render_to_response('core/candidatura.html', {'errors' : userRequestItem.errors() }, context_instance=RequestContext(request))
 
     if request.method == 'POST':
-        form = ProfferFormNew(request.POST, request.FILES)
+        form = ProfferForm(request.POST, request.FILES)
         if form.is_valid():
             pictures = []
             cprice = form.cleaned_data['cprice']
@@ -172,7 +172,7 @@ def newProffer(request,itemId):
 
             return HttpResponseRedirect('/sales/possible/')
     else:
-        form = ProfferFormNew()
+        form = ProfferForm()
     return render_to_response('core/candidatura.html', {'form' : form, 'requestItem' : requestItem, 'user' : request.user }, context_instance=RequestContext(request))
 
 

@@ -6,7 +6,7 @@ from howmuch.pictures.thumbs import ImageWithThumbsField
 from django.contrib.auth.models import User
 from django.conf import settings
 
-def make_upload_path(instance, filename): ##Autor: msamoylov by Stackoverflow
+def make_upload_path(instance, filename):
     file_root, file_ext = os.path.splitext(filename)
     dir_name = '{module}/{model}'.format(module=instance._meta.app_label, model=instance._meta.module_name)
     file_root = unicode(uuid.uuid4())
