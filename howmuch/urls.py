@@ -24,8 +24,6 @@ urlpatterns = patterns('',
     url(r'^backend/', include('howmuch.backend.urls')),
     url(r'^notifications/', include('howmuch.notifications.urls')),
     url(r'^config/', include('howmuch.config.urls')),
-
-   
     # Examples:
     # url(r'^$', 'howmuch.views.home', name='home'),
     # url(r'^howmuch/', include('howmuch.foo.urls')),
