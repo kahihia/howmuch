@@ -1,30 +1,30 @@
-# Django settings for howmuch project.
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 import os
-import dj_database_url
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 gettext_noop = lambda s: s
 
 
-
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('Juan Carlos Cayetano', 'kayethano@gmail.com'),
+    ('Juan Carlos Cayetano', 'kayethano@gmail.com'),
+    ('Joel Rivera', 'rivera@joel.mx')
 )
 
 AUTH_PROFILE_MODULE = 'perfil.perfil'
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='postgres://joe:@localhost:5432/howmuch')}
+#import dj_database_url   # use this to setup in localsettings.
+#dj_database_url.config(default='postgres://joe:@localhost:5432/howmuch')
+DATABASES = {'default': {}}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Mexico/General'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -40,11 +40,11 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-USE_L10N = True
+USE_L10N = False
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = False
@@ -59,28 +59,14 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-
-#AMAZON
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = 'AKIAJBJPT42ROYJRYKFA'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'howmuch'
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-#AMAZON
-
 #FILES
 
 #MEDIA_ROOT = '/media/'
 MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 #STATIC_ROOT = '/static/'
 STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
-#S3_URL = 'http://%s.s3-website-us-east-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-#STATIC_URL = S3_URL + STATIC_ROOT
 STATIC_URL = '/static/'
-#MEDIA_URL = S3_URL + MEDIA_ROOT
 MEDIA_URL = '/media/'
-#DEFAULT_FILE_STORAGE = 'howmuch.s3utils.MediaRootS3BotoStorage'
-#STATICFILES_STORAGE = 'howmuch.s3utils.StaticRootS3BotoStorage'
 
 #FILES
 
@@ -193,13 +179,13 @@ LOGIN_REDIRECT_URL = '/'
 
 #EMAIL
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'app7604709@heroku.com'
-EMAIL_HOST_PASSWORD = 'f1djpkod'
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'howmuch@howmuch'
+DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
 
 #EMAIL
 

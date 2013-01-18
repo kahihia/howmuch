@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from howmuch import settings
 from howmuch.core.forms import AssignmentForm, ProfferForm
 from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture, ProfferPicture
 from howmuch.core.functions import UserRequestItem, AssignmentFeatures
@@ -19,7 +20,6 @@ from django.template import RequestContext
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
-from storages.backends.s3boto import S3BotoStorage
 from endless_pagination.decorators import page_template
 import datetime
 
@@ -36,7 +36,7 @@ TEMPLATES_NEWITEM = {'title' : 'newitemnew/title.html',
 
 class NewItemWizard(SessionWizardView):
 
-    file_storage = S3BotoStorage(location='pictures_temp')
+    file_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
 
     def get_template_names(self):
 
