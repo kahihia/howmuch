@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 from howmuch import settings
 from howmuch.core.forms import AssignmentForm, ProfferForm
 from howmuch.core.models import RequestItem, Proffer, Assignment, RequestItemPicture, ProfferPicture
@@ -35,8 +37,8 @@ TEMPLATES_NEWITEM = {'title' : 'newitemnew/title.html',
 }
 
 class NewItemWizard(SessionWizardView):
-
-    file_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
+    #Almacena imagenes de forma temporal
+    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT,'pictures_temp'))
 
     def get_template_names(self):
 
