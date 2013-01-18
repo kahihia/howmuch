@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-from howmuch.backend.functions import get_timestamp
-from howmuch.core.models import RequestItem
 from django.db.models.signals import post_save
+
+from howmuch.utils import get_timestamp
+from howmuch.core.models import RequestItem
+
 
 
 TYPE_CHOICES = (

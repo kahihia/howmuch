@@ -1,6 +1,4 @@
 venv
-*.pyccelerybeat-schedule
-celerybeat-schedule
 *.pyc
 *.pyo
 *~

@@ -19,18 +19,8 @@ urlpatterns = patterns('',
     url(r'^search/', include('howmuch.searchengine.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^chaining/', include('smart_selects.urls')),
-    url(r'^captcha/', include('captcha.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^backend/', include('howmuch.backend.urls')),
     url(r'^notifications/', include('howmuch.notifications.urls')),
     url(r'^config/', include('howmuch.config.urls')),
-    # Examples:
-    # url(r'^$', 'howmuch.views.home', name='home'),
-    # url(r'^howmuch/', include('howmuch.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

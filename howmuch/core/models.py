@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
+from smart_selects.db_fields import ChainedForeignKey
+
 from howmuch.pictures.models import Picture
 from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
 from howmuch.perfil.models import Address
-from howmuch.backend.functions import get_timestamp
-from smart_selects.db_fields import ChainedForeignKey
-import datetime
+from howmuch.utils import get_timestamp
+
+
 
 STATES_CHOICES = (
 
@@ -16,10 +20,9 @@ STATES_CHOICES = (
 )
 
 STATUS_ASSIGNMENT = (
-
     ('0', 'NOTIFICADO'), #Cuando la Asignacion es generada
     ('1', 'PAGADO'), #Cuando el comprador notifica el pago
-    ('2', 'PRODUCTO ENVIADO'), #Cuando el vendedor notifica el Envio del producto, ya permite que los usuarios CRITIQUEN
+    ('2', 'PRODUCTO ENVIADO'), # Cuando el vendedor notifica el Envio del producto, ya permite que los usuarios CRITIQUEN
     ('3','EN ESPERA DE CRITICA'), #Se activa en el momento en que cualquiera de los involucrados CRITICA la transaccion
     ('4', 'COMPLETADO'), #Cuando ya existe CRITICA tanto del comprador como del vendedor
     ('5', 'CANCELADO') #Cuando se cancela la transaccion

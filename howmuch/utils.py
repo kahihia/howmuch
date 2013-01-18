@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*- 
+# -*- coding: utf-8 -*- 
 import datetime
 
 def get_timestamp(date):

@@ -18,7 +18,7 @@ AUTH_PROFILE_MODULE = 'perfil.perfil'
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='postgres://kayethano:90ldenb0y@localhost:5432/howmuch')}
+DATABASES = {'default': dj_database_url.config(default='postgres://joe:@localhost:5432/howmuch')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -137,8 +137,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gunicorn',
-    'kombu.transport.django',
-    'djcelery',
     'howmuch.pictures',
     'smart_selects',
     'howmuch.items',
@@ -146,7 +144,6 @@ INSTALLED_APPS = (
     'storages',
     'registration',
     'howmuch.perfil',
-    'captcha',
     'howmuch.messages',
     'howmuch.prestige',
     'howmuch.searchengine',
@@ -154,7 +151,6 @@ INSTALLED_APPS = (
     'howmuch.notifications',
     'howmuch.config',
     'endless_pagination',
-
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'django.contrib.formtools',

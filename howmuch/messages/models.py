@@ -1,10 +1,11 @@
-# -*- coding: utf8 -*- 
+# -*- coding: utf-8 -*- 
+import datetime
 
 from django.db import models
 from howmuch.core.models import Assignment
-from howmuch.backend.functions import get_timestamp
+from howmuch.utils import get_timestamp
 from django.contrib.auth.models import User
-import datetime
+
 
 STATUS_CHOICES = (
 
