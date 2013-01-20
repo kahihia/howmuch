@@ -3,6 +3,7 @@ import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
+
 from smart_selects.db_fields import ChainedForeignKey
 
 from howmuch.pictures.models import Picture
@@ -37,8 +38,7 @@ DAYS_CHOICES = (
     )
 
 
-
-class RequestItem(models.Model):
+class Article(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by RequestItem")
     price = models.IntegerField()
     title = models.CharField(max_length=100)
@@ -61,7 +61,7 @@ class RequestItem(models.Model):
     state = models.CharField(max_length=7, choices=STATES_CHOICES)
     date = models.DateTimeField(auto_now_add=True)
     daysLimit = models.IntegerField(choices = DAYS_CHOICES)
-    pictures = models.ManyToManyField(Picture, through='RequestItemPicture', blank=True)
+    pictures = models.ManyToManyField(Picture, blank=True)
     addressDelivery = models.ForeignKey(Address)
     title_url = models.CharField(max_length=100, null=True, blank = True)
 
@@ -70,13 +70,13 @@ class RequestItem(models.Model):
 
     #True si el item ya posee candidatos
     def has_candidates(self):
-        if Proffer.objects.filter(requestItem = self).exists():
+        if Offer.objects.filter(requestItem = self).exists():
             return True
         else:
             return False
 
     def getNumber_candidates(self):
-        return Proffer.objects.filter(requestItem = self).count()
+        return Offer.objects.filter(requestItem = self).count()
 
     #True si el item ya posee asignacion
     def has_assignment(self):
@@ -116,25 +116,14 @@ class RequestItem(models.Model):
         return get_timestamp(self.date)
 
 
-
-
-
-
-
-class RequestItemPicture(models.Model):
-    requestItem = models.ForeignKey(RequestItem)
-    picture = models.ForeignKey(Picture)
-
-    def __unicode__(self):
-        return u'%s' % (self.requestItem.title)
-
-class Proffer(models.Model):
-    owner = models.ForeignKey(User, related_name = "owner by Proffer")
-    requestItem = models.ForeignKey(RequestItem)
+class Offer(models.Model):
+    owner = models.ForeignKey(User, related_name = "owner by Offer")
+    article = models.ForeignKey(Article)
     date = models.DateTimeField(auto_now_add=True)
-    cprice = models.IntegerField()
+    #Precio contra oferta
+    cprice = models.IntegerField() 
     message = models.CharField(max_length=140)
-    pictures = models.ManyToManyField(Picture, through='ProfferPicture')
+    pictures = models.ManyToManyField(Picture)
 
     def __unicode__(self):
         return u'owner: %s, item: %s' % (self.owner, self.requestItem.title)
@@ -165,16 +154,9 @@ class Proffer(models.Model):
         return False
 
 
-class ProfferPicture(models.Model):
-    proffer = models.ForeignKey(Proffer)
-    picture = models.ForeignKey(Picture)
-
-    def __unicode__(self):
-        return self.proffer
-
 class Assignment(models.Model):
     owner = models.ForeignKey(User)
-    requestItem = models.OneToOneField(RequestItem)
+    article = models.OneToOneField(Article)
     date = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=144)
     status = models.CharField(max_length=2, default = 0)
@@ -182,34 +164,41 @@ class Assignment(models.Model):
     def __unicode__(self):
         return u'Owner: %s and item: %s' % (self.owner, self.requestItem)
 
+    #True si el usuario dado es el vendedor del articulo
     def is_seller(self,user):
         if self.owner == user:
             return True
         else: 
             return False
 
+    #True si el usuario dado es el comprador del articulo
     def is_buyer(self,user):
         if self.requestItem.owner == user:
             return True
         else:
             return False
 
+    #Regresa al comprador
     def get_buyer(self):
         return self.requestItem.owner
 
+    #Regresa al vendedor
     def get_seller(self):
         return self.owner
 
+    #True si el usuario dado es comprador o vendedor
     def is_inside(self,user):
         if self.is_seller(user) or self.is_buyer(user):
             return True
         return False
 
+    #True si en esta asignacion el comprador o vendedor ha criticado a su contraparte
     def has_been_critiqued_before(self):
         if self.status == "3":
             return True
         return False
 
+    #True si la transaccion ha finalizado con exito
     def is_complete(self):
         if self.status == "4":
             return True

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 from howmuch.core.forms import NewItemForm1, NewItemForm2, NewItemForm3, NewItemForm4, NewItemForm5, NewItemForm6, NewItemForm7
-from howmuch.core.views import NewItemWizard
+from howmuch.core.views import Post
 
 FORMS_NEWITEM = [('title', NewItemForm1),
         ('price', NewItemForm2),

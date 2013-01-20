@@ -7,7 +7,7 @@ from django.template import Context
 from howmuch.notifications.models import Notification
 from howmuch.perfil.models import Perfil
 
-class SendNotification(object):
+class Notification(object):
     def __init__(self,objeto, tipo):
         self.objeto = objeto
         self.tipo = tipo
@@ -18,7 +18,7 @@ class SendNotification(object):
         perfil.save()
 
 
-    def sendNotification(self):
+    def send(self):
         if self.tipo == "assignment":
             subject = 'Has sido seleccionado para vender el articulo %s' % (self.objeto.requestItem.title)
             to = self.objeto.owner

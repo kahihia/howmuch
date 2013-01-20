@@ -1,60 +1,39 @@
-from howmuch.core.models import RequestItem, Proffer, Assignment
+from howmuch.core.models import Article, Offer, Assignment
 from howmuch.prestige.models import PayConfirm, DeliveryConfirm, PrestigeLikeBuyer, PrestigeLikeSeller
 from howmuch.messages.models import Conversation
 
 
 
-class UserRequestItem(object):
+class AboutArticle(object):
     def __init__(self, user, itemid):
         self.user = user
-        self.requestItemId = itemid
+        self.articleId = itemid
 
-    """
-
-    Regresa True si el Usuario es Propietario del RequestItem dado su id
-
-
-    """
-
+    #Regresa True si el Usuario es publico el Articulo dado su id
     def is_owner(self):
         try:
-            RequestItem.objects.get(owner = self.user, pk=self.requestItemId)
-        except RequestItem.DoesNotExist:
+            Article.objects.get(owner = self.user, pk=self.articleId)
+        except Article.DoesNotExist:
             return False
         return True 
 
-    """
-
-    Regresa True si el Usuario es Candidato del RequestItem dado su id, Es cuando el usuario da click en VENDER
-
-    """
-
+    #Regresa True si el Usuario es Candidato de la publicacion del articulo dado su id, Es cuando el usuario da click en VENDER
     def is_candidate(self):
         try:
-            Proffer.objects.get(owner = self.user, requestItem = self.requestItemId)
-        except Proffer.DoesNotExist:
+            Offer.objects.get(owner = self.user, requestItem = self.articleId)
+        except Offer.DoesNotExist:
             return False
         return True
 
-    """
-    
-    Regresa True si el Usuario ha sido Asignado para completar el RequestItem (De los que dieron click en VENDER, es el que fue elegido)
-
-    """
-
+    #Regresa True si el Usuario ha sido Asignado para completar el RequestItem (De los que dieron click en VENDER, es el que fue elegido)
     def is_assigned(self):
         try:
-            Assignment.objects.get(requestItem = self.requestItemId)
+            Assignment.objects.get(requestItem = self.articleId)
         except Assignment.DoesNotExist:
             return False
         return True
 
-    """
-
-    Regresa los Errores encontrados a la hora de realizar de intentar VENDER el articulo
-
-    """
-
+    #Regresa los Errores encontrados a la hora de realizar de intentar VENDER el articulo
     def errors(self):
         errors = []
         if self.is_owner():
@@ -66,18 +45,13 @@ class UserRequestItem(object):
         
         return errors
 
-    """
-    
-    Regresa False en caso de que Sea Propietario, Candidato o Asignado dado el id del RequestItem
-
-    """
-
+    #Regresa False en caso de que Sea Propietario, Candidato o Asignado dado el id del RequestItem
     def is_valid(self):
         if self.is_owner() or self.is_candidate() or self.is_assigned():
             return False
         return True
 
-class AssignmentFeatures(object):
+class AboutAssignment(object):
     def __init__(self, assignment):
         self.assignment = assignment
 
