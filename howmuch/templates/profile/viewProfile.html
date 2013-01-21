@@ -15,19 +15,19 @@
 
 		<div class="ViewProfilePicture">
 
-			<img src="{{ perfil.get_profile_picture_100x100 }}">
+			<img src="{{ profile.get_profile_picture_100x100 }}">
 
 		</div>
 
 		<div class="ViewProfileInfo">
 
 			<div>
-				<span>{{ perfil.user.get_full_name }}</span>
+				<span>{{ profile.user.get_full_name }}</span>
 			</div>
 
 			<div>
 
-				<img src="{{ perfil.get_prestige_picture }}">
+				<img src="{{ profile.get_prestige_picture }}">
 
 			</div>
 
@@ -35,13 +35,13 @@
 
 				<div class="ProfilePurchasesTotal">
 
-					<span>Total de compras: </span><span>{{ perfil.total_purchases }}</span>
+					<span>Total de compras: </span><span>{{ profile.total_purchases }}</span>
 
 				</div>
 
 				<div class="ProfileSalesTotal">
 
-					<span>Total de Ventas: </span><span>{{ perfil.total_sales }}</span>
+					<span>Total de Ventas: </span><span>{{ profile.total_sales }}</span>
 
 				</div>
 

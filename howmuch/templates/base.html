@@ -44,8 +44,8 @@
                     </div>
                     <div class="NotificationWrapper">
                         <a  href="/notifications/">
-                                {% if user.perfil.unread_notifications > 0 %}
-                                <div class="NumberUnread">{{ user.perfil.unread_notifications }}</div>
+                                {% if user.profile.unread_notifications > 0 %}
+                                <div class="NumberUnread">{{ user.profile.unread_notifications }}</div>
                                 {% endif %}
                                 <div id="notificationsUnread" class="NotificationAreaHome">
                                 </div>
@@ -53,8 +53,8 @@
                     </div>
                     <div class="NotificationWrapper">
                         <a href="/messages/inbox">
-                                {% if user.perfil.unread_conversations > 0 %}
-                                <div  class="NumberUnread">{{ user.perfil.unread_conversations }}</div>
+                                {% if user.profile.unread_conversations > 0 %}
+                                <div  class="NumberUnread">{{ user.profile.unread_conversations }}</div>
                                 {% endif %}
                                 <div id="conversationsUnread" class="NotificationAreaHome">
                                 </div>
@@ -63,15 +63,15 @@
                     <div id="menu-user">
                         <a href="#">{{ user }}</a>
                         <ul class="dropmenu">
-                                <li><a href="/purchases/published">Mis Compras</a></li>
-                                <li><a href="/sales/possible">Mis Ventas</a></li>
+                                <li><a href="/account/purchases/published">Mis Compras</a></li>
+                                <li><a href="/account/sales/possible">Mis Ventas</a></li>
                                 <li><a href="/profile/e/edit">Acerca de Mi</a></li>
                                 <li><a href="/config/notifications">Configuracion</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <a class="newitem-button" href="/item/new">Publicar Compra</a>
+                        <a class="newitem-button" href="/article/post">Publicar Compra</a>
                     </div>  
                     
                 </nav>

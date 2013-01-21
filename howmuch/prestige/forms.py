@@ -1,15 +1,16 @@
 from django import forms
 from django.forms import ModelForm
-from howmuch.prestige.models import PayConfirm, DeliveryConfirm, PrestigeLikeBuyer, PrestigeLikeSeller
 
-class PayConfirmForm(ModelForm):
+from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, PrestigeLikeBuyer, PrestigeLikeSeller
+
+class ConfirmPayForm(ModelForm):
     class Meta:
-        model = PayConfirm
+        model = ConfirmPay
         exclude = ('owner' , 'assignment', 'date')
 
-class DeliveryConfirmForm(ModelForm):
+class ConfirmDeliveryForm(ModelForm):
     class Meta:
-        model = DeliveryConfirm
+        model = ConfirmDelivery
         exclude = ('owner', 'assignment', 'date', )
 
 class PrestigeLikeBuyerForm(ModelForm):

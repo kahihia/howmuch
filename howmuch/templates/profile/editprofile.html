@@ -18,7 +18,7 @@
 
 	<div class="ProfilePictureWrapper">
 
-		<img src="{{ user.perfil.get_profile_picture_250x250 }}">
+		<img src="{{ user.profile.get_profile_picture_250x250 }}">
 
 	</div>
 
@@ -58,7 +58,7 @@
 
 	<div class="AddressesWrapper GroupItemsForm">
 
-		{% for address in user.perfil.addresses.all %}
+		{% for address in user.profile.addresses.all %}
 
 		<div>
 
@@ -84,7 +84,7 @@
 
 	<div class="PhonesWrapper GroupItemsForm">
 
-		{% for phone in user.perfil.phones.all %}
+		{% for phone in user.profile.phones.all %}
 
 		<div>
 
@@ -110,7 +110,7 @@
 
 	<div class="AccountsWrapper GroupItemsForm">
 
-		{% for account in user.perfil.banks.all %}
+		{% for account in user.profile.banks.all %}
 
 		<div>
 

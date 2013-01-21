@@ -99,7 +99,7 @@
 		</div>
 		<div>	
 			<span><b>Dirección de Envio</b></span>
-			<p>{{ conversation.assignment.requestItem.addressDelivery|title }}</p>
+			<p>{{ conversation.assignment.article.addressDelivery|title }}</p>
 		</div>
 		<div>
 			<span><b>E-mail</b></span>
@@ -107,7 +107,7 @@
 		</div>
 		<div>
 			<span><b>Telefonos</b></span>
-			{% for phone in conversation.assignment.get_buyer.perfil.phones.all %}
+			{% for phone in conversation.assignment.get_buyer.profile.phones.all %}
 				<p>{{ phone }}</p>
 			{% empty %}
 				<p>No se han registrado Telefonos</p>
@@ -131,7 +131,7 @@
 		</div>
 		<div>
 			<span><b>Telefonos</b></span>
-			{% for phone in conversation.assignment.get_seller.perfil.phones.all %}
+			{% for phone in conversation.assignment.get_seller.profile.phones.all %}
 				<p>{{ phone }}</p>
 			{% empty %}
 				<p>No se han registrado Telefonos</p>
@@ -139,7 +139,7 @@
 		</div>
 		<div>
 			<span><b>Cuenta Bancaria</b></span>
-			{% for account in conversation.assignment.get_seller.perfil.banks.all %}
+			{% for account in conversation.assignment.get_seller.profile.banks.all %}
 				<p>{{ account }}</p>
 			{% empty %}
 				<p>Este usuario aun no registra sus datos bancarios</p>
@@ -154,14 +154,14 @@
 
 <section class="ConversationContainer">
 
-	<section class="ConversationAssignmentRequestItem">
+	<section class="ConversationAssignmentarticle">
 		<span>Asignacion: <b>{{ conversation.assignment.pk }}</b></span>
-		<span>Articulo: <b>{{ conversation.assignment.requestItem.pk }}</b></span>
+		<span>Articulo: <b>{{ conversation.assignment.article.pk }}</b></span>
 	</section>
 
 	<section class="ConversationTitle">
 		<div id="conversationItemTitle">
-			<span class="ItemTitle">{{ conversation.assignment.requestItem.title }}</span>
+			<span class="ItemTitle">{{ conversation.assignment.article.title }}</span>
 		</div>
 	</section>
 
@@ -208,7 +208,7 @@
 	<article>
 		<h4>Opciones</h4>
 		<ul>
-			{% if conversation.assignment.requestItem.owner == user%}
+			{% if conversation.assignment.article.owner == user%}
 			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
 			<li><a href="/prestige/setprestigetoseller/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
 			{% else %}

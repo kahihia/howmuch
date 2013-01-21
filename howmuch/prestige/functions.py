@@ -1,5 +1,5 @@
 from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
-from howmuch.perfil.models import Perfil
+from howmuch.profile.models import Profile
 
 def get_prestige_user(user):
     totalCritiquesLikeSeller = PrestigeLikeSeller.objects.filter(to = user).count()
@@ -24,20 +24,20 @@ def get_prestige_user(user):
 
 def update_prestige(user):
     prestigeUser = get_prestige_user(user)
-    perfilUser = Perfil.objects.get(user = user )
+    profileUser = Profile.objects.get(user = user )
 
     if prestigeUser >= 0 and prestigeUser < 25:
-        perfilUser.prestige = 'A'
-        perfilUser.save()
+        profileUser.prestige = 'A'
+        profileUser.save()
     elif prestigeUser >=25 and prestigeUser < 50:
-        perfilUser.prestige = 'B'
-        perfilUser.save()
+        profileUser.prestige = 'B'
+        profileUser.save()
     elif prestigeUser >=50  and prestigeUser < 75:
-        perfilUser.prestige = 'C'
-        perfilUser.save()
+        profileUser.prestige = 'C'
+        profileUser.save()
     elif prestigeUser >=75:
-        perfilUser.prestige = 'D'
-        perfilUser.save()
+        profileUser.prestige = 'D'
+        profileUser.save()
 
 
     

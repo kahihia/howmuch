@@ -1,0 +1,50 @@
+{% extends "account/PurchasesMiddle.html" %}
+
+{% block PurchasesMiddle%}
+
+<section class="PurchasesList">
+
+	{% for item in publishedPurchases %}
+
+	<article class="ItemThumbsPurchases" style="position:relative !important">
+
+		<ul class="MoreOptions">
+			<li><a class="MoreOptionsIcon" href="#">+</a>
+				<ul>
+					<li><a href="#">Editar</a></li>
+					<li><a href="#">Eliminar</a></li>
+				</ul>
+			</li>
+		</ul>
+
+		<div class="PurchasesListPicture">
+
+			<img src="{{ item.get_first_picture_100x100 }}" width="50" height="50">
+
+		</div>
+
+		<div class="PurchasesItemWrapper">
+			<div>
+				<a href="{{ item.get_url }}">{{ item.title }}</a> en <a href="/item/{{ item.pk }}">${{ item.price }}</a>
+			</div>
+
+			<div>
+					<a  href="/article/candidates/{{ item.pk }}">Ver Vendedores ({{ item.getNumber_candidates }})</a>
+					<span class="PurchasesItemTimeStamp">hace {{ item.get_timestamp }}</span>				
+			</div>
+
+
+		</div>
+	
+	</article>
+
+	{% empty %}
+
+	<p>Aun no has solicitado ningun articulo</p>
+
+	{% endfor %}
+
+</section>
+
+
+{% endblock %}

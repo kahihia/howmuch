@@ -33,7 +33,7 @@
 
 			{% else %}
 
-			{% if conversation.assignment.requestItem.owner == user %}
+			{% if conversation.assignment.article.owner == user %}
 
 				{% if conversation.getNumber_unread_messages_buyer > 0%}
 
@@ -57,11 +57,11 @@
 
 	
 					<div class="InboxMessagePicture">
-						<img src="{{ conversation.assignment.requestItem.get_first_picture_100x100 }}" width="50" height="50">
+						<img src="{{ conversation.assignment.article.get_first_picture_100x100 }}" width="50" height="50">
 					</div>
 
 					<div class="InboxMessageContent">
-						<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.requestItem.title }}</a></span></br>
+						<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a></span></br>
 						<span>{{ conversation.get_latest_message.message }}</span></br>
 						<div class="MessageTimestampWrapper">
 							<span class="ConversationTimestamp">hace {{ conversation.get_latest_message.get_timestamp }}</span>

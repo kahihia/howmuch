@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block facebooktags %}
+
+<meta property="og:title" content="Pagan ${{ item.price }} por {{ item.title}}"/>
+<meta property="og:type" content="Ecommerce"/>
+<meta property="og:url" content="http://www.howmuch.do{{ item.get_url }}"/>
+<meta property="og:image" content="{{ item.get_first_picture_250x250 }}"/>
+<meta property="og:site_name" content="howmuch"/>
+<meta property="og:description"
+    content="{{ item.description|truncatechars:100}}"/>
+
+{% endblock %}
+
+{% block media %}
+
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
+<script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script>
+$(function () {
+    $('.pics').glisse({
+        changeSpeed: 550, 
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    }); 
+});
+</script>
+
+
+
+{% endblock %}
+
+{% block content %}
+
+<section class="ViewItemContent">
+
+	<article class="NotificationsItem">
+
+	{% if item.owner == user %}
+
+	<div>
+		<div>
+			<p>Esta Es Tu Publicación</p>
+		</div>
+		<div>
+			<a href="#">Editar</a>
+		</div>
+	</div>
+
+	{% endif %}
+
+	{% if item.has_assignment %}
+	<div>
+		<div>
+			<p>Esta Publicación Ha Finalizado</p>
+		</div>
+		<div>
+			<a href="/item/new">Comprar un articulo</a>
+		</div>
+	</div>
+	{% endif %}
+
+
+	</article>
+
+	<article class="DateOwnerItem">
+		<span>Para ser enviado al <b class="BBigItem"> C.P {{ item.addressDelivery.zipcode }},</b></span>
+		<span>Publicado <b>hace {{ item.date|timesince }}</b> por <a href="#">{{ item.owner }}</a></span>
+	</article>
+
+	<article class="ItemOverviewClasification">
+		<div id="categoriesWrapper">
+			<div>
+				<a href="#">{{ item.itemsCatA }}</a>
+			</div>
+			<div>
+				<a href="#">{{ item.itemsCatB }}</a>
+			</div>
+			<div>
+				<a href="#">{{ item.itemsCatC }}</a>
+			</div>
+		</div>
+	</article>
+
+	<article class="ItemOverview">
+		<div class="ItemOverviewPicture">
+			
+			<img src="{{ item.get_first_picture_250x250 }}">
+			
+			<div class="ItemOverviewPictureInfo">
+				<b><span class="ItemOverviewPictureInfoState">{{ item.state }}</span></b>
+				<b><span class="ItemOverviewPictureInfoPrice">$ {{ item.price }}</span></b>
+			</div>
+
+		</div>
+
+		<div class="ItemOverviewPrincipal">
+
+			<span class="ItemTitle">Pagan ${{ item.price }} por {{ item.title }}</span>
+
+			<div class="ItemPictures">
+				{% for picture in item.pictures.all %}
+					<img width="70" height="70" class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+				{% endfor%}
+			</div>
+
+			<div class="ViewItemButtons">
+				<!-- 
+							<button class="button-sell small pop2" data-bpopup ='{"contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white", "positionStyle" : "fixed" }'>VENDER</button>
+				 -->
+				<div>
+					<a class="button-sell" href="/article/offer/{{ item.pk }}">VENDER</a>
+				</div>
+				<div class="fb-like" data-href="http://www.howmuch.do{{ item.get_url }}" data-send="true" data-layout="box_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+				
+			</div>
+		</div>
+
+		
+	</article>
+
+	<div class="ItemDescription">
+		<p>{{ item.description }}</p>
+	</div>
+
+	<div class="ViewItemButtons">
+		<a class="button-sell" href="/article/offer/{{ item.pk }}">VENDER</a>
+	</div>
+
+	<div id="popup2" style="display:none">
+        <span class="button-blue bClose"><span>cerrar</span></span>
+        <div class="content">
+        </div>
+    </div>
+	
+</section>
+
+{% endblock %}
+
+

@@ -1,16 +1,18 @@
-from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
-from howmuch.core.models import Assignment
-from howmuch.prestige.forms import PayConfirmForm, DeliveryConfirmForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
-from howmuch.prestige.functions import update_prestige
+from howmuch.article.functions import AboutAssignment
+from howmuch.article.models import Assignment
 from howmuch.messages.models import Conversation, Message
+from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
-from howmuch.notifications.functions import SendNotification
+from howmuch.prestige.forms import ConfirmPayForm, ConfirmDeliveryForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
+from howmuch.prestige.functions import update_prestige
+from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
+
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
-from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
-from django.core.mail import send_mail
-from howmuch.core.functions import AssignmentFeatures
+
 
 STATUS_ASSIGNMENT = (
 
@@ -29,7 +31,7 @@ def confirmPay(request, assignmentID):
     """
     Se Verifica que quien confirme el pago sea el COMPRADOR
     """
-    assignment = get_object_or_404(Assignment, pk = assignmentID, requestItem__owner = request.user)
+    assignment = get_object_or_404(Assignment, pk = assignmentID, article__owner = request.user)
 
     """
     Se valida que la conversacion correspondiente a la asignacion exista, ya que enseguida se utiliza la variable
@@ -37,14 +39,14 @@ def confirmPay(request, assignmentID):
 
     conversation = get_object_or_404(Conversation, assignment = assignment)
 
-    # Instancia de la clase AssignmentFeatures
-    assignmentFeature = AssignmentFeatures(assignment)
+    # Instancia de la clase AboutAssignment
+    aboutAssignment = AboutAssignment(assignment)
 
     #Se valida que el pago no haya sido confirmado anteriormente
-    if assignmentFeature.has_been_paid():
+    if aboutAssignment.has_been_paid():
         return HttpResponse("Ya has confirmado este pago, no puedes confirmarlo nuevamente")
     elif request.method == 'POST':
-        form = PayConfirmForm(request.POST, request.FILES)
+        form = ConfirmPayForm(request.POST, request.FILES)
         if form.is_valid():
             newPay = form.save(commit = False)
             newPay.owner = request.user
@@ -65,13 +67,13 @@ def confirmPay(request, assignmentID):
             Se activa el sistema de Notificaciones
             """
 
-            newNotification = SendNotification(newPay,'confirm_pay')
-            newNotification.sendNotification()
+            newNotification = NotificationOptions(newPay,'confirm_pay')
+            newNotification.send()
 
 
             return HttpResponseRedirect('/messages/' + str(conversation.pk) )
     else:
-        form = PayConfirmForm()
+        form = ConfirmPayForm()
     return render_to_response('prestige/payConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
                                                                              
 @login_required(login_url="/login/")
@@ -87,18 +89,18 @@ def confirmDelivery(request, assignmentID):
 
     conversation = get_object_or_404(Conversation, assignment = assignment)
 
-    # Instancia de la clase AssignmentFeatures
-    assignmentFeature = AssignmentFeatures(assignment)
+    # Instancia de la clase AboutAssignment
+    aboutAssignment = AboutAssignment(assignment)
 
     # Verifica que el pago haya sido realizado en caso de que no, envia mensaje de error
-    if not assignmentFeature.has_been_paid():
+    if not aboutAssignment.has_been_paid():
         return HttpResponse("No puedes Confirmar el Envio del articulo hasta que el comprador no te haya pagado")
 
     #Se valida que la confirmacion del envio no haya sido confirmado anteriormente
-    if assignmentFeature.has_been_delivered():
+    if aboutAssignment.has_been_delivered():
         return HttpResponse("Ya has confirmado el envio de este articulo, no puedes confirmarlo nuevamente")
     elif request.method == 'POST':
-        form = DeliveryConfirmForm(request.POST, request.FILES)
+        form = ConfirmDeliveryForm(request.POST, request.FILES)
         if form.is_valid():
             newDelivery = form.save(commit = False )
             newDelivery.owner = request.user
@@ -119,14 +121,14 @@ def confirmDelivery(request, assignmentID):
             Se activa el sistema de notificaciones
             """
 
-            newNotification = SendNotification(newDelivery, 'confirm_delivery')
-            newNotification.sendNotification()
+            newNotification = NotificationOptions(newDelivery, 'confirm_delivery')
+            newNotification.send()
 
 
             return HttpResponseRedirect('/messages/' + str(conversation.pk) )
             
     else:
-        form = DeliveryConfirmForm()
+        form = ConfirmDeliveryForm()
     return render_to_response('prestige/deliveryConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
@@ -173,8 +175,8 @@ def setPrestigeToSeller(request, assignmentID):
             Se activa el sistema de Notificaciones
             """
 
-            newNotification = SendNotification(newPrestigeToSeller, 'critique')
-            newNotification.sendNotification()
+            newNotification = NotificationOptions(newPrestigeToSeller, 'critique')
+            newNotification.send()
                 
             return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
     else:
@@ -208,7 +210,7 @@ def setPrestigeToBuyer(request, assignmentID):
         if form.is_valid():
             newPrestigeToBuyer = form.save(commit = False)
             newPrestigeToBuyer.de = request.user
-            newPrestigeToBuyer.to = assignment.requestItem.owner
+            newPrestigeToBuyer.to = assignment.article.owner
             newPrestigeToBuyer.assignment = assignment
             newPrestigeToBuyer.save()
             """
@@ -218,7 +220,7 @@ def setPrestigeToBuyer(request, assignmentID):
                 assignment.status = "4"
                 assignment.save()
                 update_prestige(request.user)
-                update_prestige(assignment.requestItem.owner)
+                update_prestige(assignment.article.owner)
             elif assignment.status == "2":
                 assignment.status = "3"
                 assignment.save()
@@ -227,8 +229,8 @@ def setPrestigeToBuyer(request, assignmentID):
             Se activa el sistema de notificaciones
             """
 
-            newNotification = SendNotification(newPrestigeToBuyer, 'critique')
-            newNotification.sendNotification()
+            newNotification = NotificationOptions(newPrestigeToBuyer, 'critique')
+            newNotification.send()
     
             return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
     else:

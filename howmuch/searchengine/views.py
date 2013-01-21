@@ -1,19 +1,23 @@
-from howmuch.core.models import RequestItem
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
-from indextank.client import ApiClient
-from django.core import serializers
-from django.template import RequestContext
-from endless_pagination.decorators import page_template
 import datetime
 import urllib
+
+from django.http import HttpResponse
+from django.core import serializers
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+
+from indextank.client import ApiClient
+
+from endless_pagination.decorators import page_template
+
+from howmuch.article.models import Article
 
 def defineIndex():
     api = ApiClient('http://:PAEaldYb8L2lH8@dyci1.api.searchify.com')
     index = api.get_index('idx')
     return({"api": api, "index": index})
 
-def indexRequestItem(item):
+def indexArticle(item):
     resource = defineIndex()
     index = resource['index']
     index.add_document(item.get_url(), {'text' : item.title, 

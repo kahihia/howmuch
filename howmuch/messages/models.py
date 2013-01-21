@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*- 
 import datetime
 
-from django.db import models
-from howmuch.core.models import Assignment
-from howmuch.utils import get_timestamp
 from django.contrib.auth.models import User
+from django.db import models
+
+from howmuch.article.models import Assignment
+from howmuch.utils import get_timestamp
 
 
 STATUS_CHOICES = (
@@ -21,7 +21,7 @@ class Conversation(models.Model):
     last_message = models.DateTimeField(default = datetime.datetime.now())
 
     def __unicode__(self):
-        return u'Assignment to: %s ' % (self.assignment.requestItem)
+        return u'Assignment to: %s ' % (self.assignment.article)
 
     def get_latest_message(self):
         messages =  Message.objects.filter(conversation=self).order_by('-date')[:1]
@@ -38,7 +38,7 @@ class Conversation(models.Model):
     Mensajes sin leer para el seller
     """
     def getNumber_unread_messages_seller(self):
-        return Message.objects.filter(owner= self.assignment.requestItem.owner , conversation=self, has_been_readed=False).count()
+        return Message.objects.filter(owner= self.assignment.article.owner , conversation=self, has_been_readed=False).count()
 
     def has_unread_messages(self):
         if self.getNumber_unread_messages_seller() > 0 or self.getNumber_unread_messages_buyer() > 0:

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-class NotificationsConfig(models.Model):
+class Notifications(models.Model):
     user = models.OneToOneField(User)
     new_offer = models.BooleanField(default=True)
     new_sale = models.BooleanField(default=True)
@@ -19,7 +19,7 @@ class NotificationsConfig(models.Model):
     """
     def create_user_config(sender, instance, created, **kwargs):
         if created:
-            NotificationsConfig.objects.create(user=instance)
+            Notifications.objects.create(user=instance)
 
     post_save.connect(create_user_config, sender=User)
 

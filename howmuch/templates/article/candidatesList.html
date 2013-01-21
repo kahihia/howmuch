@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.contentcarousel.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script type="text/javascript">
+	$('#ca-container').contentcarousel();
+</script>
+<script>
+$(function () {
+    $('.pics').glisse({
+        changeSpeed: 550, 
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    }); 
+});
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+
+<section class="CandidatesWrapper">
+
+	{% if candidates.count > 0 %}
+
+	<div class="CandidatesTitleWrapper">
+
+		<div>
+			<span class = "ItemSpanBig">Ofertas para {{ article.title }}</span>
+		</div>
+		
+	</div>
+
+	<div id="ca-container" class="ca-container">
+
+				<div class="ca-wrapper">
+
+					{% for candidate in candidates %}
+
+					<div class="ca-item CandidateItemWrapper">
+
+						<div class="ca-item-main">
+
+							<div class="ProfferCandidatePicture">
+
+								<img src="{{ candidate.owner.get_profile.get_profile_picture_50x50 }}">
+
+							</div>
+
+							<div class="ProfferCandidateInfo">
+
+								Por<b><span> {{ candidate.owner }}</span></b> el <span>{{ candidate.date }}</span>
+								
+
+							</div>
+
+							<div class="ProfferCandidateCprice">
+
+								<span class="ItemSpanBig ProfferCpriceSpan">${{ candidate.cprice }}</span>
+
+							</div>
+
+							<div class="ProfferCandidateMessage">
+
+								<p>{{ candidate.message }}</p>
+
+							</div>
+
+							<div class="ProfferPicturePrincipal">
+							
+
+								<img src="{{ candidate.get_first_picture_250x250 }}">
+
+							
+							</div>
+
+							
+							<button class="button-sell button-select-candidate small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/article/assignment/{{ candidate.article.pk }}/{{ candidate.owner.pk}}", "modalColor" : "white", "positionStyle" : "fixed" }'>SELECCIONAR</button>
+
+
+							<a href="#" class="ca-more button-blue">mas...</a>
+						</div>
+
+						<div class="ca-content-wrapper">
+							<div class="ca-content">
+								<a href="#" class="ca-close">close</a>
+								<div>
+									<div style="text-align:center">
+										<span><b>{{candidate.owner}}</b> es:</span>
+										<div style="width:250px; height:100px; background:red; margin: 5px auto">
+											<img src="">
+										</div>	
+									</div>
+
+
+									<div style="text-align:center">
+										<div style="display:inline-block">
+											<div>
+												<span>Total de Compras: <b>{{ candidate.owner.profile.total_purchases }}</b></span>
+											</div>
+											<div>
+												<a href="#">Ver Criticas</a>
+											</div>
+										</div>
+										<div style="display:inline-block">
+											<div>
+												<span>Total de Ventas: <b>{{ candidate.owner.profile.total_sales }}</b></span>
+											</div>
+											<div>
+												<a href="#">Ver Criticas</a>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="CaContentProfferPictures" style="text-align:center">
+									<h4>Imagenes del Articulo</h4>
+									{% for picture in candidate.pictures.all %}
+										<img class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+									{% endfor %}
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+
+					{% endfor %}
+
+					<div class="ca-item CandidateItemWrapper ">
+						<div class="ca-item-main">
+
+						</div>
+									
+					</div>
+
+					<div class="ca-item CandidateItemWrapper ">
+
+						<div class="ca-item-main">
+
+						</div>
+							
+					</div>
+
+				</div>
+	</div>
+
+	{% else %}
+
+	<span>Este articulo aun no tiene candidatos</span>
+
+	{% endif %}
+
+	<div id="popup2" style="display:none">
+        <span class="button-blue bClose"><span>cerrar</span></span>
+        <div class="content">
+        </div>
+    </div>
+
+
+
+</section>
+
+{% endblock %}
+
+
+

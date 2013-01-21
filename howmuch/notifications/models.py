@@ -1,16 +1,15 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 from howmuch.utils import get_timestamp
-from howmuch.core.models import RequestItem
+from howmuch.article.models import Article
 
 
 
 TYPE_CHOICES = (
 
-    ('proffer','Tienes un nuevo Candidato'),
+    ('offer','Tienes un nuevo Candidato'),
     ('assignment','Has sido seleccionado'),
     ('confirm_pay','Te han confirmado el pago'),
     ('confirm_delivery','Te han confirmado el envio'),
@@ -20,7 +19,7 @@ TYPE_CHOICES = (
 
 class Notification(models.Model):
     owner = models.ForeignKey(User)
-    requestItem = models.ForeignKey(RequestItem)
+    article = models.ForeignKey(Article)
     tipo = models.CharField(max_length=20)
     title = models.CharField(max_length=140)
     has_been_readed = models.BooleanField(default=False)

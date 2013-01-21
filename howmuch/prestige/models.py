@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
-from django.db import models
 from django.contrib.auth.models import User
-from howmuch.core.models import Assignment
+from django.db import models
+
+from howmuch.article.models import Assignment
 from howmuch.pictures.models import make_upload_path
 from howmuch.pictures.thumbs import ImageWithThumbsField
 
@@ -21,7 +21,7 @@ STATUS_ASSIGNMENT = (
 
 )
 
-class PayConfirm(models.Model):
+class ConfirmPay(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by Confirm Pay")
     assignment = models.ForeignKey(Assignment)
     date = models.DateTimeField(auto_now_add = True)
@@ -35,7 +35,7 @@ class PayConfirm(models.Model):
     def get_picture_url_100x100(self):
         return str(self.picture.url_100x100.split("?")[0])
 
-class DeliveryConfirm(models.Model):
+class ConfirmDelivery(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by Confirm Delivery")
     assignment = models.ForeignKey(Assignment)
     date = models.DateTimeField(auto_now_add = True)

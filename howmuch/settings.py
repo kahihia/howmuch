@@ -1,4 +1,4 @@
-import os
+import os, sys
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 gettext_noop = lambda s: s
@@ -9,10 +9,10 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Juan Carlos Cayetano', 'kayethano@gmail.com'),
-    ('Joel Rivera', 'rivera@joel.mx')
+    ('Joel Rivera', 'rivera@joel.mx'),
 )
 
-AUTH_PROFILE_MODULE = 'perfil.perfil'
+AUTH_PROFILE_MODULE = 'profile.profile'
 
 MANAGERS = ADMINS
 
@@ -72,8 +72,6 @@ MEDIA_URL = '/media/'
 ACCOUNT_ACTIVATION_DAYS = 7
 #REGISTRATION
 
-
-
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -120,26 +118,28 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gunicorn',
-    'howmuch.pictures',
-    'smart_selects',
-    'howmuch.items',
-    'howmuch.core',
-    'storages',
-    'registration',
-    'howmuch.perfil',
-    'howmuch.messages',
-    'howmuch.prestige',
-    'howmuch.searchengine',
-    'howmuch.backend',
-    'howmuch.notifications',
-    'howmuch.config',
-    'endless_pagination',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'django.contrib.formtools',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+
+    'endless_pagination',
+    'gunicorn',
+    'storages',
+
+    'howmuch.account',
+    'howmuch.article',
+    'howmuch.config',
+    'howmuch.items',
+    'howmuch.messages',
+    'howmuch.notifications',
+    'howmuch.pictures',
+    'howmuch.prestige',
+    'howmuch.profile',
+    'howmuch.searchengine',
+
+    'registration',
+    'smart_selects',
+
+
 )
 
 # A sample logging configuration. The only tangible logging
