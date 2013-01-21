@@ -20,7 +20,6 @@ urlpatterns = patterns('',
     url(r'^notifications/', include('howmuch.notifications.urls')),
     url(r'^prestige/', include('howmuch.prestige.urls')),
     url(r'^profile/', include('howmuch.profile.urls')),
-    url(r'^search/', include('howmuch.searchengine.urls')),
 
     url(r'^login/$',  login),
     url(r'^logout/$', logout),

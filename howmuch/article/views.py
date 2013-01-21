@@ -22,7 +22,7 @@ from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
 from howmuch.profile.models import Profile
 from howmuch.pictures.models import Picture
-from howmuch.searchengine.views import indexArticle
+
 
 TEMPLATES_NEWITEM = {'title' : 'article/title.html',
             'price' : 'article/price.html',
@@ -69,8 +69,7 @@ class Post(SessionWizardView):
                 #Se agrega la imagen al Articulo
                 instance.pictures.add(instancePicture)
                 instance.save()
-        #Se anexa a la base de datos del motor de busqueda
-        indexArticle(instance)
+
         #Se anade un +1 al total_purchases del usario
         profileUser = get_object_or_404(Profile, user = self.request.user)
         profileUser.total_purchases += 1

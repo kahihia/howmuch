@@ -134,7 +134,6 @@ INSTALLED_APPS = (
     'howmuch.pictures',
     'howmuch.prestige',
     'howmuch.profile',
-    'howmuch.searchengine',
 
     'registration',
     'smart_selects',
