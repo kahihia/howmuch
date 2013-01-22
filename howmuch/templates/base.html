@@ -9,12 +9,12 @@
         <title>{% block title %}{% endblock%}</title>
         {% block facebooktags %}{% endblock %}
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{ MEDIA_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/normalize.css">
         <link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css">
         <link href="{{ MEDIA_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
     </head>
@@ -24,44 +24,44 @@
         <![endif]-->
         <header>
 
-                <div class="itemHeader LogoHeader">
+                <div>
                     <a href="/">
                         <img src="{{ MEDIA_URL }}img/howmuch.png" height="39" width="107">
                     </a>
                 </div>
 
-                <div class="itemHeader">
+                <div>
                     <form action="/search/" method="GET">
-                        <input id="searchInput" class="inputRequestItem" name = "q" type="text" placeholder="Busca articulos a vender..." size="30">
+                        <input name = "q" type="text" placeholder="Busca articulos a vender..." size="30">
                        
                     </form>
                 </div>
 
-                <nav class="itemHeader" id ="menu">
+                <nav id ="menu">
                     <div>   
                         <a href="/">Inicio</a>
                     </div>
-                    <div class="NotificationWrapper">
+                    <div>
                         <a  href="/notifications/">
                                 {% if user.profile.unread_notifications > 0 %}
-                                <div class="NumberUnread">{{ user.profile.unread_notifications }}</div>
+                                <div>{{ user.profile.unread_notifications }}</div>
                                 {% endif %}
-                                <div id="notificationsUnread" class="NotificationAreaHome">
+                                <div>
                                 </div>
                         </a>
                     </div>
-                    <div class="NotificationWrapper">
+                    <div>
                         <a href="/messages/inbox">
                                 {% if user.profile.unread_conversations > 0 %}
-                                <div  class="NumberUnread">{{ user.profile.unread_conversations }}</div>
+                                <div>{{ user.profile.unread_conversations }}</div>
                                 {% endif %}
-                                <div id="conversationsUnread" class="NotificationAreaHome">
+                                <div>
                                 </div>
                         </a>
                     </div>
-                    <div id="menu-user">
+                    <div>
                         <a href="#">{{ user }}</a>
-                        <ul class="dropmenu">
+                        <ul>
                                 <li><a href="/account/purchases/published">Mis Compras</a></li>
                                 <li><a href="/account/sales/possible">Mis Ventas</a></li>
                                 <li><a href="/profile/e/edit">Acerca de Mi</a></li>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div>
-                        <a class="newitem-button" href="/article/post">Publicar Compra</a>
+                        <a href="/article/post">Publicar Compra</a>
                     </div>  
                     
                 </nav>
@@ -89,7 +89,7 @@
 
         <footer>
 
-            <p class="LegalInfo">
+            <p>
                 <span>
                     El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
                 </span>
