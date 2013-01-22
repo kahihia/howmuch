@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'endless_pagination',
     'gunicorn',
     'storages',
+    'haystack',
 
     'howmuch.account',
     'howmuch.article',
@@ -190,4 +191,13 @@ DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
 #endless_pagination
 ENDLESS_PAGINATION_PER_PAGE = 10
 #endless_pagination
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
 

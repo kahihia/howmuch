@@ -23,3 +23,16 @@ and use: `$VENV/bin/python manage.py runserver  --settings howmuch.localsettings
     	               dj_database_url.config(
               	      default='postgres://joe:@localhost:5432/howmuch')
 	        }
+
+Install Solr
+---------------------
+
+For install Solr you need use:
+
+curl -O http://apache.mirrors.tds.net/lucene/solr/3.5.0/apache-solr-3.5.0.tgz
+tar xvzf apache-solr-3.5.0.tgz
+cd apache-solr-3.5.0
+cd example
+java -jar start.jar
+
+for more info visit http://django-haystack.readthedocs.org/en/latest/installing_search_engines.html
