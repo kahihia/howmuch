@@ -30,9 +30,13 @@ Install Solr
 For install Solr you need use:
 
 curl -O http://apache.mirrors.tds.net/lucene/solr/3.5.0/apache-solr-3.5.0.tgz
+
 tar xvzf apache-solr-3.5.0.tgz
+
 cd apache-solr-3.5.0
+
 cd example
+
 java -jar start.jar
 
 for more info visit http://django-haystack.readthedocs.org/en/latest/installing_search_engines.html
