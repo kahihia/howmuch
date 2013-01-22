@@ -1,5 +1,5 @@
 body{
-	background: url("/media/background.png") repeat;
+	background: url("/media/img/background.png") repeat;
 }
 
 section#content{
@@ -127,7 +127,7 @@ label.LabelFormRequestItem{
 	border-radius: 2px;
 	border: 2px solid #0AC2F5;
 	background-color: white;
-	background: url('/media/search.png') no-repeat scroll 5px 5px;
+	background: url('/media/img/search.png') no-repeat scroll 5px 5px;
 	padding: 10px;
 	padding-left: 35px;
 	
@@ -326,13 +326,13 @@ a.button-sell{
 }
 
 .ButtonNext{
-    background: url("/media/thumbs.png") no-repeat scroll 0px 0px transparent;
+    background: url("/media/img/thumbs.png") no-repeat scroll 0px 0px transparent;
     width: 84px;
     height: 76px;
     border: 0px;
 }
 .ButtonBack{
-	background: url("/media/thumbs.png") no-repeat scroll 0px -84px transparent;
+	background: url("/media/img/thumbs.png") no-repeat scroll 0px -84px transparent;
     width: 84px;
     height: 76px;
     border: 0px;
@@ -368,7 +368,7 @@ BUTTONS
 	position:absolute;
 	top:10px;
 	right:10px;
-	background:#fff url(/media/cross.png) no-repeat center center;
+	background:#fff url(/media/img/cross.png) no-repeat center center;
 	width:27px;
 	height:27px;
 	text-indent:-9000px;
@@ -396,7 +396,7 @@ BUTTONS
 .ca-nav span{
 	width:25px;
 	height:38px;
-	background:transparent url(/media/arrows.png) no-repeat top left;
+	background:transparent url(/media/img/arrows.png) no-repeat top left;
 	position:absolute;
 	top:50%;
 	margin-top:-19px;
@@ -968,7 +968,7 @@ height: 114px;
 	cursor: pointer;
 }
 .ImagePreviewWrapper:hover{
-	background: url("/media/more-picture.png") no-repeat scroll transparent !important;
+	background: url("/media/img/more-picture.png") no-repeat scroll transparent !important;
 }
 .NewItemPriceQuantity{
 	display: inline-block;
@@ -1145,27 +1145,27 @@ span.NewItemFormSpan{
     border: 0px;
 }
 #notificationsUnread{
-	background: url("/media/notifications.png") no-repeat scroll 0px -210px transparent !important;
+	background: url("/media/img/notifications.png") no-repeat scroll 0px -210px transparent !important;
 	top: 0px !important;
 }
 #conversationsUnread{
-	background: url("/media/notifications.png") no-repeat scroll 0px -175px transparent !important;
+	background: url("/media/img/notifications.png") no-repeat scroll 0px -175px transparent !important;
 	top: 4px !important;
 }
 .NotificationProffer{
-	background: url("/media/notifications.png") no-repeat scroll 0px -69px transparent !important;
+	background: url("/media/img/notifications.png") no-repeat scroll 0px -69px transparent !important;
 }
 .NotificationAssignment{
-	background: url("/media/notifications.png") no-repeat scroll 0px -137px transparent !important;
+	background: url("/media/img/notifications.png") no-repeat scroll 0px -137px transparent !important;
 }
 .NotificationConfirmPay{
-	background: url("/media/notifications.png") no-repeat scroll 0px 0px transparent !important;
+	background: url("/media/img/notifications.png") no-repeat scroll 0px 0px transparent !important;
 }
 .NotificationConfirmDelivery{
-	background: url("/media/notifications.png") no-repeat scroll 0px -103px transparent !important;
+	background: url("/media/img/notifications.png") no-repeat scroll 0px -103px transparent !important;
 }
 .NotificationCritique{
-	background: url("/media/notifications.png") no-repeat scroll 0px -35px transparent !important;
+	background: url("/media/img/notifications.png") no-repeat scroll 0px -35px transparent !important;
 }
 .NotificationPicture, .NotificationDescription, .NotificationTimestamp{
 	display: inline-block;
