@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}
+
+{% endblock %}
+{% block media %}
+
+{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<section>
+		<h2>Detalles Del producto</h2>
+		<div>
+			<span>Precio</span>
+			{{ form.price }}
+			{{ form.price.errors }}
+		</div>
+		<div>
+			<span>Titulo</span>
+			{{ form.title }}
+			{{ form.title.errors }}
+		</div>
+		<div>
+			<span>Cantidad</span>
+			{{ form.quantity }}
+			{{ form.quantity.errors }}
+		</div>
+		<div>
+			<span>Descripcion</span>
+			{{ form.description }}
+			{{ form.description.errors }}
+		</div>
+
+		<div>
+			<span>Nuevo o Usado</span>
+			{{ form.state }}
+			{{ form.state.errors }}
+		</div>
+		
+	</section>
+	
+	<section>
+		<h2>Clasifica el producto</h2>
+		<div>
+			<span>Clasificación</span>
+			{{ form.category }}
+			{{ form.itemsCatA.errors }}
+		</div>
+		<div>
+			<span>Tags</span>
+		</div>
+	</section>
+
+	<section>
+		<h2>Detalles de envio</h2>
+		<div>
+			<span>Direccion de Envio</span>
+			{{ form.addressDelivery }}
+			{{ form.addressDelivery.errors }}
+		</div>
+
+		<input class="button-blue" type="submit" value="PUBLICAR">
+
+	</section>
+		
+</form>
+
+
+{% endblock %}
+
