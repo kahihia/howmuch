@@ -2,28 +2,13 @@
 
 {% block SalesMiddle %}
 
-<section class="SalesList">
+<section>
 
 	{% for item in processSales %}
 
-	<article class="ItemThumbsSales" style="position:relative !important">
+	<article>
 
-		<ul class="MoreOptions">
-			<li><a class="MoreOptionsIcon" href="#">+</a>
-				<ul>
-					<li><a href="#">Editar</a></li>
-					<li><a href="#">Eliminar</a></li>
-				</ul>
-			</li>
-		</ul>
-
-		<div class="SalesListPicture">
-
-			<img src="{{ item.article.get_first_picture_100x100 }}" width="50" height="50">
-
-		</div>
-
-		<div class="SalesItemWrapper">
+		<div>
 			<div>
 				<a href="{{ item.article.get_url }}">{{ item.article.title }}</a> en <a href="/item/{{ item.article.pk }}">${{ item.article.price }}</a>
 			</div>
@@ -31,7 +16,7 @@
 			<div>
 					<a  href="/messages/{{ item.conversation.pk }}">Ver Conversacíon</a>
 					<a  href="#">Ver Detalles</a>
-					<span class="SalesItemTimeStamp">hace {{ item.article.get_timestamp }}</span>				
+					<span>hace {{ item.article.get_timestamp }}</span>				
 			</div>
 
 

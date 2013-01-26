@@ -9,11 +9,11 @@
 
 {% block content %}
 
-<section class="ExtraTransactionInfo">
+<section>
 
 	{% if conversation.assignment.get_buyer == user %}
 
-	<article class="TransactionPaidDelivered">
+	<article>
 
 		{% if assignmentFeatures.has_been_delivered %}
 
@@ -52,7 +52,7 @@
 	{% else %}
 	{% if conversation.assignment.get_seller == user %}
 
-	<article class="TransactionPaidDelivered">
+	<article>
 
 		{% if assignmentFeatures.has_been_paid %}
 
@@ -89,7 +89,7 @@
 
 </section>
 
-<section class="TransactionInfo">
+<section>
 
 	<article>
 		<h3>Comprador{% if conversation.assignment.get_buyer == user %}(Tu){% endif %}</h3>
@@ -152,40 +152,40 @@
 	</article>
 </section>
 
-<section class="ConversationContainer">
+<section>
 
-	<section class="ConversationAssignmentarticle">
+	<section>
 		<span>Asignacion: <b>{{ conversation.assignment.pk }}</b></span>
 		<span>Articulo: <b>{{ conversation.assignment.article.pk }}</b></span>
 	</section>
 
-	<section class="ConversationTitle">
-		<div id="conversationItemTitle">
-			<span class="ItemTitle">{{ conversation.assignment.article.title }}</span>
+	<section>
+		<div>
+			<span>{{ conversation.assignment.article.title }}</span>
 		</div>
 	</section>
 
-	<section class="ConversationAssignmentStatus">
+	<section>
 
 		
 
 	</section>
 
-	<section class="ConversationMessages">
+	<section>
 		{% for message in messages %}
 			{% if message.owner == user %}
-				<article class="MessageContainer MessageContainerOwner">
+				<article>
 			{% else %}
-				<article class="MessageContainer">
+				<article>
 			{% endif %}
-					<div class="MessageContainerImg">
+					<div >
 						<img src="{{ message.owner.get_profile.get_profile_picture_50x50}}">
 					</div>
-					<div class="MessageContainerMsg">
+					<div>
 						<span>{{ message.message }}</span>
 					</div>
 
-					<b><span class="MessageTimeStamp">hace {{ message.get_timestamp }}</span></b>
+					<b><span >hace {{ message.get_timestamp }}</span></b>
 					
 							
 				
@@ -193,18 +193,18 @@
 		{% endfor %}
 	</section>
 
-	<section class="ConversationSendMessage">
-		<form class="ConversationFormMessage" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<div class="ConversationInputMessage">
+	<section>
+		<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div>
 				{{ form.message }}
 			</div>
-			<input class="ConversationInputMessage" type="submit" value="ENVIAR">
+			<input type="submit" value="ENVIAR">
 		</form>
 	</section>
 
 </section>
 
-<section class="PrestigeOptions">
+<section>
 	<article>
 		<h4>Opciones</h4>
 		<ul>

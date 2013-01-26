@@ -2,28 +2,13 @@
 
 {% block PurchasesMiddle%}
 
-<section class="PurchasesList">
+<section>
 
 	{% for item in processPurchases %}
 
-	<article class="ItemThumbsPurchases" style="position:relative !important">
+	<article>
 
-		<ul class="MoreOptions">
-			<li><a class="MoreOptionsIcon" href="#">+</a>
-				<ul>
-					<li><a href="#">Editar</a></li>
-					<li><a href="#">Eliminar</a></li>
-				</ul>
-			</li>
-		</ul>
-
-		<div class="PurchasesListPicture">
-
-			<img src="{{ item.get_first_picture_100x100 }}" width="50" height="50">
-
-		</div>
-
-		<div class="PurchasesItemWrapper">
+		<div>
 			<div>
 				<a href="{{ item.get_url }}">{{ item.title }}</a> en <a href="/item/{{ item.pk }}">${{ item.price }}</a>
 			</div>
@@ -31,7 +16,7 @@
 			<div>
 					<a  href="/messages/{{ item.assignment.conversation.pk }}">Ver Conversación</a>
 					<a  href="#">Ver Detalles</a>
-					<span class="PurchasesItemTimeStamp">hace {{ item.get_timestamp }}</span>				
+					<span>hace {{ item.get_timestamp }}</span>				
 			</div>
 
 

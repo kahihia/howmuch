@@ -3,10 +3,7 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-from smart_selects.db_fields import ChainedForeignKey
-
 from howmuch.pictures.models import Picture
-from howmuch.items.models import ItemsCatA, ItemsCatB, ItemsCatC
 from howmuch.profile.models import Address
 from howmuch.utils import get_timestamp
 
@@ -36,6 +33,13 @@ DAYS_CHOICES = (
     (30, 'TREINTA'),
     )
 
+CATEGORY_CHOICES = (
+    ('categoria1', 'categoria1'),
+    ('categoria2', 'categoria2'),
+    ('categoria3', 'categoria3'),
+    ('categoria4', 'categoria4'),
+    ('categoria5', 'categoria5'),
+    )
 
 class Article(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by article")
@@ -43,24 +47,9 @@ class Article(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=1024)
     quantity = models.IntegerField() 
-    ######Categoria de los Productos
-    itemsCatA = models.ForeignKey(ItemsCatA, help_text="")
-    itemsCatB = ChainedForeignKey(
-        ItemsCatB,
-        chained_field="itemsCatA",
-            chained_model_field="itemsCatA", 
-            show_all=False, 
-            auto_choose=True,
-        help_text=""
-    )
-    itemsCatC = ChainedForeignKey(ItemsCatC, chained_field="itemsCatB", chained_model_field="itemsCatB", help_text = "")
-    ######Categoria de los Productos
-    brand = models.CharField(max_length=25)
-    model = models.CharField(max_length=25)
+    category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
     state = models.CharField(max_length=7, choices=STATES_CHOICES)
     date = models.DateTimeField(auto_now_add=True)
-    daysLimit = models.IntegerField(choices = DAYS_CHOICES)
-    pictures = models.ManyToManyField(Picture, blank=True)
     addressDelivery = models.ForeignKey(Address)
     title_url = models.CharField(max_length=100, null=True, blank = True)
 

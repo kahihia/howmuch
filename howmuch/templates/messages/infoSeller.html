@@ -1,4 +1,4 @@
-{% extends "base-modal.html" %}
+{% extends "base.html" %}
 {% block title %}
 {% endblock %}
 
@@ -9,45 +9,41 @@
 {% endblock %}
 
 {% block content %}
-<section class="InfoUsersConversation">
+<section>
 
 	{% if not errors %}
 
-	<div class="InfoUserPictures">
+	<div>
 		<div>
 			<img src="{{ seller.profile.get_profile_picture_100x100 }}">
-		</div>
-		<div style="width:250px; height:100px; background:red; margin: 5px auto">
-			<img src="">
-		</div>	
 	</div>
 	<div>
 		<div>
 			<h3>Información del Vendedor</h3>
 			<p>
-				<span class="SpanLabel">Total de Compras:</span>
+				<span >Total de Compras:</span>
 				<span>{{ seller.profile.total_purchases }}</span>
 				<a href="#">Ver Criticas</a>
 			</p>
 			<p>
-				<span class="SpanLabel">Total de Ventas:</span>
+				<span >Total de Ventas:</span>
 				<span>{{ seller.profile.total_sales }}</span>	
 				<a href="#">Ver Criticas</a>		
 			</p>
 			<p>
-				<span class="SpanLabel">Usuario:</span>
+				<span >Usuario:</span>
 				<span>{{ seller }}</span>
 			</p>
 			<p>
-				<span class="SpanLabel">Nombre:</span>
+				<span >Nombre:</span>
 				<span>{{ seller.get_full_name }}</span>
 			</p>
 			<p>
-				<span class="SpanLabel">Email:</span>
+				<span >Email:</span>
 				<span>{{ seller.email }}</span>
 			</p>
 			<p>
-				<span class="SpanLabel">Telefonos:</span>
+				<span >Telefonos:</span>
 				{% for phone in seller.profile.phones.all %}
 				<span>{{ phone }}</span>
 				{% empty %}

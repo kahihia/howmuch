@@ -9,17 +9,17 @@
 
 {% block content %}
 
-<section class="ViewProfileWrapper">
+<section>
 
 	<div>
 
-		<div class="ViewProfilePicture">
+		<div>
 
 			<img src="{{ profile.get_profile_picture_100x100 }}">
 
 		</div>
 
-		<div class="ViewProfileInfo">
+		<div>
 
 			<div>
 				<span>{{ profile.user.get_full_name }}</span>
@@ -33,13 +33,13 @@
 
 			<div>
 
-				<div class="ProfilePurchasesTotal">
+				<div>
 
 					<span>Total de compras: </span><span>{{ profile.total_purchases }}</span>
 
 				</div>
 
-				<div class="ProfileSalesTotal">
+				<div>
 
 					<span>Total de Ventas: </span><span>{{ profile.total_sales }}</span>
 
@@ -54,13 +54,13 @@
 
 	<div>
 
-		<div class="ProfilePrestigeLikeBuyerWrapper">
+		<div>
 
 			<h3>Criticas como Comprador</h3>
 
 			{% for critique in prestigeLikeBuyer %}
 
-				{{ critique.assignment.requestItem.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
+				{{ critique.assignment.article.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
 
 			{% empty %}
 
@@ -73,13 +73,13 @@
 		</div>
 
 
-		<div class="ProfilePrestigeLikeSellerWrapper">
+		<div>
 
 			<h3>Criticas como Vendedor</h3>
 
 			{% for critique in prestigeLikeSeller %}
 
-				{{ critique.assignment.requestItem.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
+				{{ critique.assignment.article.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
 
 			{% empty %}
 

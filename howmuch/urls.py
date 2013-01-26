@@ -10,8 +10,6 @@ urlpatterns = patterns('',
     url(r'^', include('howmuch.home.urls')),
 
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^chaining/', include('smart_selects.urls')),
-    url(r'^search/', include('haystack.urls')),
 
     url(r'^account/', include('howmuch.account.urls')),
     url(r'^admin/', include(admin.site.urls)),

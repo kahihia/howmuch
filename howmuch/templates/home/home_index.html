@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block media %}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/scripting.js"></script>
 {% block js %}
 <script src="https://s3.amazonaws.com/howmuch/endless_pagination/js/endless.js"></script>
 <script>$.endlessPaginate();</script>
@@ -15,16 +14,11 @@
 
 {% block content %}
 
-<section class="ItemThumbsContainer">
+<section>
 {% include page_template %}
-<div id="popup2" style="display:none">
-	<span class="bClose"><span>X</span></span>
-    <div class="content">
-    </div>
-</div>
 </section>
 
-<section class="CategoriesList">
+<section>
 	<ul>
 		<li><a href="#">Categoria 1</a>
 			<ul>

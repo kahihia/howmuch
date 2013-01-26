@@ -8,38 +8,38 @@
 
 {% block content %}
 
-<section class="EditProfileForm GroupItemsForm">
+<section>
 
 
 
-	<span class="ItemSpanBig">{{ user.get_full_name}}</span>
+	<span>{{ user.get_full_name}}</span>
 
 	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
-	<div class="ProfilePictureWrapper">
+	<div>
 
 		<img src="{{ user.profile.get_profile_picture_250x250 }}">
 
 	</div>
 
-	<div class="CompanyProfilePictureWrapper" >
+	<div>
 
 		{{ form.errors }}
 
 		<div class="">
-			<span class="LabelItemForm">Nombre de tu Empresa</span>
+			<span>Nombre de tu Empresa</span>
 			{{ form.company }}
 			{{ form.company.errors }}
 		</div>
 		<div class="">
-			<span class="LabelItemForm">Foto de Perfil</span>
+			<span>Foto de Perfil</span>
 			{{ form.profile_picture }}
 			{{ form.profile_picture.errors }}
 		</div>
 
 	</div>
 
-	<div style="text-align:right">
+	<div>
 
 		<input type="submit" class="button-blue" value="GUARDAR">
 

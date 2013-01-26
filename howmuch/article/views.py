@@ -4,8 +4,6 @@ import os
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.formtools.wizard.views import SessionWizardView
-from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect, Http404, HttpResponse
@@ -13,7 +11,7 @@ from django.shortcuts import render_to_response, get_object_or_404, get_list_or_
 from django.template import RequestContext
 
 from howmuch import settings
-from howmuch.article.forms import AssignmentForm, OfferForm
+from howmuch.article.forms import ArticleForm, AssignmentForm, OfferForm
 from howmuch.article.functions import AboutArticle, AboutAssignment
 from howmuch.article.models import Article, Offer, Assignment
 from howmuch.messages.functions import ConversationOptions
@@ -23,71 +21,36 @@ from howmuch.notifications.models import Notification
 from howmuch.profile.models import Profile
 from howmuch.pictures.models import Picture
 
-
-TEMPLATES_NEWITEM = {'title' : 'article/title.html',
-            'price' : 'article/price.html',
-            'quantity' : 'article/quantity.html',
-            'description' : 'article/description.html',
-            'clasification' : 'article/clasification.html',
-            'delivery' : 'article/delivery.html',
-            'pictures' : 'article/pictures.html',
-    
-}
-
-class Post(SessionWizardView):
-    #Almacena imagenes de forma temporal, es necesaria esta linea segun la guia de django
-    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT,'pictures_temp'))
-
-    def get_template_names(self):
-
-        return [TEMPLATES_NEWITEM[self.steps.current]]
-
-    def get_form(self, step=None, data=None, files=None):
-        form = super(Post, self).get_form(step, data, files)
-        if step == 'delivery':
-            form.fields['addressDelivery'].queryset = self.request.user.profile.addresses.all()
-        return form
-
-    def done(self, form_list,**kwargs):
-        #Se gurdan los primeros 6 formularios
-        instance = Article()
-        for form in form_list[0:6]:
-            for field, value in form.cleaned_data.iteritems():
-                setattr(instance, field, value)
-        instance.owner = self.request.user
-        instance.save()
-        #Se agrega el title_url
-        instance.title_url = instance.title.replace(u'\xf1','n').replace(' ','-')
-        instance.save()
-        #Se gurdan el 4 formulario correspondiente a las imagenes
-        for field, value in form_list[6].cleaned_data.iteritems():
-            if value is not None:
-                instancePicture = Picture()
-                setattr(instancePicture, 'picture', value)
-                instancePicture.owner = self.request.user
-                instancePicture.save()
-                #Se agrega la imagen al Articulo
-                instance.pictures.add(instancePicture)
-                instance.save()
-
-        #Se anade un +1 al total_purchases del usario
-        profileUser = get_object_or_404(Profile, user = self.request.user)
-        profileUser.total_purchases += 1
-        profileUser.save()
-        return HttpResponseRedirect(str(instance.get_url()))
-
+@login_required(login_url='/login/')
+def post(request):
+    if request.method == 'POST':
+        form=ArticleForm(request.POST)
+        if form.is_valid():
+            newPost = form.save(commit=False)
+            newPost.owner = request.user
+            #Se genera el campo url sustituyendo caracteres
+            newPost.title_url=newPost.title.replace(u'\xf1', 'n').replace(' ','-')
+            newPost.save()
+            #Se anade un +1 al total_purchases del usario
+            profileUser = get_object_or_404(Profile, user=request.user)
+            profileUser.total_purchases += 1
+            profileUser.save()
+            return HttpResponseRedirect(str(newPost.get_url()))
+    else:
+        form=ArticleForm()
+    return render_to_response('article/post.html', {'form' : form }, context_instance=RequestContext(request))
 
 #Para ver un articulo no es necesario hacer login
-def view(request, itemID, title_url):
-    item = get_object_or_404(Article, pk=itemID)
+def view(request, articleID, title_url):
+    item = get_object_or_404(Article, pk=articleID)
     return render_to_response('article/viewItem.html', {'item' : item }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
-def offer(request,itemId):
+def offer(request,articleID):
     #Validar que el Article exista, si no existe regresa error 404
-    article = get_object_or_404(Article, pk = itemId)    
+    article = get_object_or_404(Article, pk = articleID)    
     #Se crea una instancia de AboutArticle, funcion que realiza algunas verificaciones
-    aboutArticle = AboutArticle(request.user, itemId) 
+    aboutArticle = AboutArticle(request.user, articleID) 
     #Se valida la instancia: User is not candidate, is not owner, is not assigned
     if aboutArticle.is_valid():
         pass
@@ -134,7 +97,7 @@ def offer(request,itemId):
 
 
 @login_required(login_url="/login/")
-def candidates(request, itemId):
+def candidates(request, articleID):
     """
     Si cuenta con los parametros get notif_type and idBack, se hacen verificaciones y se actualiza la notificacion a has_been_readed = True
     """
@@ -157,17 +120,17 @@ def candidates(request, itemId):
                 profileUser.save()
 
 
-    candidates = Offer.objects.filter(article = itemId)
-    article = get_object_or_404(Article, pk = itemId)
+    candidates = Offer.objects.filter(article = articleID)
+    article = get_object_or_404(Article, pk = articleID)
     return render_to_response('article/candidatesList.html', {'candidates' : candidates, 'article' : article }, context_instance=RequestContext(request))
 
 
 @login_required(login_url="/login/")
-def assignment(request, itemId, candidateID):
+def assignment(request, articleID, candidateID):
 
     #Validar que el item exista y que el owner de el sea el request.user
     try:
-        item = Article.objects.get(pk= itemId, owner=request.user)
+        item = Article.objects.get(pk= articleID, owner=request.user)
     except Article.DoesNotExist:
         return HttpResponse("No tienes permiso para Asignar este Solicutud")
     else:

@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<section class="InboxWrapper">
+<section>
 
 	{% for conversation in conversations %}
 
@@ -19,15 +19,15 @@
 
 				{% if conversation.getNumber_unread_messages_seller > 0 %}
 
-				<article class="InboxMessageWrapper InboxUnchecked">
+				<article>
 
 				
-					<b><span class="NumberMessagesUnread">({{ conversation.getNumber_unread_messages_seller }})</span></b>
+					<b><span>({{ conversation.getNumber_unread_messages_seller }})</span></b>
 	
 
 				{% else %}
 					
-				<article class="InboxMessageWrapper">
+				<article>
 
 				{% endif %}
 
@@ -37,34 +37,34 @@
 
 				{% if conversation.getNumber_unread_messages_buyer > 0%}
 
-				<article class="InboxMessageWrapper InboxUnchecked">
+				<article>
 
 					
-					<b><span class="NumberMessagesUnread">({{ conversation.getNumber_unread_messages_buyer }})</span></b>
+					<b><span>({{ conversation.getNumber_unread_messages_buyer }})</span></b>
 			
 					
 				{% else %}
 
-				<article class="InboxMessageWrapper">
+				<article>
 
 				{% endif %}
 
 			{% endif %}{% endif %}
 
 		{% else %}
-				<article class="InboxMessageWrapper">
+				<article>
 		{% endif %}
 
 	
-					<div class="InboxMessagePicture">
-						<img src="{{ conversation.assignment.article.get_first_picture_100x100 }}" width="50" height="50">
+					<div>
+						<img src="{{  }}" width="50" height="50">
 					</div>
 
-					<div class="InboxMessageContent">
+					<div>
 						<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a></span></br>
 						<span>{{ conversation.get_latest_message.message }}</span></br>
-						<div class="MessageTimestampWrapper">
-							<span class="ConversationTimestamp">hace {{ conversation.get_latest_message.get_timestamp }}</span>
+						<div>
+							<span>hace {{ conversation.get_latest_message.get_timestamp }}</span>
 						</div>
 				
 					</div>

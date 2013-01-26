@@ -2,35 +2,32 @@
 	
 	{% paginate items %}
 	{% for item in items %}
-	<article class="ItemThumbs">
-		<div class="ItemThumbsPriceTitle">
-			<div class="ItemThumbsPrice">
+	<article>
+		<div>
+			<div>
 				<a href="/profile/{{ item.owner }}">{{ item.owner }}</a><span> lo quiere </span>
 			</div>
 
-			<div clas="ItemThumbsTitle">
+			<div>
 				<a href="{{ item.get_url }}"><span> {{ item.title }} </span></a>
 			</div>
 		</div>
 
-		<div class="ItemThumbsPicture">
+		<div>
 			<a href="{{ item.get_url }}">
-				<img src="{{ item.get_first_picture_100x100 }}">
+				<img src="">
 			</a>
-			<div class="ItemThumbsPictureInfo">
-				<b><span class="ItemThumbsPictureInfoState">{{ item.state }}</span></b>
-				<b><span class="ItemThumbsPictureInfoPrice">$ {{ item.price }}</span></b>
+			<div>
+				<b><span>{{ item.state }}</span></b>
+				<b><span>$ {{ item.price }}</span></b>
 			</div>
 		</div>
 
-		<div class="ItemThumbsMoreButtonSell">
-			<div class="ItemThumbsButtonSell">
-				<a href="/article/offer/{{ item.pk }}" class="button-sell button-sell-mini">VENDER</a>
-				<!-- 
-				<button class="button-sell button-sell-mini small pop2" data-bpopup ='{"content":"iframe","contentContainer":".content","loadUrl":"/proffer/new/{{ item.pk }}", "modalColor" : "white" }'>VENDER</button>
-				 -->
+		<div>
+			<div>
+				<a href="/article/offer/{{ item.pk }}">VENDER</a>
 			</div>
-			<div class="ItemThumbsTimeStamp">
+			<div>
 				<span>hace <b>{{ item.get_timestamp }}</b></span>
 			</div>
 		</div>

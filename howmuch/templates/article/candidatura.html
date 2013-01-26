@@ -1,4 +1,4 @@
-{% extends "base-modal.html" %}
+{% extends "base.html" %}
 {% block title %}
 {% endblock %}
 
@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<section class="NewProfferWrapper">
+<section>
 
 			{% if errors %}
 				<ul>
@@ -25,7 +25,7 @@
 			</div>
 			
 			<form action=""  method="POST" enctype="multipart/form-data">{% csrf_token %}
-				<div class="OfferInfo">
+				<div>
 					<span>
 						Escribe el precio <b>"contraoferta"</b>, es decir el precio al que venderas el articulo: <b>$ {{ article.price }} + Gastos de Envio + Otros</b>, considera envio al <b>C.P {{ article.addressDelivery.zipcode }}</b>
 					</span>
@@ -46,7 +46,7 @@
 
 					{{ form.message}}
 
-					<div class="errorsmessage">
+					<div>
 						{{ form.message.errors }}
 					</div>
 					
@@ -70,25 +70,8 @@
 					{{ form.picture5.errors }}
 				</div>
 
-				<div>
-					<div class="ImagePreviewWrapper" onclick="$('#id_picture1').click()">
-						<img src="{{ MEDIA_URL }}camera1.png" id="image1" width="100" height="100">
-					</div>
-					<div class="ImagePreviewWrapper" onclick="$('#id_picture2').click()">
-						<img src="{{ MEDIA_URL }}camera1.png" id="image2" width="100" height="100">
-					</div>
-					<div class="ImagePreviewWrapper" onclick="$('#id_picture3').click()">
-						<img src="{{ MEDIA_URL }}camera1.png" id="image3" width="100" height="100">
-					</div>
-					<div class="ImagePreviewWrapper" onclick="$('#id_picture4').click()">
-						<img src="{{ MEDIA_URL }}camera1.png" id="image4" width="100" height="100">
-					</div>
-					<div class="ImagePreviewWrapper" onclick="$('#id_picture5').click()">
-						<img src="{{ MEDIA_URL }}camera1.png" id="image5" width="100" height="100">
-					</div>
-				</div>
-				<div style="text-align:center">
-					<input class="button-sell" type="submit" value="VENDERSELO">
+				<div >
+					<input type="submit" value="VENDERSELO">
 				</div>
 
 			</form>

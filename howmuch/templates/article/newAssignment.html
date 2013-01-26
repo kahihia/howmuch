@@ -1,68 +1,12 @@
-<!DOCTYPE html>
-<html lang="es-MX">
-<head>
-<meta charset="UTF-8">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<style type="text/css">
-body{
-font-family: 'Open Sans Condensed', sans-serif;
-}
-.InputForm{
-border: 0px;
-padding: 10px;
-border-radius: 3px;
-background: white;
--webkit-box-shadow:  0px 0px 3px 1px rgba(50, 160, 255, .7);
-box-shadow:  0px 0px 3px 1px rgba(50, 160, 255, .7);
-}
-.InputForm:focus{
--webkit-box-shadow:  0px 0px 6px 2px rgba(50, 160, 255, .7);
-box-shadow:  0px 0px 6px 2px rgba(50, 160, 255, .7);
-}
-.TextareaForm{
-margin: 2px;
-width: 661px;
-height: 114px;
-}
-.button-sell{
-background: rgb(180,246,0); /* Old browsers */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2I0ZjYwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2YWMyMTgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background: -moz-linear-gradient(top,  rgba(180,246,0,1) 0%, rgba(106,194,24,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(180,246,0,1)), color-stop(100%,rgba(106,194,24,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(180,246,0,1) 0%,rgba(106,194,24,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4f600', endColorstr='#6ac218',GradientType=0 ); /* IE6-8 */
-border: 1px solid #6c8f04;
-padding: 20px;
-border-radius: 4px;
-color: white;
-text-shadow: 1px 1px 2px #6c8f04;
-filter: dropshadow(color=#6c8f04, offx=1, offy=1);
-}
-.button-sell:hover{
-background: rgb(175,238,0); /* Old browsers */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2FmZWUwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2N2JkMTciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background: -moz-linear-gradient(top,  rgba(175,238,0,1) 0%, rgba(103,189,23,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(175,238,0,1)), color-stop(100%,rgba(103,189,23,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(175,238,0,1) 0%,rgba(103,189,23,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#afee00', endColorstr='#67bd17',GradientType=0 ); /* IE6-8 */
-}
-.errorlist{
-list-style: none;
-color:red;
-}
-</style>
-</head>
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+{% block media %}
 
-<body>
-	<section class="content">
+{% endblock %}
+
+{% block content %}
+	<section>
 		<p>
 		Has seleccionado a <b>{{ candidateUser }}</b> para que te venda el articulo <b>{{ item.title }}</b>, Enviale un mensaje sobre la transaccion.
 		</p>
@@ -72,10 +16,9 @@ color:red;
 				{{ form.comment.errors }}
 			</div>	
 			<div style="text-align:center">
-				<input class="button-sell" type="submit" value="SELECCIONAR">
+				<input type="submit" value="SELECCIONAR">
 			</div>
 		</form>
 	</section>
-</body>
-</html>
 
+{% endblock %}

@@ -112,6 +112,7 @@ WSGI_APPLICATION = 'howmuch.wsgi.application'
 TEMPLATE_DIRS = ( os.path.join(SITE_ROOT, 'templates'),)
 
 INSTALLED_APPS = (
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -124,12 +125,10 @@ INSTALLED_APPS = (
     'endless_pagination',
     'gunicorn',
     'storages',
-    'haystack',
-
+    
     'howmuch.account',
     'howmuch.article',
     'howmuch.config',
-    'howmuch.items',
     'howmuch.messages',
     'howmuch.notifications',
     'howmuch.pictures',
@@ -137,7 +136,7 @@ INSTALLED_APPS = (
     'howmuch.profile',
 
     'registration',
-    'smart_selects',
+
 
 
 )
