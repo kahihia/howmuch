@@ -43,7 +43,7 @@ def post(request):
 #Para ver un articulo no es necesario hacer login
 def view(request, articleID, title_url):
     item = get_object_or_404(Article, pk=articleID)
-    return render_to_response('article/viewItem.html', {'item' : item }, context_instance = RequestContext(request))
+    return render_to_response('article/viewArticle.html', {'item' : item }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
 def offer(request,articleID):
@@ -93,7 +93,7 @@ def offer(request,articleID):
             return HttpResponseRedirect('/account/sales/possible/')
     else:
         form = OfferForm()
-    return render_to_response('article/candidatura.html', {'form' : form, 'article' : article, 'user' : request.user }, context_instance=RequestContext(request))
+    return render_to_response('article/offer.html', {'form' : form, 'article' : article, 'user' : request.user }, context_instance=RequestContext(request))
 
 
 @login_required(login_url="/login/")
@@ -173,6 +173,6 @@ def assignment(request, articleID, candidateID):
             return HttpResponse('Asignacion Correcta')
     else:
         form = AssignmentForm()
-    return render_to_response('article/newAssignment.html', {'form' : form, 'candidateUser' : candidateUser, 'item' : item }, context_instance=RequestContext(request))
+    return render_to_response('article/assignment.html', {'form' : form, 'candidateUser' : candidateUser, 'item' : item }, context_instance=RequestContext(request))
 
 

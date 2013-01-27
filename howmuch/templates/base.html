@@ -8,13 +8,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{% block title %}{% endblock%}</title>
         {% block facebooktags %}{% endblock %}
-        <meta name="description" content="">
+        <meta name="description" content="Publica Compras al precio que quieras y recibe las mejores ofertas de Vendedores">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{{ MEDIA_URL }}css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/normalize.css">
-        <link href='http://fonts.googleapis.com/css?family=Norican' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <link href="{{ MEDIA_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
     </head>
@@ -23,72 +20,42 @@
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
         <header>
-
-                <div>
-                    <a href="/">
-                        <img src="{{ MEDIA_URL }}img/howmuch.png" height="39" width="107">
-                    </a>
-                </div>
-
-                <div>
-                    <form action="/search/" method="GET">
-                        <input name = "q" type="text" placeholder="Busca articulos a vender..." size="30">
-                       
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <form class="navbar-search pull-left">
+                        <input type="text" class="search-query" placeholder="Busca y Vende">
                     </form>
-                </div>
-
-                <nav id ="menu">
-                    <div>   
-                        <a href="/">Inicio</a>
-                    </div>
-                    <div>
-                        <a  href="/notifications/">
-                                {% if user.profile.unread_notifications > 0 %}
-                                <div>{{ user.profile.unread_notifications }}</div>
-                                {% endif %}
-                                <div>
-                                </div>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/messages/inbox">
-                                {% if user.profile.unread_conversations > 0 %}
-                                <div>{{ user.profile.unread_conversations }}</div>
-                                {% endif %}
-                                <div>
-                                </div>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#">{{ user }}</a>
-                        <ul>
+                    <ul class="nav">
+                        <li class="divider-vertical"><a href="/">Inicio</a></li>
+                        <li class="divider-vertical"><a href="/notifications">Notificaciones</a></li>
+                        <li class="divider-vertical"><a href="/messages/inbox">Inbox</a></li>
+                        <li class="divider-vertical"><a href="/article/post">Publicar Compra</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                {{ user }}
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
                                 <li><a href="/account/purchases/published">Mis Compras</a></li>
                                 <li><a href="/account/sales/possible">Mis Ventas</a></li>
-                                <li><a href="/profile/e/edit">Acerca de Mi</a></li>
+                                <li><a href="/profile/e/edit">Mi Perfil</a></li>
                                 <li><a href="/config/notifications">Configuracion</a></li>
-                        </ul>
-                    </div>
+                                <li><a href="/logout">Cerrar Sesion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
 
-                    <div>
-                        <a href="/article/post">Publicar Compra</a>
-                    </div>  
-                    
-                </nav>
+                </div>
 
-
+            </div>
         </header>
 
         <section id="content">
-            
-                {% block content %}
-
-
-                {% endblock %}
-       
+        {% block content %}
+        {% endblock %}
         </section>
 
         <footer>
-
             <p>
                 <span>
                     El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 

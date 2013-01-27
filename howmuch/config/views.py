@@ -16,5 +16,5 @@ def notifications_config(request):
             return HttpResponseRedirect('')
     else:
         form = NotificationsConfigForm(instance=current)
-    return render_to_response('config/editConfig.html', {'form' : form }, context_instance = RequestContext(request))
+    return render_to_response('config/config.html', {'form' : form }, context_instance = RequestContext(request))
 

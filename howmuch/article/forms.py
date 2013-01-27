@@ -25,11 +25,8 @@ class OfferForm(forms.Form):
         widget = forms.ClearableFileInput(attrs = {'class' : 'InputFile', 'onChange' : "readURL(this,'image5')"}))
 
 class AssignmentForm(ModelForm):
-    
     class Meta:
         model = Assignment
         exclude = ('owner', 'article', 'date', 'status', )
-        widgets = {
-            'comment' : Textarea(attrs={'class' : 'InputForm TextareaForm', 'cols' : 60, 'rows' : 10}),
-            }
+
 

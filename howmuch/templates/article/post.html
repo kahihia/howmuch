@@ -8,64 +8,75 @@
 
 {% block content %}
 
-<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-	<section>
-		<h2>Detalles Del producto</h2>
-		<div>
-			<span>Precio</span>
-			{{ form.price }}
-			{{ form.price.errors }}
-		</div>
-		<div>
-			<span>Titulo</span>
-			{{ form.title }}
-			{{ form.title.errors }}
-		</div>
-		<div>
-			<span>Cantidad</span>
-			{{ form.quantity }}
-			{{ form.quantity.errors }}
-		</div>
-		<div>
-			<span>Descripcion</span>
-			{{ form.description }}
-			{{ form.description.errors }}
+<form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+		<h2>Compra al precio que quieras</h2>
+
+		<div class="control-group">
+			<label class="control-label">Titulo del Articulo</label>
+			<div class="controls">
+				{{ form.title }}
+				{{ form.title.errors }}
+			</div>
 		</div>
 
-		<div>
-			<span>Nuevo o Usado</span>
-			{{ form.state }}
-			{{ form.state.errors }}
-		</div>
-		
-	</section>
-	
-	<section>
-		<h2>Clasifica el producto</h2>
-		<div>
-			<span>Clasificación</span>
-			{{ form.category }}
-			{{ form.itemsCatA.errors }}
-		</div>
-		<div>
-			<span>Tags</span>
-		</div>
-	</section>
-
-	<section>
-		<h2>Detalles de envio</h2>
-		<div>
-			<span>Direccion de Envio</span>
-			{{ form.addressDelivery }}
-			{{ form.addressDelivery.errors }}
+		<div class="control-group">
+			<label class="control-label">Precio que pagarias por el</label>
+			<div class="controls">
+				{{ form.price }}
+				{{ form.price.errors }}
+			</div>
 		</div>
 
-		<input class="button-blue" type="submit" value="PUBLICAR">
+		<div class="control-group">
+			<label class="control-label">Cuantos Quieres?</label>
+			<div class="controls">
+				{{ form.quantity }}
+				{{ form.quantity.errors }}
+			</div>
+		</div>
 
-	</section>
+		<div class="control-group">
+			<label class="control-label">Describe el articulo que quieres</label>
+			<div class="controls">
+				{{ form.description }}
+				{{ form.description.errors }}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">Nuevo o Usado?</label>
+			<div class="controls">
+				{{ form.state }}
+				{{ form.state.errors }}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">Clasificacíon</label>
+			<div class="controls">
+				{{ form.category }}
+				{{ form.itemsCatA.errors }}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">Agrega Tags a tu Articulo</label>
+			<div class="controls">
+
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">Dirección de Envio</label>
+			<div class="controls">
+				{{ form.addressDelivery }}
+				{{ form.addressDelivery.errors }}
+			</div>
+		</div>
+
+		<input type="submit" value="PUBLICAR">
 		
 </form>
-
 
 {% endblock %}
 

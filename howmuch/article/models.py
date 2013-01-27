@@ -109,6 +109,7 @@ class Offer(models.Model):
     article = models.ForeignKey(Article)
     date = models.DateTimeField(auto_now_add=True)
     #Precio contra oferta
+    quantity = models.IntegerField()
     cprice = models.IntegerField() 
     message = models.CharField(max_length=140)
     pictures = models.ManyToManyField(Picture)
@@ -146,7 +147,6 @@ class Assignment(models.Model):
     owner = models.ForeignKey(User)
     article = models.OneToOneField(Article)
     date = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=144)
     status = models.CharField(max_length=2, default = 0)
 
     def __unicode__(self):

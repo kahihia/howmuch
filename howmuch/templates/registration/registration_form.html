@@ -4,10 +4,10 @@
 	<title>Registrate a howmuch.do y empieza a comprar y vender al reves</title>  
     </head>
 <body>
-    {% if form.errors %}
-    {% endif %}
-	
-	<formaction="" method="POST">{% csrf_token %}
+
+    {{ form.errors }}
+
+	<form action="" method="POST">{% csrf_token %}
 		<h2>Registrate, es GRATIS</h2>
 			{{ form.username}}
 		</div>
