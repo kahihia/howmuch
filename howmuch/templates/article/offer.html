@@ -7,48 +7,80 @@ Aplico para Vender el Articulo {{ article.title }}
 {% endblock %}s
 
 {% block content %}
-<section>
+<section class="wrapper-div span9">
+	{% if form.errors %}
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	<h4>Error</h4>
+    	Favor de llenar correctamente el formulario, solo numeros enteros y sube al menos la primer imagen.
+    </div>
+    {% endif %}
+
 	{% if not errors %}
 	<form class="form-horizontal" action=""  method="POST" enctype="multipart/form-data">{% csrf_token %}
 		<div>
-			<h3>Te Vendo {{ form.quantity }} {{ article.title }} en {{ form.cprice }}</h3>
-			<span class="help-block">Recuerda que el precio en Contra Oferta debe incluir gastos de Envio y demas gastos que tu consideres</span>
+			<b>Te Vendo</b>
+			<div class="input-prepend">
+				<span class="add-on">Cantidad</span>
+				{{ form.quantity }}
+			</div>
+			<b>{{ article.title }} en </b>
+			 <div class="input-prepend input-append">
+			 	<span class="add-on">$</span>
+			 	{{ form.cprice }}
+			 	<span class="add-on">.00</span>
+			 </div>
 		</div>
 
 		<div>
 			<div>
 			{{ form.picture1}}
-			{{ form.picture1.errors }}
 			</div>
 
 			<div>
 			{{ form.picture2}}
-			{{ form.picture2.errors }}
 			</div>
 
 			<div>
 			{{ form.picture3}}
-			{{ form.picture3.errors }}
 			</div>
 
 			<div>
 			{{ form.picture4}}
-			{{ form.picture4.errors }}
 			</div>
 
 			<div>
 			{{ form.picture5}}
-			{{ form.picture5.errors }}
+			</div>
+		</div>
+
+		<div>
+			<div class="image-preview-wrapper" onclick="$('#id_picture1').click()">
+				<img src="{{ MEDIA_URL }}img/camera1.png" id="image1" width="100" height="100">
+			</div>
+			<div class="image-preview-wrapper" onclick="$('#id_picture2').click()">
+				<img src="{{ MEDIA_URL }}img/camera1.png" id="image2" width="100" height="100">
+			</div>
+			<div class="image-preview-wrapper" onclick="$('#id_picture3').click()">
+				<img src="{{ MEDIA_URL }}img/camera1.png" id="image3" width="100" height="100">
+			</div>
+			<div class="image-preview-wrapper" onclick="$('#id_picture4').click()">
+				<img src="{{ MEDIA_URL }}img/camera1.png" id="image4" width="100" height="100">
+			</div>
+			<div class="image-preview-wrapper" onclick="$('#id_picture5').click()">
+				<img src="{{ MEDIA_URL }}img/camera1.png" id="image5" width="100" height="100">
 			</div>
 		</div>
 
 		<div>
 			{{ form.message }}
-			<span class="help-block">El Mensaje debe contener informacion del articulo que quieres vender</span>
 		</div>
 
+
 		<div>
-			<input type="submit" value="Venderselo">
+			<center>	
+				<input class="btn btn-large btn-primary" type="submit" value="Venderselo">
+			</center>
 		</div>
 	{% else %}
 	<p>No es posible que tu ofertes en esta publicación</p>

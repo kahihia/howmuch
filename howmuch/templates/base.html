@@ -28,8 +28,8 @@
                     </form>
                     <ul class="nav">
                         <li class="divider-vertical"><a href="/"><i class="icon-home"></i> Inicio</a></li>
-                        <li class="divider-vertical"><a href="/notifications"><i class="icon-signal"></i> Notificaciones</a></li>
-                        <li class="divider-vertical"><a href="/messages/inbox"><i class="icon-envelope"></i> Inbox</a></li>
+                        <li class="divider-vertical"><a href="/notifications"><i class="icon-signal"></i> Notificaciones <span class="unread">{{ user.profile.unread_notifications}}</span></a></li>
+                        <li class="divider-vertical"><a href="/messages/inbox"><i class="icon-envelope"></i> Inbox <span class="unread">{{ user.profile.unread_conversations}}</span></a></li>
                         <li class="divider-vertical"><a href="/article/post"><i class="icon-plus"></i> Publicar Compra</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -52,19 +52,22 @@
             </div>
         </header>
 
-        <div class="container">
+        <div class="container content">
         {% block content %}
         {% endblock %}
         </div>
 
         <footer>
+            <center>
             <p>
-                El uso de cuantoo.com implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
+                El uso de cuantoo.com implica que estas de acuerdo con la aceptación de los <a href="#">Términos y Condiciones</a> y de las <a href="#">Políticas de Privacidad</a>
             </p>
 
             <p>
-                Copyright © 2012 Brainn S.A de C.V "Use It And Change The World"
+                Copyright © 2013 <a href="http://brainn.co">Brainn</a> S.A de C.V "Use It And Change The World"
             </p>
+            </center>
+
         </footer>
 
         <script src="{{ MEDIA_URL }}js/plugins.js"></script>

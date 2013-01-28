@@ -18,30 +18,45 @@ Pagan
 
 {% block content %}
 <section class="container wrapper-div">
-	<article class="span12">
+	<article>
+	{% if new_post %}
+	<div class="alert alert-success">
+    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	<h4>Felicidades!</h4>
+    	Acabas de Publicar correctamente tu Compra
+    </div>
+	{% endif %}
 	{% if article.owner == user %}
-	<div>
-		<p>Esta Es Tu Publicación <a href="#">Editar</a></p>
-	</div>
+    <div class="alert alert-block">
+    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	Esta Es Tu Publicación <a href="#">Editar</a>
+    </div>
 	{% endif %}
 
 	{% if article.has_assignment %}
-	<div>
-		<p>Esta Publicación Ha Finalizado <a href="/article/post">Comprar un articulo</a></p>
-	</div>
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	Esta Publicación Ha Finalizado <a href="/article/post">Publicar una Compra</a>
+    </div>
 	{% endif %}
 	</article>
 
-	<article  class="span12">
-		<span>Para ser enviado al <b> C.P {{ article.addressDelivery.zipcode }},</b></span>
-		<span>Publicado <b>hace {{ article.date|timesince }}</b> por <a href="/profile/{{ article.owner }}">{{ article.owner }}</a></span>
+	<article>
+		<p>
+			Publicado <b>hace {{ article.date|timesince }}</b> por <a href="/profile/{{ article.owner }}">{{ article.owner }}</a> 
+			con envio al <b> C.P {{ article.addressDelivery.zipcode }}</b>
+		</p>
+	</article>
+
+	<article class="btn btn-success">
+		{{ article.category|upper }}
 	</article>
 
 	<article>
 		<h2>Compro {{ article.title }} por ${{ article.price }}</h2>
 	</article>
 
-	<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="box_count" data-width="450" data-show-faces="true" data-font="arial">
+	<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial">
 	</div>
 
 	<article>
@@ -53,7 +68,9 @@ Pagan
 	</article>
 
 	<article>
-		<a class="btn btn-primary" href="/article/offer/{{ article.pk }}">Venderselo</a>
+		<center>
+			<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderselo</a>
+		</center>
 	</article>
 
 	<section>

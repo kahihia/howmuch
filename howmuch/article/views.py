@@ -35,7 +35,7 @@ def post(request):
             profileUser = get_object_or_404(Profile, user=request.user)
             profileUser.total_purchases += 1
             profileUser.save()
-            return HttpResponseRedirect(str(newPost.get_url()))
+            return HttpResponseRedirect(str(newPost.get_url()) + '?new_post=True')
     else:
         form=ArticleForm()
     return render_to_response('article/post.html', {'form' : form }, context_instance=RequestContext(request))
@@ -43,7 +43,11 @@ def post(request):
 #Para ver un articulo no es necesario hacer login
 def view(request, articleID, title_url):
     article = get_object_or_404(Article, pk=articleID)
-    return render_to_response('article/viewArticle.html', {'article' : article }, context_instance = RequestContext(request))
+    if request.GET.__contains__('new_post') and request.GET['new_post']:
+        new_post = True
+    else:
+        new_post = False
+    return render_to_response('article/viewArticle.html', {'article' : article, 'new_post' : new_post }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
 def offer(request,articleID):
