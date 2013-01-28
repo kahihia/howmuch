@@ -7,22 +7,32 @@
 {% endblock %}
 
 {% block content %}
+<section>
+	<form class="form-horizontal wrapper-div" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
-<form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<h2>Compra al precio que quieras</h2>
+		<center><h2>Compra al precio que quieras</h2></center>
 
 		<div class="control-group">
 			<label class="control-label">Titulo del Articulo</label>
 			<div class="controls">
-				{{ form.title }}
+				<div class="input-prepend">
+					<span class="add-on"><i class="icon-pencil"></i></span>
+					{{ form.title }}
+				</div>
 				{{ form.title.errors }}
+				<span class="help-block">Entre mas claro sea el titulo de tu articulo, mas ofertas recibiras.</span>
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label class="control-label">Precio que pagarias por el</label>
+			<label class="control-label">Precio</label>
 			<div class="controls">
-				{{ form.price }}
+				<div class="input-prepend input-append">
+					<span class="add-on">$</span>
+					{{ form.price }}
+					<span class="add-on">.00</span>
+				</div>
+				<span class="help-block">Es el precio que estas dispuesto a pagar por tu articulo.</span>
 				{{ form.price.errors }}
 			</div>
 		</div>
@@ -30,15 +40,23 @@
 		<div class="control-group">
 			<label class="control-label">Cuantos Quieres?</label>
 			<div class="controls">
-				{{ form.quantity }}
+				<div class="input-prepend">
+					<span class="add-on"><i class="icon-resize-small"></i></span>
+					{{ form.quantity }}
+				</div>
+				<span class="help-block">Escribe el numero de articulos que estas buscando, solo enteros.</span>
 				{{ form.quantity.errors }}
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label class="control-label">Describe el articulo que quieres</label>
+			<label class="control-label">Descripción</label>
 			<div class="controls">
-				{{ form.description }}
+				<div class="input-prepend">
+					<span class="add-on"><i class="icon-comment"></i></span>
+					{{ form.description }}
+				</div>
+				<span class="help-block">Describe el articulo que estas buscando e incluye detalles sobre el.</span>
 				{{ form.description.errors }}
 			</div>
 		</div>
@@ -48,6 +66,7 @@
 			<div class="controls">
 				{{ form.state }}
 				{{ form.state.errors }}
+				<span class="help-block">El articulo que quieres es nuevo o usado?.</span>
 			</div>
 		</div>
 
@@ -56,6 +75,7 @@
 			<div class="controls">
 				{{ form.category }}
 				{{ form.itemsCatA.errors }}
+				<span class="help-block">Selecciona la categoria en donde clasificarias tu articulo.</span>
 			</div>
 		</div>
 
@@ -71,12 +91,16 @@
 			<div class="controls">
 				{{ form.addressDelivery }}
 				{{ form.addressDelivery.errors }}
+				<span class="help-block">Selecciona la dirección donde quieres que te envien tu articulo.</span>
 			</div>
 		</div>
 
-		<input type="submit" value="PUBLICAR">
-		
+		<center><input class="btn btn-primary btn-large" type="submit" value="Publicar"></center>
+			
 </form>
+</section>
+
+
 
 {% endblock %}
 

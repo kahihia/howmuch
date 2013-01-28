@@ -2,33 +2,24 @@
 	
 	{% paginate items %}
 	{% for item in items %}
-	<article>
-		<div>
-			<div>
-				<a href="/profile/{{ item.owner }}">{{ item.owner }}</a><span> lo quiere </span>
-			</div>
-
-			<div>
-				<a href="{{ item.get_url }}"><span> {{ item.title }} </span></a>
-			</div>
-		</div>
-
+	<article class="wrapper-div">
 		<div>
 			<a href="{{ item.get_url }}">
 				<img src="">
 			</a>
-			<div>
-				<b><span>{{ item.state }}</span></b>
-				<b><span>$ {{ item.price }}</span></b>
-			</div>
 		</div>
-
+		<div>
+			<a href="/profile/{{ item.owner }}">{{ item.owner }}</a><span> compra </span>
+			<a href="{{ item.get_url }}"><span> {{ item.title }} </span></a>
+			<b><span>{{ item.state }}</span></b><span> en </span><b><span>$ {{ item.price }}</span></b>
+		</div>
+	
 		<div>
 			<div>
-				<a href="/article/offer/{{ item.pk }}">VENDER</a>
+				<span>hace <b>{{ item.get_timestamp }}</b></span>
 			</div>
 			<div>
-				<span>hace <b>{{ item.get_timestamp }}</b></span>
+				<a class="btn btn-primary" href="/article/offer/{{ item.pk }}">VENDERSELO</a>
 			</div>
 		</div>
 	</article>

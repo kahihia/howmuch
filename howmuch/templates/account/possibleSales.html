@@ -1,35 +1,26 @@
 {% extends "account/SalesMiddle.html" %}
 
 {% block SalesMiddle %}
-
-
 <section>
-
 	{% for item in possibleSales %}
-
-	<article>
-
-		<div>
-			<div>
-				<a href="{{ item.article.get_url }}">{{ item.article.title }}</a> en <a href="/item/{{ item.article.pk }}">${{ item.article.price }}</a>
+	<article class="wrapper-div span8">
+		<div class="row">
+			<div class="span5">
+				<div>
+					<a href="{{ item.article.get_url }}">{{ item.article.title }}</a><b> en </b><a href="{{ item.article.get_url }}">{{ item.article.price }}</a>
+				</div>
+				<div>
+					<a href="#">Mi Oferta</a>
+					<b>hace {{ item.article.get_timestamp }}</b>
+				</div>				
 			</div>
-
-			<div>
-					<a  href="#">Mi Oferta</a>
-					<span>hace {{ item.article.get_timestamp }}</span>				
+			<div class="span2">
+				<img src="#">
 			</div>
-
-
 		</div>
-	
 	</article>
-
 	{% empty %}
-
 	<p>Aun no has solicitado ningun articulo</p>
-
 	{% endfor %}
-
 </section>
-
 {% endblock %}

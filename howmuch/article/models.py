@@ -87,16 +87,6 @@ class Article(models.Model):
     def get_first_100_letters(self):
         return str(self.title)[:100]
 
-    #Regresa el link de la primer imagen en miniatura 100x100 del item
-    def get_first_picture_100x100(self):
-        for p in self.pictures.all()[:1]:
-            return p.get_url_100x100()
-
-    #Regresa el link de la primer imagen en miniatura 250x250 del item
-    def get_first_picture_250x250(self):
-        for p in self.pictures.all()[:1]:
-            return p.get_url_250x250()
-
     def get_url(self):
         return '/article/%s/%s' % (self.pk, self.title_url)
 

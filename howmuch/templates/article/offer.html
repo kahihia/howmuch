@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}
+Aplico para Vender el Articulo {{ article.title }}
+{% endblock %}
+
+{% block media %}
+{% endblock %}s
+
+{% block content %}
+<section>
+	{% if not errors %}
+	<form class="form-horizontal" action=""  method="POST" enctype="multipart/form-data">{% csrf_token %}
+		<div>
+			<h3>Te Vendo {{ form.quantity }} {{ article.title }} en {{ form.cprice }}</h3>
+			<span class="help-block">Recuerda que el precio en Contra Oferta debe incluir gastos de Envio y demas gastos que tu consideres</span>
+		</div>
+
+		<div>
+			<div>
+			{{ form.picture1}}
+			{{ form.picture1.errors }}
+			</div>
+
+			<div>
+			{{ form.picture2}}
+			{{ form.picture2.errors }}
+			</div>
+
+			<div>
+			{{ form.picture3}}
+			{{ form.picture3.errors }}
+			</div>
+
+			<div>
+			{{ form.picture4}}
+			{{ form.picture4.errors }}
+			</div>
+
+			<div>
+			{{ form.picture5}}
+			{{ form.picture5.errors }}
+			</div>
+		</div>
+
+		<div>
+			{{ form.message }}
+			<span class="help-block">El Mensaje debe contener informacion del articulo que quieres vender</span>
+		</div>
+
+		<div>
+			<input type="submit" value="Venderselo">
+		</div>
+	{% else %}
+	<p>No es posible que tu ofertes en esta publicación</p>
+	{% endif %}
+</section>
+{% endblock %}
+

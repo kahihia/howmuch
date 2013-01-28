@@ -19,7 +19,7 @@
 
 				{% if conversation.getNumber_unread_messages_seller > 0 %}
 
-				<article>
+				<article class="wrapper-div">
 
 				
 					<b><span>({{ conversation.getNumber_unread_messages_seller }})</span></b>
@@ -27,7 +27,7 @@
 
 				{% else %}
 					
-				<article>
+				<article class="wrapper-div">
 
 				{% endif %}
 
@@ -37,7 +37,7 @@
 
 				{% if conversation.getNumber_unread_messages_buyer > 0%}
 
-				<article>
+				<article class="wrapper-div">
 
 					
 					<b><span>({{ conversation.getNumber_unread_messages_buyer }})</span></b>
@@ -45,14 +45,14 @@
 					
 				{% else %}
 
-				<article>
+				<article class="wrapper-div">
 
 				{% endif %}
 
 			{% endif %}{% endif %}
 
 		{% else %}
-				<article>
+				<article class="wrapper-div">
 		{% endif %}
 
 	

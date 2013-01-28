@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}
+Pagan 
+{% endblock %}
+
+{% block facebooktags %}
+<meta property="og:title" content="Pagan ${{ article.price }} por {{ article.title}}"/>
+<meta property="og:type" content="Ecommerce"/>
+<meta property="og:url" content="http://www.howmuch.do{{ article.get_url }}"/>
+<meta property="og:image" content=""/>
+<meta property="og:site_name" content="howmuch"/>
+<meta property="og:description"
+    content="{{ article.description|truncatechars:100}}"/>
+{% endblock %}
+
+{% block media %}
+{% endblock %}
+
+{% block content %}
+<section class="container wrapper-div">
+	<article class="span12">
+	{% if article.owner == user %}
+	<div>
+		<p>Esta Es Tu Publicación <a href="#">Editar</a></p>
+	</div>
+	{% endif %}
+
+	{% if article.has_assignment %}
+	<div>
+		<p>Esta Publicación Ha Finalizado <a href="/article/post">Comprar un articulo</a></p>
+	</div>
+	{% endif %}
+	</article>
+
+	<article  class="span12">
+		<span>Para ser enviado al <b> C.P {{ article.addressDelivery.zipcode }},</b></span>
+		<span>Publicado <b>hace {{ article.date|timesince }}</b> por <a href="/profile/{{ article.owner }}">{{ article.owner }}</a></span>
+	</article>
+
+	<article>
+		<h2>Compro {{ article.title }} por ${{ article.price }}</h2>
+	</article>
+
+	<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="box_count" data-width="450" data-show-faces="true" data-font="arial">
+	</div>
+
+	<article>
+	<!--  Pictures -->
+	</article>
+
+	<article>
+		<p>{{ article.description }}</p>
+	</article>
+
+	<article>
+		<a class="btn btn-primary" href="/article/offer/{{ article.pk }}">Venderselo</a>
+	</article>
+
+	<section>
+	<!-- Comments -->
+	</section>
+	
+</section>
+
+{% endblock %}
+
+
+
+

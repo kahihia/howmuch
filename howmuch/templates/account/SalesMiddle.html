@@ -3,18 +3,16 @@
 {% block media %} {% endblock %}
 {% block content %}
 
-<section>
-	<ul>
-		<li><a href="/account/sales/possible/">Posibles</a></li>
-		<li><a href="/account/sales/process/">Proceso</a></li>
-		<li><a href="/account/sales/completed/">Terminadas</a></li>
-	</ul>
-</section>
+<h3>Mis Ventas</h3>
 
-	{% block SalesMiddle %}
+<div class="btn-group">
+	<a class="btn btn-large" href="/account/sales/possible">Ventas Posibles</a>
+	<a class="btn btn-large" href="/account/sales/process">Ventas Posibles</a>
+	<a class="btn btn-large" href="/account/sales/completed">Ventas Posibles</a>
+</div>
 
-
-	{% endblock %}
+{% block SalesMiddle %}
+{% endblock %}
 
 
 {% endblock %}

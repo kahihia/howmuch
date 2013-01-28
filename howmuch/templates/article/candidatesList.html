@@ -8,6 +8,32 @@
 
 {% block content %}
 
+<section>
+{% for candidate in candidates %}
+<article class="wrapper-div">
+
+{{ candidate.date }}
+
+{{ candidate.quantity }}
+
+{{ candidate.cprice }}
+
+{{ candidate.message }}
+
+<div>
+	{% for picture in candidate.pictures.all %}
+	<div>
+		<img src="{{ picture.get_url_100x100 }}">
+	</div>
+	{% endfor %}
+</div>
+
+<div>
+	<a href="/article/assignment/{{ article.pk }}/{{ candidate.owner.pk }}">Seleccionar</a>
+</div>
+</article>
+{% endfor %}
+</section>
 {% endblock %}
 
 

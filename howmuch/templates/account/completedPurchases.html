@@ -1,35 +1,27 @@
 {% extends "account/PurchasesMiddle.html" %}
 
 {% block PurchasesMiddle%}
-
 <section>
-
 	{% for item in completedPurchases %}
-
-	<article>
-
-		<div>
-			<div>
-				<a href="{{ item.get_url }}">{{ item.title }}</a> en <a href="/item/{{ item.pk }}">${{ item.price }}</a>
+	<article class="wrapper-div span8">
+		<div class="row">
+			<div class="span2">
+				<img src="#">
 			</div>
-
-			<div>
-					<a  href="/messages/{{ item.assignment.conversation.pk }}">Ver Conversación</a>
-					<a  href="#">Ver Critica</a>
-					<span>hace {{ item.get_timestamp }}</span>				
+			<div class="span5">
+				<div>
+					<a href="{{ item.get_url }}">{{ item.title }}</a><b> en </b><a href="{{ item.get_url }}">{{ item.price }}</a>
+				</div>
+				<div>
+					<a href="/messages/{{ item.assignment.conversation.pk }}">Ir a Conversación ({{ item.assignment.conversation.getNumber_unread_messages_buyer }})</a>
+					<a href="#">Ver Critica</a>
+					<b>hace {{ item.get_timestamp }}</b>
+				</div>				
 			</div>
-
 		</div>
-	
 	</article>
-
 	{% empty %}
-
 	<p>Aun no has solicitado ningun articulo</p>
-
 	{% endfor %}
-
 </section>
-
-
 {% endblock %}

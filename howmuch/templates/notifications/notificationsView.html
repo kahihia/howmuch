@@ -8,11 +8,11 @@
 
 {% block content %}
 
-<section class="NotificationsWrapper">
+<section>
 
 {% for group in notifications_result %}
 
-<section>
+<section class="wrapper-div">
 
 	<div>{{ group.title }}</div>
 
@@ -20,38 +20,38 @@
 
 	{% if not notification.has_been_readed %}
 
-	<article class="NotificationContainer NotificationUnread">
+	<article>
 
 	{% else %}
 
-	<article class="NotificationContainer">
+	<article>
 
 	{% endif %}
 
 		{% if notification.tipo == 'offer' %}
-		<div class="NotificationPicture NotificationProffer">
+		<div>
 		{% else %}
 		{% if notification.tipo == 'assignment' %}
-		<div class="NotificationPicture NotificationAssignment">
+		<div>
 		{% else %}
 		{% if notification.tipo == 'confirm_pay' %} 
-		<div class="NotificationPicture NotificationConfirmPay">
+		<div>
 		{% else %}
 		{% if notification.tipo == 'confirm_delivery' %} 
-		<div class="NotificationPicture NotificationConfirmDelivery">
+		<div>
 		{% else %}
 		{% if notification.tipo == 'critique' %} 
-		<div class="NotificationPicture NotificationCritique">
+		<div>
 		{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
 		</div>
 
-		<div class="NotificationDescription">
+		<div>
 
 			<a href="{{notification.redirect}}">{{ notification.title }}</a>
 
 		</div>
 
-		<div class="NotificationTimestamp">
+		<div>
 
 			<span><b>hace {{ notification.get_timestamp }}</b></span>
 

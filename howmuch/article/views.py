@@ -42,8 +42,8 @@ def post(request):
 
 #Para ver un articulo no es necesario hacer login
 def view(request, articleID, title_url):
-    item = get_object_or_404(Article, pk=articleID)
-    return render_to_response('article/viewArticle.html', {'item' : item }, context_instance = RequestContext(request))
+    article = get_object_or_404(Article, pk=articleID)
+    return render_to_response('article/viewArticle.html', {'article' : article }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
 def offer(request,articleID):
@@ -55,12 +55,13 @@ def offer(request,articleID):
     if aboutArticle.is_valid():
         pass
     else:
-        return render_to_response('article/candidatura.html', {'errors' : aboutArticle.errors() }, context_instance=RequestContext(request))
+        return render_to_response('article/offer.html', {'errors' : aboutArticle.errors() }, context_instance=RequestContext(request))
     #Formulario
     if request.method == 'POST':
         form = OfferForm(request.POST, request.FILES)
         if form.is_valid():
-            pictures = []
+            pictures=[]
+            quantity=form.cleaned_data['quantity'] 
             cprice = form.cleaned_data['cprice']
             message = form.cleaned_data['message']
 
@@ -75,7 +76,7 @@ def offer(request,articleID):
             if form.cleaned_data['picture5'] is not None:
                 pictures.append(form.cleaned_data['picture5'])
 
-            thisOffer = Offer(owner=request.user, article = article, cprice = cprice, message = message)
+            thisOffer = Offer(owner=request.user, article=article, quantity=quantity ,cprice=cprice, message=message)
             thisOffer.save()
 
             #Guarda el diccionario de imagenes en thisOffer.pictures
@@ -127,22 +128,21 @@ def candidates(request, articleID):
 
 @login_required(login_url="/login/")
 def assignment(request, articleID, candidateID):
-
     #Validar que el item exista y que el owner de el sea el request.user
     try:
-        item = Article.objects.get(pk= articleID, owner=request.user)
+        article = Article.objects.get(pk= articleID, owner=request.user)
     except Article.DoesNotExist:
         return HttpResponse("No tienes permiso para Asignar este Solicutud")
     else:
         pass
     
-    candidate = get_object_or_404(Offer, owner = candidateID, article = item)
-    candidateUser = get_object_or_404(User, pk = candidateID)
+    offer = get_object_or_404(Offer, owner = candidateID, article = article)
+    candidate = get_object_or_404(User, pk = candidateID)
 
     #Validar que no exista Asignacion
 
     try:
-        Assignment.objects.get(article = item )
+        Assignment.objects.get(article = article )
     except Assignment.DoesNotExist:
         pass
     else:
@@ -152,14 +152,14 @@ def assignment(request, articleID, candidateID):
         form = AssignmentForm(request.POST)
         if form.is_valid():
             newAssignment = form.save(commit=False)
-            newAssignment.owner = candidateUser 
-            newAssignment.article = item
+            newAssignment.owner = candidate
+            newAssignment.article = article
             newAssignment.save()
             #Se crea la Conversation correspondiente a la Asignacion
             conversation = Conversation.objects.create(assignment = newAssignment)
             conversation.save()
             #Se crea una instancia de InitialConversationContext
-            newContext = ConversationOptions(item.owner, newAssignment.owner, conversation)
+            newContext = ConversationOptions(article.owner, newAssignment.owner, conversation)
             newContext.createMessageByBuyer()
             newContext.createMessageBySeller()
             #Se Activa el Sistema de Notificaciones
@@ -170,9 +170,9 @@ def assignment(request, articleID, candidateID):
             profileUser.total_sales += 1
             profileUser.save()
 
-            return HttpResponse('Asignacion Correcta')
+            return HttpResponseRedirect('/messages/' + str(newAssignment.conversation.pk))
     else:
         form = AssignmentForm()
-    return render_to_response('article/assignment.html', {'form' : form, 'candidateUser' : candidateUser, 'item' : item }, context_instance=RequestContext(request))
+    return render_to_response('article/assignment.html', {'form' : form, 'candidate' : candidate, 'article' : article }, context_instance=RequestContext(request))
 
 

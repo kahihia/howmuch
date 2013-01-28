@@ -13,6 +13,7 @@
         <link href="{{ MEDIA_URL }}css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/normalize.css">
         <link href="{{ MEDIA_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css" type="text/css" href="">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
     </head>
     <body>
@@ -26,12 +27,13 @@
                         <input type="text" class="search-query" placeholder="Busca y Vende">
                     </form>
                     <ul class="nav">
-                        <li class="divider-vertical"><a href="/">Inicio</a></li>
-                        <li class="divider-vertical"><a href="/notifications">Notificaciones</a></li>
-                        <li class="divider-vertical"><a href="/messages/inbox">Inbox</a></li>
-                        <li class="divider-vertical"><a href="/article/post">Publicar Compra</a></li>
+                        <li class="divider-vertical"><a href="/"><i class="icon-home"></i> Inicio</a></li>
+                        <li class="divider-vertical"><a href="/notifications"><i class="icon-signal"></i> Notificaciones</a></li>
+                        <li class="divider-vertical"><a href="/messages/inbox"><i class="icon-envelope"></i> Inbox</a></li>
+                        <li class="divider-vertical"><a href="/article/post"><i class="icon-plus"></i> Publicar Compra</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-user"></i>
                                 {{ user }}
                                 <b class="caret"></b>
                             </a>
@@ -50,20 +52,18 @@
             </div>
         </header>
 
-        <section id="content">
+        <div class="container">
         {% block content %}
         {% endblock %}
-        </section>
+        </div>
 
         <footer>
             <p>
-                <span>
-                    El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
-                </span>
+                El uso de cuantoo.com implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
+            </p>
 
-                <span>
-                    Copyright © 2012 Brainn SA de CV "Use It And Change The World"
-                </span>
+            <p>
+                Copyright © 2012 Brainn S.A de C.V "Use It And Change The World"
             </p>
         </footer>
 

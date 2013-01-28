@@ -3,5 +3,6 @@ venv
 *.pyo
 *~
 localsettings.py
-howmuch/media/pictures_temp/
+howmuch/media/pictures/
+howmuch/media/profile/
 \#*
