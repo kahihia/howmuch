@@ -9,6 +9,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^', include('howmuch.home.urls')),
 
+    url(r'^comments/', include('django.contrib.comments.urls')),
+    url(r'^login/$',  login),
+    url(r'^logout/$', logout),
+
     url(r'^accounts/', include('registration.backends.default.urls')),
 
     url(r'^account/', include('howmuch.account.urls')),
@@ -19,8 +23,5 @@ urlpatterns = patterns('',
     url(r'^notifications/', include('howmuch.notifications.urls')),
     url(r'^prestige/', include('howmuch.prestige.urls')),
     url(r'^profile/', include('howmuch.profile.urls')),
-
-    url(r'^login/$',  login),
-    url(r'^logout/$', logout),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
