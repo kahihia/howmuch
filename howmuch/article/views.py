@@ -38,7 +38,18 @@ def post(request):
             return HttpResponseRedirect(str(newPost.get_url()) + '?new_post=True')
     else:
         form=ArticleForm()
-    return render_to_response('article/post.html', {'form' : form }, context_instance=RequestContext(request))
+    return render_to_response('article/post.html', {'form' : form }, context_instance = RequestContext(request))
+
+def edit(request, articleID, title_url):
+    current = get_object_or_404(Article, pk = articleID, owner = request.user)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance = current)
+        if form.is_valid():
+            post_edited = form.save()
+            return HttpResponseRedirect(str(post_edited.get_url()))
+    else:
+        form = ArticleForm(instance=current)
+    return render_to_response('article/post.html', {'form' : form }, context_instance = RequestContext(request))
 
 #Para ver un articulo no es necesario hacer login
 def view(request, articleID, title_url):
