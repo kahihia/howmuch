@@ -9,7 +9,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^', include('howmuch.home.urls')),
 
-    url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'^login/$',  login),
     url(r'^logout/$', logout),
 

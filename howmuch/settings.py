@@ -115,7 +115,6 @@ INSTALLED_APPS = (
 
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.formtools',
     'django.contrib.messages',

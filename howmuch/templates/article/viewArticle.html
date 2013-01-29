@@ -76,36 +76,8 @@ Pagan
 </section>
 
 <section class="wrapper-div">
-	{% load comments %}
-
-	{% get_comment_count for article.article article.pk as comment_count %}
-	<p>{{ comment_count }} comments have been posted.</p>
-
-	{% get_comment_list for article.article article.pk as comment_list %}
-	{% for comment in comment_list %}
-	<p>Posted by: {{ comment.user_name }} on {{ comment.submit_date }}
-	<img src="{{ comment.user.profile.get_profile_picture_100x100 }}">
-	</p>
-	<p>Comment: {{ comment.comment }}</p>
-	{% endfor %}
-
-	{% get_comment_form for article as form %}
-	<!-- A context variable called form is created with the necessary hidden
-	fields, timestamps and security hashes -->
-	<table>
-  	<form action="{% comment_form_target %}" method="post">
-    	{% csrf_token %}
-    	{{ form }}
-    	<tr>
-      		<td colspan="2">
-        		<input type="submit" name="submit" value="Post">
-        		<input type="submit" name="preview" value="Preview">
-      		</td>
-    	</tr>
-  	</form>
-	</table>
-	</section>
-
+<!-- Comments Area -->
+</section>
 {% endblock %}
 
 
