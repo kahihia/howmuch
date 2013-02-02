@@ -1,7 +1,6 @@
-{% extends "base.html" %}
+{% extends "3columns.html" %}
 {% block title %}
 {% endblock %}
-
 {% block media %}
 <script type="text/javascript">
 $(document).ready(function(){
@@ -17,19 +16,22 @@ $(document).ready(function(){
 </script>
 {% endblock %}
 
-{% block content %}
+{% block section1 %}
+{% endblock %}
 
+{% block section2 %}
 <div class="comments-area">
 {% for message in messages %}
    <div class="wrapper-div row span8"><div class="span2"><img src="{{ message.owner.profile.get_profile_picture_100x100 }}"></div> <div class="span4">{{ message.message }}</diV> </div>
 {% endfor %}
 </div>
-
 <section class="wrapper-div span9">
 	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
 	<input id="message" name="message" type="text">
 	<input type="submit" value="ENVIAR">
 	</form>
 </section>
+{% endblock %}
 
+{% block section3 %}
 {% endblock %}

@@ -1,78 +1,44 @@
-{% extends "base.html" %}
-{% block title %}
+{% extends "3columns.html" %}
 
-{% endblock %}
+{% block title %}{% endblock %}
 
-{% block media %}
-<link href='http://fonts.googleapis.com/css?family=Actor|Muli|Istok+Web' rel='stylesheet' type='text/css' />
-{% endblock %}
+{% block media %}{% endblock %}
 
-{% block content %}
-
+{% block section2 %}
 <section>
-
 	{% for conversation in conversations %}
-
 		{% if conversation.has_unread_messages %}
-
 			{% if conversation.assignment.owner == user %} 
-
 				{% if conversation.getNumber_unread_messages_seller > 0 %}
-
 				<article class="wrapper-div">
-
-				
 					<b><span>({{ conversation.getNumber_unread_messages_seller }})</span></b>
-	
-
 				{% else %}
-					
 				<article class="wrapper-div">
-
 				{% endif %}
-
 			{% else %}
-
 			{% if conversation.assignment.article.owner == user %}
-
 				{% if conversation.getNumber_unread_messages_buyer > 0%}
-
 				<article class="wrapper-div">
-
-					
 					<b><span>({{ conversation.getNumber_unread_messages_buyer }})</span></b>
-			
-					
 				{% else %}
-
 				<article class="wrapper-div">
-
 				{% endif %}
-
 			{% endif %}{% endif %}
-
 		{% else %}
 				<article class="wrapper-div">
 		{% endif %}
-
-	
 					<div>
 						<img src="" width="50" height="50">
 					</div>
-
 					<div>
 						<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a></span></br>
 						<span>{{ conversation.get_latest_message.message }}</span></br>
 						<div>
 							<span>hace {{ conversation.get_latest_message.get_timestamp }}</span>
 						</div>
-				
 					</div>
 				</article>
-
 	{% endfor %}
-
-	
 </section>
 
 

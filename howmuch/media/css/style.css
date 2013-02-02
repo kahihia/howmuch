@@ -17,9 +17,6 @@ footer{
 footer a{
 	color: black !important;
 }
-.content{
-	min-height: 500px;
-}
 .image-preview-wrapper{
 	width: 100px;
 	height: 100px;

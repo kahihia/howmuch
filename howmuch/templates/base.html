@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>{% block title %}{% endblock%}</title>
         {% block facebooktags %}{% endblock %}
-        <meta name="description" content="Publica Compras al precio que quieras y recibe las mejores ofertas de Vendedores">
+        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{{ MEDIA_URL }}css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/normalize.css">
@@ -21,71 +21,23 @@
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
         <header>
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <form class="navbar-search pull-left">
-                        <input type="text" class="search-query" placeholder="Busca y Vende">
-                    </form>
-                    <ul class="nav">
-                        <li class="divider-vertical"><a href="/"><i class="icon-home"></i> Inicio</a></li>
-                        <li class="divider-vertical"><a href="/notifications"><i class="icon-signal"></i> Notificaciones <span class="unread">{{ user.profile.unread_notifications}}</span></a></li>
-                        <li class="divider-vertical"><a href="/messages/inbox"><i class="icon-envelope"></i> Inbox <span class="unread">{{ user.profile.unread_conversations}}</span></a></li>
-                        <li class="divider-vertical"><a href="/article/post"><i class="icon-plus"></i> Publicar Compra</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-user"></i>
-                                {{ user }}
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/account/purchases/published">Mis Compras</a></li>
-                                <li><a href="/account/sales/possible">Mis Ventas</a></li>
-                                <li><a href="/profile/e/edit">Mi Perfil</a></li>
-                                <li><a href="/config/notifications">Configuracion</a></li>
-                                <li><a href="/logout">Cerrar Sesion</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                </div>
-
-            </div>
+            {% include "navbar.html" %}
         </header>
 
-        <div class="container content">
+        <div class="container-fluid">
         {% block content %}
 
-        
         {% endblock %}
         </div>
 
         <footer>
-            <center>
-            <p>
-                El uso de cuantoo.com implica que estas de acuerdo con la aceptación de los <a href="#">Términos y Condiciones</a> y de las <a href="#">Políticas de Privacidad</a>
-            </p>
-
-            <p>
-                Copyright © 2013 <a href="http://brainn.co">Brainn</a> S.A de C.V "Use It And Change The World"
-            </p>
-            </center>
-
+            {% include "footer.html" %}
         </footer>
 
         <script src="{{ MEDIA_URL }}js/plugins.js"></script>
         <script src="{{ MEDIA_URL}}js/bootstrap.min.js"></script>
         {% block media %}
         {% endblock %}
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-26190176-5']);
-            _gaq.push(['_trackPageview']);
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
         </script>
     </body>
 </html>

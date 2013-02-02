@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "3columns.html" %}
 
 {% block title %}
 
@@ -8,7 +8,7 @@
 
 {% endblock %}
 
-{% block content %}
+{% block section2 %}
 
 	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 		{{ form }}

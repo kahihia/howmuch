@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "3columns.html" %}
 {% block title %}
 Aplico para Vender el Articulo {{ article.title }}
 {% endblock %}
@@ -6,8 +6,8 @@ Aplico para Vender el Articulo {{ article.title }}
 {% block media %}
 {% endblock %}s
 
-{% block content %}
-<section class="wrapper-div span9">
+{% block section2 %}
+<section class="wrapper-div">
 	{% if form.errors %}
 	<div class="alert alert-error">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>

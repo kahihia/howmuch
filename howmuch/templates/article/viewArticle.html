@@ -1,7 +1,6 @@
-{% extends "base.html" %}
-{% block title %}
-Pagan 
-{% endblock %}
+{% extends "3columns.html" %}
+
+{% block title %}{% endblock %}
 
 {% block facebooktags %}
 <meta property="og:title" content="Pagan ${{ article.price }} por {{ article.title}}"/>
@@ -13,11 +12,10 @@ Pagan
     content="{{ article.description|truncatechars:100}}"/>
 {% endblock %}
 
-{% block media %}
-{% endblock %}
+{% block media %}{% endblock %}
 
-{% block content %}
-<section class="container wrapper-div">
+{% block section2 %}
+<section class="wrapper-div">
 	<article>
 	{% if new_post %}
 	<div class="alert alert-success">

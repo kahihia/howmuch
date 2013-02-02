@@ -1,13 +1,11 @@
-{% extends "base.html" %}
-{% block title %}
+{% extends "3columns.html" %}
 
-{% endblock %}
-{% block media %}
+{% block title %}{% endblock %}
 
-{% endblock %}
+{% block media %}{% endblock %}
 
-{% block content %}
-<section class="span11">
+{% block section2 %}
+<section>
 	<form class="form-horizontal wrapper-div" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
 		<center><h2>Compra al precio que quieras</h2></center>
@@ -99,8 +97,5 @@
 			
 </form>
 </section>
-
-
-
 {% endblock %}
 

@@ -8,22 +8,22 @@ class ArticleForm(ModelForm):
         model = Article
         exclude = ('owner','date','title_url')
         widgets = {
-        'price' : TextInput(attrs = {'class' : 'span7'}),
-        'title' : TextInput(attrs = {'class' : 'span7'}),
-        'description' : Textarea(attrs = {'class' : 'span7'}),
-        'quantity' : TextInput(attrs = {'class' : 'span7'}),
-        'category' : Select(attrs = {'class' : 'span7'}),
-        'state' : Select(attrs = {'class' : 'span7'}),
-        'addressDelivery' : Select (attrs={'class' : 'span7'}),
+        'price' : TextInput(attrs = {'class' : ''}),
+        'title' : TextInput(attrs = {'class' : ''}),
+        'description' : Textarea(attrs = {'class' : ''}),
+        'quantity' : TextInput(attrs = {'class' : ''}),
+        'category' : Select(attrs = {'class' : ''}),
+        'state' : Select(attrs = {'class' : ''}),
+        'addressDelivery' : Select (attrs={'class' : ''}),
         }
 
 class OfferForm(forms.Form):
     quantity = forms.IntegerField(
-        widget = forms.TextInput(attrs = {'class' : 'span1'}))
+        widget = forms.TextInput(attrs = {'class' : ''}))
     cprice = forms.IntegerField(
-        widget = forms.TextInput(attrs = {'class' : 'span1'}))
+        widget = forms.TextInput(attrs = {'class' : ''}))
     message = forms.CharField(
-        widget = forms.Textarea(attrs = {'class' : 'span9'}))
+        widget = forms.Textarea(attrs = {'class' : ''}))
     picture1 = forms.ImageField(
         widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 'onChange' : "readURL(this,'image1')"}))
     picture2 = forms.ImageField(required=False,
