@@ -13,8 +13,13 @@ def notifications_config(request):
         form = NotificationsConfigForm(request.POST, instance = current )
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('')
+            return HttpResponseRedirect('' + '?save_changes=True')
     else:
         form = NotificationsConfigForm(instance=current)
-    return render_to_response('config/config.html', {'form' : form }, context_instance = RequestContext(request))
+    if request.GET.__contains__('save_changes') and request.GET['save_changes']:
+    	save_changes = True
+    else:
+    	save_changes = False
+    return render_to_response('config/config.html', {'form' : form, 'save_changes' : save_changes}, 
+    	context_instance = RequestContext(request))
 

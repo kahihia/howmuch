@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, Textarea
 from howmuch.messages.models import Message 
 
 class MessageForm(ModelForm):
@@ -7,5 +7,5 @@ class MessageForm(ModelForm):
         model = Message
         exclude = ('owner', 'date', 'conversation')
         widgets = {
-            'message' : TextInput(attrs={'class':'InputSendMessage','placeholder' : 'Escribe un mensaje aqui...'},),
+            'message' : Textarea(attrs={'class' : 'span6', 'rows' : 2,'placeholder' : 'Escribe un mensaje aqui...'}),
         }

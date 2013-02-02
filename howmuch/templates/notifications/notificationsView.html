@@ -27,27 +27,9 @@
 	<article>
 
 	{% endif %}
-
-		{% if notification.tipo == 'offer' %}
-		<div>
-		{% else %}
-		{% if notification.tipo == 'assignment' %}
-		<div>
-		{% else %}
-		{% if notification.tipo == 'confirm_pay' %} 
-		<div>
-		{% else %}
-		{% if notification.tipo == 'confirm_delivery' %} 
-		<div>
-		{% else %}
-		{% if notification.tipo == 'critique' %} 
-		<div>
-		{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-		</div>
-
 		<div>
 
-			<a href="{{notification.redirect}}">{{ notification.title }}</a>
+			<a href="{{notification.get_url}}">{{ notification.title }}</a>
 
 		</div>
 

@@ -5,61 +5,74 @@
 {% endblock %}
 {% block content %}
 
-<section>
-	<section>
-		<form action="" method="POST" >{% csrf_token %}
-			<div>
-				<div>
+
+
+<section class="wrapper-div span7">
+
+	{% if save_changes %}
+
+	<div class="alert alert-success">
+    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	<h4>Felicidades!</h4>
+    	Cambios guardados Correctamente
+	</div>
+
+    {% endif %}
+
+	<h3>Notificaciones</h3>
+	
+	<form action="" method="POST" >{% csrf_token %}
+			<div class="row">
+				<div class="span1">
 					{{form.new_offer }}
 				</div>
-				<div>
+				<div class="span6">
 					<p>Recibir email cuando tenga una nueva oferta para alguno de mis articulos publicados</p>
 				</div>
 			</div>
-			<div>
-				<div>
+			<div class="row">
+				<div class="span1">
 					{{ form.new_sale }}
 				</div>
-				<div>
+				<div class="span6">
 					<p>Recibir email cuando sea seleccionado como Vendedor</p>
 				</div>
 			</div>
-			<div>
-				<div>
+			<div class="row">
+				<div class="span1">
 					{{ form.new_message }}
 				</div>
-				<div>	
+				<div class="span6">	
 					<p>Recibir email cuando reciba un nuevo mensaje</p>
 				</div>
 			</div>
-			<div>
-				<div>
+			<div class="row">
+				<div class="span1">
 					{{ form.confirm_pay }}
 				</div>
-				<div>
+				<div class="span6">
 					<p>Recibir email cuando me confirmen el pago de algun articulo</p>
 				</div>
 			</div>
-			<div>
-				<div>
+			<div class="row">
+				<div class="span1">
 					{{ form.confirm_delivery }}
 				</div>
-				<div>
+				<div class="span6">
 					<p>Recibir email cuando me confirmen el envio de algun articulo</p>
 				</div>
 			</div>
-			<div>
-				<div>
+			<div class="row">
+				<div class="span1">
 					{{ form.new_critique }}
 				</div>
-				<div>
+				<div class="span6">
 					<p>Recibir email cuando reciba alguna critica</p>
 				</div>
 			</div>
-			<div>
-				<input type="submit"  value="Guardar">
-			</div>
+			<center>
+				<input class="btn btn-primary btn-large" type="submit"  value="Guardar">
+			</center>
 		</form>
-	</section>
 </section>
 {% endblock %}

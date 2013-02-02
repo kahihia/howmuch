@@ -60,8 +60,7 @@ class Article(models.Model):
     def has_candidates(self):
         if Offer.objects.filter(article = self).exists():
             return True
-        else:
-            return False
+        return False
 
     def getNumber_candidates(self):
         return Offer.objects.filter(article = self).count()

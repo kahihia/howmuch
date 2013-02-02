@@ -1,6 +1,10 @@
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+
 from howmuch.article.models import Article, Offer, Assignment
 from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, PrestigeLikeBuyer, PrestigeLikeSeller
 from howmuch.messages.models import Conversation
+
 
 class AboutArticle(object):
     def __init__(self, user, itemid):
@@ -93,8 +97,29 @@ class AboutAssignment(object):
             return True
         return False
 
+#More Functions used in article views
 
+def validate_assignment(articleID,request):
+    #Validar que el item exista y que el owner de el sea el request.user
+    try:
+        article = Article.objects.get(pk= articleID, owner=request.user)
+    except Article.DoesNotExist:
+        return HttpResponse("No tienes permiso para Asignar este Solicutud")
+    else:
+        pass
+    #Validar que no exista Asignacion
+    try:
+        Assignment.objects.get(article = article )
+    except Assignment.DoesNotExist:
+        pass
+    else:
+        return HttpResponse("Esta Asignacion ya Existe")
 
-
-
-
+def validate_offer(articleID, request):
+    #Se crea una instancia de AboutArticle, funcion que realiza algunas verificaciones
+    aboutArticle = AboutArticle(request.user, articleID) 
+    #Se valida la instancia: User is not candidate, is not owner, is not assigned
+    if aboutArticle.is_valid():
+        pass
+    else:
+        return render_to_response('article/offer.html', {'errors' : aboutArticle.errors() }, context_instance=RequestContext(request))

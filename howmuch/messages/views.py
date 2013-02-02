@@ -1,123 +1,52 @@
-# -*- coding: utf-8 -*-
-import json
-
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
-from howmuch.article.functions import AboutAssignment
 from howmuch.messages.forms import MessageForm
+from howmuch.messages.functions import *
 from howmuch.messages.models import Conversation, Message
-from howmuch.notifications.models import Notification
 from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, PrestigeLikeBuyer, PrestigeLikeSeller
-from howmuch.profile.models import Profile
 
-def create_unread_conversation(owner):
-    profile = Profile.objects.get(user = owner)
-    profile.unread_conversations += 1
-    profile.save()
-
-def postMessage(request, conversationID):
-
-    profileUser = Profile.objects.get(user = request.user)
-    #Verificar que la conversacion Exista
-    conversation = get_object_or_404(Conversation, pk = conversationID)
-    #Se verifica que quien publica el mensaje en la conversacion sea el buyer o seller
-    if conversation.assignment.is_inside(request.user):
-        pass
-    else:
-        return HttpResponse("No tienes permiso para publicar en esta conversacion")
-    #Si vienes de una notificacion, realizar las verificaciones y actualizar a True el status de la notificacion
-    if request.GET.__contains__('notif_type') and request.GET.__contains__('idBack'):
-        if request.GET['notif_type'] in ['assignment', 'confirm_pay', 'confirm_delivery', 'critique'] and request.GET['idBack'] is not '' :
-            notif_type = request.GET['notif_type']
-            idBack = request.GET['idBack']
-            try:
-                #Me aseguro que el usuario sea el dueño de la notificacion, que la notificacion este en False y la paso a True
-                notification = Notification.objects.get(owner=request.user, tipo = notif_type, has_been_readed = False ,idBack = idBack)
-            except Notification.DoesNotExist:
-                pass
-            else:
-                notification.has_been_readed = True
-                notification.save()     
-                #Se le quita una notificacion al total de notificaciones del usuario
-                profileUser.unread_notifications -= 1
-                profileUser.save()
-
-
-    #Verifica si es comprador y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
-    if conversation.assignment.is_buyer(request.user) and conversation.getNumber_unread_messages_buyer() > 0:
-        messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
-        for message in messages:
-            message.has_been_readed = True
-            message.save()
-        #Se le quita una conversacion sin leer al total de conversaciones sin leer
-        profileUser.unread_conversations -= 1
-        profileUser.save()
-
-
-    #Verifica si es el vendedor y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversacion
-    if conversation.assignment.is_seller(request.user) and conversation.getNumber_unread_messages_seller() > 0:
-        messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
-        for message in messages:
-            message.has_been_readed = True
-            message.save()
-        #Se le quita una conversacion sin leer al total de conversaciones sin leer
-        profileUser.unread_conversations -= 1
-        profileUser.save()
-    #Se crea una instancia de AboutAssignment para utilizar esa informacion en la conversacion
-    thisAssignment = AboutAssignment(conversation.assignment)
-
+#Envia un mensaje a la conversation via ajax
+@login_required(login_url = '/login/')
+def send(request, conversationID):
+    conversation = get_object_or_404(Conversation, pk=conversationID)
+    #Verificacion de usuario
+    verify_user(request.user, conversation)
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
-            #Si es comprador y en esta conversacion el vendedor No tiene mensajes sin leer, se agrega un mensaje sin leer al vendedor y viceversa
-            if conversation.assignment.is_buyer(request.user) and conversation.getNumber_unread_messages_seller() == 0:
-                create_unread_conversation(conversation.assignment.owner)
-            elif conversation.assignment.is_seller(request.user) and conversation.getNumber_unread_messages_buyer() == 0:
-                create_unread_conversation(conversation.assignment.article.owner)
-
-            #Crear el mensaje
-            newMessage = form.save(commit = False)
+            update_status_conversation(request.user, conversation)
+            newMessage = form.save(commit=False)
             newMessage.owner = request.user
             newMessage.conversation = conversation
             newMessage.save()
+            html_response = '<div class="wrapper-div row span8"><div class="span2"><img src="%s"></div> <div class="span4">%s</diV> </div>' % (newMessage.owner.profile.get_profile_picture_100x100(), newMessage.message)
+            #create unread conversations
+            return HttpResponse(html_response)
 
-            #Se sobre escribe el valor de last_message en la conversacion
-            conversation.last_message = newMessage.date
-            conversation.save()
-
-            #Envia el mensaje por mail al destinatario
-            subject = 'Tienes un Nuevo mensaje sobre el articulo %s' % (conversation.assignment.article.title)
-            message = 'Has recibido el siguiente mensaje de: %s, %s' % (request.user, newMessage.message)
-
-            #Si el comprador envia el mensaje, el correo le llega al vendedor y viceversa
-            if conversation.assignment.is_buyer(request.user):
-                to = conversation.assignment.owner
-            else:
-                to = conversation.assignment.article.owner
-
-            #Se envia un email solo si el receptor tiene activada la opcion
-            if to.notifications.new_message:
-                send_mail(subject,message,'',[to.email])
-
-            return HttpResponseRedirect('/messages/' + conversationID)
-    else:
-        form = MessageForm()
+@login_required(login_url = '/login/')
+def view_conversation(request, conversationID):
+    conversation = get_object_or_404(Conversation, pk = conversationID)
+    #Se verifica que quien publica el mensaje en la conversation sea el buyer o seller
+    verify_user(request.user, conversation)
+    #Si vienes de una notificacion, realizar las verificaciones y actualizar a True el status de la notificacion
+    update_status_notification(request)
+    #Verifica si es comprador y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversation
+    if conversation.assignment.is_buyer(request.user):
+        update_status_messages_buyer(conversation)
+    #Verifica si es vendedor y tiene mensajes sin leer, en caso que si cambia el status de cada mensaje sin leer en la conversation
+    if conversation.assignment.is_seller(request.user):
+        update_status_messages_seller(conversation)
     allmessages = Message.objects.filter(conversation = conversation).order_by('date')
-    return render_to_response('messages/conversation.html', {'form' : form, 
-            'messages' : allmessages, 'user' : request.user, 'conversation' : conversation, 'assignmentFeatures' : thisAssignment }, context_instance = RequestContext(request))
+    return render_to_response('messages/conversation.html', {'messages' : allmessages, 'conversation' : conversation }, context_instance = RequestContext(request))
 
+@login_required(login_url = '/login/')
 def inbox(request):
     conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__article__owner = request.user)).order_by('-last_message')
     return render_to_response('messages/inbox.html',{'conversations' : conversations}, context_instance = RequestContext(request))
-
-"""
-Solicitudes de Información en la Conversacion
-"""
 
 @login_required(login_url = '/login/')
 def getInfoBuyer(request,conversationID):

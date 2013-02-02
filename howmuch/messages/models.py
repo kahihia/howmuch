@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
 
 from howmuch.article.models import Assignment
 from howmuch.utils import get_timestamp
@@ -23,29 +24,32 @@ class Conversation(models.Model):
     def __unicode__(self):
         return u'Assignment to: %s ' % (self.assignment.article)
 
+    def create_empty_conversation(sender, instance, created, **kwargs):
+        if created:
+            Conversation.objects.create(assignment=instance)
+
+    post_save.connect(create_empty_conversation, sender=Assignment)
+
     def get_latest_message(self):
         messages =  Message.objects.filter(conversation=self).order_by('-date')[:1]
         for message in messages:
             return message
 
-    """
-    Mensajes sin leer para el buyer
-    """
+
+    #Mensajes sin leer para el buyer
     def getNumber_unread_messages_buyer(self):
         return Message.objects.filter(owner = self.assignment.owner , conversation=self, has_been_readed=False).count()
 
-    """
-    Mensajes sin leer para el seller
-    """
+
+    #Mensajes sin leer para el seller    
     def getNumber_unread_messages_seller(self):
         return Message.objects.filter(owner= self.assignment.article.owner , conversation=self, has_been_readed=False).count()
+        
 
     def has_unread_messages(self):
         if self.getNumber_unread_messages_seller() > 0 or self.getNumber_unread_messages_buyer() > 0:
             return True
         return False
-
-
 
 class Message(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by Message")

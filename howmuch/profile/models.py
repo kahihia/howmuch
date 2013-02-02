@@ -58,17 +58,36 @@ class Profile(models.Model):
     def __unicode__(self):
         return u'%s' % (self.user)
 
+#Se crea el perfil del usuario en el momento que se crea al usuario
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
 
     post_save.connect(create_user_profile, sender=User)
 
-    def getAddressDelivery(self):
-        return 0
+    def add_unread_notification(self):
+        self.unread_notifications += 1
+        self.save()
 
-    def isComplete(self):
-        return 0
+    def remove_unread_notification(self):
+        self.unread_notifications -= 1
+        self.save()
+
+    def add_unread_conversation(self):
+        self.unread_conversations += 1
+        self.save()
+
+    def remove_unread_conversation(self):
+        self.unread_conversations -= 1
+        self.save()
+
+    def add_purchases(self):
+        self.total_purchases += 1
+        self.save()
+
+    def add_sales(self):
+        self.total_sales += 1
+        self.save()
 
     def get_profile_picture_50x50(self):
         return str(self.profile_picture.url_50x50).split("?")[0]
@@ -84,9 +103,6 @@ class Profile(models.Model):
         for bank in self.banks.all():
             banks += 'Banco: %s, Cta: %s. ' % (bank.bank, bank.account)
         return str(banks)
-
-    def get_phones(self):
-        return 0
 
 
 

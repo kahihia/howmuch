@@ -10,27 +10,40 @@
 
 <section>
 {% for candidate in candidates %}
-<article class="wrapper-div">
-
-{{ candidate.date }}
-
-{{ candidate.quantity }}
-
-{{ candidate.cprice }}
-
-{{ candidate.message }}
-
-<div>
-	{% for picture in candidate.pictures.all %}
+<article class="wrapper-div span10">
 	<div>
-		<img src="{{ picture.get_url_100x100 }}">
+		{{ candidate.date }}
 	</div>
-	{% endfor %}
-</div>
 
-<div>
-	<a href="/article/assignment/{{ article.pk }}/{{ candidate.owner.pk }}">Seleccionar</a>
-</div>
+	<div class="row">
+		<div class="span2">
+			<img src="{{ candidate.owner.profile.get_profile_picture_100x100 }}">
+		</div>
+
+		<div class="span7">
+			<h2><a href="/profile/{{ candidate.owner }}">{{ candidate.owner }}</a> te vende {{ candidate.quantity }} articulos a ${{ candidate.cprice }}</h2>
+		</div>
+	</div>
+
+	<h3>Imagenes del Articulo</h3>
+
+	<div class="row">
+	{% for picture in candidate.pictures.all %}
+		<div class="span2">
+			<img src="{{ picture.get_url_100x100 }}">
+		</div>
+	{% endfor %}
+	</div>
+
+	<h3>Mensaje de <a href="/profile/{{ candidate.owner }}">{{ candidate.owner }}</a></h3>
+
+	<div>
+		{{ candidate.message }}
+	</div>
+
+	<center>
+		<a class="btn btn-primary btn-large"href="/article/assignment/{{ article.pk }}/{{ candidate.owner.pk }}">Seleccionar</a>
+	</center>
 </article>
 {% endfor %}
 </section>

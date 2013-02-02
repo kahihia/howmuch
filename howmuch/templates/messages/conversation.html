@@ -1,232 +1,35 @@
 {% extends "base.html" %}
 {% block title %}
-
 {% endblock %}
 
 {% block media %}
-<link href='http://fonts.googleapis.com/css?family=Actor|Muli|Istok+Web' rel='stylesheet' type='text/css' />
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#message-form').submit(function(e){
+		e.preventDefault();
+		$.post('/messages/send/{{ conversation.pk }}/', 
+			$('#message-form').serialize(), 
+			function(data){
+				$('.comments-area').append(data);
+		});
+	});
+})
+</script>
 {% endblock %}
 
 {% block content %}
 
-<section>
+<div class="comments-area">
+{% for message in messages %}
+   <div class="wrapper-div row span8"><div class="span2"><img src="{{ message.owner.profile.get_profile_picture_100x100 }}"></div> <div class="span4">{{ message.message }}</diV> </div>
+{% endfor %}
+</div>
 
-	{% if conversation.assignment.get_buyer == user %}
-
-	<article>
-
-		{% if assignmentFeatures.has_been_delivered %}
-
-		<p>
-			<b>{{ conversation.assignment.get_seller.get_full_name }}</b> Te ha confirmado el Envio de tu Articulo
-		</p>
-
-		<a href="/messages/infoconfirmdelivery/{{ conversation.pk }}">Ver Detalles de envio</a>
-
-		{% else %}
-
-		<p>Aun no te han confirmado el Envio de tu Articulo</p>
-
-		{% endif %}
-
-	</article>
-
-	<article>
-
-		{% if assignmentFeatures.has_been_critiqued_by_seller %}
-
-		<p>
-			<b>{{ conversation.assignment.get_seller.get_full_name }}</b> Te ha criticado
-		</p>
-
-		<a href="/messages/infocritique/{{ conversation.pk }}">Ver Critica</a>
-
-		{% else %}
-
-		<p>Aun no te han criticado</p>
-		
-		{% endif %}
-
-	</article>
-
-	{% else %}
-	{% if conversation.assignment.get_seller == user %}
-
-	<article>
-
-		{% if assignmentFeatures.has_been_paid %}
-
-		<p><b>{{ conversation.assignment.get_buyer.get_full_name }}</b> Te ha confirmado el Pago tu Articulo</p>
-		<a href="/messages/infoconfirmpay/{{ conversation.pk }}">Ver Detalles de Pago</a>
-		{% else %}
-
-		<p>Aun no te han confirmado el Pago de tu Articulo</p>
-
-		{% endif %}
-
-	</article>
-
-
-	<article>
-
-		{% if assignmentFeatures.has_been_critiqued_by_buyer %}
-
-		<p>
-			<b>{{ conversation.assignment.get_buyer.get_full_name }}</b> Te ha criticado
-		</p>
-		<a href="/messages/infocritique/{{ conversation.pk }}">Ver Critica</a>
-		{% else %}
-		<p>Aun no te han criticado</p>
-		{% endif %}
-
-	</article>
-
-
-
-
-	{% endif%}{% endif %}
-
-
-</section>
-
-<section>
-
-	<article>
-		<h3>Comprador{% if conversation.assignment.get_buyer == user %}(Tu){% endif %}</h3>
-		<div>
-			<span><b>Nombre</b></span>
-			<p>{{ conversation.assignment.get_buyer.get_full_name }}</p>
-		</div>
-		<div>	
-			<span><b>Dirección de Envio</b></span>
-			<p>{{ conversation.assignment.article.addressDelivery|title }}</p>
-		</div>
-		<div>
-			<span><b>E-mail</b></span>
-			<p>{{ conversation.assignment.get_buyer.email }}</p>
-		</div>
-		<div>
-			<span><b>Telefonos</b></span>
-			{% for phone in conversation.assignment.get_buyer.profile.phones.all %}
-				<p>{{ phone }}</p>
-			{% empty %}
-				<p>No se han registrado Telefonos</p>
-			{% endfor %}
-		</div>
-
-		<div>
-			<a href="/messages/infobuyer/{{ conversation.pk }}">Mas Información</a>
-		</div>
-	</article>
-
-	<article>
-		<h3>Vendedor{% if conversation.assignment.get_seller == user %}(Tu){% endif %}</h3>
-		<div>
-			<span><b>Nombre</b></span>
-			<p>{{ conversation.assignment.get_seller.get_full_name }}</p>
-		</div>
-		<div>
-			<span><b>E-mail</b></span>
-			<p>{{ conversation.assignment.get_seller.email }}</p>
-		</div>
-		<div>
-			<span><b>Telefonos</b></span>
-			{% for phone in conversation.assignment.get_seller.profile.phones.all %}
-				<p>{{ phone }}</p>
-			{% empty %}
-				<p>No se han registrado Telefonos</p>
-			{% endfor %}
-		</div>
-		<div>
-			<span><b>Cuenta Bancaria</b></span>
-			{% for account in conversation.assignment.get_seller.profile.banks.all %}
-				<p>{{ account }}</p>
-			{% empty %}
-				<p>Este usuario aun no registra sus datos bancarios</p>
-			{% endfor %}
-		</div>
-
-		<div>
-			<a href="/messages/infoseller/{{ conversation.pk }}">Mas Información</a>
-		</div>
-	</article>
-</section>
-
-<section>
-
-	<section>
-		<span>Asignacion: <b>{{ conversation.assignment.pk }}</b></span>
-		<span>Articulo: <b>{{ conversation.assignment.article.pk }}</b></span>
-	</section>
-
-	<section>
-		<div>
-			<span>{{ conversation.assignment.article.title }}</span>
-		</div>
-	</section>
-
-	<section>
-
-		
-
-	</section>
-
-	<section>
-		{% for message in messages %}
-			{% if message.owner == user %}
-				<article>
-			{% else %}
-				<article>
-			{% endif %}
-					<div >
-						<img src="{{ message.owner.get_profile.get_profile_picture_50x50}}">
-					</div>
-					<div>
-						<span>{{ message.message }}</span>
-					</div>
-
-					<b><span >hace {{ message.get_timestamp }}</span></b>
-					
-							
-				
-				</article>
-		{% endfor %}
-	</section>
-
-	<section>
-		<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<div>
-				{{ form.message }}
-			</div>
-			<input type="submit" value="ENVIAR">
-		</form>
-	</section>
-
-</section>
-
-<section>
-	<article>
-		<h4>Opciones</h4>
-		<ul>
-			{% if conversation.assignment.article.owner == user%}
-			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
-			<li><a href="/prestige/setprestigetoseller/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
-			{% else %}
-			{% if conversation.assignment.owner == user %}
-			<li><a href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
-			<li><a href="/prestige/setprestigetobuyer/{{ conversation.assignment.pk }}">Realizar Critica</a></li>
-			{% endif %}{% endif %}
-			
-			<li><a href="#">Solucionar Problemas</a></li>
-		</ul>
-	</article>
-
-	<article>
-		<h4>Status</h4>
-	</article>
-
-
-
+<section class="wrapper-div span9">
+	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<input id="message" name="message" type="text">
+	<input type="submit" value="ENVIAR">
+	</form>
 </section>
 
 {% endblock %}

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-	<section>
+	<section class="wrapper-div">
 		<p>
 		Has seleccionado a <b>{{ candidate }}</b> para que te venda el articulo <b>{{ article.title }}</b>
 		</p>
@@ -16,7 +16,7 @@
 				{{ form.comment.errors }}
 			</div>	
 			<div style="text-align:center">
-				<input type="submit" value="SELECCIONAR">
+				<input class="btn btn-large btn-primary" type="submit" value="Continuar">
 			</div>
 		</form>
 	</section>

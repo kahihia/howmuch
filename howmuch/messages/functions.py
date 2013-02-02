@@ -1,36 +1,56 @@
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
+from django.http import HttpResponse
 
-from howmuch.article.models import Assignment, Article
-from howmuch.messages.models import Conversation, Message
+from howmuch.messages.models import Message
+from howmuch.notifications.models import Notification
 
-class ConversationOptions(object):
-    def __init__(self,buyer,seller, conversation):
-        self.buyer = buyer
-        self.seller = seller
-        self.conversation = conversation
+#Verifica que un usuario en determinada conversation sea comprador o vendedor de la misma
+def verify_user(user, conversation):
+    if conversation.assignment.is_inside(user):
+        pass
+    else:
+        return HttpResponse('Error')
 
-    def createMessageByBuyer(self):
-        #Se crea el mensaje de inicio para comprador
-        theMessage = "Hola " + str(self.seller.first_name) + ", la Direccion a la que quiero que envies el producto es: " + str(self.conversation.assignment.article.addressDelivery.get_address())
-        #se envia un mail con el mensaje de inicio del comprador para el vendedor
-        subject = 'Direccion de envio del articulo %s' % (self.conversation.assignment.article.title)
-        message = theMessage
-        de = ''
-        to = [str(self.seller.email)] 
-        send_mail(subject,message,de,to)
+#Si tiene mensajes sin leer cambia el status de cada mensaje sin leer en la conversation
+def update_status_messages_buyer(conversation):
+    if conversation.getNumber_unread_messages_buyer() > 0:
+        messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
+        for message in messages:
+            message.has_been_readed = True
+            message.save()
+        #Se le quita una conversation sin leer al total de conversationes sin leer
+        conversation.assignment.article.owner.profile.remove_unread_conversation()
 
 
-    def createMessageBySeller(self):
-        #Se crea el mensaje de inicio para comp
+#Si tiene mensajes sin leer cambia el status de cada mensaje sin leer en la conversation
+def update_status_messages_seller(conversation):
+    if conversation.getNumber_unread_messages_seller() > 0:
+        messages = Message.objects.filter(conversation = conversation, has_been_readed=False)
+        for message in messages:
+            message.has_been_readed = True
+            message.save()
+        #Se le quita una conversation sin leer al total de conversationes sin leer
+        conversation.assignment.owner.profile.remove_unread_conversation()
 
-        theMessage = "Gracias, las cuentas bancarias a las que me puedes depositar son: " + self.seller.profile.get_banks() + " , En cuanto este confirmado el Deposito, yo te enviare el Producto"
-        #se envia un mail con el mensaje de inicio del comprador para el vendedor
-        subject = 'Informacion de pago para el articulo %s' % (self.conversation.assignment.article.title)
-        message = theMessage
-        de = ''
-        to = [str(self.buyer.email)] 
-        send_mail(subject,message,de,to)
+def update_status_notification(request):
+    if request.GET.__contains__('notif_id'):
+        try:
+            notificacion = Notification.objects.get(owner=request.user, pk = request.GET['notif_id'], has_been_readed=False)
+        except Notification.DoesNotExist:
+            pass
+        else:
+            notificacion.has_been_readed = True
+            notificacion.save()
+            request.user.profile.remove_unread_notification()
+
+def update_status_conversation(user, conversation):
+    #Si es comprador y en esta conversacion el vendedor No tiene mensajes sin leer, se agrega un mensaje sin leer al vendedor y viceversa
+    if conversation.assignment.is_buyer(user) and conversation.getNumber_unread_messages_seller() == 0:
+        conversation.assignment.owner.profile.add_unread_conversation()
+    #Si es vendedor y en esta conversacion el comprador No tiene mensajes sin leer, se agrega un mensaje sin leer al comprador y viceversa
+    elif conversation.assignment.is_seller(user) and conversation.getNumber_unread_messages_buyer() == 0:
+        conversation.assignment.article.owner.profile.add_unread_conversation()
+
+
 
 
 
