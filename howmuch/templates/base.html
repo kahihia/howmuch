@@ -24,15 +24,17 @@
             {% include "navbar.html" %}
         </header>
 
-        <div class="container-fluid">
-        {% block content %}
-
+        {% block search-bar %}
+        <!-- search bar -->
         {% endblock %}
+
+        <div class="container-fluid">
+        {% block content %} {% endblock %}
         </div>
 
-        <footer>
-            {% include "footer.html" %}
-        </footer>
+        
+        {% include "footer.html" %}
+        
 
         <script src="{{ MEDIA_URL }}js/plugins.js"></script>
         <script src="{{ MEDIA_URL}}js/bootstrap.min.js"></script>

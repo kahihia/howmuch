@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render_to_response
+from django.template import RequestContext
 
 from howmuch.article.models import Article, Offer, Assignment
 from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, PrestigeLikeBuyer, PrestigeLikeSeller

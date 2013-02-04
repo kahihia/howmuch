@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block section2 %}
-<section>
+<section class="color8">
 	<form class="form-horizontal wrapper-div" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
 		<center><h2>Compra al precio que quieras</h2></center>
@@ -97,9 +97,13 @@
 			</div>
 		</div>
 
-		<center><input class="btn btn-primary btn-large" type="submit" value="Publicar"></center>
+		<center><input class="btn btn-primary btn-large" data-loading-text="Loading..." type="submit" value="Publicar"></center>
 			
 </form>
 </section>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
 
