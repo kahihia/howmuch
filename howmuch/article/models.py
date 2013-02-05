@@ -100,7 +100,7 @@ class Offer(models.Model):
     #Precio contra oferta
     quantity = models.IntegerField()
     cprice = models.IntegerField() 
-    message = models.CharField(max_length=140)
+    message = models.CharField(max_length=1024)
     pictures = models.ManyToManyField(Picture)
 
     def __unicode__(self):

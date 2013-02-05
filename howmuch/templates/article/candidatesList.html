@@ -4,43 +4,41 @@
 
 {% block media %}{% endblock %}
 
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
 {% block section2 %}
 <section>
+	<h2>Ofertas para {{ article.title }}</h2>
 {% for candidate in candidates %}
-<article class="wrapper-div">
+<article class="wrapper-div row-fluid">
 	<div>
-		{{ candidate.date }}
+		<ul class="thumbnails span2">
+			<div class="thumbnail">
+    			<img src="{{ candidate.owner.profile.profile_picture.url }}" alt="">
+    		</div>
+    	</ul>
 	</div>
 
-	<div class="row">
-		<div class="span2">
-			<img src="{{ candidate.owner.profile.get_profile_picture_100x100 }}">
-		</div>
-
-		<div class="span7">
-			<h2><a href="/profile/{{ candidate.owner }}">{{ candidate.owner }}</a> te vende {{ candidate.quantity }} articulos a ${{ candidate.cprice }}</h2>
-		</div>
+	<div class="span6">
+		<p>
+			{{ candidate.message }}
+		</p>
 	</div>
 
-	<h3>Imagenes del Articulo</h3>
-
-	<div class="row">
-	{% for picture in candidate.pictures.all %}
-		<div class="span2">
-			<img src="{{ picture.get_url_100x100 }}">
-		</div>
-	{% endfor %}
+	<div class="span1">
+		<p>
+			{{ candidate.quantity }}
+		</p>
 	</div>
 
-	<h3>Mensaje de <a href="/profile/{{ candidate.owner }}">{{ candidate.owner }}</a></h3>
-
-	<div>
-		{{ candidate.message }}
+	<div class="span1">
+		<p>
+			{{ candidate.cprice }}
+		</p>
 	</div>
 
-	<center>
-		<a class="btn btn-primary btn-large"href="/article/assignment/{{ article.pk }}/{{ candidate.owner.pk }}">Seleccionar</a>
-	</center>
 </article>
 {% endfor %}
 </section>

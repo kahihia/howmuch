@@ -114,6 +114,7 @@ def candidates(request, articleID):
 @login_required(login_url="/login/")
 def assignment(request, articleID, candidateID):
     validate_assignment(articleID, request)
+    article = get_object_or_404(Article, pk = articleID)
     offer = get_object_or_404(Offer, owner = candidateID, article = article)
     candidate = get_object_or_404(User, pk = candidateID)
     #Formulario

@@ -1,9 +1,15 @@
+/*
+This code is property of brainn.co
+*/
 footer{
 
 }
 footer a{
 	color: black !important;
 }
+/*
+Dropdown menu for categories
+*/
 .dropdown-menu-generic{
 	display: inline-block;
 	vertical-align: top;
@@ -37,6 +43,9 @@ footer a{
 	top: 0px;
 	left: 200px;
 }
+/*
+Base colors
+*/
 .color1{
 	background: #FFFF00;
 }
@@ -78,11 +87,14 @@ footer a{
 .input-file{
 	display: none !important;
 }
-.width-400{
-	width: 400px !important;
+.width-350{
+	width: 350px !important;
 }
 .navbar{
 	width: 450px !important;
+}
+.margin5{
+	margin: 5px !important;
 }
 .search-form{
 	width: 1061px;

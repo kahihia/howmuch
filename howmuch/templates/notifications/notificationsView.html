@@ -3,55 +3,49 @@
 {% block title %}{% endblock %}
 
 {% block media %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#myTab a').click(function (e) {
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+});
+</script>
 
+{% endblock %}
+
+{% block search-bar %}
+	{% include "search.html" %}
 {% endblock %}
 
 {% block section2 %}
 
 <section>
+	<h2>Tus Notificaciones</h2>
 
-{% for group in notifications_result %}
+    <ul class="nav nav-tabs" id="myTab">
+    	<li class="active"><a href="#like-buyer">Como Comprador</a></li>
+    	<li>
+    		<a href="#like-seller">Como Vendedor</a>
+    	</li>
+    </ul>
+   
+    <div class="tab-content">
 
-<section class="wrapper-div">
-
-	<div>{{ group.title }}</div>
-
-	{% for notification in group.notifications %}
-
-	{% if not notification.has_been_readed %}
-
-	<article>
-
-	{% else %}
-
-	<article>
-
-	{% endif %}
-		<div>
-
-			<a href="{{notification.get_url}}">{{ notification.title }}</a>
-
-		</div>
-
-		<div>
-
-			<span><b>hace {{ notification.get_timestamp }}</b></span>
-
-		</div>
-
-	</article>
-
-
-	{% endfor %}
-
+    	<div class="tab-pane active" id="like-buyer">
+    		{% for group in notifications_like_buyer %}
+    			{% include "notifications/notification_wrapper.html" %}
+    		{% empty %}
+				<h4>Aun no tienes notificaciones</h4>
+    		{% endfor %}
+    	</div>
+    	<div class="tab-pane" id="like-seller">
+			{% for group in notifications_like_seller %}
+    			{% include "notifications/notification_wrapper.html" %}
+    		{% empty %}
+				<h4>Aun no tienes notificaciones</h4>
+    		{% endfor %}
+    	</div>
+    </div>
 </section>
-
-{% empty %}
-
-<h4>Aun no tienes notificaciones</h4>
-
-{% endfor %}
-
-</section>
-
 {% endblock %}

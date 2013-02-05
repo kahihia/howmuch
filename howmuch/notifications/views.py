@@ -7,11 +7,12 @@ from howmuch.notifications.models import Notification
 
 @login_required(login_url='/login/')
 def viewNotifications(request):
-    """
-    Envia una Lista con las notificaciones agrupadas por article
-    """
+    #Envia una Lista con las notificaciones agrupadas por article
     notifications_result = []
     notifications = Notification.objects.filter(owner=request.user).order_by('article')
+    notification_list_group = []
+    notifications_like_buyer = []
+    notifications_like_seller = []
 
     if notifications.exists():  
         index = int(notifications[0].article.pk)
@@ -29,9 +30,17 @@ def viewNotifications(request):
         notification_list.append(notification_list_group)
 
         for group in notification_list:
-            notifications_result.append(dict([('title', group[0].article.title), ('notifications', group) ]))
+            notifications_result.append(dict([('article', group[0].article), ('notifications', group) ]))
 
-    return render_to_response('notifications/notificationsView.html', {'notifications_result' : notifications_result }, context_instance = RequestContext(request))
+        for group in notifications_result:
+            if group['notifications'][0].article.owner == request.user:
+                notifications_like_buyer.append(group)
+            else:
+                notifications_like_seller.append(group)
+
+    return render_to_response('notifications/notificationsView.html', {
+        'notifications_like_buyer' : notifications_like_buyer, 'notifications_like_seller' : notifications_like_seller }, 
+        context_instance = RequestContext(request))
 
 
 
