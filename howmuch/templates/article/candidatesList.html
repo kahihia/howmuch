@@ -11,8 +11,21 @@
 {% block section2 %}
 <section>
 	<h2>Ofertas para {{ article.title }}</h2>
+<article class="row-fluid wrapper-div color7">
+	<div class="span2">
+	</div>
+	<div class="span6">
+		<h4>Descripción</h4>
+	</div>
+	<div class="span3">
+		<h4>Cantidad</h4>
+	</div>
+	<div>
+		<h4>Precio</h4>
+	</div>
+</article>
 {% for candidate in candidates %}
-<article class="wrapper-div row-fluid">
+<article class="wrapper-div row-fluid hover1">
 	<div>
 		<ul class="thumbnails span2">
 			<div class="thumbnail">
@@ -21,21 +34,27 @@
     	</ul>
 	</div>
 
-	<div class="span6">
+	<div class="span7">
 		<p>
-			{{ candidate.message }}
+			<a href="/article/offer/view/{{ candidate.pk }}">
+				{{ candidate.message|truncatechars:140 }}
+			</a>
+		</p>
+	</div>
+
+	<div class="span2">
+		<p>
+			<a href="/article/offer/view/{{ candidate.pk }}">
+				{{ candidate.quantity }}
+			</a>
 		</p>
 	</div>
 
 	<div class="span1">
 		<p>
-			{{ candidate.quantity }}
-		</p>
-	</div>
-
-	<div class="span1">
-		<p>
-			{{ candidate.cprice }}
+			<a href="/article/offer/view/{{ candidate.pk }}">
+				${{ candidate.cprice }}
+			</a>
 		</p>
 	</div>
 

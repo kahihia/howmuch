@@ -103,6 +103,11 @@ def offer(request,articleID):
         form = OfferForm()
     return render_to_response('article/offer.html', {'form' : form, 'article' : article, 'user' : request.user }, context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
+def offer_view(request, offerID):
+    offer = get_object_or_404(Offer, pk = offerID, article__owner = request.user )
+    return render_to_response('article/view_offer.html', {'offer' : offer}, context_instance=RequestContext(request))
+
 @login_required(login_url="/login/")
 def candidates(request, articleID):
     #Actualiza las notificaciones sin leer

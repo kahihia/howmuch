@@ -73,6 +73,9 @@ Base colors
 .div-center{
 	margin: 5px auto;
 }
+.hover1:hover{
+	background: #FAFAFA;
+}
 .image-preview-wrapper{
 	width: 100px;
 	height: 100px;
@@ -106,6 +109,9 @@ Base colors
 	border: 3px blue solid !important;
 	border-radius: 0px !important;
 	margin: 10px !important; 
+}
+.text-center{
+	text-align: center !important;
 }
 .unread{
 	background: red;
