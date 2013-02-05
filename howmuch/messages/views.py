@@ -23,8 +23,17 @@ def send(request, conversationID):
             newMessage.owner = request.user
             newMessage.conversation = conversation
             newMessage.save()
-            html_response = '<div class="wrapper-div row span8"><div class="span2"><img src="%s"></div> <div class="span4">%s</diV> </div>' % (newMessage.owner.profile.get_profile_picture_100x100(), newMessage.message)
-            #create unread conversations
+            html_response = "<div class='wrapper-div row'>" +\
+                            "<div class='span1'>" +\
+                            "<img src='%s'>" % ( newMessage.owner.profile.get_profile_picture_50x50() ) +\
+                            "</div>" +\
+                            "<div class='span9'>" +\
+                            "%s" % ( newMessage.message ) +\
+                            "</diV>" +\
+                            "<div>"+\
+                            "<b>hace %s</b>" % ( newMessage.get_timestamp() ) +\
+                            "</div>" +\
+                            "</div>" 
             return HttpResponse(html_response)
 
 @login_required(login_url = '/login/')

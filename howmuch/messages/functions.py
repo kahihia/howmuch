@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 from howmuch.messages.models import Message
 from howmuch.notifications.models import Notification
@@ -8,7 +8,7 @@ def verify_user(user, conversation):
     if conversation.assignment.is_inside(user):
         pass
     else:
-        return HttpResponse('Error')
+        raise Http404
 
 #Si tiene mensajes sin leer cambia el status de cada mensaje sin leer en la conversation
 def update_status_messages_buyer(conversation):

@@ -1,0 +1,26 @@
+{% extends "3columns.html" %}
+
+{% block media %}
+<script type="text/javascript">
+
+$(document).on('ready', function(){
+	$('#carousel-home').carousel()
+});
+
+</script>
+{% endblock %}
+
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
+{% block section1 %}
+	{% include "categories.html" %}
+{% endblock %}
+{% block section2 %}	
+	{% include "carousel.html" %}
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
+{% endblock %}

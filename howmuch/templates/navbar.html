@@ -1,0 +1,66 @@
+<div class="navbar">
+    {% if user.is_authenticated %}
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li>
+                <a href="/">
+                    <i class="icon-home"></i>
+                </a>
+            </li>
+            <li>
+                <a href="/notifications">
+                    <i class="icon-signal"></i>
+                    {% if user.profile.unread_notifications > 0%}
+                    <span class="unread">{{ user.profile.unread_notifications}}</span>
+                    {% endif %}
+                </a>
+            </li>
+            <li>
+                <a href="/messages/inbox">
+                    <i class="icon-envelope"></i>
+                    {% if user.profile.unread_conversations %}
+                    <span class="unread">{{ user.profile.unread_conversations }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            <li>
+                <a href="/article/post">
+                    <i class="icon-plus"></i>Publicar Compra
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-user"></i>{{ user }}
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/account/purchases/published">Mis Compras</a>
+                    </li>
+                    <li>
+                        <a href="/account/sales/possible">Mis Ventas</a>
+                    </li>
+                    <li>
+                        <a href="/profile/e/edit">Mi Perfil</a>
+                    </li>
+                    <li>
+                        <a href="/config/notifications">Configuracion</a>
+                    </li>
+                    <li>
+                        <a href="/logout">Cerrar Sesion</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    {% else %}
+        <div>
+            <a href="#">Como Comprar</a>
+            <a href="#">Como Vender</a>
+            <a href="#">Precios</a>
+            <a href="/login/">Iniciar Sesión</a>
+            <a href="/login/">Registrarse</a>
+        </div>
+
+    {% endif %}
+</div>

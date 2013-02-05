@@ -5,7 +5,7 @@ footer{
 
 }
 footer a{
-	color: black !important;
+	color: #1E1E1E !important;
 }
 /*
 Dropdown menu for categories
@@ -94,7 +94,7 @@ Base colors
 	width: 350px !important;
 }
 .navbar{
-	width: 450px !important;
+	width: 35% !important;
 }
 .margin5{
 	margin: 5px !important;

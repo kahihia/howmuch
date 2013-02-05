@@ -4,13 +4,18 @@
 
 {% block media %}{% endblock %}
 
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
 {% block section2 %}
 <section>
+	<h2>Inbox</h2>
 	{% for conversation in conversations %}
 		{% if conversation.has_unread_messages %}
 			{% if conversation.assignment.owner == user %} 
 				{% if conversation.getNumber_unread_messages_seller > 0 %}
-				<article class="wrapper-div">
+				<article class="wrapper-div color7">
 					<b><span>({{ conversation.getNumber_unread_messages_seller }})</span></b>
 				{% else %}
 				<article class="wrapper-div">
@@ -18,29 +23,36 @@
 			{% else %}
 			{% if conversation.assignment.article.owner == user %}
 				{% if conversation.getNumber_unread_messages_buyer > 0%}
-				<article class="wrapper-div">
+				<article class="wrapper-div color7">
 					<b><span>({{ conversation.getNumber_unread_messages_buyer }})</span></b>
 				{% else %}
 				<article class="wrapper-div">
 				{% endif %}
 			{% endif %}{% endif %}
 		{% else %}
-				<article class="wrapper-div">
+				<article class="wrapper-div row-fluid">
 		{% endif %}
-					<div>
-						<img src="" width="50" height="50">
+					<div class="thumbnail span1">
+    					<img src="{{MEDIA_URL}}img/cuantoo_profile_picture.png" alt="">
+    				</div>
+					<div class="span9">
+						<a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a>
+						<p>
+							{{ conversation.get_latest_message.message }}
+						</p>
 					</div>
 					<div>
-						<span><a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a></span></br>
-						<span>{{ conversation.get_latest_message.message }}</span></br>
-						<div>
-							<span>hace {{ conversation.get_latest_message.get_timestamp }}</span>
-						</div>
+						<p>
+							<b>
+								hace {{ conversation.get_latest_message.get_timestamp }}
+							</b>
+						</p>
 					</div>
 				</article>
 	{% endfor %}
 </section>
+{% endblock %}
 
-
+{% block section3 %}
 
 {% endblock %}

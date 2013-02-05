@@ -10,6 +10,7 @@ $(document).ready(function(){
 			$('#message-form').serialize(), 
 			function(data){
 				$('.comments-area').append(data);
+		$('#message-form')[0].reset()
 		});
 	});
 })
@@ -17,21 +18,81 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block section1 %}
+<!-- Informacion del Comprador -->
+<div>
+	<h3>Comprador</h3>
+	<h4>{{ conversation.assignment.get_buyer }}</h4>
+	<div class="thumbnail">
+    	<img src="{{ conversation.assignment.get_buyer.profile.profile_picture.url }}" alt="">
+    </div>
+	<div>
+		<a class="btn btn-info" href="/messages/infobuyer/{{ conversation.pk }}">Ver Información</a>
+	</div>
+</div>
+<!-- Informacion del Vendedor -->
+<div>
+	<h3>Vendedor</h3>
+	<h4>{{ conversation.assignment.get_seller }}</h4>
+		<div class="thumbnail">
+    		<img src="{{ conversation.assignment.get_seller.profile.profile_picture.url }}" alt="">
+    	</div>
+	<div>
+		<a class="btn btn-info" href="/messages/infoseller/{{ conversation.pk }}">Ver Información</a>
+	</div>
+</div>
 {% endblock %}
 
 {% block section2 %}
+<div>
+	<h2>{{ conversation.assignment.article.title }}</h2>
+</div>
 <div class="comments-area">
 {% for message in messages %}
-   <div class="wrapper-div row span8"><div class="span2"><img src="{{ message.owner.profile.get_profile_picture_100x100 }}"></div> <div class="span4">{{ message.message }}</diV> </div>
+   <div class="wrapper-div row">
+		<div class="span1">
+			<img src="{{ message.owner.profile.get_profile_picture_50x50 }}">
+		</div> 
+		<div class="span9">
+			{{ message.message }}
+		</diV>
+		<div>
+			<b>hace {{ message.get_timestamp }}</b>
+		</div> 
+	</div>
 {% endfor %}
 </div>
-<section class="wrapper-div span9">
+<section class="wrapper-div color7">
 	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-	<input id="message" name="message" type="text">
-	<input type="submit" value="ENVIAR">
+	<h4>Envia un mensaje..</h4>
+	<input class="span12" id="message" name="message" type="text">
 	</form>
 </section>
 {% endblock %}
 
 {% block section3 %}
+<!-- Logo cuantoo -->
+<div class="padding10">
+	<img src="{{ MEDIA_URL }}img/cuantoo_logo.png">
+</div>
+
+<!-- Opciones de la transaccion -->
+<div class="wrapper-div">
+	<h4>Opciones</h4>
+	<div>
+		<ul class="unstyled">
+			{% if conversation.assignment.get_seller == user %}
+			<li><a href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
+			<li><a href="/prestige/setprestigetobuyer/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			{% else %}
+			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
+			<li><a href="/prestige/setprestigetoseller/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			{% endif %}
+			<li><a href="#">Solucionar Conflictos</a></li>
+		</ul>
+	</div>
+</div>
+<!-- Estado de la transaccion -->
+<div class="wrapper-div">
+	<h4>Estado de tu pedido</h4>
+</div>
 {% endblock %}

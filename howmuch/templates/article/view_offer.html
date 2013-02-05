@@ -1,0 +1,87 @@
+{% extends "3columns.html" %}
+
+{% block media %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script>
+$(function () {
+    $('.pics').glisse({
+        changeSpeed: 550,
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    });
+});
+</script>
+{% endblock %}
+
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
+{% block section2 %}
+<section class="wrapper-div">
+	<article class="row-fluid">
+		<div>
+			<ul class="thumbnails span3">
+				<div class="thumbnail">
+    				<img src="{{ offer.owner.profile.profile_picture.url }}" alt="">
+    			</div>
+    		</ul>
+		</div>
+
+		<div class="span6">
+			<p>
+				<span><b>Usuario:</b></span>
+				<span>{{ offer.owner }}</span>
+			</p>
+
+			<p>
+				<span><b>Prestigio:</b></span>
+				<span>Prestigio Aqui</span>
+			</p>
+
+			<p>
+				<span><b>Total Compras:</b></span>
+				<span>{{ offer.owner.profile.total_purchases }}</span>
+			</p>
+
+			<p>
+				<span><b>Total Ventas:</b></span>
+				<span>{{ offer.owner.profile.total_sales }}</span>
+			</p>
+		</div>
+
+		<div>
+			<h1>${{ offer.cprice}}</h1>
+		</div>
+
+	</article>
+
+	<article>
+		<h3>Descripción de la Oferta</h3>
+		<div>
+			<p>
+				{{ offer.message }}
+			</p>
+		</div>
+	</article>
+
+	<article>
+		<h3>Imagenes del Articulo</h3>
+		<div class="text-center">
+		{% for picture in offer.pictures.all %}
+			<img  class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url  }}" rel="group1">
+		{% endfor %}
+		</div>
+
+	</article>
+
+	<article class="margin5">
+		<center>
+			<a class="btn btn-primary btn-large" href="/article/assignment/{{ offer.article.pk }}/{{ offer.owner.pk }}">Comprar</a>
+		</center>
+	</article>
+
+</section>
+{% endblock %}
