@@ -1,26 +1,21 @@
-{% extends "account/purchases-container.html" %}
-
-{% block purchases-container%}
-<section>
-	{% for item in processPurchases %}
-	<article class="wrapper-div">
-		<div class="row">
-			<div class="span2">
-				<img src="#">
-			</div>
-			<div class="span5">
-				<div>
-					<a href="{{ item.get_url }}">{{ item.title }}</a><b> en </b><a href="{{ item.get_url }}">{{ item.price }}</a>
-				</div>
-				<div>
-					<a href="/messages/{{ item.assignment.conversation.pk }}">Ir a Conversación ({{ item.assignment.conversation.getNumber_unread_messages_buyer }})</a>
-					<b>hace {{ item.get_timestamp }}</b>
-				</div>				
-			</div>
+<article class="wrapper-div hover1">
+	<div class="row-fluid">
+		<div class="thumbnail span2">
+			<img src="{{ MEDIA_URL}}img/cuantoo_profile_picture.png">
 		</div>
-	</article>
-	{% empty %}
-	<p>Aun no has solicitado ningun articulo</p>
-	{% endfor %}
-</section>
-{% endblock %}
+		<div class="span7">
+			<p>
+				<a href="{{ item.get_url }}">{{ item.title }}</a>
+			</p>
+			<p>
+				<a href="/messages/{{ item.assignment.conversation.pk }}">Ir a Conversación ({{ item.assignment.conversation.getNumber_unread_messages_buyer }})</a>
+			</p>
+		</div>
+		<div class="span3">
+			<h2>$ {{ item.price }}</h2>
+			<p>
+				<b>hace {{ item.get_timestamp }}</b>
+			</p>		
+		</div>
+	</div>
+</article>

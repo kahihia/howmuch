@@ -15,7 +15,7 @@
 		{% if conversation.has_unread_messages %}
 			{% if conversation.assignment.owner == user %} 
 				{% if conversation.getNumber_unread_messages_seller > 0 %}
-				<article class="wrapper-div color7">
+				<article class="wrapper-div color7 row-fluid">
 					<b><span>({{ conversation.getNumber_unread_messages_seller }})</span></b>
 				{% else %}
 				<article class="wrapper-div">
@@ -23,10 +23,10 @@
 			{% else %}
 			{% if conversation.assignment.article.owner == user %}
 				{% if conversation.getNumber_unread_messages_buyer > 0%}
-				<article class="wrapper-div color7">
+				<article class="wrapper-div color7 row-fluid">
 					<b><span>({{ conversation.getNumber_unread_messages_buyer }})</span></b>
 				{% else %}
-				<article class="wrapper-div">
+				<article class="wrapper-div row-fluid">
 				{% endif %}
 			{% endif %}{% endif %}
 		{% else %}

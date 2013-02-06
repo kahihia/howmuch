@@ -1,27 +1,25 @@
-{% extends "account/sales-container.html" %}
-
-{% block sales-container %}
-<section>
-	{% for item in completedSales %}
-	<article class="wrapper-div">
-		<div class="row">
-			<div class="span5">
-				<div>
-					<a href="{{ item.article.get_url }}">{{ item.article.title }}</a><b> en </b><a href="{{ item.article.get_url }}">{{ item.article.price }}</a>
-				</div>
-				<div>
-					<a href="/messages/{{ item.assignment.conversation.pk }}">Ir a Conversacion</a>
-					<a href="#">Ver Critica</a>
-					<b>hace {{ item.article.get_timestamp }}</b>
-				</div>				
-			</div>
-			<div class="span2">
-				<img src="#">
-			</div>
+<article class="wrapper-div hover1">
+	<div class="row-fluid">
+		<div class="thumbnail span2">
+			<img src="{{ MEDIA_URL}}img/cuantoo_profile_picture.png">
 		</div>
-	</article>
-	{% empty %}
-	<p>Aun no has solicitado ningun articulo</p>
-	{% endfor %}
-</section>
-{% endblock %}
+		<div class="span7">
+			<p>
+				<a href="{{ item.article.get_url }}">{{ item.article.title }}</a>
+			</p>
+			<p>
+				<a href="/messages/{{ item.article.assignment.conversation.pk }}">Ir a Conversación ({{ item.article.assignment.conversation.getNumber_unread_messages_buyer }})</a>
+			</p>
+			<p>
+				<a href="#">Ver Critica</a>
+			</p>
+		</div>
+		<div class="span3">
+			<h2>$ {{ item.article.price }}</h2>
+			<p>
+				<b>hace {{ item.article.get_timestamp }}</b>
+			</p>		
+		</div>
+	</div>
+</article>
+
