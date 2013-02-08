@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from howmuch.pictures.models import Picture
 from howmuch.profile.models import Address
 from howmuch.utils import get_timestamp
+from howmuch.comments.models import Comment
 
 
 
@@ -51,7 +52,9 @@ class Article(models.Model):
     state = models.CharField(max_length=7, choices=STATES_CHOICES)
     date = models.DateTimeField(auto_now_add=True)
     addressDelivery = models.ForeignKey(Address)
-    title_url = models.CharField(max_length=100, null=True, blank = True)
+    title_url = models.CharField(max_length=100, null=True, blank=True)
+    comments = models.ManyToManyField(Comment, blank=True)
+    stakeholders = models.ManyToManyField(User, blank=True)
 
     def __unicode__(self):
         return u'Title: %s' % (self.title)

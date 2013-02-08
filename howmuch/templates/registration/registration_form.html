@@ -1,55 +1,42 @@
-<!DOCTYPE html>
-<html lang ="es-MX">
-<head>
-	<title>Registrate a howmuch.do y empieza a comprar y vender al reves</title>  
-    </head>
-<body>
+{% extends "registration/base.html" %}
 
-    {{ form.errors }}
+{% block section1 %}
 
+{% endblock %}
+
+{% block section2 %}
+<div class="wrapper-div">
 	<form action="" method="POST">{% csrf_token %}
-		<h2>Registrate, es GRATIS</h2>
+		<h4>Registrate</h4>
 			{{ form.username}}
-		</div>
-		<div class="">
+		<div>
 			{{ form.first_name}}
 		</div>
-		<div class="">
+		<div>
 			{{ form.last_name}}
 		</div>	
-		<div class="">
+		<div>
 			{{ form.email}}
 		</div>
-		<div class="">
+		<div>
 			{{ form.password1}}
 		</div>	
-        <div class="">
+        <div>
 			{{ form.password2}}
 		</div>	
 		<div>
 			{{ form.tos}}
-			<span>Acepto los Terminos y Condiciones de Howmuch.do</span>
+			<span>Acepto los Terminos y Condiciones de cuantoo.com</span>
 		</div>	
 		<div>
-			<input type="submit" value="REGISTRARME">
+			<input class="btn btn-large btn-primary" type="submit" value="Registrarme">
 		</div>
 	</form>
+</div>
 
-	    <footer>
+{% endblock %}
 
-            <p>
-                <span>
-                    El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
-                </span>
+{% block section3 %}
+	{% include "howtodo.html" %}
+{% endblock %}
 
-                <span>
-                    Copyright © 2012 ALIEN Technology
-                </span>
-            </p>
-
-
-        </footer>
-
-
-</body>
-</html>

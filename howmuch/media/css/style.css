@@ -71,7 +71,10 @@ Base colors
 	background: #FAFAFA;
 }
 .div-center{
-	margin: 5px auto;
+	margin: 5px auto !important;
+}
+.header-registration{
+	margin: 20px;
 }
 .hover1:hover{
 	background: #FAFAFA;

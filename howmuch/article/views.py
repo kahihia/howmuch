@@ -10,7 +10,6 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
 
-from howmuch import settings
 from howmuch.article.forms import ArticleForm, AssignmentForm, OfferForm
 from howmuch.article.functions import AboutArticle, AboutAssignment, validate_assignment, validate_offer
 from howmuch.article.models import Article, Offer, Assignment

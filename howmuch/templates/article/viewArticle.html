@@ -12,7 +12,21 @@
     content="{{ article.description|truncatechars:100}}"/>
 {% endblock %}
 
-{% block media %}{% endblock %}
+{% block media %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#comments-form').submit(function(e){
+		e.preventDefault();
+		$.post('/comments/post/{{ article.pk }}/', 
+			$('#comments-form').serialize(),
+			function(data){
+				$('.comments-area').append(data);
+				$('#comments-form')[0].reset();
+			});
+	});
+});
+</script>
+{% endblock %}
 
 {% block search-bar %}
 	{% include "search.html" %}
@@ -91,10 +105,47 @@
 	</article>
 </section>
 
-<section class="wrapper-div">
 <!-- Comments Area -->
-<h4>Comentarios</h4>
+<section class="wrapper-div">
+<h4>Dudas del Articulo</h4>
+	{% if user.is_authenticated %}
+	<div>
+		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+		</form>
+	</div>
+	{% else %}
+	<div>
+		<p>
+			<span>Para poder comentar debes iniciar sesión</span>
+			<a href="/login/">Iniciar Sesión</a>
+		</p>
+	</div>
+	{% endif %}
+	<div class="comments-area">
+		{% for comment in article.comments.all %}
+			<div class="wrapper-div row-fluid">
+				<div class="span1">
+					<img src="{{ comment.owner.profile.get_profile_picture_50x50 }}">
+				</div>
+				<div class="span8">
+					<p>	
+						{{ comment.comment }}
+					</p>
+				</div>
+				<div class="span2">
+					<b>
+						hace {{ comment.get_timestamp }}
+					</b>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 </section>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
 
 

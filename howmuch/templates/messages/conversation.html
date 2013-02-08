@@ -10,7 +10,7 @@ $(document).ready(function(){
 			$('#message-form').serialize(), 
 			function(data){
 				$('.comments-area').append(data);
-		$('#message-form')[0].reset()
+				$('#message-form')[0].reset();
 		});
 	});
 })
@@ -54,8 +54,8 @@ $(document).ready(function(){
 		</div> 
 		<div class="span9">
 			{{ message.message }}
-		</diV>
-		<div>
+		</div>
+		<div class="span2">
 			<b>hace {{ message.get_timestamp }}</b>
 		</div> 
 	</div>

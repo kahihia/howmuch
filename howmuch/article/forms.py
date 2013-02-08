@@ -6,7 +6,7 @@ from howmuch.article.models import Article, Assignment
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        exclude = ('owner','date','title_url')
+        exclude = ('owner','date','title_url', 'comments', 'stakeholders')
         widgets = {
         'price' : TextInput(attrs = {'class' : 'width-350'}),
         'title' : TextInput(attrs = {'class' : 'width-350'}),

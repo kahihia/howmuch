@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from howmuch.messages.views import Conversation
 
 urlpatterns = patterns('howmuch.messages.views',
 	
@@ -13,6 +12,5 @@ urlpatterns = patterns('howmuch.messages.views',
         url(r'^infoconfirmpay/(?P<conversationID>\d+)/$', 'getInfoConfirmPay', name = 'getInfoConfirmPay'),
         url(r'^infoconfirmdelivery/(?P<conversationID>\d+)/$', 'getInfoConfirmDelivery', name = 'getInfoConfirmDelivery'),
         url(r'^infocritique/(?P<conversationID>\d+)/$', 'getInfoCritique', name = 'getInfoCritique'),
-
 
 ) 
