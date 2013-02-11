@@ -10,4 +10,5 @@ urlpatterns = patterns('howmuch.article.views',
         url(r'^offer/(?P<articleID>\d+)/$', 'offer', name = "offer"),
         url(r'^offer/view/(?P<offerID>\d+)/$', 'offer_view', name = "offer_view"),
         url(r'^assignment/(?P<articleID>\d+)/(?P<candidateID>\d+)/$','assignment', name = "addassignmentforarticle"),
+        url(r'^tags/$','get_article_tags', name="get_article_tags"),
 ) 

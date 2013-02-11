@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.template import RequestContext
+from django.utils import simplejson
 
 from howmuch.article.forms import ArticleForm, AssignmentForm, OfferForm
 from howmuch.article.functions import AboutArticle, AboutAssignment, validate_assignment, validate_offer
@@ -138,4 +139,8 @@ def assignment(request, articleID, candidateID):
         form = AssignmentForm()
     return render_to_response('article/assignment.html', {'form' : form, 'candidate' : candidate, 'article' : article }, context_instance=RequestContext(request))
 
-
+@login_required(login_url='/login/')
+def get_article_tags(request):
+    tags = Article.tags.all()
+    json_response = simplejson.dumps( [{'val': tag.name} for tag in tags] )
+    return HttpResponse(json_response)

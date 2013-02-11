@@ -2,74 +2,157 @@
 {% block title %}
 {% endblock %}
 {% block media %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#tab-config a').click(function (e) {
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+});
+</script>
 {% endblock %}
 {% block section2 %}
-<section class="wrapper-div">
 
-	{% if save_changes %}
+<div>
+	<ul class="nav nav-tabs" id="tab-config">
+    	<li class="active">
+            <a href="#account">Cuenta</a>
+        </li>
+    	<li>
+    		<a href="#notifications">Notificaciones</a>
+    	</li>
+    </ul>
+</div>
 
-	<div class="alert alert-success">
-    	<button type="button" class="close" data-dismiss="alert">&times;</button>
-    	<h4>Felicidades!</h4>
-    	Cambios guardados Correctamente
+<div class="tab-content">
+    <div class="tab-pane active" id="account">
+    	<legend>Cuenta</legend>
+    	<div class="wrapper-div">
+
+    		<div class="row-fluid hover1">
+				<div class="span3">
+					<p>
+						<b>Usuario</b>
+					</p>
+				</div>
+				<div class="span6">
+					<p>{{ user }}</p>
+				</div>
+				<div>
+					<a class="margin5" href="#">Modificar</a>
+				</div>
+			</div>
+
+			<div class="row-fluid hover1">
+				<div class="span3">
+					<p>
+						<b>Contraseña</b>
+					</p>
+				</div>
+				<div class="span6">
+					<p>**********</p>
+				</div>
+				<div>
+					<a class="margin5" href="#">Modificar</a>
+				</div>
+			</div>
+
+			<div class="row-fluid hover1">
+				<div class="span3">
+					<p>
+						<b>Correo Electronico</b>
+					</p>
+				</div>
+				<div class="span6">
+					<p>{{ user.email }}</p>
+				</div>
+				<div>
+					<a class="margin5" href="#">Modificar</a>
+				</div>
+			</div>
+
+    	</div>
+    </div>
+   
+  	<div class="tab-pane" id="notifications">
+    	<legend>Notificaciones</legend>
+    	<div class="wrapper-div">
+    		{% if save_changes %}
+			<div class="alert alert-success">
+    			<button type="button" class="close" data-dismiss="alert">&times;</button>
+    			<h4>Felicidades!</h4>
+    			Cambios guardados Correctamente
+			</div>
+    		{% endif %}
+
+			<form action="" method="POST" >{% csrf_token %}
+				<div class="row-fluid">
+					<div class="span1">
+						{{form.new_offer }}
+					</div>
+					<div class="span6">
+						<p>Recibir email cuando tenga una nueva oferta para alguno de mis articulos publicados</p>
+					</div>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span1">
+						{{ form.new_sale }}
+					</div>
+					<div class="span6">
+						<p>Recibir email cuando sea seleccionado como Vendedor</p>
+					</div>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span1">
+						{{ form.new_message }}
+					</div>
+					<div class="span6">	
+						<p>Recibir email cuando reciba un nuevo mensaje</p>
+					</div>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span1">
+						{{ form.confirm_pay }}
+					</div>
+					<div class="span6">
+						<p>Recibir email cuando me confirmen el pago de algun articulo</p>
+					</div>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span1">
+						{{ form.confirm_delivery }}
+					</div>
+					<div class="span6">
+						<p>Recibir email cuando me confirmen el envio de algun articulo</p>
+					</div>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span1">
+						{{ form.new_critique }}
+					</div>
+					<div class="span6">
+						<p>Recibir email cuando reciba alguna critica</p>
+					</div>
+				</div>
+
+				<center>
+					<input class="btn btn-primary btn-large" type="submit"  value="Guardar">
+				</center>
+			</form>
+    	</div>
 	</div>
+</div>
 
-    {% endif %}
 
-	<h3>Notificaciones</h3>
-	
-	<form action="" method="POST" >{% csrf_token %}
-			<div class="row">
-				<div class="span1">
-					{{form.new_offer }}
-				</div>
-				<div class="span6">
-					<p>Recibir email cuando tenga una nueva oferta para alguno de mis articulos publicados</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span1">
-					{{ form.new_sale }}
-				</div>
-				<div class="span6">
-					<p>Recibir email cuando sea seleccionado como Vendedor</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span1">
-					{{ form.new_message }}
-				</div>
-				<div class="span6">	
-					<p>Recibir email cuando reciba un nuevo mensaje</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span1">
-					{{ form.confirm_pay }}
-				</div>
-				<div class="span6">
-					<p>Recibir email cuando me confirmen el pago de algun articulo</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span1">
-					{{ form.confirm_delivery }}
-				</div>
-				<div class="span6">
-					<p>Recibir email cuando me confirmen el envio de algun articulo</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span1">
-					{{ form.new_critique }}
-				</div>
-				<div class="span6">
-					<p>Recibir email cuando reciba alguna critica</p>
-				</div>
-			</div>
-			<center>
-				<input class="btn btn-primary btn-large" type="submit"  value="Guardar">
-			</center>
-		</form>
-</section>
+
+
+
+
+
+
 {% endblock %}
