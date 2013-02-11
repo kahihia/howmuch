@@ -137,7 +137,9 @@ INSTALLED_APPS = (
     'howmuch.prestige',
     'howmuch.profile',
 
+
     'registration',
+    'tagging',
 
 
 

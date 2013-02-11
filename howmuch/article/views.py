@@ -30,6 +30,7 @@ def post(request):
             #Se genera el campo url sustituyendo caracteres
             newPost.title_url=newPost.title.replace(u'\xf1', 'n').replace(' ','-')
             newPost.save()
+            newPost.tags = request.POST['tags']
             #Se anade un +1 al total_purchases del usario
             request.user.profile.add_purchases()
             return HttpResponseRedirect(str(newPost.get_url()) + '?new_post=True')

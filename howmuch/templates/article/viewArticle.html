@@ -92,11 +92,9 @@ $(document).on('ready', function(){
 
 	<article>
 		<h4>Palabras clave</h4>
-		<a class="btn btn-info" href="#">Etiqueta 1</a>
-		<a class="btn btn-info" href="#">Etiqueta 2</a>
-		<a class="btn btn-info" href="#">Etiqueta 3</a>
-		<a class="btn btn-info" href="#">Etiqueta 4</a>
-		<a class="btn btn-info" href="#">Etiqueta 5</a>
+		{% for tag in article.tags.all %}
+		<a class="btn btn-info" href="#">{{ tag }}</a>
+		{% endfor %}
 	</article>
 
 	<article>
