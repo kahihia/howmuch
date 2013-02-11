@@ -5,16 +5,30 @@
 {% endblock %}
 
 {% block section2 %}
-<section>
+<section class="wrapper-div">
+	<legend>Agregar Cuenta Bancaria</legend>
 
-	<form action='' method='POST'>{% csrf_token %}
+	<form class="form-horizontal" action='' method='POST'>{% csrf_token %}
 
-		{{ form.errors }}
+		<div class="control-group">
+			<label class="control-label">Nombre del Banco</label>
+			<div class="controls">
+				{{ form.bank }}
+				{{ form.bank.errors }}
+			</div>
+		</div>
 
-		{{ form.bank }}
-		{{ form.account }}
+		<div class="control-group">
+			<label class="control-label">Numero de Cuenta</label>
+			<div class="controls">
+				{{ form.account }}
+				{{ form.account.errors }}
+			</div>
+		</div>
 
-		<input type="submit" value="Guardar">
+		<center>
+			<input class="btn btn-large btn-primary" type="submit" value="Guardar">
+		</center>
 
 	</form>
 

@@ -2,44 +2,135 @@
 
 {% block title %}{% endblock %}
 
-{% block media %}{% endblock %}
+{% block media %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#tab-profile a').click(function (e) {
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+});
+</script>
+
+{% endblock %}
 
 {% block section2 %}
 
-<section>
-	<span>{{ user.get_full_name}}</span>
-	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-	<div>
-		<img src="{{ user.profile.get_profile_picture_250x250 }}">
-	</div>
-	<div>
-		{{ form.errors }}
-		<div class="">
-			<span>Nombre de tu Empresa</span>
-			{{ form.company }}
-			{{ form.company.errors }}
+<div>
+	<ul class="nav nav-tabs" id="tab-profile">
+    	<li class="active">
+            <a href="#user">Yo</a>
+        </li>
+    	<li>
+    		<a href="#addresses">Direcciones</a>
+    	</li>
+        <li>
+            <a href="#phones">Telefonos</a>
+        </li>
+    	<li>
+            <a href="#banks">Cuentas Bancarias</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tab-content">
+
+    <div class="tab-pane active" id="user">
+    	<div class="wrapper-div">
+    		<div class="row-fluid">
+    			<div class="thumbnail span3">
+    				<img src="{{ user.profile.profile_picture.url }}">
+    			</div>
+
+    			<div class="span8">
+    				<legend>{{ user.get_full_name }}</legend>
+    			</div>
+    		</div>
+
+    		<div>
+				<form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+		
+					<div class="control-group">
+						<label class="control-label">Nombre de tu Empresa</label>
+						<div class="controls">
+							{{ form.company }}
+							{{ form.company.errors }}
+							<span class="help-block">Solo en Caso que representes una Empresa</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">Imagen de Perfil </label>
+						<div class="controls">
+						{{ form.profile_picture }}
+						{{ form.profile_picture.errors }}
+						</div>
+					</div>
+
+					<center>
+						<input type="submit" class="btn btn-large btn-primary" value="Guardar">
+					</center>
+				</form>
+			</div>
+    	</div>
+
+    </div>
+
+    <div class="tab-pane" id="addresses">
+    	<div class="wrapper-div">
+			<legend>Direcciones</legend>
+			{% for address in user.profile.addresses.all %}
+				<div class="row-fluid hover1">
+					<div class="span9">
+						{{ address }}
+					</div>
+					<div>
+						<a class="margin5" href="#">Editar</a>
+						<a class="margin5" href="#">Eliminar</a>
+					</div>
+				</div>
+			{% endfor %}
+			<a href="/profile/e/newaddress">+ Agregar</a>
 		</div>
-		<div class="">
-			<span>Foto de Perfil</span>
-			{{ form.profile_picture }}
-			{{ form.profile_picture.errors }}
+    </div>
+
+	<div class="tab-pane" id="phones">
+		<div class="wrapper-div">
+			<legend>Telefonos</legend>
+			{% for phone in user.profile.phones.all %}
+				<div class="row-fluid hover1">
+					<div class="span9">
+						{{ phone }}
+					</div>
+					<div>
+						<a class="margin5" href="#">Editar</a>
+						<a class="margin5" href="#">Eliminar</a>
+					</div>
+				</div>
+			{% endfor %}
+
+			<a href="/profile/e/newphone">+ Agregar</a>
 		</div>
-	</div>
-	<div>
-		<input type="submit" class="" value="GUARDAR">
-	</div>
-	</form>
-</section>
+    </div>
 
-<section>
-
-	<a href="/profile/e/newaddress">+ Direcciones</a>
-
-	<a href="/profile/e/newphone">+ Telefono</a>
-
-	<a href="/profile/e/newaccountbank">+ Cuenta Bancaria</a>
-
-</section>
+   	<div class="tab-pane" id="banks">
+		<div class="wrapper-div">
+			<legend>Cuentas Bancarias</legend>
+			{% for bank in user.profile.banks.all %}
+				<div class="row-fluid hover1">
+					<div class="span9">
+						{{ bank }}
+					</div>
+					<div>
+						<a class="margin5" href="#">Editar</a>
+						<a class="margin5" href="#">Eliminar</a>
+					</div>
+				</div>
+			{% endfor %}
+			<a href="/profile/e/newaccountbank">+ Agregar</a>
+		</div>
+    </div>
+</div>
 
 {% endblock %}
 

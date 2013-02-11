@@ -5,32 +5,68 @@
 {% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div">
-	<form action="" method="POST">{% csrf_token %}
-		<h4>Registrate</h4>
-			{{ form.username}}
-		<div>
-			{{ form.first_name}}
-		</div>
-		<div>
-			{{ form.last_name}}
+<div class="wrapper-div span9">
+	<form class="form-horizontal" action="" method="POST">{% csrf_token %}
+		<legend>Registrarse</legend>
+    	<div class="control-group">
+    		<label class="control-label">Usuario</label>
+    		<div class="controls">
+    			{{ form.username }}
+    			{{ form.username.errors }}
+    		</div>
+    	</div>
+
+    	<div class="control-group">
+    		<label class="control-label">Nombres</label>
+    		<div class="controls">
+    			{{ form.first_name }}
+    			{{ form.first_name.errors }}
+    		</div>
+    	</div>
+
+    	<div class="control-group">
+    		<label class="control-label">Apellidos</label>
+    		<div class="controls">
+    			{{ form.last_name }}
+    			{{ form.last_name.errors }}
+    		</div>
+    	</div>
+
+    	<div class="control-group">
+    		<label class="control-label">Correo Electronico</label>
+    		<div class="controls">
+    			{{ form.email }}
+    			{{ form.email.errors }}
+    		</div>
+    	</div>
+
+    	<div class="control-group">
+    		<label class="control-label">Contraseña</label>
+    		<div class="controls">
+    			{{ form.password1 }}
+    			{{ form.password1.errors }}
+    		</div>
+    	</div>
+
+    	<div class="control-group">
+    		<label class="control-label">Confirma Contraseña</label>
+    		<div class="controls">
+    			{{ form.password2 }}
+    			{{ form.password2.errors }}
+    		</div>
+    	</div>
+
+    	<div class="contreol-group">
+    		<div class="controls">
+				{{ form.tos }}
+				{{ form.tos.errors }}
+				<span class="help-block">Acepto los Terminos y Condiciones de cuantoo.com</span>
+    		</div>
 		</div>	
-		<div>
-			{{ form.email}}
-		</div>
-		<div>
-			{{ form.password1}}
-		</div>	
-        <div>
-			{{ form.password2}}
-		</div>	
-		<div>
-			{{ form.tos}}
-			<span>Acepto los Terminos y Condiciones de cuantoo.com</span>
-		</div>	
-		<div>
+
+		<center>
 			<input class="btn btn-large btn-primary" type="submit" value="Registrarme">
-		</div>
+		</center>
 	</form>
 </div>
 

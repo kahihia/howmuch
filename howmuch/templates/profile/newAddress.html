@@ -6,22 +6,70 @@
 
 {% block section2 %}
 
-<section>
+<section class="wrapper-div">
+	<legend>Agregar Dirección</legend>
+	<form class="form-horizontal" action='' method='POST'>{% csrf_token %}
 
-	<form action='' method='POST'>{% csrf_token %}
+		<div class="control-group">
+			<label class="control-label">Calle</label>
+			<div class="controls">
+				{{ form.street }}
+				{{ form.street.errors }}
+			</div>
+		</div>
 
-		{{ form.errors }}
+		<div class="control-group">
+			<label class="control-label">Numero</label>
+			<div class="controls">
+				{{ form.number }}
+				{{ form.number.errors }}
+			</div>
+		</div>
 
-		{{ form.street }}
-		{{ form.number }}
-		{{ form.suburb }}
-		{{ form.city }}
-		{{ form.state }}
-		{{ form.country }}
-		{{ form.zipcode }}
+		<div class="control-group">
+			<label class="control-label">Colonia</label>
+			<div class="controls">
+				{{ form.suburb }}
+				{{ form.suburb.errors }}
+			</div>
+		</div>
 
-		<input type="submit" value="Guardar">
+		<div class="control-group">
+			<label class="control-label">Ciudad</label>
+			<div class="controls">
+				{{ form.city }}
+				{{ form.city.errors }}
+			</div>
+		</div>
 
+		<div class="control-group">
+			<label class="control-label">Estado</label>
+			<div class="controls">
+				{{ form.state }}
+				{{ form.state.errors }}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">Pais</label>
+			<div class="controls">
+				{{ form.country }}
+				{{ form.country.errors }}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">Codigo Postal</label>
+			<div class="controls">
+				{{ form.zipcode }}
+				{{ form.zipcode.errors }}
+			</div>
+		</div>
+
+		<center>
+			<input class="btn btn-primary btn-large" type="submit" value="Guardar">
+		</center>
+		
 	</form>
 
 </section>

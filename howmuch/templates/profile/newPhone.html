@@ -6,16 +6,28 @@
 
 {% block section2 %}
 
-<section>
+<section class="wrapper-div">
+	<legend>Agregar Telefono</legend>
+	<form class="form-horizontal" action='' method='POST'>{% csrf_token %}
+		<div class="control-group">
+			<label class="control-label">Tipo</label>
+			<div class="controls">
+				{{ form.place }}
+				{{ form.place.errors }}
+			</div>
+		</div>
 
-	<form action='' method='POST'>{% csrf_token %}
+		<div class="control-group">
+			<label class="control-label">Numero</label>
+			<div class="controls">
+				{{ form.number }}
+				{{ form.number.errors }}
+			</div>
+		</div>
 
-		{{ form.errors }}
-
-		{{ form.place }}
-		{{ form.number }}
-
-		<input type="submit" value="Guardar">
+		<center>
+			<input class="btn btn-large btn-primary" type="submit" value="Guardar">
+		</center>
 
 	</form>
 

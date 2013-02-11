@@ -6,7 +6,7 @@ from howmuch.article.models import Article, Offer, Assignment
 
 @login_required(login_url='/login/')
 def purchases_list(request):
-    items = get_list_or_404(Article, owner=request.user)
+    items = Article.objects.filter(owner=request.user)
     publishedPurchases = []
     processPurchases = []
     completedPurchases = []
@@ -26,7 +26,7 @@ def purchases_list(request):
 
 @login_required(login_url='/login/')
 def sales_list(request):
-    items = get_list_or_404(Offer, owner=request.user)
+    items = Offer.objects.filter(owner=request.user)
     #Ofertas realizadas
     possibleSales = []
     for item in items:
