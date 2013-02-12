@@ -102,6 +102,12 @@ MIDDLEWARE_CLASSES = (
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
+    'django_facebook.context_processors.facebook',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'howmuch.urls'
@@ -125,6 +131,7 @@ INSTALLED_APPS = (
     'endless_pagination',
     'gunicorn',
     'storages',
+    'django_facebook',
     
     'howmuch.account',
     'howmuch.article',
@@ -204,4 +211,11 @@ HAYSTACK_CONNECTIONS = {
         # 'URL': 'http://127.0.0.1:8983/solr/mysite',
     },
 }
+
+#Facebook Settings
+
+FACEBOOK_APP_ID = '144678695691800'
+FACEBOOK_APP_SECRET = '04eaabeba273d347c32ac119a6bc794d' 
+
+FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 

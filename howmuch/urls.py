@@ -13,7 +13,8 @@ urlpatterns = patterns('',
     url(r'^logout/$', logout),
 
     url(r'^accounts/', include('registration.backends.default.urls')),
-
+    url(r'^facebook/', include('django_facebook.urls')),
+    
     url(r'^account/', include('howmuch.account.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^article/', include('howmuch.article.urls')),

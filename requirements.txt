@@ -11,3 +11,4 @@ gunicorn==0.14.6
 psycopg2==2.4.5
 python-dateutil==1.5
 pysolr==2.1.0
+django-facebook==4.3.1

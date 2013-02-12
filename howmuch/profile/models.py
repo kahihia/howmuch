@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 
+from django_facebook.models import FacebookProfileModel
+
 from howmuch.pictures.models import make_upload_path
 from howmuch.pictures.thumbs import ImageWithThumbsField
 
@@ -42,7 +44,7 @@ class AccountBank(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.bank, self.account)
 
-class Profile(models.Model):
+class Profile(FacebookProfileModel):
     user = models.OneToOneField(User)
     profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)) )
     company = models.CharField(max_length=77, null = True, blank=True)
