@@ -1,0 +1,41 @@
+{% extends "3columns.html" %}
+
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
+{% block section1 %}
+	{% include "categories.html" %}
+{% endblock %}
+
+{% block section2 %}
+
+<section>
+	<legend>{{ searchresults.matches }} personas estan comprando una {{ article }}</legend>
+	<div>
+		<p>
+			<b>Ordenar por</b>
+			<a href="#">Precio</a>
+			<a href="#">Relevancia</a>
+			<a href="#">Fecha</a>
+		</p>
+	</div>
+	{% for result in searchresults.results %}
+	<div class="row-fluid wrapper-div hover1">
+		<div class="thumbnail span2">
+			<img src="{{ MEDIA_URL }}img/cuantoo_profile_picture.png">
+		</div>
+		<div class="span8">
+			<p>
+				<a href="{{ result.docid }}">{{ result.text }}</a>
+			</p>
+		</div>
+		<div>
+			<h2>
+				${{ result.price }}
+			</h2>
+		</div>
+	</div>
+	{% endfor %}
+</section>
+{% endblock %}

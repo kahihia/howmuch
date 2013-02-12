@@ -1,50 +1,47 @@
-<!DOCTYPE html>
-<html lang="es-MX">
-<head>
-  <meta charset="UTF-8">
-  <title>Registro Completado</title>
-</head>
+{% extends "registration/base.html" %}
 
-<body>
+{% block section2 %}
+<div class="wrapper-div">
+  <div class="alert alert-success">
+    <h3>Felicidades</h3>
+    Te has registrado correctamente  
+  </div>
+  <div>
+    <p>
+      <b>
+        <em>
+        Muchas Gracias por registrate en cuantoo.com, te enviamos una
+        dirección de activación, nuevamente muchas gracias.
+        </em>
+      </b>
+    </p>
 
-  <section>
-	<p>
-		<span>Para activar tu cuenta deberas ingresar a tu Correo Electronico con el que te registraste
-		y dar click en la liga de Activacion.</span> 
-	</p>
+    <p>
+      <em>
+        Recuerda que cuantoo.com es un sitio para comprar y vender al reves, eso significa que 
+        como comprador tendras la posibilidad de elegir a tu vendedor favorito y como vendedor
+        podras encontrar miles de personas que ya estan dispuestas a comprar el articulo que vendes.
+      </em>
+    </p>
+  </div>
 
-	<p>
-		Es un placer para el equipo de Howmuch.do contar con tu valioso interes en este sitio
-	</p>
+  <div>
+    <p> 
+      <a class="margin5" href="http://www.hotmail.com">Hotmail</a>
+      <a class="margin5" href="http://www.gmail.com">Gmail</a>
+      <a class="margin5" href="http://www.yahoo.com">Yahoo</a>
+    </p>
+  </div>
 
-	<p>
-		Howmuch.do es un sitio para comprar y vender articulos de una manera diferente
-	</p>
+</div>
+{% endblock %}
 
-	<a href="/login/">Ir al Inicio</a>
-
-  </section>
-
-		<footer>
-
-            <p>
-                <span>
-                    El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
-                </span>
-
-                <span>
-                    Copyright © 2012 ALIEN Technology
-                </span>
-            </p>
+{% block section3 %}
+  {% include "howtodo.html" %}
+{% endblock %}
 
 
-        </footer>
-
-
-
-</body>
-</html>
-
+{% include "footer.html" %}
 
 
 

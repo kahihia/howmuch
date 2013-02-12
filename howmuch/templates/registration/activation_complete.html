@@ -1,49 +1,34 @@
-<!DOCTYPE html>
-<html lang="es-MX">
-<head>
-  <meta charset="UTF-8">
-  <title>Activacion Completa</title>
-</head>
+{% extends "registration/base.html" %}
 
-<body>
-  <section>
-	<p>
-    Has dado de alta tu cuenta correctamente, ya podras iniciar sesion y empezar a disfrutar de una manera al reves de comprar 
-    y vender por internet, muchas gracias por formar parte de howmuch.do
-	</p>
+{% block section2 %}
+<div class="wrapper-div">
+  <div class="alert alert-success">
+    <h3>Felicidades</h3>
+    Tu Cuenta ha sido activada correctamente 
+  </div>
 
-	<p>
-		Es un placer para el equipo de Howmuch.do contar con tu valioso interes en este sitio
-	</p>
+  <div>
+    <div>
+      <a class="margin5" href="/login/">Iniciar Sesión</a>
+    </div>
 
-	<p>
-		Howmuch.do es un sitio para comprar y vender articulos de una manera diferente
-	</p>
+    <p>
+      <em>
+        Recuerda que cuantoo.com es un sitio para comprar y vender al reves, eso significa que 
+        como comprador tendras la posibilidad de elegir a tu vendedor favorito y como vendedor
+        podras encontrar miles de personas que ya estan dispuestas a comprar el articulo que vendes.
+      </em>
+    </p>
+  </div>
+</div>
+{% endblock %}
 
-	<a href="/login/">Login</a>
-
-  </section>
-
-		<footer>
-
-            <p>
-                <span>
-                    El uso de howmuch.do implica que estas de acuerdo con la aceptación de los Términos y Condiciones y de las Políticas de Privacidad 
-                </span>
-
-                <span>
-                    Copyright © 2012 ALIEN Technology
-                </span>
-            </p>
+{% block section3 %}
+  {% include "howtodo.html" %}
+{% endblock %}
 
 
-        </footer>
-
-
-
-</body>
-</html>
-
+{% include "footer.html" %}
 
 
 
