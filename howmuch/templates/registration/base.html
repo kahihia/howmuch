@@ -22,7 +22,9 @@
         <![endif]-->
         <header class="header-registration color7">
                 <div>
-                    <img width="209" height="40" src="{{ MEDIA_URL }}img/cuantoo_logo.png">
+                    <a href="/">
+                        <img width="209" height="40" src="{{ MEDIA_URL }}img/cuantoo_logo.png">
+                    </a>
                 </div>
         </header>
 
@@ -46,9 +48,10 @@
                     {% block section3%}
                     {% endblock %}
                 </section>
-        </section>
-
+            </section>
         </div>
+
+        {% include "footer.html" %}
 
         <script src="{{ MEDIA_URL }}js/plugins.js"></script>
         <script src="{{ MEDIA_URL}}js/bootstrap.min.js"></script>

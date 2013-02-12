@@ -18,8 +18,9 @@ from howmuch.messages.models import Conversation
 from howmuch.messages.views import update_status_notification
 from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
-from howmuch.profile.models import Profile
 from howmuch.pictures.models import Picture
+from howmuch.profile.models import Profile
+from howmuch.search.views import index_article
 
 @login_required(login_url='/login/')
 def post(request):
@@ -34,7 +35,10 @@ def post(request):
             newPost.tags = request.POST['tags']
             #Se anade un +1 al total_purchases del usario
             request.user.profile.add_purchases()
+            #Se indexa al motor de busqueda searchify
+            index_article(newPost)
             return HttpResponseRedirect(str(newPost.get_url()) + '?new_post=True')
+
     else:
         form=ArticleForm()
     return render_to_response('article/post.html', {'form' : form }, context_instance = RequestContext(request))

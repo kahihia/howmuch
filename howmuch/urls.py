@@ -23,5 +23,6 @@ urlpatterns = patterns('',
     url(r'^notifications/', include('howmuch.notifications.urls')),
     url(r'^prestige/', include('howmuch.prestige.urls')),
     url(r'^profile/', include('howmuch.profile.urls')),
+    url(r'^search/', include('howmuch.search.urls')),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
