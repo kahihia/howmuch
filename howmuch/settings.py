@@ -1,4 +1,6 @@
 import os, sys
+import dj_database_url
+
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 gettext_noop = lambda s: s
@@ -17,9 +19,10 @@ AUTH_PROFILE_MODULE = 'profile.profile'
 MANAGERS = ADMINS
 
 #import dj_database_url   # use this to setup in localsettings.
-#dj_database_url.config(default='postgres://joe:@localhost:5432/howmuch')
-DATABASES = {'default': {}}
-
+DATABASES = {'default':
+                   dj_database_url.config(
+                  default='postgres://kayethano:90ldenb0y@localhost:5432/howmuch')
+        }
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -187,35 +190,16 @@ BROKER_BACKEND = 'django'
 LOGIN_REDIRECT_URL = '/'
 
 #EMAIL
-
-EMAIL_HOST = ''
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'app11900803@heroku.com'
+EMAIL_HOST_PASSWORD = 'gff4vexq'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
 
-#EMAIL
-
-
-#endless_pagination
-ENDLESS_PAGINATION_PER_PAGE = 10
-#endless_pagination
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr'
-        # ...or for multicore...
-        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
-    },
-}
 
 #Facebook Settings
-
 FACEBOOK_APP_ID = '144678695691800'
 FACEBOOK_APP_SECRET = '04eaabeba273d347c32ac119a6bc794d' 
-
 FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 

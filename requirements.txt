@@ -3,12 +3,7 @@ Pillow==1.7.7
 anyjson==0.3.3
 argparse==1.2.1
 dj-database-url==0.2.1
-django-endless-pagination==1.1
-django-simple-captcha==0.3.4
-django-storages==1.1.5
-django-haystack==1.2.7
 gunicorn==0.14.6
 psycopg2==2.4.5
 python-dateutil==1.5
-pysolr==2.1.0
 django-facebook==4.3.1
