@@ -49,6 +49,15 @@
 						</p>
 					</div>
 				</article>
+
+	{% empty %}
+	<p>
+		<b>Aun no tienes mensajes, empieza a tenerlos publicando una compra</b>
+		<a class="margin5" href="/article/post">
+			<i class="icon-plus"></i>
+			Publicar compra
+		</a>
+	</p>
 	{% endfor %}
 </section>
 {% endblock %}

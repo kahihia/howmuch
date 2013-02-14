@@ -46,7 +46,7 @@ class AccountBank(models.Model):
 
 class Profile(FacebookProfileModel):
     user = models.OneToOneField(User)
-    profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)) )
+    profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)), default = '/media/img/cuantoo_profile_picture.png')
     company = models.CharField(max_length=77, null = True, blank=True)
     addresses = models.ManyToManyField(Address, blank = True)
     phones = models.ManyToManyField(Phone, blank = True)
