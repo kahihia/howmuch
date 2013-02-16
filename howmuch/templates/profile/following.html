@@ -1,0 +1,36 @@
+{% extends "3columns.html" %}
+
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
+{% block section1 %}
+{% endblock %}
+
+{% block section2 %}
+
+<section>
+	{% for article in following %}
+	<div class="row-fluid wrapper-div hover1">
+		<div class="thumbnail span2">
+			<img src="{{ MEDIA_URL }}img/cuantoo_profile_picture.png">
+		</div>
+		<div class="span4">
+			<p>
+				<a href="{{ article.get_url }}">{{ article.title }}</a>
+			</p>
+		</div>
+		<div>
+			<h2>
+				${{ article.price }}
+			</h2>
+		</div>
+		<div>
+		<!-- Activo o inactivo?-->
+		</div>
+	</div>
+	{% empty%}
+	<h4>Aun no estas siguiendo ningun articulo, hazlo ahora</h4>
+	{% endfor %}
+</section>
+{% endblock %}

@@ -38,9 +38,9 @@ def post(request):
             #Se indexa al motor de busqueda searchify
             index_article(newPost)
             return HttpResponseRedirect(str(newPost.get_url()) + '?new_post=True')
-
     else:
         form=ArticleForm()
+        form.fields['addressDelivery'].queryset = request.user.profile.addresses.all()
     return render_to_response('article/post.html', {'form' : form }, context_instance = RequestContext(request))
 
 def edit(request, articleID, title_url):
@@ -103,7 +103,7 @@ def offer(request,articleID):
             #Se envia una notificacion 
             NotificationOptions(thisOffer, 'offer').send()
 
-            return HttpResponseRedirect('/account/sales/possible/')
+            return HttpResponseRedirect('/account/sales/')
     else:
         form = OfferForm()
     return render_to_response('article/offer.html', {'form' : form, 'article' : article, 'user' : request.user }, context_instance=RequestContext(request))
@@ -135,6 +135,9 @@ def assignment(request, articleID, candidateID):
             newAssignment.owner = candidate
             newAssignment.article = article
             newAssignment.save()
+            #Articulo pasa a NO Activo
+            article.is_active = False
+            article.save()
 
             NotificationOptions(newAssignment, 'assignment').send()
             

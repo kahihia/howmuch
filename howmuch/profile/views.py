@@ -66,6 +66,12 @@ def newAccountBank(request):
         form = AccountBankForm()
     return render_to_response('profile/newAccountBank.html', {'form' : form }, context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
+def following(request):
+    return render_to_response('profile/following.html', {'following' : request.user.profile.following.all()},
+        context_instance=RequestContext(request))
+
+
 
     
 

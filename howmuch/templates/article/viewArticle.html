@@ -53,7 +53,7 @@ $(document).on('ready', function(){
     </div>
 	{% endif %}
 
-	{% if article.has_assignment %}
+	{% if not article.is_active %}
 	<div class="alert alert-error">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
     	Esta Publicación Ha Finalizado <a href="/article/post">Publicar una Compra</a>
@@ -79,6 +79,7 @@ $(document).on('ready', function(){
 			<h2>{{ article.title }}</h2>
 			<center>
 				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderselo</a>
+				<a class="btn btn-large btn-success" href="#">Seguir</a>
 			</center>
 		</div>
 	</article>

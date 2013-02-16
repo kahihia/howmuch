@@ -57,6 +57,8 @@ class Article(models.Model):
     title_url = models.CharField(max_length=100, null=True, blank=True)
     comments = models.ManyToManyField(Comment, blank=True)
     followers = models.ManyToManyField(User, blank=True)
+    is_active = models.BooleanField(default=True)
+
 
     def __unicode__(self):
         return u'Title: %s' % (self.title)
