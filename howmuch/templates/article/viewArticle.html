@@ -15,6 +15,7 @@
 {% block media %}
 <script type="text/javascript">
 $(document).on('ready', function(){
+
 	$('#comments-form').submit(function(e){
 		e.preventDefault();
 		$.post('/comments/post/{{ article.pk }}/', 
@@ -23,6 +24,18 @@ $(document).on('ready', function(){
 				$('.comments-area').append(data);
 				$('#comments-form')[0].reset();
 			});
+	});
+
+	$('.unfollow').click(function(e){
+		e.preventDefault()
+		$.getJSON('/profile/e/follow/{{ article.pk }}', function(json){
+		});
+	});
+
+	$('.follow').click(function(e){
+		e.preventDefault();
+		$.getJSON('/profile/e/unfollow/{{ article.pk }}', function(json){
+		});
 	});
 });
 </script>
@@ -79,7 +92,8 @@ $(document).on('ready', function(){
 			<h2>{{ article.title }}</h2>
 			<center>
 				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderselo</a>
-				<a class="btn btn-large btn-success" href="#">Seguir</a>
+				<a id="btn-follow" class="btn btn-large btn-success unfollow" href="#">Seguir</a>
+				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
 			</center>
 		</div>
 	</article>

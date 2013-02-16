@@ -1,11 +1,15 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
-from howmuch.profile.forms import ProfileForm, AddressForm, PhoneForm, AccountBankForm
-from howmuch.profile.models import Profile
+from howmuch.article.models import Article
 from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
+from howmuch.profile.forms import ProfileForm, AddressForm, PhoneForm, AccountBankForm
+from howmuch.profile.functions import add_following, remove_following
+from howmuch.profile.models import Profile
 
 
 @login_required(login_url="/login")
@@ -70,6 +74,19 @@ def newAccountBank(request):
 def following(request):
     return render_to_response('profile/following.html', {'following' : request.user.profile.following.all()},
         context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def follow(request, articleID):
+    article = get_object_or_404(Article, pk=articleID)
+    add_following(article,request.user)
+    return HttpResponse(json.dumps({'response' : 'siguiendo'}))
+
+@login_required(login_url='/login/')
+def unfollow(request,articleID):
+    article = get_object_or_404(Article, pk=articleID)
+    remove_following(article, request.user)
+    return HttpResponse(json.dumps({'response' : 'lo dejaste de seguir' }))
+
 
 
 

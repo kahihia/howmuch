@@ -4,7 +4,8 @@ from django.shortcuts import get_object_or_404
 
 from howmuch.comments.models import Comment
 from howmuch.comments.forms import CommentForm
-from howmuch.comments.functions import add_follower, add_following, send_mail
+from howmuch.comments.functions import send_mail
+from howmuch.profile.functions import add_follower, add_following
 from howmuch.article.models import Article
 
 @login_required(login_url="/login/")
