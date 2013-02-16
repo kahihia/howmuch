@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from howmuch.comments.models import Comment
 from howmuch.comments.forms import CommentForm
+from howmuch.comments.functions import add_follower, add_following, send_mail
 from howmuch.article.models import Article
 
 @login_required(login_url="/login/")
@@ -16,13 +17,12 @@ def post(request, articleID):
 			post.owner = request.user
 			post.save()
 			article.comments.add(post)
-
-			#Validate stakeholders
-			if request.user not in article.stakeholders.all():
-				article.stakeholders.add(request.user)
-
-			#Send email or notification to stakeholders
-
+			#add follower
+			add_follower(article, request.user)
+			#add following
+			add_following(article, request.user)
+			#Send email to buyer or followers
+			send_mail(article, request.user, post)
 			#html content for http response
 			html_content = 	"<div class='wrapper-div row'>" +\
 							"<div class='span1'>" +\

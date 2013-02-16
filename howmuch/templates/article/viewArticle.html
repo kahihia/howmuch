@@ -106,20 +106,6 @@ $(document).on('ready', function(){
 <!-- Comments Area -->
 <section class="wrapper-div">
 <h4>Dudas del Articulo</h4>
-	{% if user.is_authenticated %}
-	<div>
-		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
-		</form>
-	</div>
-	{% else %}
-	<div>
-		<p>
-			<span>Para poder comentar debes iniciar sesión</span>
-			<a href="/login/">Iniciar Sesión</a>
-		</p>
-	</div>
-	{% endif %}
 	<div class="comments-area">
 		{% for comment in article.comments.all %}
 			<div class="wrapper-div row">
@@ -139,6 +125,20 @@ $(document).on('ready', function(){
 			</div>
 		{% endfor %}
 	</div>
+	{% if user.is_authenticated %}
+	<div>
+		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+		</form>
+	</div>
+	{% else %}
+	<div>
+		<p>
+			<span>Para poder comentar debes iniciar sesión</span>
+			<a href="/login/">Iniciar Sesión</a>
+		</p>
+	</div>
+	{% endif %}
 </section>
 {% endblock %}
 

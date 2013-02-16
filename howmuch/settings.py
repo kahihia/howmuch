@@ -11,7 +11,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Juan Carlos Cayetano', 'kayethano@gmail.com'),
-    #('Joel Rivera', 'rivera@joel.mx'),
+    ('Joel Rivera', 'rivera@joel.mx'),
 )
 
 AUTH_PROFILE_MODULE = 'profile.profile'
