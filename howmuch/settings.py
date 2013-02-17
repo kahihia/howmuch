@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'howmuch.backend',
     'howmuch.comments',
     'howmuch.config',
+    'howmuch.invoice',
     'howmuch.messages',
     'howmuch.notifications',
     'howmuch.pictures',
