@@ -199,9 +199,9 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
 
 
-#Facebook Settings
+#Cuantoo.com Facebook Settings
 FACEBOOK_APP_ID = '144678695691800'
-FACEBOOK_APP_SECRET = '04eaabeba273d347c32ac119a6bc794d' 
+FACEBOOK_APP_SECRET = 'f25118e2c2043d335d5aebecded78976' 
 FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 
 #Comission 
