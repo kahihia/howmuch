@@ -1,0 +1,92 @@
+{% extends "1columns.html" %}
+{% block title %}{% endblock %}
+
+{% block media %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#tab-critiques a').click(function (e) {
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+});
+</script>
+{% endblock %}
+
+{% block section1 %}
+<div class="row-fluid">
+	<div class="span2 thumbnail">
+		<img src="{{ user.profile.profile_picture.url }}">
+	</div>
+	<div class="span10">
+		<legend>{{ user.get_full_name }}  ({{ user }})</legend>
+	</div>
+</div>
+<legend>Prestigio</legend>
+<div>
+	<h1>{{ user.profile.prestige }}</h1>
+</div>
+<div>
+	<ul class="nav nav-tabs" id="tab-critiques">
+    	<li class="active">
+            <a href="#like-buyer">Como Comprador</a>
+        </li>
+        <li>
+        	<a href="#like-seller">Como Vendedor</a>
+        </li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="like-buyer">
+		<div class="wrapper-div">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Fecha</th>
+						<th>Articulo</th>
+						<th>Critica</th>
+						<th>Mensaje</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for critique in prestigeLikeBuyer %}
+					<tr>
+						<th>{{ forloop.counter }}</th>
+						<th>{{ critique.date.date }}</th>
+						<th>{{ critique.assignment.article.title }}</th>
+						<th>{{ critique.prestige }}</th>
+						<th>{{ critique.message }}</th>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+    </div>
+    <div class="tab-pane" id="like-seller">
+		<div class="wrapper-div">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Fecha</th>
+						<th>Articulo</th>
+						<th>Critica</th>
+						<th>Mensaje</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for critique in prestigeLikeSeller %}
+					<tr>
+						<th>{{ forloop.counter }}</th>
+						<th>{{ critique.date.date }}</th>
+						<th>{{ critique.assignment.article.title }}</th>
+						<th>{{ critique.prestige }}</th>
+						<th>{{ critique.message }}</th>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+    </div>
+</div>
+{% endblock %}

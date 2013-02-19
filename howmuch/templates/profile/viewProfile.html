@@ -9,87 +9,40 @@
 
 {% block section2 %}
 <section>
-	<div>
-
-		<div>
-
-			<img src="{{ profile.get_profile_picture_100x100 }}">
-
-		</div>
-
-		<div>
-
-			<div>
-				<span>{{ profile.user.get_full_name }}</span>
+	<div class="wrapper-div">
+		<div class="row-fluid">
+			<div class="span3 thumbnail">
+				<img src="{{ profile.profile_picture.url }}">
 			</div>
-
-			<div>
-
-				<img src="{{ profile.get_prestige_picture }}">
-
+			<div class="span8">
+				<legend>{{ profile.user.get_full_name }}  ({{ profile.user }})</legend>
 			</div>
-
-			<div>
-
-				<div>
-
-					<span>Total de compras: </span><span>{{ profile.total_purchases }}</span>
-
-				</div>
-
-				<div>
-
-					<span>Total de Ventas: </span><span>{{ profile.total_sales }}</span>
-
-				</div>
-
+		</div>
+		<legend>Prestigio</legend>
+		<div>
+			<h1>{{ profile.prestige }}</h1>
+		</div>
+		<legend>Información</legend>
+		<div class="row-fluid">
+			<div class="span6">
+				<p>
+					<b>Total de Compras:</b>
+					{{ profile.total_purchases }}
+				</p>
+				<p>
+					<a href="/prestige/critiques/{{ profile.user.username }}">Ver Criticas</a>
+				</p>
 			</div>
-
+			<div class="span6">
+				<p>
+					<b>Total de Ventas:</b>
+					{{ profile.total_sales }}
+				</p>
+				<p>
+					<a href="/prestige/critiques/{{ profile.user.username }}">Ver Criticas</a>
+				</p>
+			</div>
 		</div>
-
-
-	</div>
-
-	<div>
-
-		<div>
-
-			<h3>Criticas como Comprador</h3>
-
-			{% for critique in prestigeLikeBuyer %}
-
-				{{ critique.assignment.article.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
-
-			{% empty %}
-
-				<span>No hay criticas como Comprador para este usuario </span>
-
-			{% endfor %}
-
-			<a href="#">VER MAS</a>
-
-		</div>
-
-
-		<div>
-
-			<h3>Criticas como Vendedor</h3>
-
-			{% for critique in prestigeLikeSeller %}
-
-				{{ critique.assignment.article.title }}||{{ critique.prestige }}<a href="#">Mas detalles</a>
-
-			{% empty %}
-
-				<span>No hay criticas como vendedor para este usuario</span>
-
-			{% endfor %}
-
-			<a href="#">VER MAS</a>
-
-		</div>
-
-
 	</div>
 
 </section>

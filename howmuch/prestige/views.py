@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.contrib.auth.models import User
 
 from howmuch.article.functions import AboutAssignment
 from howmuch.article.models import Assignment
@@ -166,6 +167,18 @@ def setPrestigeToBuyer(request, assignmentID):
     else:
         form = PrestigeLikeBuyerForm()
     return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
+
+@login_required(login_url='/login/')
+def critiques(request, username):
+    user = get_object_or_404(User, username=username)
+    prestigeLikeBuyer = PrestigeLikeBuyer.objects.filter(to__username = username).order_by('date')[:10]
+    prestigeLikeSeller = PrestigeLikeSeller.objects.filter(to__username = username).order_by('date')[:10]
+    return render_to_response('prestige/critiques.html', 
+        {'prestigeLikeBuyer' : prestigeLikeBuyer, 'prestigeLikeSeller' : prestigeLikeSeller,
+        'user' : user },
+        context_instance=RequestContext(request))
+
+
 
 
 

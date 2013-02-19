@@ -14,12 +14,9 @@ from howmuch.profile.models import Profile
 
 @login_required(login_url="/login")
 def viewProfile(request, username):
-    prestigeLikeBuyer = PrestigeLikeBuyer.objects.filter(to__username = username).order_by('date')[:10]
-    prestigeLikeSeller = PrestigeLikeSeller.objects.filter(to__username = username).order_by('date')[:10]
     profile = get_object_or_404(Profile, user__username = username)
-
-    return render_to_response('profile/viewProfile.html', {'prestigeLikeBuyer' : prestigeLikeBuyer,
-        'prestigeLikeSeller' : prestigeLikeSeller, 'profile' : profile}, context_instance=RequestContext(request))
+    return render_to_response('profile/viewProfile.html', {'profile' : profile}, 
+        context_instance=RequestContext(request))
 
 
 @login_required(login_url="/login")
@@ -32,7 +29,8 @@ def edit(request):
             return HttpResponseRedirect("/profile/e/edit/")
     else:
         form =ProfileForm(instance=current)
-    return render_to_response('profile/edit.html', {'form' : form }, context_instance=RequestContext(request))
+    return render_to_response('profile/edit.html', {'form' : form }, 
+        context_instance=RequestContext(request))
 
 @login_required(login_url="/login/")
 def newAddress(request):
@@ -44,7 +42,8 @@ def newAddress(request):
             return HttpResponseRedirect('/profile/e/edit')
     else:
         form = AddressForm()
-    return render_to_response('profile/newAddress.html', {'form' : form}, context_instance=RequestContext(request))
+    return render_to_response('profile/newAddress.html', {'form' : form}, 
+        context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def newPhone(request):
@@ -56,7 +55,8 @@ def newPhone(request):
             return HttpResponseRedirect('/profile/e/edit')
     else:
         form = PhoneForm()
-    return render_to_response('profile/newPhone.html', {'form' : form}, context_instance=RequestContext(request))
+    return render_to_response('profile/newPhone.html', {'form' : form}, 
+        context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def newAccountBank(request):
@@ -68,7 +68,8 @@ def newAccountBank(request):
             return HttpResponseRedirect('/profile/e/edit')
     else:
         form = AccountBankForm()
-    return render_to_response('profile/newAccountBank.html', {'form' : form }, context_instance=RequestContext(request))
+    return render_to_response('profile/newAccountBank.html', {'form' : form }, 
+        ycontext_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def following(request):
