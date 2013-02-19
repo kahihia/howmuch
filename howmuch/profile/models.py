@@ -56,7 +56,7 @@ class Profile(FacebookProfileModel):
     banks = models.ManyToManyField(AccountBank, blank = True)
     total_purchases = models.IntegerField(default = 0)
     total_sales = models.IntegerField(default = 0)
-    prestige = models.CharField(max_length=1, default = 'A')
+    prestige = models.CharField(max_length=15, default = 'Sirius')
     unread_notifications = models.IntegerField(default = 0)
     unread_conversations = models.IntegerField(default = 0)
 

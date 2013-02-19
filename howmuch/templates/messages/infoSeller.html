@@ -6,53 +6,62 @@
 <section>
 	{% if not errors %}
 	<div class="wrapper-div">
-	<div>
+		<h2>Vendedor</h2>
+		<div class="row-fluid">
+			<div class="span3 thumbnail">
+				<img src="{{ seller.profile.profile_picture.url }}">
+			</div>
+			<div class="span8">
+				<legend>{{ seller.get_full_name }}  ({{ seller }})</legend>
+			</div>
+		</div>
+		<legend>Prestigio</legend>
 		<div>
-			<img src="{{ seller.profile.get_profile_picture_100x100 }}">
-	</div>
-	<div>
+			<h1>{{ seller.profile.prestige }}</h1>
+		</div>
+		<legend>Información</legend>
+		<div class="row-fluid">
+			<div class="span6">
+				<p>
+					<b>Total de Compras:</b>
+					{{ seller.profile.total_purchases }}
+				</p>
+				<p>
+					<a href="#">Ver Criticas</a>
+				</p>
+			</div>
+			<div class="span6">
+				<p>
+					<b>Total de Ventas:</b>
+					{{ seller.profile.total_sales }}
+				</p>
+				<p>
+					<a href="#">Ver Criticas</a>
+				</p>
+			</div>
+		</div>
 		<div>
-			<h3>Información del Vendedor</h3>
-			<p>
-				<span >Total de Compras:</span>
-				<span>{{ seller.profile.total_purchases }}</span>
-				<a href="#">Ver Criticas</a>
-			</p>
-			<p>
-				<span >Total de Ventas:</span>
-				<span>{{ seller.profile.total_sales }}</span>	
-				<a href="#">Ver Criticas</a>		
-			</p>
-			<p>
-				<span >Usuario:</span>
-				<span>{{ seller }}</span>
-			</p>
-			<p>
-				<span >Nombre:</span>
-				<span>{{ seller.get_full_name }}</span>
-			</p>
-			<p>
-				<span >Email:</span>
-				<span>{{ seller.email }}</span>
-			</p>
-			<p>
-				<span >Telefonos:</span>
+			<div>
+				<b>Email:</b>
+				<p>{{ seller.email }}</p>
+			</div>
+			<div>
+				<b>Telefonos:</b>
 				{% for phone in seller.profile.phones.all %}
-				<span>{{ phone }}</span>
+					<p>{{ phone }}</p>
 				{% empty %}
-				<span>No se han registrado Telefonos</span>
+					<p>No se han registrado Telefonos</p>
 				{% endfor %}
-			</p>
+			</div>
+			<div>
+				<b>Cuentas Bancarias:</b>
+				{% for account in seller.profile.banks.all %}
+					<p>{{ account }}</p>
+				{% empty %}
+					<p>No se han registrado Cuentas Bancarias</p>
+				{% endfor %}
+			</div>
 		</div>
-		<div>
-			<h3>Datos de Deposito Bancario</h3>
-			{% for account in seller.profile.banks.all %}
-				<div>{{ account }}</div>
-			{% empty %}
-				<span>Este usuario aun no registra sus datos bancarios</span>
-			{% endfor %}
-		</div>
-	</div>
 	</div>
 	{% else %}
 	<p>No tienes permiso para ver esta informacion</p>

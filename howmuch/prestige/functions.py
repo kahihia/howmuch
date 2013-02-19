@@ -27,16 +27,16 @@ def update_prestige(user):
     profileUser = Profile.objects.get(user = user )
 
     if prestigeUser >= 0 and prestigeUser < 25:
-        profileUser.prestige = 'A'
+        profileUser.prestige = 'Sirius'
         profileUser.save()
     elif prestigeUser >=25 and prestigeUser < 50:
-        profileUser.prestige = 'B'
+        profileUser.prestige = 'Antares'
         profileUser.save()
     elif prestigeUser >=50  and prestigeUser < 75:
-        profileUser.prestige = 'C'
+        profileUser.prestige = 'Mu Cephei'
         profileUser.save()
     elif prestigeUser >=75:
-        profileUser.prestige = 'D'
+        profileUser.prestige = 'Canis Majoris'
         profileUser.save()
 
 

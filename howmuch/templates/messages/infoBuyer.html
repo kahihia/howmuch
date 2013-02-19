@@ -6,52 +6,58 @@
 <section>
 	{% if not errors %}
 	<div class="wrapper-div">
-	<div>
-		<div>
-			<img src="{{ buyer.profile.get_profile_picture_100x100 }}">
+		<h2>Comprador</h2>
+		<div class="row-fluid">
+			<div class="span3 thumbnail">
+				<img src="{{ buyer.profile.profile_picture.url }}">
+			</div>
+			<div class="span8">
+				<legend>{{ buyer.get_full_name }}  ({{ buyer }})</legend>
+			</div>
 		</div>
-	</div>
-	<div>
+		<legend>Prestigio</legend>
 		<div>
-			<h3>Información del Comprador</h3>
-			<p>
-				<b>Total de Compras: </b>
-				<span >{{ buyer.profile.total_purchases }}</span>
-				<a href="#">Ver Criticas</a>
-			</p>
-			<p>
-				<b>Total de Ventas:</b>
-				<span>{{ buyer.profile.total_sales }}</span>	
-				<a href="#">Ver Criticas</a>		
-			</p>
-			<p>
-				<b>Usuario:</b>
-				<span>{{ buyer }}</span>
-			</p>
-			<p>
-				<b>Nombre:</b>
-				<span>{{ buyer.get_full_name }}</span>
-			</p>
-			<p>
+			<h1>{{ buyer.profile.prestige }}</h1>
+		</div>
+		<legend>Información</legend>
+		<div class="row-fluid">
+			<div class="span6">
+				<p>
+					<b>Total de Compras:</b>
+					{{ buyer.profile.total_purchases }}
+				</p>
+				<p>
+					<a href="#">Ver Criticas</a>
+				</p>
+			</div>
+			<div class="span6">
+				<p>
+					<b>Total de Ventas:</b>
+					{{ buyer.profile.total_sales }}
+				</p>
+				<p>
+					<a href="#">Ver Criticas</a>
+				</p>
+			</div>
+		</div>
+		<div>
+			<div>
 				<b>Email:</b>
-				<span>{{ buyer.email }}</span>
-			</p>
-			<p>
+				<p>{{ buyer.email }}</p>
+			</div>
+			<div>
 				<b>Telefonos:</b>
 				{% for phone in buyer.profile.phones.all %}
-				<div>{{ phone }}</div>
+					<p>{{ phone }}</p>
 				{% empty %}
-				<span>No se han registrado Telefonos</span>
+					<p>No se han registrado Telefonos</p>
 				{% endfor %}
-			</p>
+			</div>
+			<div>
+				<b>Dirección de Envio:</b>
+				<p>{{ conversation.assignment.article.addressDelivery|title }}</p>
+			</div>
 		</div>
-		<div>
-			<h3>Direccíon de Envio</h3>
-			<p>{{ conversation.assignment.article.addressDelivery|title }}</p>
-		</div>
-	</div>
-
-
 	</div>
 	{% else %}
 	<p>No tienes permiso para ver esta informacion</p>
