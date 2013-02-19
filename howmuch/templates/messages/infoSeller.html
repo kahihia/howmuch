@@ -5,6 +5,7 @@
 {% block section2 %}
 <section>
 	{% if not errors %}
+	<div class="wrapper-div">
 	<div>
 		<div>
 			<img src="{{ seller.profile.get_profile_picture_100x100 }}">
@@ -51,6 +52,7 @@
 				<span>Este usuario aun no registra sus datos bancarios</span>
 			{% endfor %}
 		</div>
+	</div>
 	</div>
 	{% else %}
 	<p>No tienes permiso para ver esta informacion</p>

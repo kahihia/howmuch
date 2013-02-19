@@ -70,7 +70,9 @@ def offer(request,articleID):
     #Validar que el Article exista, si no existe regresa error 404
     article = get_object_or_404(Article, pk = articleID)    
     #Validar Offer
-    validate_offer(articleID,request)
+    errors = validate_offer(articleID, request.user)
+    if errors:
+        return HttpResponse(errors)
     #Formulario
     if request.method == 'POST':
         form = OfferForm(request.POST, request.FILES)

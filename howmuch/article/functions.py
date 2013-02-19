@@ -116,11 +116,11 @@ def validate_assignment(articleID,request):
     else:
         return HttpResponse("Esta Asignacion ya Existe")
 
-def validate_offer(articleID, request):
+def validate_offer(articleID, user):
     #Se crea una instancia de AboutArticle, funcion que realiza algunas verificaciones
-    aboutArticle = AboutArticle(request.user, articleID) 
+    aboutArticle = AboutArticle(user, articleID) 
     #Se valida la instancia: User is not candidate, is not owner, is not assigned
     if aboutArticle.is_valid():
-        pass
+        return aboutArticle.errors()
     else:
-        return render_to_response('article/offer.html', {'errors' : aboutArticle.errors() }, context_instance=RequestContext(request))
+        return aboutArticle.errors()

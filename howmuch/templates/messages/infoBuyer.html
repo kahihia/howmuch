@@ -5,7 +5,7 @@
 {% block section2 %}
 <section>
 	{% if not errors %}
-
+	<div class="wrapper-div">
 	<div>
 		<div>
 			<img src="{{ buyer.profile.get_profile_picture_100x100 }}">
@@ -15,29 +15,29 @@
 		<div>
 			<h3>Información del Comprador</h3>
 			<p>
-				<span>Total de Compras: </span>
+				<b>Total de Compras: </b>
 				<span >{{ buyer.profile.total_purchases }}</span>
 				<a href="#">Ver Criticas</a>
 			</p>
 			<p>
-				<span >Total de Ventas:</span>
+				<b>Total de Ventas:</b>
 				<span>{{ buyer.profile.total_sales }}</span>	
 				<a href="#">Ver Criticas</a>		
 			</p>
 			<p>
-				<span >Usuario:</span>
+				<b>Usuario:</b>
 				<span>{{ buyer }}</span>
 			</p>
 			<p>
-				<span >Nombre:</span>
+				<b>Nombre:</b>
 				<span>{{ buyer.get_full_name }}</span>
 			</p>
 			<p>
-				<span >Email:</span>
+				<b>Email:</b>
 				<span>{{ buyer.email }}</span>
 			</p>
 			<p>
-				<span >Telefonos:</span>
+				<b>Telefonos:</b>
 				{% for phone in buyer.profile.phones.all %}
 				<div>{{ phone }}</div>
 				{% empty %}
@@ -51,6 +51,8 @@
 		</div>
 	</div>
 
+
+	</div>
 	{% else %}
 	<p>No tienes permiso para ver esta informacion</p>
 	{% endif %}
