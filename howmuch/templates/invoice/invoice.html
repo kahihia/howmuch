@@ -1,0 +1,54 @@
+{% extends "1columns.html" %}
+{% block media %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#tab-invoice a').click(function (e) {
+    	e.preventDefault();
+    	$(this).tab('show');
+    });
+});
+</script>
+{% endblock %}
+{% block section1 %}
+<div>
+	<ul class="nav nav-tabs" id="tab-invoice">
+		{% for charge in charges %}
+    	<li class="{% if  forloop.counter == 1 %}active{% endif %}">
+            <a href="#period{{ forloop.counter }}">Periodo {{ forloop.counter }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="tab-content">
+	{% for period in charges %}
+    <div class="tab-pane {% if  forloop.counter == 1 %}active{% endif %}" id="period{{ forloop.counter }}">
+		<div class="wrapper-div">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Fecha</th>
+						<th>Concepto</th>
+						<th>Precio</th>
+						<th>Comisíon</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for charge in period.charges %}
+					<tr>
+						<th>{{ forloop.counter }}</th>
+						<th>{{ charge.date }}</th>
+						<th>{{ charge.assignment.article.title }}</th>
+						<th>{{ charge.price }}</th>
+						<th>{{ charge.commission }}</th>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<legend>Total a pagar $ {{ period.total.commission__sum }}</legend>
+			<a class="btn btn-large btn-success" href="#">Pagar Ahora</a>
+		</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

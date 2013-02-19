@@ -31,7 +31,8 @@ class Notification(models.Model):
             return '/article/candidates/%s?notif_id=%s' % (self.article.pk, self.pk)
         elif self.notif_type == 'assignment':
             return '/messages/%s?notif_id=%s' % (self.article.assignment.conversation.pk, self.pk)
-
+        else:
+            return '/messages/%s?notif_id=%s' % (self.article.assignment.conversation.pk, self.pk)
 
 
 

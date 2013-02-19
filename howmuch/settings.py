@@ -204,3 +204,6 @@ FACEBOOK_APP_ID = '144678695691800'
 FACEBOOK_APP_SECRET = '04eaabeba273d347c32ac119a6bc794d' 
 FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 
+#Comission 
+COMMISSION = .05
+

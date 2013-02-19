@@ -14,6 +14,7 @@ from django.utils import simplejson
 from howmuch.article.forms import ArticleForm, AssignmentForm, OfferForm
 from howmuch.article.functions import AboutArticle, AboutAssignment, validate_assignment, validate_offer
 from howmuch.article.models import Article, Offer, Assignment
+from howmuch.invoice.functions import generate_charge, generate_invoice
 from howmuch.messages.models import Conversation
 from howmuch.messages.views import update_status_notification
 from howmuch.notifications.functions import NotificationOptions
@@ -138,13 +139,16 @@ def assignment(request, articleID, candidateID):
             #Articulo pasa a NO Activo
             article.is_active = False
             article.save()
-
+            #Generar Factura en caso que no Exista
+            invoice = generate_invoice(newAssignment.get_seller())
+            charge = generate_charge(newAssignment,offer.cprice, invoice)
             NotificationOptions(newAssignment, 'assignment').send()
             
             return HttpResponseRedirect('/messages/' + str(newAssignment.conversation.pk))
     else:
         form = AssignmentForm()
-    return render_to_response('article/assignment.html', {'form' : form, 'candidate' : candidate, 'article' : article }, context_instance=RequestContext(request))
+    return render_to_response('article/assignment.html', {'form' : form, 'candidate' : candidate, 'article' : article }, 
+        context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def get_article_tags(request):

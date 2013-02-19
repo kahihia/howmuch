@@ -1,18 +1,18 @@
-from howmuch.article.functions import AboutAssignment
-from howmuch.article.models import Assignment
-from howmuch.messages.models import Conversation, Message
-from howmuch.notifications.functions import NotificationOptions
-from howmuch.notifications.models import Notification
-from howmuch.prestige.forms import ConfirmPayForm, ConfirmDeliveryForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
-from howmuch.prestige.functions import update_prestige
-from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
-
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
+from howmuch.article.functions import AboutAssignment
+from howmuch.article.models import Assignment
+from howmuch.invoice.functions import generate_commission
+from howmuch.messages.models import Conversation, Message
+from howmuch.notifications.functions import NotificationOptions
+from howmuch.notifications.models import Notification
+from howmuch.prestige.forms import ConfirmPayForm, ConfirmDeliveryForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
+from howmuch.prestige.functions import update_prestige
+from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
 
 STATUS_ASSIGNMENT = (
 
@@ -61,10 +61,7 @@ def confirmDelivery(request, assignmentID):
     #Se valida que la conversacion correspondiente a la asignacion exista, ya que enseguida se utiliza la variable
     conversation = get_object_or_404(Conversation, assignment = assignment)
     # Instancia de la clase AboutAssignment
-    aboutAssignment = AboutAssignment(assignment)
-    # Verifica que el pago haya sido realizado en caso de que no, envia mensaje de error
-    if not aboutAssignment.has_been_paid():
-        return HttpResponse("No puedes Confirmar el Envio del articulo hasta que el comprador no te haya pagado")
+    aboutAssignment = AboutAssignment(assignment)    
     #Se valida que la confirmacion del envio no haya sido confirmado anteriormente
     if aboutAssignment.has_been_delivered():
         return HttpResponse("Ya has confirmado el envio de este articulo, no puedes confirmarlo nuevamente")
@@ -80,7 +77,7 @@ def confirmDelivery(request, assignmentID):
             assignment.status = "2"
             assignment.save()            
             #Se activa el sistema de notificaciones
-            NotificationOptions(newDelivery, 'confirm_delivery').save()
+            NotificationOptions(newDelivery, 'confirm_delivery').send()
             return HttpResponseRedirect('/messages/' + str(conversation.pk) )   
     else:
         form = ConfirmDeliveryForm()
@@ -111,7 +108,6 @@ def setPrestigeToSeller(request, assignmentID):
             newPrestigeToSeller.assignment = assignment
             newPrestigeToSeller.save()
             #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
-            
             if assignment.has_been_critiqued_before():
                 assignment.status = "4"
                 assignment.save()
@@ -120,8 +116,10 @@ def setPrestigeToSeller(request, assignmentID):
             elif assignment.status == "2":
                 assignment.status = "3"
                 assignment.save()
+                #Se genera el cargo por comision al vendedor
+                generate_commission(assignment)
             #Se activa el sistema de Notificaciones
-            NotificationOptions(newPrestigeToSeller, 'critique').save()                
+            NotificationOptions(newPrestigeToSeller, 'critique').send()                
             return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
     else:
         form = PrestigeLikeSellerForm()
@@ -160,8 +158,10 @@ def setPrestigeToBuyer(request, assignmentID):
             elif assignment.status == "2":
                 assignment.status = "3"
                 assignment.save()
+                #Se genera el cargo por comision al vendedor
+                generate_commission(assignment)
             #Se activa el sistema de notificaciones
-            NotificationOptions(newPrestigeToBuyer, 'critique').save()
+            NotificationOptions(newPrestigeToBuyer, 'critique').send()
             return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
     else:
         form = PrestigeLikeBuyerForm()
