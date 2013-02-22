@@ -17,12 +17,12 @@ from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
 
 STATUS_ASSIGNMENT = (
 
-    ('0', 'NOTIFICADO'), #Cuando la Asignacion es generada
-    ('1', 'PAGADO'), #Cuando el comprador notifica el pago
-    ('2', 'PRODUCTO ENVIADO'), #Cuando el vendedor notifica el Envio del producto, ya permite que los usuarios CRITIQUEN
-    ('3','EN ESPERA DE CRITICA'), #Se activa en el momento en que cualquiera de los involucrados CRITICA la transaccion
-    ('4', 'COMPLETADO'), #Cuando ya existe CRITICA tanto del comprador como del vendedor
-    ('5', 'CANCELADO') #Cuando se cancela la transaccion
+    ('1', 'NOTIFICADO'), #Cuando la Asignacion es generada
+    ('2', 'PAGADO'), #Cuando el comprador notifica el pago
+    ('3', 'PRODUCTO ENVIADO'), #Cuando el vendedor notifica el Envio del producto, ya permite que los usuarios CRITIQUEN
+    ('4','EN ESPERA DE CRITICA'), #Se activa en el momento en que cualquiera de los involucrados CRITICA la transaccion
+    ('5', 'COMPLETADO'), #Cuando ya existe CRITICA tanto del comprador como del vendedor
+    ('6', 'CANCELADO') #Cuando se cancela la transaccion
 
 )
 
@@ -45,8 +45,8 @@ def confirmPay(request, assignmentID):
             newPay.owner = request.user
             newPay.assignment = assignment
             newPay.save()
-            #Se cambia el estado de la asignacion a 1
-            assignment.status = "1"
+            #Se cambia el estado de la asignacion a 2
+            assignment.status = "2"
             assignment.save()
             #Se envia notificacion
             NotificationOptions(newPay,'confirm_pay').send()
@@ -74,8 +74,8 @@ def confirmDelivery(request, assignmentID):
             newDelivery.owner = request.user
             newDelivery.assignment = assignment
             newDelivery.save() 
-            #Se cambia el estado de la asignacion a 2
-            assignment.status = "2"
+            #Se cambia el estado de la asignacion a 3
+            assignment.status = "3"
             assignment.save()            
             #Se activa el sistema de notificaciones
             NotificationOptions(newDelivery, 'confirm_delivery').send()
@@ -110,12 +110,12 @@ def setPrestigeToSeller(request, assignmentID):
             newPrestigeToSeller.save()
             #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
             if assignment.has_been_critiqued_before():
-                assignment.status = "4"
+                assignment.status = "5"
                 assignment.save()
                 update_prestige(request.user)
                 update_prestige(assignment.owner)
-            elif assignment.status == "2":
-                assignment.status = "3"
+            elif assignment.status == "3":
+                assignment.status = "4"
                 assignment.save()
                 #Se genera el cargo por comision al vendedor
                 generate_commission(assignment)
@@ -152,12 +152,12 @@ def setPrestigeToBuyer(request, assignmentID):
             newPrestigeToBuyer.save()
             #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
             if assignment.has_been_critiqued_before():
-                assignment.status = "4"
+                assignment.status = "5"
                 assignment.save()
                 update_prestige(request.user)
                 update_prestige(assignment.article.owner)
-            elif assignment.status == "2":
-                assignment.status = "3"
+            elif assignment.status == "3":
+                assignment.status = "4"
                 assignment.save()
                 #Se genera el cargo por comision al vendedor
                 generate_commission(assignment)

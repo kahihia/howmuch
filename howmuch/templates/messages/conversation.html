@@ -94,5 +94,32 @@ $(document).ready(function(){
 <!-- Estado de la transaccion -->
 <div class="wrapper-div">
 	<h4>Estado de tu pedido</h4>
+	<div class="progress progress-info progress-striped">
+		<div class="bar" style="width: {{ status }}%"></div>
+	</div>
+	<div>
+		<div>
+			<span class="badge status1">1</span>
+			<b>Notificado</b>
+		</div>
+		<div>
+			<span class="badge status2">2</span>
+			<b>Pago Confirmado</b>
+		</div>
+		<div>
+			<span class="badge status3">3</span>
+			<b>Envio Confirmado</b>
+		</div>
+		<div>
+			<span class="badge status4">4</span>
+			<b>En Espera de Critica</b>
+		</div>
+		<div>
+			<span class="badge status5">5</span>
+			<b>En Espera de Critica</b>
+		</div>
+	</div>
 </div>
+
+
 {% endblock %}

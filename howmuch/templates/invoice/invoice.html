@@ -16,6 +16,8 @@ $(document).on('ready', function(){
     	<li class="{% if  forloop.counter == 1 %}active{% endif %}">
             <a href="#period{{ forloop.counter }}">Periodo {{ forloop.counter }}</a>
         </li>
+        {% empty %}
+        <legend>Tu Factura esta vacia, no tienes cargos</legend>
         {% endfor %}
     </ul>
 </div>

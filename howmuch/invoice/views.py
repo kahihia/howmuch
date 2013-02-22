@@ -6,7 +6,11 @@ from django.db.models import Sum
 from howmuch.invoice.models import Charge, Invoice
 
 def invoice(request):
-	invoice = Invoice.objects.get(owner=request.user, period='2/2013')
+	try:
+		invoice = Invoice.objects.get(owner=request.user, period='2/2013')
+	except Invoice.DoesNotExist:
+		return render_to_response('invoice/invoice.html', {}, 
+		context_instance=RequestContext(request))
 
 	charges = []
 	

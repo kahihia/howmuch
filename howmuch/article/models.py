@@ -20,13 +20,12 @@ STATES_CHOICES = (
 )
 
 STATUS_ASSIGNMENT = (
-    ('0', 'NOTIFICADO'), #Cuando la Asignacion es generada
-    ('1', 'PAGADO'), #Cuando el comprador notifica el pago
-    ('2', 'PRODUCTO ENVIADO'), # Cuando el vendedor notifica el Envio del producto, ya permite que los usuarios CRITIQUEN
-    ('3','EN ESPERA DE CRITICA'), #Se activa en el momento en que cualquiera de los involucrados CRITICA la transaccion
-    ('4', 'COMPLETADO'), #Cuando ya existe CRITICA tanto del comprador como del vendedor
-    ('5', 'CANCELADO') #Cuando se cancela la transaccion
-
+    ('1', 'NOTIFICADO'), #Cuando la Asignacion es generada
+    ('2', 'PAGADO'), #Cuando el comprador notifica el pago
+    ('3', 'PRODUCTO ENVIADO'), # Cuando el vendedor notifica el Envio del producto, ya permite que los usuarios CRITIQUEN
+    ('4','EN ESPERA DE CRITICA'), #Se activa en el momento en que cualquiera de los involucrados CRITICA la transaccion
+    ('5', 'COMPLETADO'), #Cuando ya existe CRITICA tanto del comprador como del vendedor
+    ('6', 'CANCELADO') #Cuando se cancela la transaccion
 )
 
 DAYS_CHOICES = (
@@ -143,7 +142,7 @@ class Assignment(models.Model):
     owner = models.ForeignKey(User)
     article = models.OneToOneField(Article)
     date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=2, default = 0)
+    status = models.CharField(max_length=2, default = 1)
 
     def __unicode__(self):
         return u'Owner: %s and item: %s' % (self.owner, self.article)

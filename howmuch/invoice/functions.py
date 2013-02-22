@@ -38,11 +38,6 @@ def generate_invoice(user):
 	return invoice
 
 
-#Agregar Cargos a la Factura
-def add_charges(charges, invoice):
-	for charge in charges:
-		invoice.charges.add(charge)
-
 
 
 

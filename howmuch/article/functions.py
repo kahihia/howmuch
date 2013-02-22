@@ -124,3 +124,6 @@ def validate_offer(articleID, user):
         return aboutArticle.errors()
     else:
         return aboutArticle.errors()
+
+def get_html_status():
+    pass
