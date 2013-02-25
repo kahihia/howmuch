@@ -26,5 +26,6 @@ urlpatterns = patterns('',
     url(r'^prestige/', include('howmuch.prestige.urls')),
     url(r'^profile/', include('howmuch.profile.urls')),
     url(r'^search/', include('howmuch.search.urls')),
+    url(r'^problems/', include('howmuch.problems.urls')),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

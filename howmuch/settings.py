@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'howmuch.notifications',
     'howmuch.pictures',
     'howmuch.prestige',
+    'howmuch.problems',
     'howmuch.profile',
     'howmuch.search',
 
