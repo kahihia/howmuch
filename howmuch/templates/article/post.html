@@ -3,7 +3,30 @@
 {% block title %}{% endblock %}
 
 {% block media %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/magicsuggest-1.1.1.css">
+<script type="text/javascript" src="{{ MEDIA_URL }}js/class-0.0.2.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/magicsuggest-1.1.1.js"></script>
+<script type="text/javascript">
+$(document).on('ready', function(){
+var tags = new MagicSuggest({
+                renderTo: $('#tags-container'),
+                resultAsString: false,
+                width: 490,
+                value: [],
+                data: 'marilyn@monroe.com,mother@teresa.com,john@kennedy.com,martin@luther.com,nelson@mandela.com,winston@churchill.com,bill@gates.com,muhammad@ali.com'
+});
 
+$('#submit-post').on('click', function(e){
+	e.preventDefault()
+	var tags_input = tags.getValue()
+	$('#tags').val(tags_input)
+	$('#post-article').submit()
+})
+
+
+});
+
+</script>
 {% endblock %}
 
 {% block search-bar %}
@@ -16,7 +39,7 @@
 
 {% block section2 %}
 <section class="color8">
-	<form class="form-horizontal wrapper-div" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<form id ="post-article" class="form-horizontal wrapper-div" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
 		<legend>Compra al precio que quieras</legend>
 
@@ -89,7 +112,8 @@
 		<div class="control-group">
 			<label class="control-label">Agrega Tags a tu Articulo</label>
 			<div class="controls">
-				<input type="text" id="tags" name="tags">
+				<input type="text" id="tags-container">
+				<input type="hidden" id="tags" name="tags">
 			</div>
 		</div>
 
@@ -102,7 +126,7 @@
 			</div>
 		</div>
 
-		<center><input class="btn btn-primary btn-large" data-loading-text="Loading..." type="submit" value="Publicar"></center>
+		<button id="submit-post" class="btn btn-primary btn-large">Publicar</button>
 			
 </form>
 </section>
