@@ -8,24 +8,25 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/magicsuggest-1.1.1.js"></script>
 <script type="text/javascript">
 $(document).on('ready', function(){
-var tags = new MagicSuggest({
+	var tags = new MagicSuggest({
                 renderTo: $('#tags-container'),
-                resultAsString: false,
                 width: 490,
-                value: [],
-                data: 'marilyn@monroe.com,mother@teresa.com,john@kennedy.com,martin@luther.com,nelson@mandela.com,winston@churchill.com,bill@gates.com,muhammad@ali.com'
+                emptyText:'Escribe Aqui',
+                noSuggestionText : 'Sin Sugerencias',
+                required: true,
+                data:'/tags/',
+                method: 'GET',
+                valueField:'name',
+                
+	});
+
+	$('#submit-post').on('click', function(e){
+		e.preventDefault()
+		var tags_input = tags.getValue()
+		$('#tags').val(tags_input)
+		$('#post-article').submit()
+	})
 });
-
-$('#submit-post').on('click', function(e){
-	e.preventDefault()
-	var tags_input = tags.getValue()
-	$('#tags').val(tags_input)
-	$('#post-article').submit()
-})
-
-
-});
-
 </script>
 {% endblock %}
 

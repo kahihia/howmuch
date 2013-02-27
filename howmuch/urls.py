@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib.auth.views import login, logout
 from django.contrib import admin
 
+from howmuch.backend.tags import tags_json
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -24,8 +26,9 @@ urlpatterns = patterns('',
     url(r'^messages/', include('howmuch.messages.urls')),
     url(r'^notifications/', include('howmuch.notifications.urls')),
     url(r'^prestige/', include('howmuch.prestige.urls')),
+    url(r'^problems/', include('howmuch.problems.urls')),
     url(r'^profile/', include('howmuch.profile.urls')),
     url(r'^search/', include('howmuch.search.urls')),
-    url(r'^problems/', include('howmuch.problems.urls')),
+    url(r'^tags/$', tags_json),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
