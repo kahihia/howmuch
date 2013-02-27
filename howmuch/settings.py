@@ -203,7 +203,7 @@ DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
 #Cuantoo.com Facebook Settings
 FACEBOOK_APP_ID = '429046753838184'
 FACEBOOK_APP_SECRET = 'f25118e2c2043d335d5aebecded78976' 
-FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
+#FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 
 #Comission 
 COMMISSION = .05
