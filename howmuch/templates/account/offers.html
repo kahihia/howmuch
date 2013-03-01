@@ -1,0 +1,22 @@
+<article class="wrapper-div hover1">
+	<div class="row-fluid">
+		<div class="thumbnail span2">
+			<img src="{{ MEDIA_URL}}img/cuantoo_profile_picture.png">
+		</div>
+		<div class="span7">
+			<p>
+				<a href="{{ offer.article.get_url }}">{{ offer.article.title }}</a>
+			</p>
+			<p>
+				<a href="#">Mi Oferta</a>
+			</p>
+		</div>
+		<div class="span3">
+			<h2>$ {{ offer.article.price }}</h2>
+			<p>
+				<b>hace {{ offer.article.get_timestamp }}</b>
+			</p>		
+		</div>
+	</div>
+</article>
+

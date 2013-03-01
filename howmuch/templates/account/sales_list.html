@@ -5,51 +5,40 @@
 {% block media %}
 <script type="text/javascript">
 $(document).on('ready', function(){
-	$('#myTab a').click(function (e) {
-    	e.preventDefault();
-    	$(this).tab('show');
+    $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
     });
 });
 </script>
 {% endblock %}
 
 {% block search-bar %}
-	{% include "search.html" %}
+    {% include "search.html" %}
 {% endblock %}
 
 {% block section2 %}
 
 <section>
-	<h2>Mis Ventas</h2>
+    <h2>Mis Ventas</h2>
 
     <ul class="nav nav-tabs" id="myTab">
-    	<li class="active">
-            <a href="#possible">Mis Ofertas</a>
+        <li class="active">
+            <a href="#process">Ventas Acordadas</a>
         </li>
-    	<li>
-    		<a href="#process">Ventas Acordadas</a>
-    	</li>
         <li>
             <a href="#completed">Ventas Finalizadas</a>
         </li>
     </ul>
    
     <div class="tab-content">
-
-    	<div class="tab-pane active" id="possible">
-            {% for item in possibleSales %}
-                {% include "account/possibleSales.html" %}
-            {% empty %}
-            <h3>Aun no has ofertado en alguna compra, hazlo ya</h3>
-            {% endfor %}
-    	</div>
-    	<div class="tab-pane" id="process">
+        <div class="tab-pane active" id="process">
             {% for item in processSales %}
                 {% include "account/processSales.html" %}
             {% empty %}
             <h3>Aun no has ofertado en alguna compra, hazlo ya</h3>
             {% endfor %}
-    	</div>
+        </div>
         <div class="tab-pane" id="completed">
             {% for item in completedSales %}
                 {% include "account/completedSales.html" %}

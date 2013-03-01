@@ -26,18 +26,23 @@ def purchases_list(request):
 
 @login_required(login_url='/login/')
 def sales_list(request):
-    items = Offer.objects.filter(owner=request.user)
-    #Ofertas realizadas
-    possibleSales = []
-    for item in items:
-        if item.is_open():
-            possibleSales.append(item)
     #Asignaciones 
     processSales = Assignment.objects.filter(owner = request.user, status__in = ["0","1","2","3"])
     #Transacciones Terminadas
     completedSales = Assignment.objects.filter(owner = request.user, status = "4")
-    return render_to_response('account/sales_list.html',{'possibleSales' : possibleSales, 'processSales' : processSales,
+    return render_to_response('account/sales_list.html',{'processSales' : processSales,
         'completedSales' : completedSales}, context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def offers_list(request):
+    offers = Offer.objects.filter(owner=request.user)
+    #Ofertas realizadas
+    offers_list = []
+    for offer in offers:
+        if offer.is_open():
+            offers_list.append(offer)
+    return render_to_response('account/offers_list.html', {'offers_list':offers_list}, 
+        context_instance=RequestContext(request))
 
     
 

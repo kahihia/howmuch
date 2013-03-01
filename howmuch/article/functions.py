@@ -125,5 +125,6 @@ def validate_offer(articleID, user):
     else:
         return aboutArticle.errors()
 
-def get_html_status():
-    pass
+def validate_quantity(quantity,article):
+    if quantity < article.quantity:
+        pass

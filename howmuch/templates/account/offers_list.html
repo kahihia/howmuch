@@ -1,0 +1,28 @@
+{% extends "3columns.html" %}
+
+{% block title %}{% endblock %}
+
+{% block media %}
+{% endblock %}
+
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
+{% block section2 %}
+
+<section>
+	<h2>Mis Ofertas</h2>
+    	<div class="tab-pane active" id="possible">
+            {% for offer in offer_list %}
+                {% include "account/offers.html" %}
+            {% empty %}
+            <h3>Aun no has ofertado en alguna compra, hazlo ya</h3>
+            {% endfor %}
+    	</div>
+</section>
+{% endblock %}
+
+{% block section3 %}
+    {% include "howtodo.html" %}
+{% endblock %}
