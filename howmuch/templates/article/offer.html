@@ -26,22 +26,29 @@ Aplico para Vender el Articulo {{ article.title }}
 			<h2>Envia tu Oferta</h2>
 			<h3>{{ article.title }}</h3>
 			
-			<div class="row-fluid">
-				<div class="span6">
-					<div class="input-prepend">
-						<span class="add-on">Cantidad</span>
-						{{ form.quantity }}
-					</div>
-					<span class="help-block">Cantidad a Vender</span>
-				</div>
-
-				<div class="span6">
+			<div class="control-group">
+				<label class="control-label">Precio de Venta</label>
+				<div class="controls">
 					<div class="input-prepend input-append">
-			 			<span class="add-on">$</span>
-			 			{{ form.cprice }}
-			 			<span class="add-on">.00</span>
-			 		</div>
-			 		<span class="help-block">Precio de Venta</span>
+						<span class="add-on">$</i></span>
+						{{ form.cprice }}
+						<span class="add-on">.00</span>
+					</div>
+					{{ form.cprice.errors }}
+					<span class="help-block">Precio al que venderas el articulo</span>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Cantidad de Articulos</label>
+				<div class="controls">
+					<div class="input-prepend input-append">
+						<span class="add-on"><i class="icon-resize-small"></i></span>
+						{{ form.quantity }}
+						<span class="add-on">.00</span>
+					</div>
+					{{ form.quantity.errors }}
+					<span class="help-block">El comprador quiere {{ article.quantity }} articulos, pero puedes ofrecerle menos</span>
 				</div>
 			</div>
 
