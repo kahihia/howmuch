@@ -142,12 +142,6 @@ def critiques(request, username):
 
 
 
-def more_populars(request):
-    pass
-
-
-
-
 
 
 

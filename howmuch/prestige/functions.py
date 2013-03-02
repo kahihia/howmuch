@@ -22,9 +22,6 @@ def remove_points(user,points):
     user.profile.negative_points += points
     user.profile.save()
 
-def get_more_populars():
-    pass
-
 
 
 

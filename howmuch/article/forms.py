@@ -14,7 +14,6 @@ class ArticleForm(ModelForm):
         'quantity' : TextInput(attrs = {'class' : 'width-350'}),
         'category' : Select(attrs = {'class' : 'width-350'}),
         'state' : Select(attrs = {'class' : 'width-350'}),
-        'addressDelivery' : Select (attrs={'class' : 'width-350'}),
         }
 
 class OfferForm(forms.Form):

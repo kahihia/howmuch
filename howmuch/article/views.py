@@ -46,7 +46,6 @@ def post(request):
             return HttpResponseRedirect(str(newPost.get_url()) + '?new_post=True')
     else:
         form=ArticleForm()
-        form.fields['addressDelivery'].queryset = request.user.profile.addresses.all()
     return render_to_response('article/post.html', {'form' : form }, context_instance = RequestContext(request))
 
 def edit(request, articleID, title_url):
