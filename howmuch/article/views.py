@@ -116,12 +116,21 @@ def offer(request,articleID):
             return HttpResponseRedirect('/account/offers/')
     else:
         form = OfferForm()
-    return render_to_response('article/offer.html', {'form' : form, 'article' : article, 'user' : request.user }, context_instance=RequestContext(request))
+    return render_to_response('article/offer.html', {'form' : form, 'article' : article, 'user' : request.user }, 
+        context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def offer_view(request, offerID):
-    offer = get_object_or_404(Offer, pk = offerID, article__owner = request.user )
-    return render_to_response('article/view_offer.html', {'offer' : offer}, context_instance=RequestContext(request))
+    offer = get_object_or_404(Offer, pk=offerID, article__owner=request.user )
+    return render_to_response('article/view_offer.html', {'offer' : offer}, 
+        context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login/')
+def my_offer(request,offerID):
+    offer = get_object_or_404(Offer, pk=offerID, owner=request.user)
+    return render_to_response('article/my_offer.html',{'offer':offer}, 
+        context_instance=RequestContext(request))
 
 @login_required(login_url="/login/")
 def candidates(request, articleID):
@@ -129,7 +138,8 @@ def candidates(request, articleID):
     update_status_notification(request)
     candidates = Offer.objects.filter(article = articleID)
     article = get_object_or_404(Article, pk = articleID)
-    return render_to_response('article/candidatesList.html', {'candidates' : candidates, 'article' : article }, context_instance=RequestContext(request))
+    return render_to_response('article/candidatesList.html', {'candidates' : candidates, 'article' : article }, 
+        context_instance=RequestContext(request))
 
 @login_required(login_url="/login/")
 def assignment(request, articleID, candidateID):
