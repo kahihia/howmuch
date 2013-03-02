@@ -12,7 +12,7 @@ from django.template import RequestContext
 from django.utils import simplejson
 
 from howmuch.article.forms import ArticleForm, AssignmentForm, OfferForm
-from howmuch.article.functions import AboutArticle, AboutAssignment, validate_assignment, validate_offer
+from howmuch.article.functions import AboutArticle, AboutAssignment, validate_assignment, validate_offer, save_post_pictures
 from howmuch.article.models import Article, Offer, Assignment
 from howmuch.invoice.functions import generate_charge, generate_invoice
 from howmuch.messages.models import Conversation
@@ -20,6 +20,7 @@ from howmuch.messages.views import update_status_notification
 from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
 from howmuch.pictures.models import Picture
+from howmuch.pictures.downloads import download_picture
 from howmuch.prestige.functions import add_points
 from howmuch.profile.models import Profile
 from howmuch.search.views import index_article
@@ -37,6 +38,9 @@ def post(request):
             newPost.title_url=newPost.title.replace(u'\xf1', 'n').replace(' ','-')
             newPost.save()
             newPost.tags = request.POST['tags']
+            #Download pictures
+            pictures = download_picture(newPost.title)
+            save_post_pictures(newPost,pictures)
             #Se anade un +1 al total_purchases del usario
             request.user.profile.add_purchases()
             #Se indexa al motor de busqueda searchify

@@ -52,6 +52,7 @@ class Article(models.Model):
     category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
     state = models.CharField(max_length=7, choices=STATES_CHOICES)
     date = models.DateTimeField(auto_now_add=True)
+    pictures = models.ManyToManyField(Picture)
     title_url = models.CharField(max_length=100, null=True, blank=True)
     comments = models.ManyToManyField(Comment, blank=True)
     followers = models.ManyToManyField(User, blank=True)

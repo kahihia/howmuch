@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'howmuch.problems',
     'howmuch.profile',
     'howmuch.search',
+    'howmuch.about',
 
 
     'registration',

@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.core.files import File
 
 from howmuch.article.models import Article, Offer, Assignment
 from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, Critique
 from howmuch.messages.models import Conversation
+from howmuch.pictures.models import Picture
 
 
 class AboutArticle(object):
@@ -128,3 +130,22 @@ def validate_offer(articleID, user):
 def validate_quantity(quantity,article):
     if quantity < article.quantity:
         pass
+
+
+def save_post_pictures(article,pictures):
+    for picture in pictures:
+        #Open File saved from google
+        p = open(picture.name,'r+')
+        #File Instance of p
+        file_p = File(file=p)
+        #New Picture
+        n_p = Picture.objects.create(owner=article.owner,picture=file_p)
+        #append picture in article
+        article.pictures.add(n_p)
+        #Close image
+        picture.close()
+
+
+
+
+
