@@ -89,12 +89,16 @@ class Article(models.Model):
             return True
         return False
 
-    def get_first_100_letters(self):
-        return str(self.title)[:100]
+
+    def get_first_picture_250x250(self):
+        for p in self.pictures.all()[:1]:
+            return p.get_url_250x250()
+
 
     def get_url(self):
         return '/article/%s/%s' % (self.pk, self.title_url)
 
+        
     def get_timestamp(self):
         return get_timestamp(self.date)
 

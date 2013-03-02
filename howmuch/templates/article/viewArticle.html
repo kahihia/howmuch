@@ -13,6 +13,18 @@
 {% endblock %}
 
 {% block media %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script>
+$(function () {
+    $('.pics').glisse({
+        changeSpeed: 550,
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    });
+});
+</script>
 <script type="text/javascript">
 $(document).on('ready', function(){
 
@@ -81,11 +93,10 @@ $(document).on('ready', function(){
 	</article>
 
 	<article class="row-fluid">
-		<ul class="thumbnails span4">
-			<div class="thumbnail">
-    			<img src="{{MEDIA_URL}}img/cuantoo_profile_picture.png" alt="">
-    		</div>
-    	</ul>
+		<div class="span4">
+    		<img src="{{ article.get_first_picture_250x250 }}" alt="">
+    	</div>
+   
 	
 		<div class="span8">
 			<h2>{{ article.title }}</h2>
@@ -94,6 +105,14 @@ $(document).on('ready', function(){
 				<a id="btn-follow" class="btn btn-large btn-success unfollow" href="#">Seguir</a>
 				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
 			</center>
+		</div>
+	</article>
+
+	<article>
+		<div class="ItemPictures">
+		{% for picture in article.pictures.all %}
+			<img width="100" height="100" class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+		{% endfor%}
 		</div>
 	</article>
 
