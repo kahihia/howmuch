@@ -5,7 +5,7 @@ venv
 localsettings.py
 howmuch/media/pictures/
 howmuch/media/profile/
-howmuch/media/prestige/confirmpay
-howmuch/media/prestige/delivery
-howmuch/media/images/facebook_profiles
+howmuch/media/prestige/confirmpay/
+howmuch/media/prestige/delivery/
+howmuch/media/images/facebook_profiles/
 \#*

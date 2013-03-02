@@ -7,8 +7,7 @@ from django.template import RequestContext
 from howmuch.messages.forms import MessageForm
 from howmuch.messages.functions import *
 from howmuch.messages.models import Conversation, Message
-from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, PrestigeLikeBuyer, PrestigeLikeSeller
-
+from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, Critique
 #Envia un mensaje a la conversation via ajax
 @login_required(login_url = '/login/')
 def send(request, conversationID):
@@ -109,11 +108,11 @@ def getInfoConfirmDelivery(request, conversationID):
 def getInfoCritique(request, conversationID):
     conversation = get_object_or_404(Conversation, pk = conversationID)
     try:
-        critique = PrestigeLikeBuyer.objects.get(to = request.user, assignment = conversation.assignment)
-    except PrestigeLikeBuyer.DoesNotExist:
+        critique = Critique.objects.get(to = request.user, assignment = conversation.assignment)
+    except Critique.DoesNotExist:
         try:
-            critique = PrestigeLikeSeller.objects.get(to = request.user, assignment = conversation.assignment)
-        except PrestigeLikeSeller.DoesNotExist:
+            critique = Critique.objects.get(to = request.user, assignment = conversation.assignment)
+        except Critique.DoesNotExist:
             return render_to_response('messages/infoCritique.html', {'errors' : True },
                 context_instance = RequestContext(request))
     return render_to_response('messages/infoCritique.html', {'critique' : critique }, 

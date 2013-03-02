@@ -1,6 +1,7 @@
-<div>
+<div class="row-fluid">
     {% if user.is_authenticated %}
-    <ul class="unstyled inline">
+
+    <ul class="unstyled inline span8">
         <li class="margin5">
             <a href="/">
                 <i class="icon-home"></i>
@@ -72,6 +73,16 @@
             <a class="font-black" href="/profile/e/following/">Siguiendo</a>
         </li>
     </ul>
+
+    <ul class="unstyled inline">
+        <li>
+            <b>{{ user.profile.prestige }}</b>
+        </li>
+        <li>
+            <b>{{ user.profile.total_points }} puntos</b>
+        </li>
+    </ul>
+
     {% else %}
     <div class="wrapper-div">
         <a class="font-black margin5" href="#">Como Comprar</a>

@@ -57,6 +57,8 @@ class Profile(FacebookProfileModel):
     total_purchases = models.IntegerField(default = 0)
     total_sales = models.IntegerField(default = 0)
     prestige = models.CharField(max_length=15, default = 'Sirius')
+    positive_points = models.IntegerField(default=0)
+    negative_points = models.IntegerField(default=0)
     unread_notifications = models.IntegerField(default = 0)
     unread_conversations = models.IntegerField(default = 0)
 
@@ -109,6 +111,9 @@ class Profile(FacebookProfileModel):
         for bank in self.banks.all():
             banks += 'Banco: %s, Cta: %s. ' % (bank.bank, bank.account)
         return str(banks)
+
+    def total_points(self):
+        return self.positive_points - self.negative_points
 
 
 

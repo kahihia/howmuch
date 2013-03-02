@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
 from howmuch.article.models import Article
-from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
+from howmuch.prestige.models import Critique
 from howmuch.profile.forms import ProfileForm, AddressForm, PhoneForm, AccountBankForm
 from howmuch.profile.functions import add_following, remove_following
 from howmuch.profile.models import Profile
@@ -69,7 +69,7 @@ def newAccountBank(request):
     else:
         form = AccountBankForm()
     return render_to_response('profile/newAccountBank.html', {'form' : form }, 
-        ycontext_instance=RequestContext(request))
+        context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def following(request):

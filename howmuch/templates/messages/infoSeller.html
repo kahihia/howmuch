@@ -17,7 +17,11 @@
 		</div>
 		<legend>Prestigio</legend>
 		<div>
-			<h1>{{ seller.profile.prestige }}</h1>
+			<h1>{{ seller.prestige }}</h1>
+			<div>
+			Puntos Positivos<b>{{ seller.profile.positive_points }}</b>
+			Puntos Negativos<b>{{ seller.profile.negative_points }}</b>
+			</div>
 		</div>
 		<legend>Información</legend>
 		<div class="row-fluid">

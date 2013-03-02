@@ -1,0 +1,18 @@
+{% extends "3columns.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+
+{% endblock %}
+
+{% block section2 %}
+
+	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+		{{ form }}
+		<input type="submit" value="CRITICAR AHORA">
+	</form>
+
+{% endblock %}

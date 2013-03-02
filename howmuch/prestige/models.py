@@ -48,7 +48,7 @@ class ConfirmDelivery(models.Model):
     def get_picture_url_100x100(self):
         return str(self.picture.url_100x100.split("?")[0])
 
-class PrestigeLikeBuyer(models.Model):
+class Critique(models.Model):
     de = models.ForeignKey(User, related_name = "prestigeLikeBuyer from")
     to = models.ForeignKey(User, related_name = "prestigeLikeBuyer to")
     assignment = models.ForeignKey(Assignment)
@@ -57,18 +57,6 @@ class PrestigeLikeBuyer(models.Model):
     message = models.CharField(max_length = 255)
 
     def __unicode__(self):
-        return u'Assignment : %s Prestige: %s message: %s ' % (self.assignment, self.prestige, self.message)
-
-
-class PrestigeLikeSeller(models.Model):
-    de = models.ForeignKey(User, related_name = "prestigeLikeSeller from")
-    to = models.ForeignKey(User, related_name = "prestigeLikeSeller to")
-    assignment = models.ForeignKey(Assignment)
-    date = models.DateTimeField(auto_now_add = True)
-    prestige = models.CharField(max_length = 10, choices = PRESTIGE_CHOICES)
-    message = models.CharField(max_length = 255)
-
-    def __unicode__(self):
-        return u'Assignment : %s Prestige: %s message: %s ' % (self.assignment, self.prestige, self.message)
+        return u'Assignment : %s Critique: %s message: %s ' % (self.assignment, self.prestige, self.message)
 
 

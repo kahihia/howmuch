@@ -20,8 +20,11 @@ from howmuch.messages.views import update_status_notification
 from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
 from howmuch.pictures.models import Picture
+from howmuch.prestige.functions import add_points
 from howmuch.profile.models import Profile
 from howmuch.search.views import index_article
+from howmuch.settings import POINTS_FOR_PUBLISH, POINTS_FOR_OFFER, POINTS_FOR_SELECT, POINTS_FOR_ASSIGNMNET 
+
 
 @login_required(login_url='/login/')
 def post(request):
@@ -38,6 +41,8 @@ def post(request):
             request.user.profile.add_purchases()
             #Se indexa al motor de busqueda searchify
             index_article(newPost)
+            #Se agregan 5 puntos Positivos a quien publica la compra, Action 1
+            add_points(request.user, POINTS_FOR_PUBLISH)
             return HttpResponseRedirect(str(newPost.get_url()) + '?new_post=True')
     else:
         form=ArticleForm()
@@ -106,7 +111,10 @@ def offer(request,articleID):
             #Se envia una notificacion 
             NotificationOptions(thisOffer, 'offer').send()
 
-            return HttpResponseRedirect('/account/sales/')
+            #Se agregan 5 puntos Positivos a quien realiza la oferta, Action 2
+            add_points(request.user, POINTS_FOR_OFFER)
+
+            return HttpResponseRedirect('/account/offers/')
     else:
         form = OfferForm()
     return render_to_response('article/offer.html', {'form' : form, 'article' : article, 'user' : request.user }, context_instance=RequestContext(request))
@@ -144,6 +152,10 @@ def assignment(request, articleID, candidateID):
             #Generar Factura en caso que no Exista
             invoice = generate_invoice(newAssignment.get_seller())
             charge = generate_charge(newAssignment,offer.cprice, invoice)
+            #Agregar puntos tanto al comprador por seleccionar, asi como al vendedor
+            add_points(request.user, POINTS_FOR_SELECT)
+            add_points(candidate, POINTS_FOR_ASSIGNMNET)
+            #Enviar Notificacion
             NotificationOptions(newAssignment, 'assignment').send()
             
             return HttpResponseRedirect('/messages/' + str(newAssignment.conversation.pk))

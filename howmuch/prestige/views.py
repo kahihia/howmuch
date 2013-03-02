@@ -11,9 +11,10 @@ from howmuch.invoice.functions import generate_commission
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
-from howmuch.prestige.forms import ConfirmPayForm, ConfirmDeliveryForm, PrestigeLikeBuyerForm, PrestigeLikeSellerForm
-from howmuch.prestige.functions import update_prestige
-from howmuch.prestige.models import PrestigeLikeBuyer, PrestigeLikeSeller
+from howmuch.prestige.forms import ConfirmPayForm, ConfirmDeliveryForm, CritiqueForm
+from howmuch.prestige.functions import update_prestige, add_points
+from howmuch.prestige.models import Critique
+from howmuch.settings import POINTS_FOR_CRITIQUE
 
 STATUS_ASSIGNMENT = (
 
@@ -27,7 +28,7 @@ STATUS_ASSIGNMENT = (
 )
 
 @login_required(login_url="/login/")
-def confirmPay(request, assignmentID):
+def confirm_pay(request, assignmentID):
     #Se Verifica que quien confirme el pago sea el COMPRADOR
     assignment = get_object_or_404(Assignment, pk = assignmentID, article__owner = request.user)
     #Se valida que la conversacion correspondiente a la asignacion exista, ya que enseguida se utiliza la variable
@@ -56,7 +57,7 @@ def confirmPay(request, assignmentID):
     return render_to_response('prestige/payConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
                                                                              
 @login_required(login_url="/login/")
-def confirmDelivery(request, assignmentID):
+def confirm_delivery(request, assignmentID):
     #Se verifica que quien confirma el envio sea el Vendedor
     assignment = get_object_or_404(Assignment, pk = assignmentID, owner = request.user)
     #Se valida que la conversacion correspondiente a la asignacion exista, ya que enseguida se utiliza la variable
@@ -85,29 +86,31 @@ def confirmDelivery(request, assignmentID):
     return render_to_response('prestige/deliveryConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
-def setPrestigeToSeller(request, assignmentID):
+def critique(request, assignmentID):
     assignment = get_object_or_404(Assignment, pk= assignmentID)
-    #Valida que seas el Comprador del articulo para que puedas CRITICAR al vendedor
-    if assignment.is_buyer(request.user):
+    #Valida que seas el Comprador o el vendedor para que puedas criticar
+    if assignment.is_inside(request.user):
         pass
     else:
         return HttpResponse("No tienes permiso para prestigiar a este usuario")
     #Se valida que esta critica no haya sido efectuado anteriormente
     try:
-        PrestigeLikeSeller.objects.get(assignment = assignment, de = request.user)
-    except PrestigeLikeSeller.DoesNotExist:
+        Critique.objects.get(assignment = assignment, de = request.user)
+    except Critique.DoesNotExist:
         pass
     else:
-        return HttpResponse("Ya has criticado al Vendedor de este articulo, no puedes hacerlo nuevamente")
+        return HttpResponse("Ya has criticado a tu socio, no puedes hacerlo nuevamente")
 
     if request.method == 'POST':
-        form = PrestigeLikeSellerForm(request.POST)
+        form = CritiqueForm(request.POST)
         if form.is_valid():
-            newPrestigeToSeller = form.save(commit = False)
-            newPrestigeToSeller.de = request.user
-            newPrestigeToSeller.to = assignment.owner
-            newPrestigeToSeller.assignment = assignment
-            newPrestigeToSeller.save()
+            critique = form.save(commit = False)
+            critique.de = request.user
+            critique.to = assignment.owner
+            critique.assignment = assignment
+            critique.save()
+            #Se agregan puntos a quien critica
+            add_points(request.user, POINTS_FOR_CRITIQUE)
             #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
             if assignment.has_been_critiqued_before():
                 assignment.status = "5"
@@ -120,53 +123,12 @@ def setPrestigeToSeller(request, assignmentID):
                 #Se genera el cargo por comision al vendedor
                 generate_commission(assignment)
             #Se activa el sistema de Notificaciones
-            NotificationOptions(newPrestigeToSeller, 'critique').send()                
+            NotificationOptions(critique, 'critique').send()                
             return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
     else:
-        form = PrestigeLikeSellerForm()
-    return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
+        form =CritiqueForm()
+    return render_to_response('prestige/critique.html' , { 'form' : form }, context_instance = RequestContext(request))
 
-@login_required(login_url="/login/")
-def setPrestigeToBuyer(request, assignmentID):
-    assignment = get_object_or_404(Assignment, pk= assignmentID)
-    #Valida que seas el Vendedor del articulo para que puedas CRITICAR al Comprador
-    if assignment.is_seller(request.user):
-        pass
-    else:
-        return HttpResponse("No tienes permiso para prestigiar a este usuario")
-    #Se valida que esta critica no haya sido efectuado anteriormente
-    try:
-        PrestigeLikeBuyer.objects.get(assignment = assignment, de = request.user)
-    except PrestigeLikeBuyer.DoesNotExist:
-        pass
-    else:
-        return HttpResponse("Ya has criticado al Comprador de este articulo, no puedes hacerlo nuevamente")
-    #Formulario
-    if request.method == 'POST':
-        form = PrestigeLikeBuyerForm(request.POST)
-        if form.is_valid():
-            newPrestigeToBuyer = form.save(commit = False)
-            newPrestigeToBuyer.de = request.user
-            newPrestigeToBuyer.to = assignment.article.owner
-            newPrestigeToBuyer.assignment = assignment
-            newPrestigeToBuyer.save()
-            #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
-            if assignment.has_been_critiqued_before():
-                assignment.status = "5"
-                assignment.save()
-                update_prestige(request.user)
-                update_prestige(assignment.article.owner)
-            elif assignment.status == "3":
-                assignment.status = "4"
-                assignment.save()
-                #Se genera el cargo por comision al vendedor
-                generate_commission(assignment)
-            #Se activa el sistema de notificaciones
-            NotificationOptions(newPrestigeToBuyer, 'critique').send()
-            return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
-    else:
-        form = PrestigeLikeBuyerForm()
-    return render_to_response('prestige/setPrestige.html' , { 'form' : form }, context_instance = RequestContext(request))
 
 @login_required(login_url='/login/')
 def critiques(request, username):
@@ -177,6 +139,11 @@ def critiques(request, username):
         {'prestigeLikeBuyer' : prestigeLikeBuyer, 'prestigeLikeSeller' : prestigeLikeSeller,
         'user' : user },
         context_instance=RequestContext(request))
+
+
+
+def more_populars(request):
+    pass
 
 
 

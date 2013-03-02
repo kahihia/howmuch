@@ -47,11 +47,5 @@ class NotificationOptions(object):
         Email(to,title,context_render,template).send()
 
 
-    
-
-    
- 
-
-
 
     

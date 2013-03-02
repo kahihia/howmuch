@@ -14,7 +14,7 @@
 <section>
 	<h2>Mis Ofertas</h2>
     	<div class="tab-pane active" id="possible">
-            {% for offer in offer_list %}
+            {% for offer in offers_list %}
                 {% include "account/offers.html" %}
             {% empty %}
             <h3>Aun no has ofertado en alguna compra, hazlo ya</h3>
