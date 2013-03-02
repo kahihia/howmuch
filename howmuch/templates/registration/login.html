@@ -1,15 +1,25 @@
 {% extends "registration/base.html" %}
 
+{% block media %}
+{% include 'django_facebook/_facebook_js.html' %}
+{% endblock %}
+
 {% block section1 %}
   {% include "categories.html" %}
 {% endblock %}
 
 {% block section2 %}
 <div class="wrapper-div span9">
+  <div>
+    <form action="{% url facebook_connect %}?facebook_login=1" method="post">
+      <a href="javascript:void(0);" style="font-size: 20px;" onclick="F.connect(this.parentNode);">Login with Facebook</a>
+      <input type="hidden" value="/" name="next" />
+    </form>
+  </div>
   <form class="form-horizontal" action="" method="post">{% csrf_token %}
 
     <legend>Iniciar Sesión</legend>
-    
+  
     <div class="control-group">
       <label class="control-label">Usuario</label>
       <div class="controls">
