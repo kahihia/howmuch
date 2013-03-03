@@ -133,8 +133,8 @@ def critique(request, assignmentID):
 @login_required(login_url='/login/')
 def critiques(request, username):
     user = get_object_or_404(User, username=username)
-    prestigeLikeBuyer = PrestigeLikeBuyer.objects.filter(to__username = username).order_by('date')[:10]
-    prestigeLikeSeller = PrestigeLikeSeller.objects.filter(to__username = username).order_by('date')[:10]
+    prestigeLikeBuyer = Critique.objects.filter(to__username = username).order_by('date')[:10]
+    prestigeLikeSeller = Critique.objects.filter(to__username = username).order_by('date')[:10]
     return render_to_response('prestige/critiques.html', 
         {'prestigeLikeBuyer' : prestigeLikeBuyer, 'prestigeLikeSeller' : prestigeLikeSeller,
         'user' : user },
