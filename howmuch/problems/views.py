@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
 from howmuch.article.models import Assignment
-from howmuch.problems.forms import ProblemForm, ReplyForm, ActionForm
+from howmuch.problems.forms import ProblemForm, ProblemOutForm ,ReplyForm, ActionForm
 from howmuch.problems.models import Problem
 
 @login_required(login_url='/login/')
@@ -21,6 +21,23 @@ def problem(request, assignmentID):
 	else:
 		form = ProblemForm()
 	return render_to_response('problems/problem.html', {'form' : form }, 
+		context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def problem_out(request):
+	#Asignaciones donde el usuario es ya sea comprador o vendedor
+	queryset = ''
+	if request.method == 'POST':
+		form = ProblemOutForm(request.POST)
+		if form.is_valid():
+			problem = form.save(commit=False)
+			problem.owner = request.user
+			problem.save()
+			return HttpResponse('Hemos recibido tu solicitud, enseguida nos comunicaremos contigo')
+	else:
+		form = ProblemOutForm()
+		form.fields['assignment'].queryset = queryset
+	return render_to_response('problems/problem_out.html',{'form':form}, 
 		context_instance=RequestContext(request))
 
 

@@ -11,6 +11,15 @@ class ProblemForm(ModelForm):
 		}
 
 
+class ProblemOutForm(ModelForm):
+	class Meta:
+		model = Problem
+		exclude = ('owner','date','is_solved','status')
+		widgets = {
+			'description' : Textarea(attrs={'class' : 'span11'})
+		}
+
+
 class ReplyForm(ModelForm):
 	class Meta:
 		model = Reply
