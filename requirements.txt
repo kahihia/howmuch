@@ -10,3 +10,4 @@ django-facebook==4.3.1
 indextank==1.0.6
 django-storages
 requests==1.1.0
+boto==2.8.0
