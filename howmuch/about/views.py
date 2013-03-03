@@ -9,3 +9,8 @@ def privacy(request):
 def terms(request):
 	return render_to_response('about/terms.html',{},
 		context_instance=RequestContext(request))
+
+
+def faq(request):
+	return render_to_response('about/faq.html',{},
+		context_instance=RequestContext(request))
