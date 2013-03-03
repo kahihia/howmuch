@@ -10,8 +10,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Juan Carlos Cayetano', 'kayethano@gmail.com'),
-    ('Joel Rivera', 'rivera@joel.mx'),
+    ('Juan Carlos Cayetano', 'jc@brainn.co'),
 )
 
 AUTH_PROFILE_MODULE = 'profile.profile'
@@ -61,6 +60,14 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+#AMAZON
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = 'AKIAJBJPT42ROYJRYKFA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'howmuch'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#AMAZON
 
 #FILES
 
