@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from django.db.models import Q
 
 from howmuch.article.models import Assignment
 from howmuch.problems.forms import ProblemForm, ProblemOutForm ,ReplyForm, ActionForm
@@ -26,7 +27,7 @@ def problem(request, assignmentID):
 @login_required(login_url='/login/')
 def problem_out(request):
 	#Asignaciones donde el usuario es ya sea comprador o vendedor
-	queryset = ''
+	queryset = Assignment.objects.filter(Q(owner=request.user) | Q(article__owner=request.user))
 	if request.method == 'POST':
 		form = ProblemOutForm(request.POST)
 		if form.is_valid():
