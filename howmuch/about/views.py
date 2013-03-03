@@ -14,3 +14,7 @@ def terms(request):
 def faq(request):
 	return render_to_response('about/faq.html',{},
 		context_instance=RequestContext(request))
+
+def contact(request):
+	return render_to_response('about/contact.html', {},
+		context_instance=RequestContext(request))
