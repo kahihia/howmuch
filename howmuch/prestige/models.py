@@ -5,9 +5,9 @@ from howmuch.article.models import Assignment
 from howmuch.pictures.models import make_upload_path
 from howmuch.pictures.thumbs import ImageWithThumbsField
 
-PRESTIGE_CHOICES = (
-    ('Malo','MALO'),
-    ('Excelente','EXCELENTE'),
+CRITIQUE_CHOICES = (
+    ('M','MALO'),
+    ('E','EXCELENTE'),
     )
 
 STATUS_ASSIGNMENT = (
@@ -53,10 +53,10 @@ class Critique(models.Model):
     to = models.ForeignKey(User, related_name = "prestigeLikeBuyer to")
     assignment = models.ForeignKey(Assignment)
     date = models.DateTimeField(auto_now_add = True)
-    prestige = models.CharField(max_length = 10, choices = PRESTIGE_CHOICES)
+    critique = models.CharField(max_length = 10, choices = CRITIQUE_CHOICES)
     message = models.CharField(max_length = 255)
 
     def __unicode__(self):
-        return u'Assignment : %s Critique: %s message: %s ' % (self.assignment, self.prestige, self.message)
+        return u'Assignment : %s Critique: %s message: %s ' % (self.assignment, self.critique, self.message)
 
 

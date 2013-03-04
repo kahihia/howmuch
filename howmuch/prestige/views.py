@@ -12,7 +12,7 @@ from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
 from howmuch.prestige.forms import ConfirmPayForm, ConfirmDeliveryForm, CritiqueForm
-from howmuch.prestige.functions import update_prestige, add_points
+from howmuch.prestige.functions import update_prestige, add_points, check_critique
 from howmuch.prestige.models import Critique
 from howmuch.settings import POINTS_FOR_CRITIQUE
 
@@ -89,8 +89,10 @@ def confirm_delivery(request, assignmentID):
 def critique(request, assignmentID):
     assignment = get_object_or_404(Assignment, pk= assignmentID)
     #Valida que seas el Comprador o el vendedor para que puedas criticar
-    if assignment.is_inside(request.user):
-        pass
+    if assignment.is_buyer(request.user):
+        to = assignment.get_seller()
+    elif assignment.is_seller(request):
+        to = assignment.get_buyer()
     else:
         return HttpResponse("No tienes permiso para prestigiar a este usuario")
     #Se valida que esta critica no haya sido efectuado anteriormente
@@ -106,11 +108,13 @@ def critique(request, assignmentID):
         if form.is_valid():
             critique = form.save(commit = False)
             critique.de = request.user
-            critique.to = assignment.owner
+            critique.to = to
             critique.assignment = assignment
             critique.save()
             #Se agregan puntos a quien critica
             add_points(request.user, POINTS_FOR_CRITIQUE)
+            #Si la critica es positiva, se agregan 5 puntos, si es negativa se quitan 15 a la contraparte
+            check_critique(critique,to)
             #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
             if assignment.has_been_critiqued_before():
                 assignment.status = "5"

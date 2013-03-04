@@ -23,6 +23,13 @@ def remove_points(user,points):
     user.profile.save()
 
 
+def check_critique(critique,user):
+    from howmuch.settings import POINTS_FOR_POSITIVE_CRITIQUE, POINTS_FOR_NEGATIVE_CRITIQUE
+
+    if critique.critique == 'E':
+        add_points(user,POINTS_FOR_POSITIVE_CRITIQUE)
+    elif critique.critique == 'M':
+        remove_points(user,POINTS_FOR_NEGATIVE_CRITIQUE)
 
 
 
