@@ -1,0 +1,9 @@
+<form action="" enctype="multipart/form-data" method="POST">{% csrf_token %}
+	{{ form.new_email }}
+	{{ form.new_email.errors }}
+
+	{{ form.password }}
+	{{ form.password.errors }}
+
+	<input type="submit" value="Guardar">
+</form>

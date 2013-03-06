@@ -134,6 +134,9 @@ class Profile(FacebookProfileModel):
             period=self.current_invoice)
         return current_invoice
 
+    def get_profile_progress(self):
+        pass
+
 
 
 
