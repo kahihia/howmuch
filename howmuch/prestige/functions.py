@@ -1,15 +1,21 @@
+from howmuch.settings import PRESTIGE_TYPES
+
 def update_prestige(user):
-    if user.total_points() < 100:
-        user.profile.prestige = 'Sirius'
+    if user.profile.total_points() in PRESTIGE_TYPES['PRESTIGE1']['INTERVAL']:
+        user.profile.prestige = PRESTIGE_TYPES['PRESTIGE1']['NAME']
+        user.profile.credit_limit = PRESTIGE_TYPES['PRESTIGE1']['LIMIT']
         user.profile.save()
-    elif user.total_points() > 100 and user.total_points() < 500:
-        user.profile.prestige = 'Antares'
+    elif user.profile.total_points() in PRESTIGE_TYPES['PRESTIGE2']['INTERVAL']:
+        user.profile.prestige = PRESTIGE_TYPES['PRESTIGE2']['NAME']
+        user.profile.credit_limit = PRESTIGE_TYPES['PRESTIGE2']['LIMIT']
         user.profile.save()
-    elif user.total_points() > 500 and user.total_points() < 2000:
-        user.profile.prestige = 'Mu Cephei'
+    elif user.profile.total_points() in PRESTIGE_TYPES['PRESTIGE3']['INTERVAL']:
+        user.profile.prestige = PRESTIGE_TYPES['PRESTIGE3']['NAME']
+        user.profile.credit_limit = PRESTIGE_TYPES['PRESTIGE3']['LIMIT']
         user.profile.save()
-    elif user.total_points() > 2000:
-        user.profile.prestige = 'Canis Majoris'
+    elif user.profile.total_points() in PRESTIGE_TYPES['PRESTIGE4']['INTERVAL']:
+        user.profile.prestige = PRESTIGE_TYPES['PRESTIGE4']['NAME']
+        user.profile.credit_limit = PRESTIGE_TYPES['PRESTIGE4']['LIMIT']
         user.profile.save()
 
 

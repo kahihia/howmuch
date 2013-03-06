@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 
 from howmuch.article.functions import AboutAssignment
 from howmuch.article.models import Assignment
-from howmuch.invoice.functions import generate_commission
 from howmuch.messages.models import Conversation, Message
 from howmuch.notifications.functions import NotificationOptions
 from howmuch.notifications.models import Notification
@@ -91,7 +90,7 @@ def critique(request, assignmentID):
     #Valida que seas el Comprador o el vendedor para que puedas criticar
     if assignment.is_buyer(request.user):
         to = assignment.get_seller()
-    elif assignment.is_seller(request):
+    elif assignment.is_seller(request.user):
         to = assignment.get_buyer()
     else:
         return HttpResponse("No tienes permiso para prestigiar a este usuario")
@@ -115,17 +114,16 @@ def critique(request, assignmentID):
             add_points(request.user, POINTS_FOR_CRITIQUE)
             #Si la critica es positiva, se agregan 5 puntos, si es negativa se quitan 15 a la contraparte
             check_critique(critique,to)
-            #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 4, si no a 3
+            #Se verifica si la asignacion ya posee critica de la contraparte, en caso que si se pasa a 5, si no a 4
             if assignment.has_been_critiqued_before():
                 assignment.status = "5"
                 assignment.save()
+                #Se actualiza el prestigio de los involucrados en la transaccion
                 update_prestige(request.user)
                 update_prestige(assignment.owner)
             elif assignment.status == "3":
                 assignment.status = "4"
                 assignment.save()
-                #Se genera el cargo por comision al vendedor
-                generate_commission(assignment)
             #Se activa el sistema de Notificaciones
             NotificationOptions(critique, 'critique').send()                
             return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )

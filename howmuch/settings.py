@@ -223,6 +223,33 @@ POINTS_FOR_OFFER = 5
 POINTS_FOR_SELECT = 5
 POINTS_FOR_ASSIGNMNET = 10
 POINTS_FOR_CRITIQUE = 5
-POINTS_FOR_POSITIVE_CRITIQUE = 5
+POINTS_FOR_POSITIVE_CRITIQUE = 10
 POINTS_FOR_NEGATIVE_CRITIQUE = 15
+
+
+#Plazo en dias para pagar la factura
+DAYS_LIMIT_INVOICE = 7
+
+PRESTIGE_TYPES = {
+    'PRESTIGE1' : {
+        'NAME' : 'SIRIUS',
+        'INTERVAL' : [0,100],
+        'LIMIT' : 200
+    },
+    'PRESTIGE2' : {
+        'NAME' : 'ANTARES',
+        'INTERVAL' : [101,500],
+        'LIMIT' : 1000
+    },
+    'PRESTIGE3' : {
+        'NAME' : 'MU CEPHEI',
+        'INTERVAL' : [501,2000],
+        'LIMIT' : 2000
+    },
+    'PRESTIGE4' : {
+        'NAME' : 'CANIS MAJORIS',
+        'INTERVAL' : [2001,],
+        'LIMIT' : 5000
+    }
+}
 

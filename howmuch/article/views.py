@@ -1,7 +1,3 @@
-from datetime import timedelta, date
-import datetime
-import os
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -14,7 +10,7 @@ from django.utils import simplejson
 from howmuch.article.forms import ArticleForm, AssignmentForm, OfferForm
 from howmuch.article.functions import AboutArticle, AboutAssignment, validate_assignment, validate_offer, save_post_pictures
 from howmuch.article.models import Article, Offer, Assignment
-from howmuch.invoice.functions import generate_charge, generate_invoice
+from howmuch.invoice.functions import generate_charge, get_current_invoice, check_invoice
 from howmuch.messages.models import Conversation
 from howmuch.messages.views import update_status_notification
 from howmuch.notifications.functions import NotificationOptions
@@ -151,6 +147,7 @@ def assignment(request, articleID, candidateID):
     article = get_object_or_404(Article, pk = articleID)
     offer = get_object_or_404(Offer, owner = candidateID, article = article)
     candidate = get_object_or_404(User, pk = candidateID)
+    invoice = get_current_invoice(candidate)
     #Formulario
     if request.method == 'POST':
         form = AssignmentForm(request.POST)
@@ -162,9 +159,10 @@ def assignment(request, articleID, candidateID):
             #Articulo pasa a NO Activo
             article.is_active = False
             article.save()
-            #Generar Factura en caso que no Exista
-            invoice = generate_invoice(newAssignment.get_seller())
-            charge = generate_charge(newAssignment,offer.cprice, invoice)
+            #Se genera un cargo a la factura del vendedor seleccionado
+            generate_charge(newAssignment,offer.cprice, invoice)
+            #Se checa la factura actual, si excede el limite, se asigna fecha limite de pago
+            check_invoice(invoice)
             #Agregar puntos tanto al comprador por seleccionar, asi como al vendedor
             add_points(request.user, POINTS_FOR_SELECT)
             add_points(candidate, POINTS_FOR_ASSIGNMNET)

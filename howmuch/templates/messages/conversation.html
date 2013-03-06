@@ -82,10 +82,10 @@ $(document).ready(function(){
 		<ul class="unstyled">
 			{% if conversation.assignment.get_seller == user %}
 			<li><a href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
-			<li><a href="/prestige/setprestigetobuyer/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			<li><a href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
 			{% else %}
 			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
-			<li><a href="/prestige/setprestigetoseller/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			<li><a href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
 			{% endif %}
 			<li><a href="/problems/problem/{{ conversation.assignment.pk }}">Reportar Problema</a></li>
 		</ul>

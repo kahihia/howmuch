@@ -6,6 +6,7 @@ from django_facebook.models import FacebookProfileModel
 
 from howmuch.pictures.models import make_upload_path
 from howmuch.pictures.thumbs import ImageWithThumbsField
+from howmuch.settings import PRESTIGE_TYPES
 
 PHONE_CHOICES =(
 
@@ -25,10 +26,12 @@ class Address(models.Model):
     zipcode = models.IntegerField()
 
     def __unicode__(self):
-        return u'%s %s %s %s %s %s %s' % (self.street, self.number, self.suburb, self.city, self.state, self.country, self.zipcode)
+        return u'%s %s %s %s %s %s %s' % (self.street, self.number, self.suburb, self.city, 
+            self.state, self.country, self.zipcode)
 
     def get_address(self):
-        return 'Calle %s, Numero %s, Colonia %s, %s, %s, %s, C.P %s' % (self.street, self.number, self.suburb, self.city, self.state, self.country, self.zipcode)
+        return 'Calle %s, Numero %s, Colonia %s, %s, %s, %s, C.P %s' % (self.street, self.number, self.suburb, 
+            self.city, self.state, self.country, self.zipcode)
 
 class Phone(models.Model):
     place = models.CharField(max_length=20,choices=PHONE_CHOICES)
@@ -48,7 +51,8 @@ class Profile(FacebookProfileModel):
     from howmuch.article.models import Article
 
     user = models.OneToOneField(User)
-    profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)), default = '/media/img/cuantoo_profile_picture.png')
+    profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)), 
+        default = '/media/img/cuantoo_profile_picture.png')
     company = models.CharField(max_length=77, null = True, blank=True)
     following = models.ManyToManyField(Article, blank = True)
     addresses = models.ManyToManyField(Address, blank = True)
@@ -56,11 +60,14 @@ class Profile(FacebookProfileModel):
     banks = models.ManyToManyField(AccountBank, blank = True)
     total_purchases = models.IntegerField(default = 0)
     total_sales = models.IntegerField(default = 0)
-    prestige = models.CharField(max_length=15, default = 'Sirius')
+    prestige = models.CharField(max_length=15, default = PRESTIGE_TYPES['PRESTIGE1']['NAME'])
     positive_points = models.IntegerField(default=0)
     negative_points = models.IntegerField(default=0)
     unread_notifications = models.IntegerField(default = 0)
     unread_conversations = models.IntegerField(default = 0)
+    current_invoice = models.IntegerField(default = 1)
+    credit_limit = models.IntegerField(default=PRESTIGE_TYPES['PRESTIGE1']['LIMIT'])
+    is_block = models.BooleanField(default=False)
 
 
     def __unicode__(self):
@@ -114,8 +121,6 @@ class Profile(FacebookProfileModel):
 
     def total_points(self):
         return self.positive_points - self.negative_points
-
-
 
 
 
