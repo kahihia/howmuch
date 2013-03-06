@@ -119,8 +119,18 @@ class Profile(FacebookProfileModel):
             banks += 'Banco: %s, Cta: %s. ' % (bank.bank, bank.account)
         return str(banks)
 
+    #Return total points 
     def total_points(self):
         return self.positive_points - self.negative_points
+
+    #Return current invoice of user
+    def get_current_invoice(self):
+        from howmuch.invoice.models import Invoice
+
+        current_invoice = Invoice.objects.get(owner=self.user, 
+            period=self.current_invoice)
+        return current_invoice
+
 
 
 

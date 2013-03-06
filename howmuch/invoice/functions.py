@@ -30,13 +30,6 @@ def generate_charge(assignment, price, invoice):
 	invoice.save()
 
 
-#Return current invoice of user
-def get_current_invoice(user):
-	current_invoice = Invoice.objects.get(owner=user, 
-		period=user.profile.current_invoice)
-	return current_invoice
-
-
 #Generar Factura, estas se generan cada vez que el usuario ha pagado
 def generate_invoice(user):
 	period = user.profile.current_invoice + 1

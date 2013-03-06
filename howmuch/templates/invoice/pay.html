@@ -1,0 +1,38 @@
+{% extends "1columns.html" %}
+
+{% block media %}
+
+{% endblock %}
+
+{% block section1 %}
+<div>
+	<div class="wrapper-div">
+		<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+			<legend>Pago de su Factura Actual</legend>
+			<div class="control-group">
+				<label class="control-label">Cantidad</label>
+				<div class="controls">
+					<div class="input-prepend span12">
+						<span class="add-on"><i class="icon-pencil"></i></span>
+						{{ form.amount }}	
+					</div>
+					{{ form.amount.errors }}
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Referencia</label>
+				<div class="controls">
+					<div class="input-prepend span12">
+						<span class="add-on"><i class="icon-pencil"></i></span>
+						{{ form.reference }}	
+					</div>
+					{{ form.reference.errors }}
+				</div>
+			</div>
+			<center>
+				<input class="btn btn-primary btn-large" type="submit" value="Enviar">
+			</center>
+		</form>
+	</div>
+</div>
+{% endblock %}

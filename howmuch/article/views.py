@@ -10,7 +10,7 @@ from django.utils import simplejson
 from howmuch.article.forms import ArticleForm, AssignmentForm, OfferForm
 from howmuch.article.functions import AboutArticle, AboutAssignment, validate_assignment, validate_offer, save_post_pictures
 from howmuch.article.models import Article, Offer, Assignment
-from howmuch.invoice.functions import generate_charge, get_current_invoice, check_invoice
+from howmuch.invoice.functions import generate_charge, check_invoice
 from howmuch.messages.models import Conversation
 from howmuch.messages.views import update_status_notification
 from howmuch.notifications.functions import NotificationOptions
@@ -147,7 +147,7 @@ def assignment(request, articleID, candidateID):
     article = get_object_or_404(Article, pk = articleID)
     offer = get_object_or_404(Offer, owner = candidateID, article = article)
     candidate = get_object_or_404(User, pk = candidateID)
-    invoice = get_current_invoice(candidate)
+    invoice = candidate.profile.get_current_invoice()
     #Formulario
     if request.method == 'POST':
         form = AssignmentForm(request.POST)
