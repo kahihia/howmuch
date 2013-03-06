@@ -3,38 +3,9 @@
 {% block title %}{% endblock %}
 
 {% block media %}
-<script type="text/javascript">
-$(document).on('ready', function(){
-	$('#tab-profile a').click(function (e) {
-    	e.preventDefault();
-    	$(this).tab('show');
-    });
-});
-</script>
 {% endblock %}
 
 {% block section2 %}
-
-<div>
-	<ul class="nav nav-tabs" id="tab-profile">
-    	<li class="active">
-            <a href="#user">Yo</a>
-        </li>
-    	<li>
-    		<a href="#addresses">Direcciones</a>
-    	</li>
-        <li>
-            <a href="#phones">Telefonos</a>
-        </li>
-    	<li>
-            <a href="#banks">Cuentas Bancarias</a>
-        </li>
-    </ul>
-</div>
-
-<div class="tab-content">
-
-    <div class="tab-pane active" id="user">
     	<div class="wrapper-div">
     		<div class="row-fluid">
     			<div class="thumbnail span3">
@@ -73,9 +44,6 @@ $(document).on('ready', function(){
 			</div>
     	</div>
 
-    </div>
-
-    <div class="tab-pane" id="addresses">
     	<div class="wrapper-div">
 			<legend>Direcciones</legend>
 			{% for address in user.profile.addresses.all %}
@@ -91,9 +59,8 @@ $(document).on('ready', function(){
 			{% endfor %}
 			<a href="/profile/e/newaddress">+ Agregar</a>
 		</div>
-    </div>
 
-	<div class="tab-pane" id="phones">
+
 		<div class="wrapper-div">
 			<legend>Telefonos</legend>
 			{% for phone in user.profile.phones.all %}
@@ -110,9 +77,7 @@ $(document).on('ready', function(){
 
 			<a href="/profile/e/newphone">+ Agregar</a>
 		</div>
-    </div>
 
-   	<div class="tab-pane" id="banks">
 		<div class="wrapper-div">
 			<legend>Cuentas Bancarias</legend>
 			{% for bank in user.profile.banks.all %}
@@ -128,8 +93,5 @@ $(document).on('ready', function(){
 			{% endfor %}
 			<a href="/profile/e/newaccountbank">+ Agregar</a>
 		</div>
-    </div>
-</div>
-
 {% endblock %}
 
