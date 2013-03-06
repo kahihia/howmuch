@@ -81,6 +81,9 @@
         <li>
             <b>{{ user.profile.total_points }} puntos</b>
         </li>
+        <li>
+            <b>Debes $ {{ user.profile.get_current_invoice.total }}</b>
+        </li>
     </ul>
 
     {% else %}

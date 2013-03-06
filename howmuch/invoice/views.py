@@ -6,7 +6,7 @@ from django.template import RequestContext
 
 from howmuch.invoice.models import Charge, Invoice
 from howmuch.invoice.forms import PayForm
-from howmuch.invoice.functions import change_status_invoice, generate_invoice
+from howmuch.invoice.functions import change_status_invoice, generate_invoice, unlock_account
 
 
 def invoice(request):
@@ -28,6 +28,8 @@ def pay(request, invoiceID):
 			change_status_invoice(invoice)
 			#Se genera una nueva factura
 			generate_invoice(request.user)
+			#unlock account
+			unlock_account(request.user)
 			return HttpResponse('Pago realizado Correctamente')
 	else:
 		form = PayForm()

@@ -46,6 +46,11 @@ def generate_invoice(user):
 def generate_reference(user):
 	return '%05d%s%s' % (user.pk, datetime.datetime.now().month, datetime.datetime.now().year) 
 
+#Unlock account
+def unlock_account(user):
+	user.profile.is_block = True
+	user.profile.save()
+
 
 
 

@@ -104,6 +104,9 @@ class Profile(FacebookProfileModel):
         self.total_sales += 1
         self.save()
 
+    def get_profile_picture(self):
+        return str(self.profile_picture.url).split("?")[0]
+
     def get_profile_picture_50x50(self):
         return str(self.profile_picture.url_50x50).split("?")[0]
 
