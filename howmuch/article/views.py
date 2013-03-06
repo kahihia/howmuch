@@ -25,6 +25,10 @@ from howmuch.settings import POINTS_FOR_PUBLISH, POINTS_FOR_OFFER, POINTS_FOR_SE
 
 @login_required(login_url='/login/')
 def post(request):
+    #Si la cuenta de usuario esta bloqueada que lo indique
+    if request.user.profile.is_block == True:
+        return HttpResponse('Tu Cuenta esta bloqueada')
+    #Formulario
     if request.method == 'POST':
         form=ArticleForm(request.POST)
         if form.is_valid():
@@ -71,6 +75,9 @@ def view(request, articleID, title_url):
 
 @login_required(login_url="/login/")
 def offer(request,articleID):
+    #Si la cuenta de usuario esta bloqueada que lo indique
+    if request.user.profile.is_block:
+        return HttpResponse('Tu Cuenta esta bloqueada')
     #Validar que el Article exista, si no existe regresa error 404
     article = get_object_or_404(Article, pk = articleID)    
     #Validar Offer

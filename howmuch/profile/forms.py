@@ -8,7 +8,7 @@ class ProfileForm(ModelForm):
         model = Profile
         exclude = ('user', 'following','addresses', 'phones', 'banks','total_purchases', 'total_sales', 
             'prestige','positive_points','negative_points','unread_notifications', 'unread_conversations',
-            'current_invoice','is_block')
+            'current_invoice', 'credit_limit','is_block')
         widgets = {
             'profile_picture' : FileInput(attrs={'class':'',}),
             'company' : TextInput(attrs={'class':'InputFormRequestItem',}),
