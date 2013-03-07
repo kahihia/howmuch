@@ -143,9 +143,11 @@ INSTALLED_APPS = (
     'storages',
     'django_facebook',
     
+    'howmuch.about',
     'howmuch.account',
     'howmuch.article',
     'howmuch.backend',
+    'howmuch.category',
     'howmuch.comments',
     'howmuch.config',
     'howmuch.invoice',
@@ -156,12 +158,9 @@ INSTALLED_APPS = (
     'howmuch.problems',
     'howmuch.profile',
     'howmuch.search',
-    'howmuch.about',
 
 
     'registration',
-    'tagging',
-
 
 
 )
