@@ -17,6 +17,7 @@ PHONE_CHOICES =(
     )
 
 class Address(models.Model):
+    owner = models.ForeignKey(User)
     street = models.CharField(max_length = 100)
     number = models.CharField(max_length = 10)
     suburb = models.CharField(max_length = 100)
@@ -34,6 +35,7 @@ class Address(models.Model):
             self.city, self.state, self.country, self.zipcode)
 
 class Phone(models.Model):
+    owner = models.ForeignKey(User)
     place = models.CharField(max_length=20,choices=PHONE_CHOICES)
     number = models.BigIntegerField()
 
@@ -41,6 +43,7 @@ class Phone(models.Model):
         return u'%s' % (self.number)
 
 class AccountBank(models.Model):
+    owner = models.ForeignKey(User)
     bank = models.CharField(max_length=20)
     account = models.CharField(max_length=33)
 

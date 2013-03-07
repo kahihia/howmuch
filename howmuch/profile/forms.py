@@ -17,6 +17,7 @@ class ProfileForm(ModelForm):
 class AddressForm(ModelForm):
     class Meta:
         model = Address
+        exclude = ('owner',)
         widgets = {
             'street' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Calle'}) ,
             'number' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Numero'}) ,
@@ -30,6 +31,7 @@ class AddressForm(ModelForm):
 class PhoneForm(ModelForm):
     class Meta:
         model = Phone
+        exclude = ('owner', )
         widgets = {
             'place' : Select(attrs={'class' : 'InputFormRequestItem'}),
             'number' : TextInput(attrs={'class' : 'InputFormRequestItem'}),
@@ -38,6 +40,7 @@ class PhoneForm(ModelForm):
 class AccountBankForm(ModelForm):
     class Meta:
         model = AccountBank
+        exclude = ('owner', )
         widgets = {
             'bank' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Nombre del Banco'}),
             'account' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Numero de cuenta'})

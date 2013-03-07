@@ -13,7 +13,7 @@ from howmuch.profile.models import Profile
 
 
 @login_required(login_url="/login")
-def viewProfile(request, username):
+def view_profile(request, username):
     profile = get_object_or_404(Profile, user__username = username)
     return render_to_response('profile/viewProfile.html', {'profile' : profile}, 
         context_instance=RequestContext(request))
@@ -33,11 +33,13 @@ def edit(request):
         context_instance=RequestContext(request))
 
 @login_required(login_url="/login/")
-def newAddress(request):
+def new_address(request):
     if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():
-            newAddress = form.save()
+            newAddress = form.save(commit=False)
+            newAddress.owner = request.user
+            newAddress.save()
             request.user.profile.addresses.add(newAddress)
             return HttpResponseRedirect('/profile/e/edit')
     else:
@@ -45,12 +47,29 @@ def newAddress(request):
     return render_to_response('profile/newAddress.html', {'form' : form}, 
         context_instance=RequestContext(request))
 
+def edit_address(request, addressID):
+    from howmuch.profile.models import Address
+
+    current = get_object_or_404(Address, pk=addressID, owner = request.user)
+
+    if request.method == 'POST':
+        form = AddressForm(request.POST, instance=current)
+        if form.is_valid():
+            address = form.save()
+            return HttpResponseRedirect('/profile/e/edit')
+    else:
+        form = AddressForm(instance=current)
+    return render_to_response('profile/newAddress.html', {'form':form},
+        context_instance=RequestContext(request))
+
 @login_required(login_url='/login/')
-def newPhone(request):
+def new_phone(request):
     if request.method == 'POST':
         form = PhoneForm(request.POST)
         if form.is_valid():
-            newPhone = form.save()
+            newPhone = form.save(commit=False)
+            newPhone.owner = request.user
+            newPhone.save()
             request.user.profile.phones.add(newPhone)
             return HttpResponseRedirect('/profile/e/edit')
     else:
@@ -58,17 +77,49 @@ def newPhone(request):
     return render_to_response('profile/newPhone.html', {'form' : form}, 
         context_instance=RequestContext(request))
 
+def edit_phone(request, phoneID):
+    from howmuch.profile.models import Phone
+
+    current = get_object_or_404(Phone, pk=phoneID, owner=request.user)
+
+    if request.method == 'POST':
+        form = PhoneForm(request.POST, instance=current)
+        if form.is_valid():
+            phone = form.save()
+            return HttpResponseRedirect('/profile/e/edit')
+    else:
+        form = PhoneForm(instance=current)
+    return render_to_response('profile/newPhone.html', {'form':form},
+        context_instance=RequestContext(request))
+
 @login_required(login_url='/login/')
-def newAccountBank(request):
+def new_account_bank(request):
     if request.method == 'POST':
         form = AccountBankForm(request.POST)
         if form.is_valid():
-            newAccountBank = form.save()
+            newAccountBank = form.save(commit=False)
+            newAccountBank.owner = request.user
+            newAccountBank.save()
             request.user.profile.banks.add(newAccountBank)
             return HttpResponseRedirect('/profile/e/edit')
     else:
         form = AccountBankForm()
     return render_to_response('profile/newAccountBank.html', {'form' : form }, 
+        context_instance=RequestContext(request))
+
+def edit_account_bank(request, bankID):
+    from howmuch.profile.models import AccountBank
+
+    current = get_object_or_404(AccountBank, pk=bankID, owner=request.user)
+
+    if request.method == 'POST':
+        form = AccountBankForm(request.POST, instance=current)
+        if form.is_valid():
+            bank = form.save()
+            return HttpResponseRedirect('/profile/e/edit')
+    else:
+        form = AccountBankForm(instance=current)
+    return render_to_response('profile/newAccountBank.html', {'form':form},
         context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
