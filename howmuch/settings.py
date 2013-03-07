@@ -161,6 +161,8 @@ INSTALLED_APPS = (
 
 
     'registration',
+    'tagging',
+
 
 
 )
