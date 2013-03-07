@@ -9,7 +9,7 @@ from howmuch.article.models import Article
 from howmuch.prestige.models import Critique
 from howmuch.profile.forms import ProfileForm, AddressForm, PhoneForm, AccountBankForm
 from howmuch.profile.functions import add_following, remove_following
-from howmuch.profile.models import Profile
+from howmuch.profile.models import Profile, Address, Phone, AccountBank
 
 
 @login_required(login_url="/login")
@@ -47,9 +47,9 @@ def new_address(request):
     return render_to_response('profile/newAddress.html', {'form' : form}, 
         context_instance=RequestContext(request))
 
-def edit_address(request, addressID):
-    from howmuch.profile.models import Address
 
+@login_required(login_url='/login/')
+def edit_address(request, addressID):
     current = get_object_or_404(Address, pk=addressID, owner = request.user)
 
     if request.method == 'POST':
@@ -61,6 +61,13 @@ def edit_address(request, addressID):
         form = AddressForm(instance=current)
     return render_to_response('profile/newAddress.html', {'form':form},
         context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login/')
+def delete_address(request,addressID):
+    address = get_object_or_404(Address, pk=addressID, owner=request.user)
+    address.delete()
+    return HttpResponseRedirect('/profile/e/edit')
 
 @login_required(login_url='/login/')
 def new_phone(request):
@@ -77,9 +84,9 @@ def new_phone(request):
     return render_to_response('profile/newPhone.html', {'form' : form}, 
         context_instance=RequestContext(request))
 
-def edit_phone(request, phoneID):
-    from howmuch.profile.models import Phone
 
+@login_required(login_url='/login/')
+def edit_phone(request, phoneID):
     current = get_object_or_404(Phone, pk=phoneID, owner=request.user)
 
     if request.method == 'POST':
@@ -91,6 +98,14 @@ def edit_phone(request, phoneID):
         form = PhoneForm(instance=current)
     return render_to_response('profile/newPhone.html', {'form':form},
         context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login/')
+def delete_phone(request, phoneID):
+    phone = get_object_or_404(Phone, pk=phoneID, owner=request.user)
+    phone.delete()
+    return HttpResponseRedirect('/profile/e/edit')
+
 
 @login_required(login_url='/login/')
 def new_account_bank(request):
@@ -107,9 +122,9 @@ def new_account_bank(request):
     return render_to_response('profile/newAccountBank.html', {'form' : form }, 
         context_instance=RequestContext(request))
 
-def edit_account_bank(request, bankID):
-    from howmuch.profile.models import AccountBank
 
+@login_required(login_url='/login/')
+def edit_account_bank(request, bankID):
     current = get_object_or_404(AccountBank, pk=bankID, owner=request.user)
 
     if request.method == 'POST':
@@ -121,6 +136,13 @@ def edit_account_bank(request, bankID):
         form = AccountBankForm(instance=current)
     return render_to_response('profile/newAccountBank.html', {'form':form},
         context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login/')
+def delete_account_bank(request, bankID):
+    bank = get_object_or_404(AccountBank, pk=bankID, owner=request.user)
+    bank.delete()
+    return HttpResponseRedirect('/profile/e/edit')
 
 @login_required(login_url='/login/')
 def following(request):
