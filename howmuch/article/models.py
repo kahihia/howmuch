@@ -3,7 +3,6 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-import tagging
 
 from howmuch.pictures.models import Picture
 from howmuch.profile.models import Address
@@ -191,7 +190,6 @@ class Assignment(models.Model):
             return True
         return False
 
-tagging.register(Article)
 
 
 

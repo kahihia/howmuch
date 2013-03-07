@@ -37,7 +37,6 @@ def post(request):
             #Se genera el campo url sustituyendo caracteres
             newPost.title_url=newPost.title.replace(u'\xf1', 'n').replace(' ','-')
             newPost.save()
-            newPost.tags = request.POST['tags']
             #Download pictures
             pictures = download_picture(newPost.title)
             save_post_pictures(newPost,pictures)
