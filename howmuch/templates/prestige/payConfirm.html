@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "3columns.html" %}
 
 {% block title %}
 
@@ -8,11 +8,43 @@
 
 {% endblock %}
 
-{% block content %}
-
+{% block section2 %}
+<div class="wrapper-div">
 	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		{{ form }}
-		<input type="submit" value="CONFIRMAR PAGO">
-	</form>
+		<legend>Confirmar Pago</legend>
+		<div class="control-group">
+			<label class="control-label">Monto del Pago</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on"><i>$</i></span>
+					{{ form.amount }}
+				</div>
+				{{ form.amount.errors }}
+			</div>
+		</div>
 
+		<div class="control-group">
+			<label class="control-label">Mensaje</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on"><i>$</i></span>
+					{{ form.message }}
+				</div>
+				{{ form.message.errors }}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">Imagen</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on"><i>$</i></span>
+					{{ form.picture }}
+				</div>
+				{{ form.picture.errors }}
+			</div>
+		</div>
+		<input class="btn btn-primary btn-large" type="submit" value="CONFIRMAR">
+	</form>
+</div>
 {% endblock %}

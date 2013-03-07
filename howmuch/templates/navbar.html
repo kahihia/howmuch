@@ -84,6 +84,9 @@
         <li>
             <b>Debes $ {{ user.profile.get_current_invoice.total }}</b>
         </li>
+        <li>
+            <b>Perfil {{ user.profile.get_profile_progress }}</b>
+        </li>
     </ul>
 
     {% else %}

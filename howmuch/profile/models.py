@@ -137,8 +137,16 @@ class Profile(FacebookProfileModel):
             period=self.current_invoice)
         return current_invoice
 
+    #Return progress profile 
     def get_profile_progress(self):
-        pass
+        progress = 25
+        if self.addresses.exists():
+            progress += 25
+        if self.phones.exists():
+            progress += 25
+        if self.banks.exists():
+            progress +=25
+        return progress
 
 
 
