@@ -8,6 +8,7 @@ from howmuch.pictures.models import Picture
 from howmuch.profile.models import Address
 from howmuch.utils import get_timestamp
 from howmuch.comments.models import Comment
+from howmuch.tags.models import Tag
 
 
 
@@ -35,11 +36,11 @@ DAYS_CHOICES = (
     )
 
 CATEGORY_CHOICES = (
-    ('categoria1', 'categoria1'),
-    ('categoria2', 'categoria2'),
-    ('categoria3', 'categoria3'),
-    ('categoria4', 'categoria4'),
-    ('categoria5', 'categoria5'),
+    ('1', 'categoria1'),
+    ('2', 'categoria2'),
+    ('3', 'categoria3'),
+    ('4', 'categoria4'),
+    ('5', 'categoria5'),
     )
 
 class Article(models.Model):
@@ -50,6 +51,7 @@ class Article(models.Model):
     quantity = models.IntegerField() 
     category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
     state = models.CharField(max_length=7, choices=STATES_CHOICES)
+    tags = models.ManyToManyField(Tag)
     date = models.DateTimeField(auto_now_add=True)
     pictures = models.ManyToManyField(Picture)
     title_url = models.CharField(max_length=100, null=True, blank=True)

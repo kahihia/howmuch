@@ -17,6 +17,10 @@ $(document).on('ready', function(){
                 data:'/tags/',
                 method: 'GET',
                 valueField:'name',
+                dataParams : {
+                	"category_id" : "1"
+                }
+
 	});
 
 	$('#submit-post').on('click', function(e){

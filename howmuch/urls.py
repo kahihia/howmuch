@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.views import login, logout
 from django.contrib import admin
 
-from howmuch.backend.tags import tags_json
+from howmuch.tags.functions import tags_json
 
 admin.autodiscover()
 

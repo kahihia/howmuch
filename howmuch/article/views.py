@@ -25,6 +25,7 @@ from howmuch.settings import POINTS_FOR_PUBLISH, POINTS_FOR_OFFER, POINTS_FOR_SE
 
 @login_required(login_url='/login/')
 def post(request):
+    from howmuch.tags.functions import input_to_words, add_tags
     #Si la cuenta de usuario esta bloqueada que lo indique
     if request.user.profile.is_block == True:
         return HttpResponse('Tu Cuenta esta bloqueada')
@@ -37,6 +38,9 @@ def post(request):
             #Se genera el campo url sustituyendo caracteres
             newPost.title_url=newPost.title.replace(u'\xf1', 'n').replace(' ','-')
             newPost.save()
+            #Se agregan los tags
+            words = input_to_words(request.POST['tags'])
+            add_tags(words,request.POST['category'], newPost)
             #Download pictures
             pictures = download_picture(newPost.title)
             save_post_pictures(newPost,pictures)
