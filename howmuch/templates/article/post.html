@@ -8,7 +8,10 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/magicsuggest-1.1.1.js"></script>
 <script type="text/javascript">
 $(document).on('ready', function(){
-	var tags = new MagicSuggest({
+	var tags
+	$('#id_category').on('change', function(){
+		var category_id = $(this).val()
+		tags = new MagicSuggest({
                 renderTo: $('#tags-container'),
                 width: 490,
                 emptyText:'Escribe Aqui',
@@ -18,11 +21,11 @@ $(document).on('ready', function(){
                 method: 'GET',
                 valueField:'name',
                 dataParams : {
-                	"category_id" : "1"
+                	"category_id" : category_id
                 }
 
+		});
 	});
-
 	$('#submit-post').on('click', function(e){
 		e.preventDefault()
 		var tags_input = tags.getValue()

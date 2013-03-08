@@ -35,7 +35,7 @@ def add_tags(words, id_category, article):
 		if word not in names:
 			tag = Tag.objects.create(name=word)
 		else:
-			tag = Tag.objects.get(name=word)
+			tag = Tag.objects.filter(name=word)[0]
 			tag.usage+=1
 			tag.save()
 		article.tags.add(tag)
