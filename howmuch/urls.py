@@ -8,11 +8,13 @@ from howmuch.tags.functions import tags_json
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('django.views.generic.simple',
     url(r'^', include('howmuch.home.urls')),
 
     url(r'^login/$',  login),
     url(r'^logout/$', logout, {'next_page' : '/'}),
+
+    url(r'^test/$', 'direct_to_template', {'template': 'test.html'}),
 
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^facebook/', include('django_facebook.urls')),
