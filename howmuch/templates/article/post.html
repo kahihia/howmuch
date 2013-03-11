@@ -47,7 +47,7 @@ $(document).on('ready', function(){
 {% block section2 %}
 <section class="wrapper-div background1">
 	<h2>Publicar una Compra</h2>
-	<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+	<form id="post-article" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 		<div>
 			<legend>Titulo del Articulo</legend>
 			<div>
@@ -101,7 +101,7 @@ $(document).on('ready', function(){
 		</div>
 
 		<center>
-			<input class="btn btn-success btn-large" type="submit" value="Guardar">
+			<input id="submit-post" class="btn btn-success btn-large" type="submit" value="Guardar">
 		</center>
 	</form>
 </section>

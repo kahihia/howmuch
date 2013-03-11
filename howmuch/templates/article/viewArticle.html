@@ -86,20 +86,22 @@ $(document).on('ready', function(){
 	{% endif %}
 	</article>
 
-	<article>
-		<p>
+	<article class="margin10">
+		<center>
 			Publicado <b>hace {{ article.date|timesince }}</b> por <a href="/profile/{{ article.owner }}">{{ article.owner }}</a> 
-		</p>
+		</center>
 	</article>
 
 	<article class="row-fluid">
-		<div class="span4">
+		<div class="thumbnail span4">
     		<img src="{{ article.get_first_picture_250x250 }}" alt="">
     	</div>
    
 	
 		<div class="span8">
-			<h2>{{ article.title }}</h2>
+			<center>
+				<h2>{{ article.title }}</h2>
+			</center>
 			<center>
 				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderselo</a>
 				<a id="btn-follow" class="btn btn-large btn-success unfollow" href="#">Seguir</a>
@@ -108,37 +110,40 @@ $(document).on('ready', function(){
 		</div>
 	</article>
 
-	<article>
-		<div class="ItemPictures">
+	<article class="margin5">
+		<legend>Imagenes Muestra</legend>
+		<center>
 		{% for picture in article.pictures.all %}
 			<img width="100" height="100" class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
 		{% endfor%}
-		</div>
+		</center>
 	</article>
 
-	<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial">
-	</div>
-
-	<article>
-	<!--  Pictures -->
+	<article class="margin10">
+		<center>
+			<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial">
+			</div>
+		</center>
 	</article>
 
 	<article>
-		<h4>Palabras clave</h4>
+		<legend>Etiquetas</legend>
+		<center>
 		{% for tag in article.tags.all %}
-		<a class="btn btn-info" href="#">{{ tag }}</a>
+			<a class="btn btn-info" href="#">{{ tag }}</a>
 		{% endfor %}
+		</center>
 	</article>
 
 	<article>
-		<h4>Descripcion de la compra</h4>
+		<legend>Descripcion de la compra</legend>
 		<p>{{ article.description }}</p>
 	</article>
 </section>
 
 <!-- Comments Area -->
 <section class="wrapper-div">
-<h4>Dudas del Articulo</h4>
+	<legend>Dudas del Articulo</legend>
 	<div class="comments-area">
 		{% for comment in article.comments.all %}
 			<div class="wrapper-div row">
