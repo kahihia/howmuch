@@ -1,22 +1,28 @@
 <article class="wrapper-div hover1">
 	<div class="row-fluid">
-		<div class="thumbnail span2">
-			<img src="{{ MEDIA_URL}}img/cuantoo_profile_picture.png">
+		<div class="thumbnail span3">
+			<img src="{{ offer.get_first_picture_url }}">
 		</div>
-		<div class="span7">
-			<p>
-				<a href="{{ offer.article.get_url }}">{{ offer.article.title }}</a>
-			</p>
-			<p>
+		<div class="span6">
+			<center>
+				<a class="a-title-large" href="{{ offer.article.get_url }}">{{ offer.article.title }}</a>
+			</center>
+			<center class="margin10">
 				<a href="/article/myoffer/{{ offer.pk }}">Ver Mi Oferta</a>
-			</p>
+			</center>
+			<center>
+				<p>
+					{{ offer.message|truncatechars:100}}
+				</p>
+			</center>
 		</div>
 		<div class="span3">
-			<h2>$ {{ offer.article.price }}</h2>
-			<p>
-				<b>hace {{ offer.article.get_timestamp }}</b>
-			</p>		
+			<center>
+				<h2>$ {{ offer.cprice }}</h2>
+				<p>
+					<b>hace {{ offer.get_timestamp }}</b>
+				</p>	
+			</center>
 		</div>
 	</div>
 </article>
-

@@ -17,24 +17,43 @@ $(function () {
 
 {% block section2 %}
 <section class="wrapper-div">
+	<article class="row-fluid margin10">
+		<div class="thumbnail span2">
+			<img src="{{ offer.article.get_first_picture_url }}">
+		</div>
+		<div class="span10">
+			<center>
+				<h3>Mi oferta para el articulo {{ offer.article.title }}</h3>
+			</center>
+		</div>
+	</article>
+	<article>
+		<center>
+			<h2>Pago ${{ offer.cprice}}</h2>
+		</center>
+	</article>
 	<article class="row-fluid">
-		<div>
-			<ul class="thumbnails span3">
+		<div class="span4">
+			<ul class="thumbnails">
 				<div class="thumbnail">
-    				<img src="{{ offer.owner.profile.profile_picture.url }}" alt="">
+    				<img src="{{ offer.get_first_picture_url }}" alt="">
     			</div>
     		</ul>
 		</div>
 
-		<div class="span6">
+		<div class="span5">
+			<p>
+				<span><b>Fecha:</b></span>
+				<span>{{ offer.date }}</span>
+			</p>
 			<p>
 				<span><b>Usuario:</b></span>
-				<span>{{ offer.owner }}</span>
+				<a href="/profile/{{ offer.owner }}">{{ offer.owner }}</a>
 			</p>
 
 			<p>
 				<span><b>Prestigio:</b></span>
-				<span>Prestigio Aqui</span>
+				<span>{{ offer.owner.profile.prestige }}</span>
 			</p>
 
 			<p>
@@ -48,14 +67,18 @@ $(function () {
 			</p>
 		</div>
 
-		<div>
-			<h1>${{ offer.cprice}}</h1>
+		<div class="span3">
+			<div class="thumbnail">
+				<a href="/profile/{{ offer.owner }}">
+					<img src="{{ offer.owner.profile.get_profile_picture }}">
+				</a>
+			</div>
 		</div>
 
 	</article>
 
 	<article>
-		<h3>Descripción de la Oferta</h3>
+		<legend>Descripción de la Oferta</legend>
 		<div>
 			<p>
 				{{ offer.message }}
@@ -64,7 +87,7 @@ $(function () {
 	</article>
 
 	<article>
-		<h3>Imagenes del Articulo</h3>
+		<legend>Imagenes del Articulo</legend>
 		<div class="text-center">
 		{% for picture in offer.pictures.all %}
 			<img  class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url  }}" rel="group1">
@@ -72,6 +95,5 @@ $(function () {
 		</div>
 
 	</article>
-
 </section>
 {% endblock %}

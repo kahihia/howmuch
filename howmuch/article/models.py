@@ -69,8 +69,11 @@ class Article(models.Model):
             return True
         return False
 
+
+    #Regresa el numero de candidatos que han aplicado a este articulo
     def getNumber_candidates(self):
         return Offer.objects.filter(article = self).count()
+
 
     #True si el item ya posee asignacion
     def has_assignment(self):
@@ -79,6 +82,7 @@ class Article(models.Model):
         except Assignment.DoesNotExist:
             return False
         return True
+
 
     #True si el item ya ha finalizado
     def has_been_completed(self):
@@ -90,19 +94,25 @@ class Article(models.Model):
             return True
         return False
 
+
+    #Regresa la URL de la primer imagen
     def get_first_picture_url(self):
         for p in self.pictures.all()[:1]:
             return p.picture.url
 
+
+    #Regresa la URL de la primer imagen, en tamano 250x250
     def get_first_picture_250x250(self):
         for p in self.pictures.all()[:1]:
             return p.get_url_250x250()
 
 
+    #Regresa la URL del articulo
     def get_url(self):
         return '/article/%s/%s' % (self.pk, self.title_url)
 
-        
+
+    #Regresa hace que tiempo fue publicado el articulo        
     def get_timestamp(self):
         return get_timestamp(self.date)
 
@@ -120,6 +130,7 @@ class Offer(models.Model):
     def __unicode__(self):
         return u'owner: %s, item: %s' % (self.owner, self.article.title)
 
+    #Regresa True si el articulo al que se hace referencia aun no tiene asignacion
     def is_open(self):
         try:
             Assignment.objects.get(article = self.article)
@@ -127,23 +138,26 @@ class Offer(models.Model):
             return True
         return False
 
+    def get_first_picture_url(self):
+        for p in self.pictures.all()[:1]:
+            return p.picture.url
+
+    #Regresa la URL de la primer imagen, en tamano 100x100
     def get_first_picture_100x100(self):
         for p in self.pictures.all()[:1]:
             return p.get_url_100x100()
 
+
+    #Regresa la URL de la primer imagen, en tamano 250x250
     def get_first_picture_250x250(self):
         for p in self.pictures.all()[:1]:
             return p.get_url_250x250()
 
-    def is_complete(self):
-        if self.pictures.all().count() > 0:
-            return True
-        return False
+    #Regresa hace que tiempo fue publicado el articulo        
+    def get_timestamp(self):
+        return get_timestamp(self.date)
 
-    def has_pictures(self):
-        if self.pictures.all().count() > 0:
-            return True
-        return False
+
 
 
 class Assignment(models.Model):
@@ -162,6 +176,7 @@ class Assignment(models.Model):
         else: 
             return False
 
+
     #True si el usuario dado es el comprador del articulo
     def is_buyer(self,user):
         if self.article.owner == user:
@@ -169,13 +184,16 @@ class Assignment(models.Model):
         else:
             return False
 
+
     #Regresa al comprador
     def get_buyer(self):
         return self.article.owner
 
+
     #Regresa al vendedor
     def get_seller(self):
         return self.owner
+
 
     #True si el usuario dado es comprador o vendedor
     def is_inside(self,user):
@@ -183,11 +201,13 @@ class Assignment(models.Model):
             return True
         return False
 
+
     #True si en esta asignacion el comprador o vendedor ha criticado a su contraparte
     def has_been_critiqued_before(self):
         if self.status == "3":
             return True
         return False
+
 
     #True si la transaccion ha finalizado con exito
     def is_complete(self):
