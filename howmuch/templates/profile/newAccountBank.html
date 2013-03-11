@@ -5,29 +5,26 @@
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div">
-	<legend>Agregar Cuenta Bancaria</legend>
+<section class="wrapper-div background1">
+	<h2>Nueva Cuenta Bancaria</h2>
 
-	<form class="form-horizontal" action='' method='POST'>{% csrf_token %}
+	<form action='' method='POST'>{% csrf_token %}
 
-		<div class="control-group">
-			<label class="control-label">Nombre del Banco</label>
-			<div class="controls">
-				{{ form.bank }}
-				{{ form.bank.errors }}
-			</div>
+		<div>
+			<legend>Nombre del Banco</legend>
+			{{ form.bank }}
+			<span class="block-help">Ej. Banamex, Bancomer, Banorte</span>
+			{{ form.bank.errors }}
 		</div>
 
-		<div class="control-group">
-			<label class="control-label">Numero de Cuenta</label>
-			<div class="controls">
-				{{ form.account }}
-				{{ form.account.errors }}
-			</div>
+		<div>
+			<legend>Numero de Cuenta</legend>
+			{{ form.account }}
+			{{ form.account.errors }}
 		</div>
 
 		<center>
-			<input class="btn btn-large btn-primary" type="submit" value="Guardar">
+			<input class="btn btn-large btn-success" type="submit" value="Guardar">
 		</center>
 
 	</form>

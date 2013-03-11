@@ -6,27 +6,25 @@
 
 {% block section2 %}
 
-<section class="wrapper-div">
-	<legend>Agregar Telefono</legend>
-	<form class="form-horizontal" action='' method='POST'>{% csrf_token %}
-		<div class="control-group">
-			<label class="control-label">Tipo</label>
-			<div class="controls">
-				{{ form.place }}
-				{{ form.place.errors }}
-			</div>
+<section class="wrapper-div background1">
+	<h2>Nuevo Telefono</h2>
+	<form action='' method='POST'>{% csrf_token %}
+		<div>
+			<legend>Tipo de Telefono</legend>
+			{{ form.place }}
+			<span class="help-block">Si es de Casa, Celular u de Oficina</span>
+			{{ form.place.errors }}
 		</div>
 
-		<div class="control-group">
-			<label class="control-label">Numero</label>
-			<div class="controls">
-				{{ form.number }}
-				{{ form.number.errors }}
-			</div>
+		<div>
+			<legend>Numero Telefonico</legend>
+			{{ form.number }}
+			<span class="help-block">Incluye clave LADA</span>
+			{{ form.number.errors }}
 		</div>
 
 		<center>
-			<input class="btn btn-large btn-primary" type="submit" value="Guardar">
+			<input class="btn btn-large btn-success" type="submit" value="Guardar">
 		</center>
 
 	</form>

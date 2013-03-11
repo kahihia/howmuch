@@ -10,8 +10,8 @@ class ProfileForm(ModelForm):
             'prestige','positive_points','negative_points','unread_notifications', 'unread_conversations',
             'current_invoice', 'credit_limit','is_block')
         widgets = {
-            'profile_picture' : FileInput(attrs={'class':'',}),
-            'company' : TextInput(attrs={'class':'InputFormRequestItem',}),
+            'profile_picture' : FileInput(attrs={'class':'span12',}),
+            'company' : TextInput(attrs={'class':'span12',}),
         }
 
 class AddressForm(ModelForm):
@@ -19,13 +19,13 @@ class AddressForm(ModelForm):
         model = Address
         exclude = ('owner',)
         widgets = {
-            'street' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Calle'}) ,
-            'number' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Numero'}) ,
-            'suburb' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Colonia'}) ,
-            'city' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Ciudad'}) ,
-            'state' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Estado'}) ,
-            'country' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Pais'}) ,
-            'zipcode' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Codigo Postal'}) ,
+            'street' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Calle'}) ,
+            'number' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Numero'}) ,
+            'suburb' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Colonia'}) ,
+            'city' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Ciudad'}) ,
+            'state' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Estado'}) ,
+            'country' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Pais'}) ,
+            'zipcode' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Codigo Postal'}) ,
         }
 
 class PhoneForm(ModelForm):
@@ -33,8 +33,8 @@ class PhoneForm(ModelForm):
         model = Phone
         exclude = ('owner', )
         widgets = {
-            'place' : Select(attrs={'class' : 'InputFormRequestItem'}),
-            'number' : TextInput(attrs={'class' : 'InputFormRequestItem'}),
+            'place' : Select(attrs={'class' : 'span12'}),
+            'number' : TextInput(attrs={'class' : 'span12'}),
         }
 
 class AccountBankForm(ModelForm):
@@ -42,6 +42,6 @@ class AccountBankForm(ModelForm):
         model = AccountBank
         exclude = ('owner', )
         widgets = {
-            'bank' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Nombre del Banco'}),
-            'account' : TextInput(attrs={'class' : 'InputFormRequestItem', 'placeholder' : 'Numero de cuenta'})
+            'bank' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Nombre del Banco'}),
+            'account' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Numero de cuenta'})
         }

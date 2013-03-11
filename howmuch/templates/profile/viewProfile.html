@@ -15,15 +15,19 @@
 				<img src="{{ profile.profile_picture.url }}">
 			</div>
 			<div class="span8">
-				<legend>{{ profile.user.get_full_name }}  ({{ profile.user }})</legend>
+				<h2>{{ profile.user.get_full_name }}  ({{ profile.user }})</h2>
 			</div>
 		</div>
 		<legend>Prestigio</legend>
 		<div>
 			<h1>{{ profile.prestige }}</h1>
-			<div>
-			Puntos Positivos<b>{{ profile.positive_points }}</b>
-			Puntos Negativos<b>{{ profile.negative_points }}</b>
+			<div class="row-fluid">
+				<div class="span6">
+					Puntos Positivos:<b>  {{ profile.positive_points }}</b>
+				</div>
+				<div class="span6">
+					Puntos Negativos:<b>  {{ profile.negative_points }}</b>
+				</div>
 			</div>
 		</div>
 		<legend>Información</legend>

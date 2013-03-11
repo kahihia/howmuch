@@ -13,32 +13,29 @@
     			</div>
 
     			<div class="span8">
-    				<legend>{{ user.get_full_name }}</legend>
+    				<h3>{{ user.get_full_name }}</h3>
     			</div>
     		</div>
 
     		<div>
-				<form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 		
-					<div class="control-group">
-						<label class="control-label">Nombre de tu Empresa</label>
-						<div class="controls">
-							{{ form.company }}
-							{{ form.company.errors }}
-							<span class="help-block">Solo en Caso que representes una Empresa</span>
-						</div>
+					<div>
+						<legend>Nombre de tu Empresa</legend>
+						{{ form.company }}
+						<span class="help-block">Solo en Caso que representes una Empresa</span>
+						{{ form.company.errors }}
 					</div>
 
-					<div class="control-group">
-						<label class="control-label">Imagen de Perfil </label>
-						<div class="controls">
+					<div>
+						<legend>Imagen de Perfil</legend>
 						{{ form.profile_picture }}
+						<span class="help-block">Formato .jpg, .png, .bmp</span>
 						{{ form.profile_picture.errors }}
-						</div>
 					</div>
 
 					<center>
-						<input type="submit" class="btn btn-large btn-primary" value="Guardar">
+						<input type="submit" class="btn btn-large btn-success" value="Guardar">
 					</center>
 				</form>
 			</div>
