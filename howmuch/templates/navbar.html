@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
         </a>
         <div class="nav-collapse collapse navbar-responsive-collapse">
-
+          {% if user.is_authenticated %}
           <ul class="nav">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ user }}<b class="caret"></b></a>
@@ -36,6 +36,16 @@
               <li><a href="/"><i class="icon-home icon-white"></i> Inicio</a></li>
               <li><a href="/logout"><i class="icon-off icon-white"></i> Salir</a></li>
           </ul>
+          {% else %}
+          <ul class="nav">
+            <li><a href="/login/"><i class="icon-user icon-white"></i> Iniciar Sesion</a></li>
+            <li class="divider-vertical"></li>
+            <li class="active"><a href="/article/post"><i class="icon-pencil icon-white"></i> Publicar Compra</a></li>
+          </ul>
+          <ul class="nav pull-right">
+              <li><a href="/"><i class="icon-home icon-white"></i> Inicio</a></li>
+          </ul>
+          {% endif %}
         </div><!-- /.nav-collapse -->
     </div>
   </div><!-- /navbar-inner -->

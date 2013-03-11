@@ -8,12 +8,12 @@ class ArticleForm(ModelForm):
         model = Article
         exclude = ('owner','tags','date','pictures','title_url', 'comments', 'followers', 'is_active')
         widgets = {
-        'price' : TextInput(attrs = {'class' : 'width-350'}),
-        'title' : TextInput(attrs = {'class' : 'width-350'}),
-        'description' : Textarea(attrs = {'class' : 'width-350'}),
-        'quantity' : TextInput(attrs = {'class' : 'width-350'}),
-        'category' : Select(attrs = {'class' : 'width-350'}),
-        'state' : Select(attrs = {'class' : 'width-350'}),
+        'price' : TextInput(attrs = {'class' : 'span12'}),
+        'title' : TextInput(attrs = {'class' : 'span12'}),
+        'description' : Textarea(attrs = {'class' : 'span12'}),
+        'quantity' : TextInput(attrs = {'class' : 'span12'}),
+        'category' : Select(attrs = {'class' : 'span12'}),
+        'state' : Select(attrs = {'class' : 'span12'}),
         }
 
 class OfferForm(forms.Form):
