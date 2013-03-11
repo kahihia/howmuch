@@ -1,24 +1,32 @@
 <article class="wrapper-div hover1">
 	<div class="row-fluid">
-		<div class="thumbnail span2">
-			<img src="{{ MEDIA_URL}}img/cuantoo_profile_picture.png">
+		<div class="thumbnail span3">
+			<img src="{{ item.get_first_picture_url }}">
 		</div>
-		<div class="span7">
-			<p>
-				<a href="{{ item.get_url }}">{{ item.title }}</a>
-			</p>
-			<p>
+		<div class="span6">
+			<center>
+				<a class="a-title-large" href="{{ item.get_url }}">{{ item.title }}</a>
+			</center>
+			<center class="margin10">
 				<a href="/messages/{{ item.assignment.conversation.pk }}">Ir a Conversación ({{ item.assignment.conversation.getNumber_unread_messages_buyer }})</a>
-			</p>
-			<p>
+			</center>
+			<center>
+				<p>
+					{{ item.description|truncatechars:100}}
+				</p>
+			</center>
+			<center>
 				<a href="#">Ver Critica</a>
-			</p>
+			</center>
 		</div>
 		<div class="span3">
-			<h2>$ {{ item.price }}</h2>
-			<p>
-				<b>hace {{ item.get_timestamp }}</b>
-			</p>		
+			<center>
+				<h2>$ {{ item.price }}</h2>
+				<p>
+					<b>hace {{ item.get_timestamp }}</b>
+				</p>	
+			</center>
 		</div>
 	</div>
 </article>
+

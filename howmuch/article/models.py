@@ -90,6 +90,9 @@ class Article(models.Model):
             return True
         return False
 
+    def get_first_picture_url(self):
+        for p in self.pictures.all()[:1]:
+            return p.picture.url
 
     def get_first_picture_250x250(self):
         for p in self.pictures.all()[:1]:

@@ -12,7 +12,9 @@
 {% block section2 %}
 
 <section>
-	<h2>Mis Ofertas</h2>
+    <center>
+        <h2>Mis Ofertas</h2>
+    </center>
     	<div class="tab-pane active" id="possible">
             {% for offer in offers_list %}
                 {% include "account/offers.html" %}
