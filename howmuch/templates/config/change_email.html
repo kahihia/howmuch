@@ -1,9 +1,33 @@
+{% extends "3columns.html" %}
+{% block title %}
+
+{% endblock %}
+
+{% block media %}
+
+{% endblock %}
+
+{% block section2 %}
+<section class="wrapper-div background1">
 <form action="" enctype="multipart/form-data" method="POST">{% csrf_token %}
-	{{ form.new_email }}
-	{{ form.new_email.errors }}
+	<h2>Cambiar Correo Electronico</h2>
+	<div>
+		<legend>Nuevo Correo Electronico</legend>
+		{{ form.new_email }}
+		<span class="help-block">Este es tu nuevo Correo Electronico</span>
+		{{ form.new_email.errors }}	
+	</div>
 
-	{{ form.password }}
-	{{ form.password.errors }}
+	<div>
+		<legend>Contraseña</legend>
+		{{ form.password }}
+		<span class="help-block">Tu contraseña Actual</span>
+		{{ form.password.errors }}
+	</div>
 
-	<input type="submit" value="Guardar">
+	<center>
+		<input class="btn btn-large btn-success" type="submit" value="Guardar">
+	</center>
 </form>
+</section>
+{% endblock %}

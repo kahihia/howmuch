@@ -21,9 +21,12 @@ class EmailChangeForm(forms.Form):
 		'incorrect_password' : _("The Password is incorrect")
 	}
 
-	new_email = forms.EmailField(label=_("new email"))
+	new_email = forms.EmailField(label=_("new email"),
+								widget=forms.TextInput(
+									attrs={'class':'span12'}))
 	password = forms.CharField(label=_("current password"),
-								widget=forms.PasswordInput)
+								widget=forms.PasswordInput(
+									attrs={'class':'span12'}))
 
 	def __init__(self,user,*args,**kwargs):
 		self.user = user
