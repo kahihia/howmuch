@@ -18,82 +18,25 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block section1 %}
-<!-- Informacion del Comprador -->
-<div>
-	<h3>Comprador</h3>
-	<h4>{{ conversation.assignment.get_buyer }}</h4>
-	<div class="thumbnail">
-    	<img src="{{ conversation.assignment.get_buyer.profile.profile_picture.url }}" alt="">
-    </div>
-	<div>
-		<a class="btn btn-info" href="/messages/infobuyer/{{ conversation.pk }}">Ver Información</a>
-	</div>
-</div>
-<!-- Informacion del Vendedor -->
-<div>
-	<h3>Vendedor</h3>
-	<h4>{{ conversation.assignment.get_seller }}</h4>
-		<div class="thumbnail">
-    		<img src="{{ conversation.assignment.get_seller.profile.profile_picture.url }}" alt="">
-    	</div>
-	<div>
-		<a class="btn btn-info" href="/messages/infoseller/{{ conversation.pk }}">Ver Información</a>
-	</div>
-</div>
-{% endblock %}
-
-{% block section2 %}
-<div>
-	<h2>{{ conversation.assignment.article.title }}</h2>
-</div>
-<div class="comments-area">
-{% for message in messages %}
-   <div class="wrapper-div row">
-		<div class="span1">
-			<img src="{{ message.owner.profile.get_profile_picture_50x50 }}">
-		</div> 
-		<div class="span9">
-			{{ message.message }}
-		</div>
-		<div>
-			<b>hace {{ message.get_timestamp }}</b>
-		</div> 
-	</div>
-{% endfor %}
-</div>
-<section class="wrapper-div color7">
-	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-	<h4>Envia un mensaje..</h4>
-	<input class="span12" id="message" name="message" type="text">
-	</form>
-</section>
-{% endblock %}
-
-{% block section3 %}
-<!-- Logo cuantoo -->
-<div class="padding10">
-	<img src="{{ MEDIA_URL }}img/cuantoo_logo.png">
-</div>
-
 <!-- Opciones de la transaccion -->
 <div class="wrapper-div">
-	<h4>Opciones</h4>
+	<legend>Opciones</legend>
 	<div>
 		<ul class="unstyled">
 			{% if conversation.assignment.get_seller == user %}
-			<li><a href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
-			<li><a href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			<li><a class="a-title-large" href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
+			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
 			{% else %}
-			<li><a href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
-			<li><a href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			<li><a class="a-title-large" href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
+			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
 			{% endif %}
-			<li><a href="/problems/problem/{{ conversation.assignment.pk }}">Reportar Problema</a></li>
+			<li><a class="a-title-large" href="/problems/problem/{{ conversation.assignment.pk }}">Reportar Problema</a></li>
 		</ul>
 	</div>
 </div>
 <!-- Estado de la transaccion -->
 <div class="wrapper-div">
-	<h4>Estado de tu pedido</h4>
+	<legend>Estado de tu pedido</legend>
 	<div class="progress progress-info progress-striped">
 		<div class="bar" style="width: {{ status }}%"></div>
 	</div>
@@ -122,4 +65,56 @@ $(document).ready(function(){
 </div>
 
 
+{% endblock %}
+
+{% block section2 %}
+<div class="text-center">
+	<h2>{{ conversation.assignment.article.title }}</h2>
+</div>
+<div class="comments-area">
+{% for message in messages %}
+   <div class="wrapper-div row">
+		<div class="span1">
+			<img src="{{ message.owner.profile.get_profile_picture_50x50 }}">
+		</div> 
+		<div class="span9">
+			{{ message.message }}
+		</div>
+		<div>
+			<b>hace {{ message.get_timestamp }}</b>
+		</div> 
+	</div>
+{% endfor %}
+</div>
+<section class="wrapper-div color7">
+	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<h4>Envia un mensaje..</h4>
+	<input class="span12" id="message" name="message" type="text">
+	</form>
+</section>
+{% endblock %}
+
+{% block section3 %}
+<!-- Informacion del Comprador -->
+<div class="text-center background2 margin10 padding10">
+	<h3>Comprador</h3>
+	<h4>{{ conversation.assignment.get_buyer }}</h4>
+	<div class="thumbnail">
+    	<img src="{{ conversation.assignment.get_buyer.profile.profile_picture.url }}" alt="">
+    </div>
+	<div>
+		<a class="btn btn-info" href="/messages/infobuyer/{{ conversation.pk }}">Ver Información</a>
+	</div>
+</div>
+<!-- Informacion del Vendedor -->
+<div class="text-center background3 margin10 padding10">
+	<h3>Vendedor</h3>
+	<h4>{{ conversation.assignment.get_seller }}</h4>
+		<div class="thumbnail">
+    		<img src="{{ conversation.assignment.get_seller.profile.profile_picture.url }}" alt="">
+    	</div>
+	<div>
+		<a class="btn btn-success" href="/messages/infoseller/{{ conversation.pk }}">Ver Información</a>
+	</div>
+</div>
 {% endblock %}
