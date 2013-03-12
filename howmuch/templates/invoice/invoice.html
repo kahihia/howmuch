@@ -11,6 +11,9 @@ $(document).on('ready', function(){
 {% endblock %}
 {% block section1 %}
 		<div class="wrapper-div">
+		<div class="text-center">
+			<h2>Factura Actual</h2>
+		</div>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -26,14 +29,18 @@ $(document).on('ready', function(){
 					<tr>
 						<th>{{ forloop.counter }}</th>
 						<th>{{ charge.date }}</th>
-						<th>{{ charge.assignment.article.title }}</th>
+						<th><a href="/messages/{{ charge.assignment.conversation.pk }}">{{ charge.assignment.article.title }}</th></a>
 						<th>{{ charge.price }}</th>
 						<th>{{ charge.commission }}</th>
 					</tr>
 					{% endfor %}
 				</tbody>
 			</table>
+			
 			<legend>Total a pagar $ {{ current_invoice.total }}</legend>
-			<a class="btn btn-large btn-success" href="#">Pagar Ahora</a>
+			
+			<center>
+				<a class="btn btn-large btn-success" href="#">Pagar Ahora</a>
+			</center>
 		</div>
 {% endblock %}
