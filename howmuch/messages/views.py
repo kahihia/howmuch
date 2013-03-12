@@ -55,8 +55,10 @@ def view_conversation(request, conversationID):
 
 @login_required(login_url = '/login/')
 def inbox(request):
-    conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | Q(assignment__article__owner = request.user)).order_by('-last_message')
-    return render_to_response('messages/inbox.html',{'conversations' : conversations}, 
+    conversations = Conversation.objects.filter(Q(assignment__owner = request.user) | 
+        Q(assignment__article__owner = request.user)).order_by('-last_message')
+    return render_to_response('messages/inbox.html',
+        {'conversations' : conversations}, 
         context_instance = RequestContext(request))
 
 @login_required(login_url = '/login/')

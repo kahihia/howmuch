@@ -2,7 +2,9 @@
 
 {% block title %}{% endblock %}
 
-{% block media %}{% endblock %}
+{% block media %}
+
+{% endblock %}
 
 {% block search-bar %}
 	{% include "search.html" %}
@@ -14,51 +16,36 @@
 		<h2>Inbox</h2>
 	</center>
 	{% for conversation in conversations %}
-		{% if conversation.has_unread_messages %}
-			{% if conversation.assignment.owner == user %} 
-				{% if conversation.getNumber_unread_messages_seller > 0 %}
-				<article class="wrapper-div color7 row-fluid">
-					<b><span>({{ conversation.getNumber_unread_messages_seller }})</span></b>
-				{% else %}
-				<article class="wrapper-div">
-				{% endif %}
-			{% else %}
-			{% if conversation.assignment.article.owner == user %}
-				{% if conversation.getNumber_unread_messages_buyer > 0%}
-				<article class="wrapper-div color7 row-fluid">
-					<b><span>({{ conversation.getNumber_unread_messages_buyer }})</span></b>
-				{% else %}
-				<article class="wrapper-div row-fluid">
-				{% endif %}
-			{% endif %}{% endif %}
-		{% else %}
-				<article class="wrapper-div row-fluid">
-		{% endif %}
-					<div class="thumbnail span1">
-    					<img src="{{ conversation.assignment.article.get_first_picture_url }}" alt="">
-    				</div>
-					<div class="span9">
-						<a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a>
-						<p>
-							{{ conversation.get_latest_message.message }}
-						</p>
-					</div>
-					<div>
-						<p>
-							<b>
-								hace {{ conversation.get_latest_message.get_timestamp }}
-							</b>
-						</p>
-					</div>
-				</article>
+	<article class="row-fluid wrapper-div">
+		<div class="span2 thumbnail">	
+			<img src="{{ conversation.assignment.article.get_first_picture_url }}">
+		</div>
+		<div class="span7 text-center">
+			<div>
+				<a class="a-title-large" href="/messages/{{ conversation.pk }}">
+				{{ conversation.assignment.article.title }}
+				</a>
+			</div>
+			<div>
+				<p>
+					{{ conversation.get_latest_message.message }}
+				</p>
+			</div>
+		</div>
+		<div class="span3 text-center">
+			<div>
+				<p>
+					<b>
+						hace {{ conversation.get_latest_message.get_timestamp }}
+					</b>
+				</p>
+			</div>
+		</div>
+	</article>
 	{% empty %}
-	<p>
-		<b>Aun no tienes mensajes, empieza a tenerlos publicando una compra</b>
-		<a class="margin5" href="/article/post">
-			<i class="icon-plus"></i>
-			Publicar compra
-		</a>
-	</p>
+	<article>
+		Sin Mensajes
+	</article>
 	{% endfor %}
 </section>
 {% endblock %}

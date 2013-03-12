@@ -46,6 +46,7 @@ class Conversation(models.Model):
         return Message.objects.filter(owner= self.assignment.article.owner , conversation=self, has_been_readed=False).count()
         
 
+    # True si la conversacion tiene mensajes sin leer del comprador o vendedor    
     def has_unread_messages(self):
         if self.getNumber_unread_messages_seller() > 0 or self.getNumber_unread_messages_buyer() > 0:
             return True
