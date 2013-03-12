@@ -21,14 +21,27 @@ Aplico para Vender el Articulo {{ article.title }}
     {% endif %}
 
 	{% if not errors %}
-	<form class="form-horizontal" action=""  method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<form action=""  method="POST" enctype="multipart/form-data">{% csrf_token %}
 		<div class="wrapper-div">
-			<h2>Envia tu Oferta</h2>
-			<h3>{{ article.title }}</h3>
-			
-			<div class="control-group">
-				<label class="control-label">Precio de Venta</label>
-				<div class="controls">
+			<div class="row-fluid margin10">
+				<div class="thumbnail span2">
+					<img src="{{ article.get_first_picture_url }}">
+				</div>
+				<div class="span7 text-center">
+					<h3>Tu oferta para {{ article.title }}</h3>
+					<p>
+					{{ article.description|truncatechars:100}}
+					</p>
+				</div>
+				<div class="span3 text-center background3">
+					<h4>Pagan</h4>
+					<h2>$ {{ article.price }}</h2>
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span6">
+					<legend>Precio de Venta</legend>
 					<div class="input-prepend input-append">
 						<span class="add-on">$</i></span>
 						{{ form.cprice }}
@@ -37,11 +50,9 @@ Aplico para Vender el Articulo {{ article.title }}
 					{{ form.cprice.errors }}
 					<span class="help-block">Precio al que venderas el articulo</span>
 				</div>
-			</div>
 
-			<div class="control-group">
-				<label class="control-label">Cantidad de Articulos</label>
-				<div class="controls">
+				<div class="span6">
+					<legend>Cantidad de Articulos</legend>
 					<div class="input-prepend input-append">
 						<span class="add-on"><i class="icon-resize-small"></i></span>
 						{{ form.quantity }}
@@ -51,14 +62,10 @@ Aplico para Vender el Articulo {{ article.title }}
 					<span class="help-block">El comprador quiere {{ article.quantity }} articulos, pero puedes ofrecerle menos</span>
 				</div>
 			</div>
-
-
-			
-
 		</div>
 
 		<div class="wrapper-div">
-			<h4>Sube Imagenes del Articulo que estas Vendiendo</h4>
+			<legend>Sube Imagenes del Articulo que estas Vendiendo</legend>
 			<div>
 			{{ form.picture1}}
 			</div>
@@ -95,19 +102,18 @@ Aplico para Vender el Articulo {{ article.title }}
 			<div class="image-preview-wrapper" onclick="$('#id_picture5').click()">
 				<img src="{{ MEDIA_URL }}img/camera1.png" id="image5" width="100" height="100">
 			</div>
+
+			<span class="help-block">Click en el cuadro para subir imagen</span>
+			
 		</div>
 
-		<div class="wrapper-div">
-			<h4>Agrega una breve Descripcion de tu Articulo</h4>
+		<div class="wrapper-div text-center">
+			<legend>Agrega una breve Descripcion de tu Articulo</legend>
 			{{ form.message }}
+			<input class="btn btn-large btn-success" type="submit" value="Venderselo">
 		</div>
 
 
-		<div>
-			<center>	
-				<input class="btn btn-large btn-primary" type="submit" value="Venderselo">
-			</center>
-		</div>
 	{% else %}
 	{{errors}}
 	{% endif %}
