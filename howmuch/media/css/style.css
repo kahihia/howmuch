@@ -114,16 +114,9 @@ Base colors
 .margin10{
 	margin: 10px !important;
 }
-.search-form{
-	width: 1061px;
-	margin: 0 auto;
-}
 .search-input{
-	width: 700px;
-	padding: 10px !important;
 	border: 3px blue solid !important;
 	border-radius: 0px !important;
-	margin: 10px !important; 
 }
 .text-center{
 	text-align: center !important;

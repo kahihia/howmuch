@@ -10,7 +10,9 @@
 
 {% block section2 %}
 <section>
-	<h2>Inbox</h2>
+	<center>
+		<h2>Inbox</h2>
+	</center>
 	{% for conversation in conversations %}
 		{% if conversation.has_unread_messages %}
 			{% if conversation.assignment.owner == user %} 
@@ -33,7 +35,7 @@
 				<article class="wrapper-div row-fluid">
 		{% endif %}
 					<div class="thumbnail span1">
-    					<img src="{{MEDIA_URL}}img/cuantoo_profile_picture.png" alt="">
+    					<img src="{{ conversation.assignment.article.get_first_picture_url }}" alt="">
     				</div>
 					<div class="span9">
 						<a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a>
@@ -49,7 +51,6 @@
 						</p>
 					</div>
 				</article>
-
 	{% empty %}
 	<p>
 		<b>Aun no tienes mensajes, empieza a tenerlos publicando una compra</b>
