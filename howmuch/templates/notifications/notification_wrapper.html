@@ -1,23 +1,23 @@
 <section class="wrapper-div">
 	<div class="row-fluid">
-		<ul class="thumbnails span2">
-			<div class="thumbnail">
-    			<img src="{{MEDIA_URL}}img/cuantoo_profile_picture.png" alt="">
-    		</div>
-    	</ul>
-    	<div>
-    		<h3>{{ group.article.title }}</h3>
+		<div class="thumbnail span3">
+    		<img src="{{ group.article.get_first_picture_url }}" alt="">
+    	</div>
+    	<div class="span9">
+    		<center>
+    			<h3>{{ group.article.title }}</h3>
+    		</center>
     	</div>
 	</div>
 	{% for notification in group.notifications %}
 	{% if not notification.has_been_readed %}
-	<article class="color7">
+	<article class="margin10 color7">
 	{% else %}
-	<article>
+	<article class="margin10">
 	{% endif %}
 		<div class="row-fluid margin5">
 			<div class="span9">
-				<a href="{{ notification.get_url }}">{{ notification.title }}</a>
+				<a class="a-title" href="{{ notification.get_url }}">{{ notification.title }}</a>
 			</div>
 			<div>
 				<span><b>hace {{ notification.get_timestamp }}</b></span>
