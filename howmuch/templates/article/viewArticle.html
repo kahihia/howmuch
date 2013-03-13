@@ -99,19 +99,25 @@ $(document).on('ready', function(){
    
 	
 		<div class="span8">
-			<center>
-				<h2>{{ article.title }}</h2>
-			</center>
-			<center>
+			<div class="text-center">
+				<h2>COMPRO {{ article.title }}</h2>
+			</div>
+			<div class="background2 text-center">
+				<h4>{{ article.state }}</h4>
+			</div>
+			<div class="text-center">
 				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderselo</a>
 				<a id="btn-follow" class="btn btn-large btn-success unfollow" href="#">Seguir</a>
 				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
-			</center>
+			</div>
+			<div class="text-center background4 font1">
+				<h2>$ {{ article.price }}</h2>
+			</div>
 		</div>
 	</article>
 
 	<article class="margin5">
-		<legend>Imagenes Muestra</legend>
+		<legend>Quiero algo parecido a</legend>
 		<center>
 		{% for picture in article.pictures.all %}
 			<img width="100" height="100" class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>

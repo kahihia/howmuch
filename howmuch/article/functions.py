@@ -146,6 +146,13 @@ def save_post_pictures(article,pictures):
         picture.close()
 
 
+def tags_to_string(tags):
+    string_tags = ''
+    for tag in tags:
+        string_tags += (str(tag.name) + ',')
+    return string_tags
+
+
 
 
 

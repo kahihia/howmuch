@@ -12,30 +12,33 @@
 
 <section>
 	<legend>{{ searchresults.matches }} personas estan comprando una {{ article }}</legend>
-	<div>
-		<p>
-			<b>Ordenar por</b>
-			<a href="#">Precio</a>
-			<a href="#">Relevancia</a>
-			<a href="#">Fecha</a>
-		</p>
-	</div>
 	{% for result in searchresults.results %}
-	<div class="row-fluid wrapper-div hover1">
-		<div class="thumbnail span2">
-			<img src="{{ MEDIA_URL }}img/cuantoo_profile_picture.png">
+	<article class="wrapper-div hover1">
+		<div class="row-fluid">
+			<div class="thumbnail span3">
+				<a href="{{ result.docid }}">
+					<img src="{{ result.img }}">
+				</a>
+			</div>
+			<div class="span6 text-center">
+				<a class="a-title-large" href="{{ result.docid }}">{{ result.text }}</a>
+				<p>
+					{{ result.description }}
+				</p>
+				<div class="background4 font1">
+					{{ result.tags }}
+				</div>
+			</div>
+			<div class="span3 text-center">
+				<div class="background2">
+					<h2>$ {{ result.price }}</h2>
+				</div>
+				<div class="background1">
+					<h4>{{ result.state }}</h4>
+				</div>
+			</div>
 		</div>
-		<div class="span8">
-			<p>
-				<a href="{{ result.docid }}">{{ result.text }}</a>
-			</p>
-		</div>
-		<div>
-			<h2>
-				${{ result.price }}
-			</h2>
-		</div>
-	</div>
+</article>
 	{% endfor %}
 </section>
 {% endblock %}

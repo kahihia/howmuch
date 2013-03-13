@@ -99,7 +99,7 @@ class Article(models.Model):
     #Regresa la URL de la primer imagen
     def get_first_picture_url(self):
         for p in self.pictures.all()[:1]:
-            return p.picture.url
+            return p.get_url()
 
 
     #Regresa la URL de la primer imagen, en tamano 250x250
@@ -111,6 +111,12 @@ class Article(models.Model):
     #Regresa la URL del articulo
     def get_url(self):
         return '/article/%s/%s' % (self.pk, self.title_url)
+
+
+    #Regresa una lista de Tags
+    def get_list_tags(self):
+        from howmuch.article.functions import tags_to_string
+        return tags_to_string(self.tags.all())
 
 
     #Regresa hace que tiempo fue publicado el articulo        
