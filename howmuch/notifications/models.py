@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from howmuch.utils import get_timestamp
 from howmuch.article.models import Article
+from howmuch.settings import URL_OFFICIAL_SITE
 
 TYPE_CHOICES = (
     ('offer','Tienes un nuevo Candidato'),

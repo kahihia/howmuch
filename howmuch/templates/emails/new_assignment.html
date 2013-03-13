@@ -1,31 +1,18 @@
 {% extends "emails/base.html" %}
 
 {% block content %}
+<h3>
 Estimado {{ assignment.owner.get_full_name }}
+</h3>
+<h2>
+Has sido seleccionado para vender el articulo {{ assignment.article.title }} 
+</h2>
 
-Has sido Seleccionado para vender el articulo
+<a href="{{ url  }}">Ir a Conversacion</a>
 
-<div>
-	<div>
-		<img src="">
-	</div>
-	<div>
-		{{ assignment.article.title }}
-	</div>
-</div>
-
-<div>
-Mensaje:
-{{ assignment.comment }}
-</div>
-<div>
-Para que howmuch te conecte con el comprador a traves del portal, donde podras ver su informacion y chater con el es necesario
-pagar $10 pesos de comision. 
-Muchas Gracias
-</div>
-
-<a href="{{ redirect }}">Aceptar</a>
-
-
+<p>
+Somos el equipo de brainn.co, favor de no responder este mensaje, si deseas no recibir notificaciones por email,
+puedes cambiar tu configuracion <a href="/config/notifications">aqui</a>
+</p>
 {% endblock %}
 

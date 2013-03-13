@@ -1,22 +1,13 @@
 {% extends "emails/base.html" %}
 
 {% block content %}
+<h2>Confirmacion de PAGO del articulo {{ confirm_pay.assignment.article.title }} por la cantidad de {{ confirm_pay.amount }}</h2>
 
-<div>
-Estimado {{confirm_pay.assignment.owner.get_full_name }}
-</div>
+<a href="{{ url }}">Ir a Conversación</a>
 
-<div>
-{{ confirm_pay.assignment.article.owner.get_full_name }} te esta CONFIRMANDO el PAGO del articulo
-{{ confirm_pay.assignment.article.title }} y te ha dejado el siguiente mensaje
-</div>
-
-<div>
-{{ confirm_pay.message }}
-</div>
-
-<div>
-<img src="{{ confirm_pay.get_picture_url_100x100 }}">
-</div>
+<p>
+Somos el equipo de brainn.co, favor de no responder este mensaje, si deseas no recibir notificaciones por email,
+puedes cambiar tu configuracion <a href="/config/notifications">aqui</a>
+</p>
 {% endblock %}
 

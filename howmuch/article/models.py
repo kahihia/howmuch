@@ -9,6 +9,7 @@ from howmuch.profile.models import Address
 from howmuch.utils import get_timestamp
 from howmuch.comments.models import Comment
 from howmuch.tags.models import Tag
+from howmuch.settings import URL_OFFICIAL_SITE
 
 
 
@@ -157,7 +158,9 @@ class Offer(models.Model):
     def get_timestamp(self):
         return get_timestamp(self.date)
 
-
+    #Regresa la URL de la oferta, la podra ver unicamente el comprador del articulo
+    def get_url(self):
+        return URL_OFFICIAL_SITE + '/article/offer/view/%s' % (self.pk)
 
 
 class Assignment(models.Model):

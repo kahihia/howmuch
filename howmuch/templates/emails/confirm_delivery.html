@@ -1,22 +1,13 @@
 {% extends "emails/base.html" %}
 
 {% block content %}
+<h2>Confirmacion de ENVIO del articulo {{ confirm_delivery.assignment.article.title }}</h2>
 
-<div>
-Estimado {{confirm_delivery.assignment.article.owner.get_full_name }}
-</div>
+<a href="{{ url }}">Ir a Conversación</a>
 
-<div>
-{{ confirm_delivery.assignment.owner.get_full_name }} te esta CONFIRMANDO el ENVIO del articulo
-{{ confirm_delivery.assignment.article.title }} y te ha dejado el siguiente mensaje
-</div>
-
-<div>
-{{ confirm_delivery.message }}
-</div>
-
-<div>
-<img src="{{ confirm_delivery.get_picture_url_100x100 }}">
-</div>
+<p>
+Somos el equipo de brainn.co, favor de no responder este mensaje, si deseas no recibir notificaciones por email,
+puedes cambiar tu configuracion <a href="/config/notifications">aqui</a>
+</p>
 {% endblock %}
 

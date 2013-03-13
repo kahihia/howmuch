@@ -52,6 +52,10 @@ class Conversation(models.Model):
             return True
         return False
 
+    #Regresa la url de la conversacion
+    def get_url(self):
+        return '/messages/%s' % (self.pk)
+
 class Message(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by Message")
     date = models.DateTimeField(auto_now_add=True)

@@ -1,7 +1,13 @@
 {% extends "emails/base.html" %}
 
 {% block content %}
+<h2>Has sido CRITICADO por {{ critique.de }} en el articulo {{ critique.assignment.article.title }}</h2>
 
+<a href="{{ url }}">Ver Critica</a>
 
+<p>
+Somos el equipo de brainn.co, favor de no responder este mensaje, si deseas no recibir notificaciones por email,
+puedes cambiar tu configuracion <a href="/config/notifications">aqui</a>
+</p>
 {% endblock %}
 

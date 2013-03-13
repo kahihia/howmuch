@@ -8,6 +8,8 @@ from howmuch.messages.forms import MessageForm
 from howmuch.messages.functions import *
 from howmuch.messages.models import Conversation, Message
 from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, Critique
+
+
 #Envia un mensaje a la conversation via ajax
 @login_required(login_url = '/login/')
 def send(request, conversationID):
@@ -22,6 +24,9 @@ def send(request, conversationID):
             newMessage.owner = request.user
             newMessage.conversation = conversation
             newMessage.save()
+            #Send mail to other user
+            send_mail(newMessage, request.user)
+            #html_response to append conversation
             html_response = "<div class='wrapper-div row'>" +\
                             "<div class='span1'>" +\
                             "<img src='%s'>" % ( newMessage.owner.profile.get_profile_picture_50x50() ) +\

@@ -252,3 +252,5 @@ PRESTIGE_TYPES = {
     }
 }
 
+#SITE OFFICIAL URL
+URL_OFFICIAL_SITE = 'http://www.cuantoo.com'

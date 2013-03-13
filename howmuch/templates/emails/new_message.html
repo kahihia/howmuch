@@ -1,0 +1,13 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+<h2>{{ message.owner }} te ha dejado un mensaje en la conversacion del articulo {{ message.conversation.assignment.article.title }}</h2>
+
+<a href="{{ url }}">Ver Conversación</a>
+
+<p>
+Somos el equipo de brainn.co, favor de no responder este mensaje, si deseas no recibir notificaciones por email,
+puedes cambiar tu configuracion <a href="/config/notifications">aqui</a>
+</p>
+{% endblock %}
+

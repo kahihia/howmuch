@@ -20,7 +20,7 @@ from howmuch.pictures.downloads import download_picture
 from howmuch.prestige.functions import add_points
 from howmuch.profile.models import Profile
 from howmuch.search.views import index_article
-from howmuch.settings import POINTS_FOR_PUBLISH, POINTS_FOR_OFFER, POINTS_FOR_SELECT, POINTS_FOR_ASSIGNMNET 
+from howmuch.settings import POINTS_FOR_PUBLISH, POINTS_FOR_OFFER, POINTS_FOR_SELECT, POINTS_FOR_ASSIGNMNET
 
 
 @login_required(login_url='/login/')
