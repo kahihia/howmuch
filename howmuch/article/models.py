@@ -102,12 +102,6 @@ class Article(models.Model):
             return p.get_url()
 
 
-    #Regresa la URL de la primer imagen, en tamano 250x250
-    def get_first_picture_250x250(self):
-        for p in self.pictures.all()[:1]:
-            return p.get_url_250x250()
-
-
     #Regresa la URL del articulo
     def get_url(self):
         return '/article/%s/%s' % (self.pk, self.title_url)
@@ -148,17 +142,7 @@ class Offer(models.Model):
     def get_first_picture_url(self):
         for p in self.pictures.all()[:1]:
             return p.picture.url
-
-    #Regresa la URL de la primer imagen, en tamano 100x100
-    def get_first_picture_100x100(self):
-        for p in self.pictures.all()[:1]:
-            return p.get_url_100x100()
-
-
-    #Regresa la URL de la primer imagen, en tamano 250x250
-    def get_first_picture_250x250(self):
-        for p in self.pictures.all()[:1]:
-            return p.get_url_250x250()
+            
 
     #Regresa hace que tiempo fue publicado el articulo        
     def get_timestamp(self):

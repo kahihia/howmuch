@@ -28,8 +28,8 @@ def send(request, conversationID):
             send_mail(newMessage, request.user)
             #html_response to append conversation
             html_response = "<div class='wrapper-div row'>" +\
-                            "<div class='span1'>" +\
-                            "<img src='%s'>" % ( newMessage.owner.profile.get_profile_picture_50x50() ) +\
+                            "<div class='span1 thumbnail'>" +\
+                            "<img src='%s'>" % ( newMessage.owner.profile.get_profile_picture() ) +\
                             "</div>" +\
                             "<div class='span9'>" +\
                             "%s" % ( newMessage.message ) +\

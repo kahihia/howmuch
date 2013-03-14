@@ -94,7 +94,7 @@ $(document).on('ready', function(){
 
 	<article class="row-fluid">
 		<div class="thumbnail span4">
-    		<img src="{{ article.get_first_picture_250x250 }}" alt="">
+    		<img src="{{ article.get_first_picture_url }}" alt="">
     	</div>
    
 	
@@ -120,11 +120,13 @@ $(document).on('ready', function(){
 
 	<article class="margin5">
 		<legend>Quiero algo parecido a</legend>
-		<center>
+		<div class="text-center span12">
 		{% for picture in article.pictures.all %}
-			<img width="100" height="100" class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+			<div class="thumbnail span3">
+				<img class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+			</div>
 		{% endfor%}
-		</center>
+		</div>
 	</article>
 
 	<article class="margin10">
@@ -155,8 +157,8 @@ $(document).on('ready', function(){
 	<div class="comments-area">
 		{% for comment in article.comments.all %}
 			<div class="wrapper-div row">
-				<div class="span1">
-					<img src="{{ comment.owner.profile.get_profile_picture_50x50 }}">
+				<div class="span1 thumbnail">
+					<img src="{{ comment.owner.profile.get_profile_picture }}">
 				</div>
 				<div class="span9">
 					<p>	

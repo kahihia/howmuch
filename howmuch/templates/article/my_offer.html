@@ -88,9 +88,11 @@ $(function () {
 
 	<article>
 		<legend>Imagenes del Articulo</legend>
-		<div class="text-center">
+		<div class="text-center span12">
 		{% for picture in offer.pictures.all %}
-			<img  class="pics" src="{{ picture.get_url_100x100 }}" data-glisse-big="{{ picture.picture.url  }}" rel="group1">
+			<div class="thumbnail span2">
+				<img  class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url  }}" rel="group1">
+			</div>
 		{% endfor %}
 		</div>
 	</article>

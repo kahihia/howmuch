@@ -26,8 +26,8 @@ def post(request, articleID):
 			send_mail(article, request.user, post)
 			#html content for http response
 			html_content = 	"<div class='wrapper-div row'>" +\
-							"<div class='span1'>" +\
-							"<img src='%s'>" % (post.owner.profile.get_profile_picture_50x50()) +\
+							"<div class='span1 thumbnail'>" +\
+							"<img src='%s'>" % (post.owner.profile.get_profile_picture()) +\
 							"</div>" +\
 							"<div class='span9'>" +\
 							"<p>" +\

@@ -41,7 +41,9 @@
 				<th>{{ forloop.counter }}</th>
 				<th>
 					<div>
-    					<img src="{{ candidate.get_first_picture_250x250 }}" alt="">
+						<div class="thumbnail span3">
+							<img src="{{ candidate.get_first_picture_url }}" alt="">
+						</div>
     				</div>
 				</th>
 				<th>

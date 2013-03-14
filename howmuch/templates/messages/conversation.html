@@ -91,8 +91,8 @@ $(document).ready(function(){
 <div class="comments-area">
 {% for message in messages %}
    <div class="wrapper-div row">
-		<div class="span1">
-			<img src="{{ message.owner.profile.get_profile_picture_50x50 }}">
+		<div class="span1 thumbnail">
+			<img src="{{ message.owner.profile.get_profile_picture }}">
 		</div> 
 		<div class="span9">
 			{{ message.message }}

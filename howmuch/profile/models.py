@@ -5,7 +5,6 @@ from django.db.models.signals import post_save
 from django_facebook.models import FacebookProfileModel
 
 from howmuch.pictures.models import make_upload_path
-from howmuch.pictures.thumbs import ImageWithThumbsField
 from howmuch.settings import PRESTIGE_TYPES
 
 PHONE_CHOICES =(
@@ -54,8 +53,7 @@ class Profile(FacebookProfileModel):
     from howmuch.article.models import Article
 
     user = models.OneToOneField(User)
-    profile_picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((50,50),(100,100),(250,250)), 
-        default = '/media/img/cuantoo_profile_picture.png')
+    profile_picture = models.ImageField(upload_to=make_upload_path, default = '/media/img/cuantoo_profile_picture.png')
     company = models.CharField(max_length=77, null = True, blank=True)
     following = models.ManyToManyField(Article, blank = True)
     addresses = models.ManyToManyField(Address, blank = True)
@@ -110,14 +108,6 @@ class Profile(FacebookProfileModel):
     def get_profile_picture(self):
         return str(self.profile_picture.url).split("?")[0]
 
-    def get_profile_picture_50x50(self):
-        return str(self.profile_picture.url_50x50).split("?")[0]
-
-    def get_profile_picture_100x100(self):
-        return str(self.profile_picture.url_100x100).split("?")[0]
-
-    def get_profile_picture_250x250(self):
-        return str(self.profile_picture.url_250x250).split("?")[0]
 
     def get_banks(self):
         banks = ''
