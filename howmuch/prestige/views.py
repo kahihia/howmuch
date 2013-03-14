@@ -53,7 +53,8 @@ def confirm_pay(request, assignmentID):
             return HttpResponseRedirect('/messages/' + str(conversation.pk) )
     else:
         form = ConfirmPayForm()
-    return render_to_response('prestige/payConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
+    return render_to_response('prestige/payConfirm.html', { 'form' : form, 'article' : assignment.article }, 
+        context_instance = RequestContext(request))
                                                                              
 @login_required(login_url="/login/")
 def confirm_delivery(request, assignmentID):
@@ -82,7 +83,8 @@ def confirm_delivery(request, assignmentID):
             return HttpResponseRedirect('/messages/' + str(conversation.pk) )   
     else:
         form = ConfirmDeliveryForm()
-    return render_to_response('prestige/deliveryConfirm.html', { 'form' : form }, context_instance = RequestContext(request))
+    return render_to_response('prestige/deliveryConfirm.html', { 'form' : form, 'article' : assignment.article }, 
+        context_instance = RequestContext(request))
 
 @login_required(login_url="/login/")
 def critique(request, assignmentID):
@@ -129,7 +131,9 @@ def critique(request, assignmentID):
             return HttpResponseRedirect('/messages/' + str(assignment.conversation.pk) )
     else:
         form =CritiqueForm()
-    return render_to_response('prestige/critique.html' , { 'form' : form }, context_instance = RequestContext(request))
+    return render_to_response('prestige/critique.html' ,{
+            'form' : form, 'assignment': assignment, 'to' : to }, 
+        context_instance = RequestContext(request))
 
 
 @login_required(login_url='/login/')

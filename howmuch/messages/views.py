@@ -92,24 +92,32 @@ def getInfoSeller(request, conversationID):
 @login_required(login_url = '/login/')
 def getInfoConfirmPay(request, conversationID):
     conversation = get_object_or_404(Conversation, pk = conversationID)
-    confirmPay = get_object_or_404(ConfirmPay, assignment = conversation.assignment )
-    if conversation.assignment.is_inside(request.user):
-        return render_to_response('messages/infoConfirmPay.html', {'confirmPay' : confirmPay},
-            context_instance = RequestContext(request))
+    try:
+        pay = ConfirmPay.objects.get(assignment = conversation.assignment)
+    except ConfirmPay.DoesNotExist:
+        return render_to_response('messages/infoConfirmPay.html', {
+            'errors' : True,
+            'url':conversation.get_url()},
+            context_instance=RequestContext(request))
     else:
-        return render_to_response('messages/infoConfirmPay.html', {'errors' : True },
-            context_instance = RequestContext(request))
-    
+        return render_to_response('messages/infoConfirmPay.html', {'pay' : pay},
+            context_instance=RequestContext(request))
+
+
 @login_required(login_url = '/login/')
 def getInfoConfirmDelivery(request, conversationID):
     conversation = get_object_or_404(Conversation, pk = conversationID)
-    confirmDelivery = get_object_or_404(ConfirmDelivery, assignment = conversation.assignment )
-    if conversation.assignment.is_inside(request.user):
-        return render_to_response('messages/infoConfirmDelivery.html', {'confirmDelivery' : confirmDelivery},
-            context_instance = RequestContext(request))
+    try:
+        delivery = ConfirmDelivery.objects.get(assignment = conversation.assignment)
+    except ConfirmDelivery.DoesNotExist:
+        return render_to_response('messages/infoConfirmDelivery.html',{
+            'errors':True, 
+            'url' : conversation.get_url()},
+            context_instance=RequestContext(request))
     else:
-        return render_to_response('messages/infoConfirmDelivery.html', {'errors' : True },
-            context_instance = RequestContext(request))
+        return render_to_response('messages/infoConfirmDelivery.html',{'delivery' : delivery},
+            context_instance=RequestContext(request))
+
 
 @login_required(login_url='/login/')
 def getInfoCritique(request, conversationID):
@@ -117,10 +125,9 @@ def getInfoCritique(request, conversationID):
     try:
         critique = Critique.objects.get(to = request.user, assignment = conversation.assignment)
     except Critique.DoesNotExist:
-        try:
-            critique = Critique.objects.get(to = request.user, assignment = conversation.assignment)
-        except Critique.DoesNotExist:
-            return render_to_response('messages/infoCritique.html', {'errors' : True },
+        return render_to_response('messages/infoCritique.html', {
+                'errors' : True,
+                'url' : conversation.get_url()},
                 context_instance = RequestContext(request))
     return render_to_response('messages/infoCritique.html', {'critique' : critique }, 
             context_instance = RequestContext(request))

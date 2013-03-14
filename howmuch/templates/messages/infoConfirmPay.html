@@ -3,27 +3,38 @@
 {% block title %}{% endblock %}
 
 {% block section2 %}
-<section>
+<section class="wrapper-div">
 	{% if not errors %}
-	<h3>Confirmacíon de Pago</h3>
-	<div>
-
-		<p>{{ confirmPay.message }}</p>
-
-	</div>
-
 	<div>
 		<div>
-			<img src="{{ confirmPay.get_picture_url_100x100 }}">
+			<h2>Confirmacion de PAGO del articulo {{ pay.assignment.article.title }}</h2>
+			<p>{{ pay.date }}</p>
 		</div>
-
 		<div>
-			<p>{{ confirmPay.date|timesince }}</p>
+			<legend>Por la canditad de:</legend>
+			<div>
+				<p>$ {{ pay.amount }}</p>
+			</div>
+		</div>
+		<div>
+			<legend>Mensaje del Comprador:</legend>
+			<div>
+				<p>{{ pay.message }}</p>
+			</div>
+		</div>
+		<div class="text-center">
+			<a class="btn btn-success btn-large" href="{{ pay.assignment.conversation.get_url }}">Aceptar</a>
 		</div>
 	</div>
-
 	{% else %}
-	<p>No tienes permiso para ver esta informacion</p>
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h4>Lo siento!</h4>
+    	Aun no hay información Disponible, intenta mas tarde.
+    </div>
+    <div class="text-center">
+		<a class="btn btn-success btn-large" href="{{ url }}">Aceptar</a>
+	</div>
 	{% endif %}
 </section>
 {% endblock %}

@@ -9,10 +9,34 @@
 {% endblock %}
 
 {% block section2 %}
+<div class="wrapper-div background1">
+	<div class="row-fluid">
+		<div class="span8 text-center">
+			<h2>Critica a {{ to }} en el articulo {{ assignment.article.title }}</h2>
+		</div>
+		<div class="span3 thumbnail">
+			<img src="{{ to.profile.get_profile_picture }}">
+		</div>
+	</div>
 
 	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		{{ form }}
-		<input type="submit" value="CRITICAR AHORA">
-	</form>
+		<div class="text-center">
+			<legend>Tu Critica para {{ to }}</legend>
+			{{ form.critique }}
+			<span class="help-block">Solo existin estas dos opciones, lo siento tendras que ser extremista.</span>
+			{{ form.critique.errors }}
+		</div>
 
+		<div class="text-center">
+			<legend>Mensaje</legend>
+			{{ form.message }}
+			<span class="help-block">Deja algun mensaje explicando el porque de esta critica</span>
+			{{ form.message.errors }}
+		</div>
+
+		<div class="text-center">
+			<input class="btn btn-success btn-large" type="submit" value="Confirmar">
+		</div>
+	</form>
+</div>
 {% endblock %}

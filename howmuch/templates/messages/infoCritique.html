@@ -2,40 +2,47 @@
 
 {% block section2 %}
 
-<section>
-
-{% if not errors %}
-
-<div>
-
-<p>{{ critique.de }} Te ha Criticado</p>
-
-</div>
-
-<div>
-
-<p>{{ critique.prestige }}</p>
-
-</div>
-
-<div>
-
-<p>{{ critique.message }}</p>
-
-</div>
-
-<div>
-
-<p>{{ critique.date|timesince }}</p>
-
-</div>
-
-{% else %}
-
-<p>No hay Informacíon Disponible al momento</p>
-
-{% endif %}
-
+<section class="wrapper-div">
+	{% if not errors %}
+	<div>
+		<div class="row-fluid">
+			<div class="span3 thumbnail">
+				<img src="{{ critique.assignment.article.get_first_picture_url }}">
+			</div>
+			<div class="span8 text-center">
+				<h3>Critica de <a href="/profile/{{ critique.de }}">{{ critique.de }}</a> hacia mi para el articulo {{ critique.assignment.article.title }}</h3>
+			</div>
+		</div>
+		<div>
+			<legend>Critica</legend>
+			<div>
+				<p>
+					{{ critique.critique }}
+				</p>
+			</div>
+		</div>
+		<div>
+			<legend>Mensaje que me ha dejado</legend>
+			<div>
+				<p>
+					{{ critique.message }}
+				</p>
+			</div>
+		</div>
+		<div class="text-center">
+			<a class="btn btn-success btn-large" href="{{ critique.assignment.conversation.get_url }}">Aceptar</a>
+		</div>
+	</div>
+	{% else %}
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h4>Lo siento!</h4>
+    	Aun no hay información Disponible, intenta mas tarde.
+    </div>
+    <div class="text-center">
+		<a class="btn btn-success btn-large" href="{{ url }}">Aceptar</a>
+	</div>
+	{% endif %}
 </section>
 
 {% endblock %}

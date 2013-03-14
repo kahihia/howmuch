@@ -9,31 +9,36 @@
 {% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div">
+<div class="wrapper-div background1">
+	<div class="row-fluid">
+		<div class="span3 thumbnail">
+			<img src="{{ article.get_first_picture_url }}">
+		</div>
+		<div class="span8 text-center">
+			<h2>Confirmacion de ENVIO del articulo {{ article.title }}</h2>
+		</div>
+	</div>
+
 	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<legend>Confirmar Envio</legend>
-		<div class="control-group">
-			<label class="control-label">Mensaje</label>
-			<div class="controls">
-				<div class="input-prepend">
-					<span class="add-on"><i>$</i></span>
-					{{ form.message }}
-				</div>
-				{{ form.message.errors }}
-			</div>
+		<div class="text-center">
+			<legend>Mensaje</legend>
+			{{ form.message }}
+			<span class="help-block">Deja algun mensaje acerca de esta confirmacion de envio</span>
+			{{ form.message.errors }}
 		</div>
 
-		<div class="control-group">
-			<label class="control-label">Imagen</label>
-			<div class="controls">
-				<div class="input-prepend">
-					<span class="add-on"><i>$</i></span>
-					{{ form.picture }}
-				</div>
-				{{ form.picture.errors }}
+		<div class="text-center">
+			<legend>Imagen (NO ES OBLIGATORIO)</legend>
+			<div class="input-prepend">
+				<span class="add-on"><i class="icon-picture"></i></span>
+				{{ form.picture }}
 			</div>
+			<span class="help-block">Sube por ejemplo comprobantes de envio, fichas de envio, en formato .jpg</span>
+			{{ form.picture.errors }}
 		</div>
-		<input class="btn btn-primary btn-large" type="submit" value="CONFIRMAR">
+		<div class="text-center">
+			<input class="btn btn-success btn-large" type="submit" value="Confirmar">
+		</div>
 	</form>
 </div>
 {% endblock %}

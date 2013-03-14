@@ -2,27 +2,33 @@
 {% block title %}{% endblock %}
 
 {% block section2 %}
-<section>
+<section class="wrapper-div">
 	{% if not errors %}
-	<h3>Confirmacíon de Envio</h3>
-	<div>
-
-		<p>{{ confirmDelivery.message }}</p>
-
-	</div>
-
 	<div>
 		<div>
-			<img src="{{ confirmDelivery.get_picture_url_100x100 }}">
+			<h2>Confirmacion de ENVIO del articulo {{ pay.assignment.article.title }}</h2>
+			<p>{{ delivery.date }}</p>
 		</div>
-
 		<div>
-			<p>{{ confirmDelivery.date|timesince }}</p>
+			<legend>Mensaje del Vendedor:</legend>
+			<div>
+				<p>{{ delivery.message }}</p>
+			</div>
+		</div>
+		<div class="text-center">
+			<a class="btn btn-success btn-large" href="{{ delivery.assignment.conversation.get_url }}">Aceptar</a>
 		</div>
 	</div>
-
 	{% else %}
-	<p>No tienes permiso para ver esta informacion</p>
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h4>Lo siento!</h4>
+    	Aun no hay información Disponible, intenta mas tarde.
+    </div>
+    <div class="text-center">
+		<a class="btn btn-success btn-large" href="{{ url }}">Aceptar</a>
+	</div>
 	{% endif %}
+
 </section>
 {% endblock %}

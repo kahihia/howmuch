@@ -140,6 +140,10 @@ Base colors
 	font-size: 18px !important;
 	color: white !important;
 }
+ul.errorlist li{
+	color:red !important;
+	font-size: 18px !important;
+}
 /*
 TEST
 */

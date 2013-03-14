@@ -24,22 +24,24 @@ $(document).ready(function(){
 	<div>
 		<ul class="unstyled">
 			{% if conversation.assignment.get_seller == user %}
-			<li><a class="a-title-large" href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envio</a></li>
-			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			<li><a class="a-title-large" href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">- Confirmar Envio</a></li>
+			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">- Criticar Contraparte</a></li>
 			{% else %}
-			<li><a class="a-title-large" href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a></li>
-			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">Criticar Contraparte</a></li>
+			<li><a class="a-title-large" href="/prestige/confirmpay/{{ conversation.assignment.pk }}">- Confirmar Pago</a></li>
+			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">- Criticar Contraparte</a></li>
 			{% endif %}
-			<li><a class="a-title-large" href="/problems/problem/{{ conversation.assignment.pk }}">Reportar Problema</a></li>
+			<li><a class="a-title-large" href="/problems/problem/{{ conversation.assignment.pk }}">- Reportar Problema</a></li>
 		</ul>
 	</div>
 </div>
+
 <!-- Estado de la transaccion -->
 <div class="wrapper-div">
 	<legend>Estado de tu pedido</legend>
 	<div class="progress progress-info progress-striped">
 		<div class="bar" style="width: {{ status }}%"></div>
 	</div>
+	<!-- 
 	<div>
 		<div>
 			<span class="badge status1">1</span>
@@ -61,6 +63,21 @@ $(document).ready(function(){
 			<span class="badge status5">5</span>
 			<b>En Espera de Critica</b>
 		</div>
+	</div>
+	 -->
+</div>
+<!-- Detalles -->
+<div class="wrapper-div">
+	<legend>Detalles</legend>
+	<div>
+		<ul class="unstyled">
+			{% if conversation.assignment.get_seller == user %}
+			<li><a class="a-title-large" href="/messages/infoconfirmpay/{{ conversation.pk }}">- Ver Detalle de Pago</a></li>
+			{% else %}	
+			<li><a class="a-title-large" href="/messages/infoconfirmdelivery/{{ conversation.pk }}">- Ver Detalle de Envio</a></li>
+			{% endif %}	
+			<li><a class="a-title-large" href="/messages/infocritique/{{ conversation.pk }}">- Ver mi Critica</a></li>
+		</ul>
 	</div>
 </div>
 
@@ -88,8 +105,15 @@ $(document).ready(function(){
 </div>
 <section class="wrapper-div color7">
 	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-	<h4>Envia un mensaje..</h4>
-	<input class="span12" id="message" name="message" type="text">
+		<h4>Envia un mensaje..</h4>
+		<div class="row-fluid">
+			<div class="span10">
+				<input class="span12" id="message" name="message" type="text">
+			</div>
+			<div class="span2">
+				<input class="btn btn-success span12" type="submit" value="Enviar">
+			</div>
+		</div>
 	</form>
 </section>
 {% endblock %}

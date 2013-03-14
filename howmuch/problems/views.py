@@ -21,7 +21,7 @@ def problem(request, assignmentID):
 			return HttpResponse('Hemos recibido tu solicutud, enseguida nos comunicaremos contigo')
 	else:
 		form = ProblemForm()
-	return render_to_response('problems/problem.html', {'form' : form }, 
+	return render_to_response('problems/problem.html', {'form' : form, 'assignment' : assignment }, 
 		context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')

@@ -26,7 +26,7 @@ class ConfirmPay(models.Model):
     assignment = models.ForeignKey(Assignment)
     date = models.DateTimeField(auto_now_add = True)
     amount = models.IntegerField()
-    message = models.CharField(max_length = 255)
+    message = models.CharField(max_length = 1024)
     picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((100,100),(250,250)), blank=True )
 
     def __unicode__(self):
@@ -39,7 +39,7 @@ class ConfirmDelivery(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by Confirm Delivery")
     assignment = models.ForeignKey(Assignment)
     date = models.DateTimeField(auto_now_add = True)
-    message = models.CharField(max_length = 255)
+    message = models.CharField(max_length = 1024)
     picture = ImageWithThumbsField(upload_to=make_upload_path, sizes=((100,100),(250,250)), blank=True )
 
     def __unicode__(self):
@@ -54,7 +54,7 @@ class Critique(models.Model):
     assignment = models.ForeignKey(Assignment)
     date = models.DateTimeField(auto_now_add = True)
     critique = models.CharField(max_length = 10, choices = CRITIQUE_CHOICES)
-    message = models.CharField(max_length = 255)
+    message = models.CharField(max_length = 1024)
 
     def __unicode__(self):
         return u'Assignment : %s Critique: %s message: %s ' % (self.assignment, self.critique, self.message)

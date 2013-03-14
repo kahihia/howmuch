@@ -106,9 +106,11 @@ $(document).on('ready', function(){
 				<h4>{{ article.state }}</h4>
 			</div>
 			<div class="text-center">
-				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderselo</a>
+				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
+				<!-- 
 				<a id="btn-follow" class="btn btn-large btn-success unfollow" href="#">Seguir</a>
 				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
+				 -->
 			</div>
 			<div class="text-center background4 font1">
 				<h2>$ {{ article.price }}</h2>
@@ -183,6 +185,9 @@ $(document).on('ready', function(){
 		</p>
 	</div>
 	{% endif %}
+	<div class="text-center">
+		<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
+	</div>
 </section>
 {% endblock %}
 
