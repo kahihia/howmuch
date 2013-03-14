@@ -18,7 +18,7 @@ Dropdown menu for categories
 .dropdown-menu-generic li{
 	list-style: none;
 	padding: 15px;
-	width: 200px;
+	max-width: 200px;
 }
 .dropdown-menu-generic li:hover{
 	background: #CACACA;
@@ -42,7 +42,7 @@ Dropdown menu for categories
 	display: block;
 	position: absolute;
 	top: 0px;
-	left: 200px;
+	left: 150px;
 }
 /*
 Base colors
