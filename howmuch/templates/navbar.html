@@ -30,8 +30,26 @@
           </ul>
 
           <ul class="nav pull-right">
-              <li><a href="/notifications"><i class="icon-bell icon-white"></i> Notificaciones</a></li>
-              <li><a href="/messages/inbox"><i class="icon-envelope icon-white"></i> Mensajes</a></li>
+              <li>
+                <a href="/notifications">
+                  <i class="icon-bell icon-white">
+                  </i> 
+                  Notificaciones
+                  {% if user.profile.unread_notifications > 0 %}
+                  <span class="badge badge-important">{{ user.profile.unread_notifications }}</span>
+                  {% endif %}
+                </a>
+              </li>
+              <li>
+                <a href="/messages/inbox">
+                  <i class="icon-envelope icon-white">
+                  </i> 
+                  Mensajes
+                  {% if user.profile.unread_conversations > 0 %}
+                  <span class="badge badge-important">{{ user.profile.unread_conversations }}</span>
+                  {% endif %} 
+                </a>
+              </li>
               <li class="divider-vertical"></li>
               <li><a href="/"><i class="icon-home icon-white"></i> Inicio</a></li>
               <li><a href="/logout"><i class="icon-off icon-white"></i> Salir</a></li>

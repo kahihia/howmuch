@@ -11,7 +11,7 @@ class ArticleForm(ModelForm):
         'price' : TextInput(attrs = {'class' : 'span12'}),
         'title' : TextInput(attrs = {'class' : 'span12'}),
         'description' : Textarea(attrs = {'class' : 'span12'}),
-        'quantity' : TextInput(attrs = {'class' : 'span12'}),
+        'quantity' : Select(attrs = {'class' : 'span12'}),
         'category' : Select(attrs = {'class' : 'span12'}),
         'state' : Select(attrs = {'class' : 'span12'}),
         }

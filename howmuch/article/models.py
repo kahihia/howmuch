@@ -20,6 +20,13 @@ STATES_CHOICES = (
 
 )
 
+QUANTITY_CHOICES = (
+    (1,'UNO'),
+    (2,'ENTRE 2 y 5'),
+    (5,'ENTRE 5 y 10'),
+    (10,'MAS DE 10'),
+    )
+
 STATUS_ASSIGNMENT = (
     ('1', 'NOTIFICADO'), #Cuando la Asignacion es generada
     ('2', 'PAGADO'), #Cuando el comprador notifica el pago
@@ -49,7 +56,7 @@ class Article(models.Model):
     price = models.IntegerField()
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=1024)
-    quantity = models.IntegerField() 
+    quantity = models.IntegerField(choices=QUANTITY_CHOICES) 
     category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
     state = models.CharField(max_length=7, choices=STATES_CHOICES)
     tags = models.ManyToManyField(Tag)
