@@ -62,7 +62,7 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div">
+<section class="wrapper-div3">
 	<article>
 	{% if new_post %}
 	<div class="alert alert-success">
@@ -102,7 +102,7 @@ $(document).on('ready', function(){
 			<div class="text-center">
 				<h2>COMPRO {{ article.title }}</h2>
 			</div>
-			<div class="background2 text-center">
+			<div class="text-center">
 				<h4>{{ article.state }}</h4>
 			</div>
 			<div class="text-center">
@@ -112,10 +112,15 @@ $(document).on('ready', function(){
 				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
 				 -->
 			</div>
-			<div class="text-center background4 font1">
+			<div class="text-center wrapper-div4 margin5">
 				<h2>$ {{ article.price }}</h2>
 			</div>
 		</div>
+	</article>
+
+	<article>
+		<legend>Descripcion de la compra</legend>
+		<p>{{ article.description }}</p>
 	</article>
 
 	<article class="margin5">
@@ -129,12 +134,15 @@ $(document).on('ready', function(){
 		</div>
 	</article>
 
+	<!-- 
 	<article class="margin10">
 		<center>
 			<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial">
 			</div>
 		</center>
 	</article>
+	 -->
+
 
 	<article>
 		<legend>Etiquetas</legend>
@@ -145,14 +153,11 @@ $(document).on('ready', function(){
 		</center>
 	</article>
 
-	<article>
-		<legend>Descripcion de la compra</legend>
-		<p>{{ article.description }}</p>
-	</article>
+
 </section>
 
 <!-- Comments Area -->
-<section class="wrapper-div">
+<section class="wrapper-div3">
 	<legend>Dudas del Articulo</legend>
 	<div class="comments-area">
 		{% for comment in article.comments.all %}
@@ -176,7 +181,14 @@ $(document).on('ready', function(){
 	{% if user.is_authenticated %}
 	<div>
 		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+			<div class="row-fluid">
+				<div class="span10">
+					<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+				</div>
+				<div class="span2">
+					<input class="btn btn-success" type="submit" value="Enviar">
+				</div>
+			</div>
 		</form>
 	</div>
 	{% else %}

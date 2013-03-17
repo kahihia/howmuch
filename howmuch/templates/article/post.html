@@ -45,10 +45,12 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div background1">
-	<h2>Publicar una Compra</h2>
+<section class="wrapper-div3">
+	<div class="text-center">
+		<h2>Publicar una Compra</h2>
+	</div>
 	<form id="post-article" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-		<div>
+		<div class="text-center">
 			<legend>Titulo del Articulo</legend>
 			<div>
 				{{ form.title }}
@@ -60,7 +62,11 @@ $(document).on('ready', function(){
 		<div class="row-fluid">
 			<div class="span6">
 				<legend>Precio</legend>
-				{{ form.price }}
+				<div class="input-prepend input-append">
+					<span class="add-on">$</span>
+					{{ form.price }}
+					<span class="add-on">.00</span>
+				</div>
 				<span class="help-block">Es el precio que estas dispuesto a pagar por tu articulo.</span>
 				{{ form.price.errors }}
 			</div>
@@ -72,7 +78,7 @@ $(document).on('ready', function(){
 			</div>
 		</div>
 
-		<div>
+		<div class="text-center">
 			<legend>Descripcion</legend>
 			{{ form.description }}
 			<span class="help-block">Describe el articulo que estas buscando e incluye detalles sobre el.</span>
