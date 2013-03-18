@@ -25,46 +25,44 @@
 			</center>
 		</div>
 	</div>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Imagen</th>
-				<th>Descripción de la Oferta</th>
-				<th>Cantidad</th>
-				<th>Precio</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for candidate in candidates %}
-			<tr>
-				<th>{{ forloop.counter }}</th>
-				<th>
-					<div>
+
+	<div class="margin10">
+            {% for candidate in candidates %}
+                <div class="wrapper-div3 hover1">
+					<div class="row-fluid">
 						<div class="thumbnail span3">
-							<img src="{{ candidate.get_first_picture_url }}" alt="">
+							<a href="/article/offer/view/{{ candidate.pk }}">
+								<img src="{{ candidate.get_first_picture_url }}">
+							</a>
 						</div>
-    				</div>
-				</th>
-				<th>
-					<a class="a-title-large" href="/article/offer/view/{{ candidate.pk }}">
-						{{ candidate.message|truncatechars:140 }}
-					</a>
-				</th>
-				<th>
-					<a class="a-title-large" href="/article/offer/view/{{ candidate.pk }}">
-						{{ candidate.quantity }}
-					</a>
-				</th>
-				<th>
-					<a class="a-title-large" href="/article/offer/view/{{ candidate.pk }}">
-						${{ candidate.cprice }}
-					</a>
-				</th>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+						<div class="span6">
+							<div class="text-center">
+								<a href="/article/offer/view/{{ candidate.pk }}">
+									{{ candidate.message|truncatechars:200}}
+								</a>
+							</div>
+						</div>
+						<div class="span3">
+							<div class="text-center">
+								<div class="wrapper-div4">
+									<h4>pagan</h4>
+									<h2>$ {{ candidate.cprice }}</h2>
+								</div>
+								<p>
+									<b>hace {{ candidate.get_timestamp }}</b>
+								</p>	
+							</div>
+						</div>
+					</div>
+				</div>
+            {% empty %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Vacio!</h4>
+                Aun no tienes candidatos.
+            </div>
+            {% endfor %}
+	</div>
 </section>
 {% endblock %}
 

@@ -18,11 +18,10 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section2 %}
-
-<section>
-    <center>
+<section class="wrapper-div">
+    <div class="text-center">
         <h2>Mis Ventas</h2>
-    </center>
+    </div>
     
     <ul class="nav nav-tabs" id="myTab">
         <li class="active">
@@ -38,14 +37,24 @@ $(document).on('ready', function(){
             {% for item in processSales %}
                 {% include "account/processSales.html" %}
             {% empty %}
-            <h3>Aun no has ofertado en alguna compra, hazlo ya</h3>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Vacio!</h4>
+                Aun no tienes operaciones
+                <a href="/article/post"> Publicar una Compra</a>
+            </div>
             {% endfor %}
         </div>
         <div class="tab-pane" id="completed">
             {% for item in completedSales %}
                 {% include "account/completedSales.html" %}
             {% empty %}
-            <h3>Aun no has ofertado en alguna compra, hazlo ya</h3>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Vacio!</h4>
+                Aun no tienes operaciones
+                <a href="/article/post"> Publicar una Compra</a>
+            </div>
             {% endfor %}
         </div>
     </div>
