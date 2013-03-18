@@ -13,7 +13,19 @@ $(document).on('ready', function(){
 {% endblock %}
 {% block section2 %}
 
-<div>
+<section class="wrapper-div">
+	<div class="text-center">
+		<h3>Configuración</h3>
+	</div>
+	<!-- Changes Done -->
+	{% if has_changes %}
+		<div class="alert alert-success">
+    		<button type="button" class="close" data-dismiss="alert">&times;</button>
+    		<h4>Felicidades!</h4>
+    		Cambios guardados Correctamente
+		</div>
+    {% endif %}
+	<div>
 	<ul class="nav nav-tabs" id="tab-config">
     	<li class="active">
             <a href="#account">Cuenta</a>
@@ -22,12 +34,12 @@ $(document).on('ready', function(){
     		<a href="#notifications">Notificaciones</a>
     	</li>
     </ul>
-</div>
+	</div>
 
-<div class="tab-content">
+	<div class="tab-content wrapper-div3">
     <div class="tab-pane active" id="account">
     	<legend>Cuenta</legend>
-    	<div class="wrapper-div">
+    	<div>
 
     		<div class="row-fluid hover1">
 				<div class="span3">
@@ -70,21 +82,12 @@ $(document).on('ready', function(){
 					<a class="margin5" href="/config/email">Modificar</a>
 				</div>
 			</div>
-
     	</div>
     </div>
    
   	<div class="tab-pane" id="notifications">
     	<legend>Notificaciones</legend>
-    	<div class="wrapper-div">
-    		{% if save_changes %}
-			<div class="alert alert-success">
-    			<button type="button" class="close" data-dismiss="alert">&times;</button>
-    			<h4>Felicidades!</h4>
-    			Cambios guardados Correctamente
-			</div>
-    		{% endif %}
-
+    	<div>
 			<form action="" method="POST" >{% csrf_token %}
 				<div class="row-fluid">
 					<div class="span1">
@@ -146,13 +149,7 @@ $(document).on('ready', function(){
 			</form>
     	</div>
 	</div>
-</div>
+	</div>
 
-
-
-
-
-
-
-
+</section>
 {% endblock %}

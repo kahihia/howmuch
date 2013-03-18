@@ -5,6 +5,7 @@ from django.template import RequestContext
 
 from howmuch.config.forms import NotificationsConfigForm, EmailChangeForm
 from howmuch.config.models import Notifications
+from howmuch.config.functions import has_changes
 
 @login_required(login_url='/login/')
 def notifications_config(request):
@@ -13,20 +14,22 @@ def notifications_config(request):
         form = NotificationsConfigForm(request.POST, instance = current )
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('' + '?save_changes=True')
+            return HttpResponseRedirect('' + '?change_config=True')
     else:
         form = NotificationsConfigForm(instance=current)
-    if request.GET.__contains__('save_changes') and request.GET['save_changes']:
-    	save_changes = True
-    else:
-    	save_changes = False
-    return render_to_response('config/config.html', {'form' : form, 'save_changes' : save_changes}, 
+    return render_to_response('config/config.html', {
+        'form' : form, 'has_changes' : has_changes(request)}, 
     	context_instance = RequestContext(request))
 
 @login_required(login_url='/login/')
 def change_email(request,
-                 post_change_redirect='/config/notifications/',
+                 post_change_redirect=None,
                  template_name='config/change_email.html'):
+
+    from howmuch.settings import CHANGE_CONFIG_REDIRECT
+
+    if post_change_redirect is None:
+        post_change_redirect = CHANGE_CONFIG_REDIRECT
     if request.method == 'POST':
         form = EmailChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
