@@ -24,15 +24,20 @@ class OfferForm(forms.Form):
     message = forms.CharField(
         widget = forms.Textarea(attrs = {'class' : 'span12'}))
     picture1 = forms.ImageField(
-        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 'onChange' : "readURL(this,'image1')"}))
+        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 
+            'onChange' : "readURL(this,'image1')"}))
     picture2 = forms.ImageField(required=False,
-        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 'onChange' : "readURL(this,'image2')"}))
+        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 
+            'onChange' : "readURL(this,'image2')"}))
     picture3 = forms.ImageField(required=False, 
-        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 'onChange' : "readURL(this,'image3')"}))
+        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 
+            'onChange' : "readURL(this,'image3')"}))
     picture4 = forms.ImageField(required=False, 
-        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 'onChange' : "readURL(this,'image4')"}))
+        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 
+            'onChange' : "readURL(this,'image4')"}))
     picture5 = forms.ImageField(required=False, 
-        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 'onChange' : "readURL(this,'image5')"}))
+        widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 
+            'onChange' : "readURL(this,'image5')"}))
 
 class AssignmentForm(ModelForm):
     class Meta:

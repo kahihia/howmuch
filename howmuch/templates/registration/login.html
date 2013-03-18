@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div span9">
+<div class="wrapper-div3 text-center">
   <div>
     <form action="{% url facebook_connect %}?facebook_login=1" method="post">
       <a href="javascript:void(0);" style="font-size: 20px;" onclick="F.connect(this.parentNode);">Login with Facebook</a>
@@ -18,30 +18,30 @@
   </div>
   <form class="form-horizontal" action="" method="post">{% csrf_token %}
 
-    <legend>Iniciar Sesión</legend>
+    <h3>Iniciar Sesión</h3>
   
-    <div class="control-group">
-      <label class="control-label">Usuario</label>
-      <div class="controls">
-        {{ form.username }}
+    <div>
+      <legend>Usuario</legend>
+      <div>
+      {{ form.username }}
       </div>
+      <span class="help-text">Tu nombre de usuario</span>
       {{ form.username.errors }}
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Contraseña</label>
-      <div class="controls">
-        {{ form.password }}
+    <div>
+      <legend>Contraseña</legend>
+      <div>
+      {{ form.password }}
       </div>
+      <span class="help-text">Tu contraseña actual</span>
       {{ form.password.errors }}
     </div>
 
-    <div>
-        <center>
+    <div class="margin10">
           <input class="btn btn-primary btn-large" type="submit" id="signin" value="Entrar" />
           <a href="/accounts/register">Registrarse</a>
           <input type="hidden" name="next" value="{{ next|escape }}" />
-        </center>
     </div>
 
   </form>
