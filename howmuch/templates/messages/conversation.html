@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 {% block section1 %}
 <!-- Opciones de la transaccion -->
-<div class="wrapper-div">
+<div class="wrapper-div3">
 	<legend>Opciones</legend>
 	<div>
 		<ul class="unstyled">
@@ -36,8 +36,8 @@ $(document).ready(function(){
 </div>
 
 <!-- Estado de la transaccion -->
-<div class="wrapper-div">
-	<legend>Estado de tu pedido</legend>
+<div class="wrapper-div3">
+	<legend>Estado de la operación</legend>
 	<div class="progress progress-info progress-striped">
 		<div class="bar" style="width: {{ status }}%"></div>
 	</div>
@@ -67,7 +67,7 @@ $(document).ready(function(){
 	 -->
 </div>
 <!-- Detalles -->
-<div class="wrapper-div">
+<div class="wrapper-div3">
 	<legend>Detalles</legend>
 	<div>
 		<ul class="unstyled">
@@ -85,7 +85,7 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block section2 %}
-<div class="text-center">
+<div class="text-center wrapper-div4">
 	<h2>{{ conversation.assignment.article.title }}</h2>
 </div>
 <div class="comments-area">
@@ -103,7 +103,7 @@ $(document).ready(function(){
 	</div>
 {% endfor %}
 </div>
-<section class="wrapper-div color7">
+<section class="wrapper-div5 color7">
 	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
 		<h4>Envia un mensaje..</h4>
 		<div class="row-fluid">
@@ -120,7 +120,7 @@ $(document).ready(function(){
 
 {% block section3 %}
 <!-- Informacion del Comprador -->
-<div class="text-center background2 margin10 padding10">
+<div class="text-center wrapper-div3 margin10 padding10">
 	<h3>Comprador</h3>
 	<h4>{{ conversation.assignment.get_buyer }}</h4>
 	<div class="thumbnail">
@@ -131,7 +131,7 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Informacion del Vendedor -->
-<div class="text-center background3 margin10 padding10">
+<div class="text-center wrapper-div3 margin10 padding10">
 	<h3>Vendedor</h3>
 	<h4>{{ conversation.assignment.get_seller }}</h4>
 		<div class="thumbnail">

@@ -10,14 +10,14 @@ from howmuch.pictures.models import Picture
 
 
 class AboutArticle(object):
-    def __init__(self, user, itemid):
+    def __init__(self, user, articleID):
         self.user = user
-        self.articleId = itemid
+        self.articleID = articleID
 
     #Regresa True si el Usuario es publico el Articulo dado su id
     def is_owner(self):
         try:
-            Article.objects.get(owner = self.user, pk=self.articleId)
+            Article.objects.get(owner = self.user, pk=self.articleID)
         except Article.DoesNotExist:
             return False
         return True 
@@ -25,7 +25,7 @@ class AboutArticle(object):
     #Regresa True si el Usuario es Candidato de la publicacion del articulo dado su id, Es cuando el usuario da click en VENDER
     def is_candidate(self):
         try:
-            Offer.objects.get(owner = self.user, article = self.articleId)
+            Offer.objects.get(owner = self.user, article = self.articleID)
         except Offer.DoesNotExist:
             return False
         return True
@@ -33,7 +33,7 @@ class AboutArticle(object):
     #Regresa True si el Usuario ha sido Asignado para completar el RequestItem (De los que dieron click en VENDER, es el que fue elegido)
     def is_assigned(self):
         try:
-            Assignment.objects.get(article = self.articleId)
+            Assignment.objects.get(article = self.articleID)
         except Assignment.DoesNotExist:
             return False
         return True
