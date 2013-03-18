@@ -22,7 +22,7 @@ Aplico para Vender el Articulo {{ article.title }}
 
 	{% if not errors %}
 	<form action=""  method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<div class="wrapper-div">
+		<div class="wrapper-div3">
 			<div class="row-fluid margin10">
 				<div class="thumbnail span2">
 					<img src="{{ article.get_first_picture_url }}">
@@ -64,7 +64,7 @@ Aplico para Vender el Articulo {{ article.title }}
 			</div>
 		</div>
 
-		<div class="wrapper-div">
+		<div class="wrapper-div3">
 			<legend>Sube Imagenes del Articulo que estas Vendiendo</legend>
 			<div>
 			{{ form.picture1}}
@@ -107,7 +107,7 @@ Aplico para Vender el Articulo {{ article.title }}
 			
 		</div>
 
-		<div class="wrapper-div text-center">
+		<div class="wrapper-div3 text-center">
 			<legend>Agrega una breve Descripcion de tu Articulo</legend>
 			{{ form.message }}
 			<input class="btn btn-large btn-success" type="submit" value="Venderselo">
