@@ -6,7 +6,15 @@
 {% endblock %}
 
 {% block section2 %}
-    	<div class="wrapper-div">
+    	<div class="wrapper-div3">
+    		{% if user.profile.get_profile_progress < 100 %}
+    		<div class="alert alert-info">
+    			<button type="button" class="close" data-dismiss="alert">&times;</button>
+    			<h4>Perfil Incompleto</h4>
+    			Completalo agregando tu imagen de perfil, direcciones y telefonos.
+    			<a href="#">¿Porque proporciono esta informacion?</a>
+    		</div>
+    		{% endif %}
     		<div class="row-fluid">
     			<div class="thumbnail span3">
     				<img src="{{ user.profile.get_profile_picture }}">
@@ -41,7 +49,7 @@
 			</div>
     	</div>
 
-    	<div class="wrapper-div">
+    	<div class="wrapper-div3">
 			<legend>Direcciones</legend>
 			{% for address in user.profile.addresses.all %}
 				<div class="row-fluid hover1">
@@ -53,12 +61,17 @@
 						<a class="margin5" href="#">Eliminar</a>
 					</div>
 				</div>
+			{% empty %}
+			<div class="alert alert-danger">
+				<h4>No has agregado ninguna direccion</h4>
+				<a href="#">¿Porque agrego esta información?</a>
+			</div>
 			{% endfor %}
 			<a href="/profile/e/newaddress">+ Agregar</a>
 		</div>
 
 
-		<div class="wrapper-div">
+		<div class="wrapper-div3">
 			<legend>Telefonos</legend>
 			{% for phone in user.profile.phones.all %}
 				<div class="row-fluid hover1">
@@ -70,12 +83,17 @@
 						<a class="margin5" href="#">Eliminar</a>
 					</div>
 				</div>
+			{% empty %}
+			<div class="alert alert-danger">
+				<h4>No has agregado ningun telefono</h4>
+				<a href="#">¿Porque agrego esta información?</a>
+			</div>
 			{% endfor %}
 
 			<a href="/profile/e/newphone">+ Agregar</a>
 		</div>
 
-		<div class="wrapper-div">
+		<div class="wrapper-div3">
 			<legend>Cuentas Bancarias</legend>
 			{% for bank in user.profile.banks.all %}
 				<div class="row-fluid hover1">
@@ -87,6 +105,11 @@
 						<a class="margin5" href="#">Eliminar</a>
 					</div>
 				</div>
+			{% empty %}
+			<div class="alert alert-danger">
+				<h4>No has agregado ninguna cuenta bancaria</h4>
+				<a href="#">¿Porque agrego esta información?</a>
+			</div>
 			{% endfor %}
 			<a href="/profile/e/newaccountbank">+ Agregar</a>
 		</div>

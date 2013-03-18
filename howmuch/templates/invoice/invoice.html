@@ -36,11 +36,15 @@ $(document).on('ready', function(){
 					{% endfor %}
 				</tbody>
 			</table>
-			
-			<legend>Total a pagar $ {{ current_invoice.total }}</legend>
-			
-			<center>
+
+			<div class="text-center wrapper-div4 margin10">
+				<h3>
+					Total a pagar $ {{ current_invoice.total }}
+				</h3>
+			</div>
+		
+			<div class="text-center">
 				<a class="btn btn-large btn-success" href="#">Pagar Ahora</a>
-			</center>
+			</div>
 		</div>
 {% endblock %}
