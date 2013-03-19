@@ -5,34 +5,28 @@
 {% endblock %}
 
 {% block section1 %}
-<div>
-	<div class="wrapper-div">
-		<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-			<legend>Describe el problema que has tenido en esta transacción</legend>
-			<div class="control-group">
-				<label class="control-label">Selecciona un Articulo</label>
-				<div class="controls">
-					<div class="input-prepend span12">
-						<span class="add-on"><i class="icon-pencil"></i></span>
-						{{ form.assignment }}
-					</div>
-					{{ form.assignment.errors }}
-				</div>
+<section class="wrapper-div3">
+	<div class="text-center">
+		<h2>Reportar un problema</h2>
+	</div>
+	<div>
+		<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+			<div class="text-center">
+				<legend>Selecciona una transacción</legend>
+				{{ form.assignment }}
+				<span class="help-block">Son operaciones en las que has participado</span>
+				{{ form.assignment.errors }}
 			</div>
-			<div class="control-group">
-				<label class="control-label">Describe el problema</label>
-				<div class="controls">
-					<div class="input-prepend span12">
-						<span class="add-on"><i class="icon-pencil"></i></span>
-						{{ form.description }}	
-					</div>
-					{{ form.description.errors }}
-				</div>
+			<div class="text-center">
+				<legend>Describe el problema</legend>
+				{{ form.description }}	
+				<span class="help-block">Redacta el problema en el que te encuentras</span>
+				{{ form.description.errors }}
 			</div>
-			<center>
-				<input class="btn btn-primary btn-large" type="submit" value="Enviar">
-			</center>
+			<div class="text-center">
+				<input class="btn btn-success btn-large" type="submit" value="Enviar">
+			</div>
 		</form>
 	</div>
-</div>
+</section>
 {% endblock %}
