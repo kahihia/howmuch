@@ -1,4 +1,6 @@
-{% extends "3columns.html" %}
+{% extends "2columns.html" %}
+
+{% load search_tags %}
 
 {% block search-bar %}
 	{% include "search.html" %}
@@ -11,7 +13,7 @@
 {% block section2 %}
 
 <section class="wrapper-div">
-	<legend>{{ searchresults.matches }} personas estan comprando una {{ article }}</legend>
+	<p>{{ searchresults.matches }} personas estan comprando una {{ article }}</p>
 	{% for result in searchresults.results %}
 	<article class="wrapper-div5 hover1">
 		<div class="row-fluid">
@@ -21,16 +23,16 @@
 				</a>
 			</div>
 			<div class="span6">
-				<a class="a-title-large" href="{{ result.docid }}">{{ result.text }}</a>
+				<a class="a-title-large" href="{{ result.docid }}">{{ result.text|title }}</a>
 				<p>
 					{{ result.description }}
 				</p>
-				<div class="background4 font1">
-					{{ result.tags }}
+				<div class="text-center">
+					{{ result.tags|tagsformat }}
 				</div>
 			</div>
 			<div class="span3 text-center">
-				<div class="background2">
+				<div class="wrapper-div4">
 					<h2>$ {{ result.price }}</h2>
 				</div>
 				<div class="background1">
@@ -38,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-</article>
+	</article>
 	{% endfor %}
 </section>
 {% endblock %}
