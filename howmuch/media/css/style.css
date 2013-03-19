@@ -176,7 +176,10 @@ Base colors
 	font-size: 18px !important;
 	color: white !important;
 }
-
+.magicsuggest{
+	width: 100% !important;
+	min-height: 40px !important;
+}
 /*
 TEST
 */

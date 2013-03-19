@@ -9,11 +9,14 @@
 <script type="text/javascript">
 $(document).on('ready', function(){
 	var tags
+	$('#wrapper-tags').hide()
 	$('#id_category').on('change', function(){
+		$('#wrapper-tags').show("slow")
 		var category_id = $(this).val()
 		tags = new MagicSuggest({
-                renderTo: $('#tags-container'),
+                renderTo: $('#tags-input'),
                 width: 490,
+                cls: 'magicsuggest',
                 emptyText:'Escribe Aqui',
                 noSuggestionText : 'Sin Sugerencias',
                 required: true,
@@ -100,15 +103,16 @@ $(document).on('ready', function(){
 			</div>
 		</div>
 
-		<div>
+		<div id="wrapper-tags">
 			<legend>Tags</legend>
-			<input type="text" id="tags-container">
+			<input type="text" id="tags-input">
 			<input type="hidden" id="tags" name="tags">
+			<span class="help-block">Escribe palabras relacionadas a tu articulo y presiona ENTER</span>
 		</div>
 
-		<center>
+		<div class="text-center margin10">
 			<input id="submit-post" class="btn btn-success btn-large" type="submit" value="Guardar">
-		</center>
+		</div>
 	</form>
 </section>
 {% endblock %}
