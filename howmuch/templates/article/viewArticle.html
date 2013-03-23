@@ -1,4 +1,4 @@
-{% extends "3columns.html" %}
+{% extends "article/2columns.html" %}
 
 {% block title %}{% endblock %}
 
@@ -58,10 +58,6 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section1 %}
-	{% include "categories.html" %}
-{% endblock %}
-
-{% block section2 %}
 <section class="wrapper-div3">
 	<article>
 	{% if new_post %}
@@ -99,11 +95,14 @@ $(document).on('ready', function(){
    
 	
 		<div class="span8">
-			<div class="text-center">
+			<div class="text-center font-blue">
 				<h2>COMPRO {{ article.title }}</h2>
 			</div>
 			<div class="text-center">
 				<h4>{{ article.state }}</h4>
+			</div>
+			<div class="text-center font-red margin5">
+				<h2>$ {{ article.price }}</h2>
 			</div>
 			<div class="text-center">
 				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
@@ -112,22 +111,19 @@ $(document).on('ready', function(){
 				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
 				 -->
 			</div>
-			<div class="text-center wrapper-div4 margin5">
-				<h2>$ {{ article.price }}</h2>
-			</div>
 		</div>
 	</article>
 
 	<article>
-		<legend>Descripcion de la compra</legend>
+		<h3 class="font-green">Descripcion de la compra</h3>
 		<p>{{ article.description }}</p>
 	</article>
 
 	<article class="margin5">
-		<legend>Quiero algo parecido a</legend>
+		<h3 class="font-green">Quiero algo parecido a</h3>
 		<div class="text-center span12">
 		{% for picture in article.pictures.all %}
-			<div class="thumbnail span3">
+			<div class="thumbnail span2">
 				<img class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
 			</div>
 		{% endfor%}
@@ -145,10 +141,10 @@ $(document).on('ready', function(){
 
 
 	<article>
-		<legend>Etiquetas</legend>
+		<h3 class="font-green">Etiquetas</h3>
 		<center>
 		{% for tag in article.tags.all %}
-			<a class="btn btn-info" href="#">{{ tag }}</a>
+			<a class="btn btn-success btn-large" href="#">{{ tag }}</a>
 		{% endfor %}
 		</center>
 	</article>
@@ -158,7 +154,7 @@ $(document).on('ready', function(){
 
 <!-- Comments Area -->
 <section class="wrapper-div3">
-	<legend>Dudas del Articulo</legend>
+	<legend class="font-green">Dudas del Articulo</legend>
 	<div class="comments-area">
 		{% for comment in article.comments.all %}
 			<div class="wrapper-div row">
@@ -205,7 +201,7 @@ $(document).on('ready', function(){
 </section>
 {% endblock %}
 
-{% block section3 %}
+{% block section2 %}
 	{% include "howtodo.html" %}
 {% endblock %}
 

@@ -2,7 +2,7 @@
 This code is property of brainn.co
 */
 body{
-	background: url('/media/img/patterns/3473888.png') repeat;
+
 }
 footer{
 
@@ -62,32 +62,38 @@ Base colors
 	color: black !important;
 	font-size: 16px !important;
 }
-.color1{
-	background: #FFFF00;
-}
-.color2{
-	background: #0091E1;
-}
-.color3{
-	background: #0000B9;
-}
-.color4{
-	background: #92D607;
-}
-.color5{
-	background: #D47D00;
-}
 .color6{
 	background: #FF007D;
 }
 .color7{
 	background: #F4F4F4;
 }
-.color8{
-	background: #FAFAFA;
+.font-tauri{
+	font-family: 'Tauri', sans-serif;
+}
+.font-red{
+	color: red !important;
+}
+.font-blue{
+	color: blue !important;
+}
+.font-yellow{
+	color: yellow !important;
 }
 .font-black{
 	color: black !important;
+}
+.font-green{
+	color: green !important;
+}
+.size16{
+	font-size: 16px !important;
+}
+.size18{
+	font-size: 18px !important;
+}
+.size20{
+	font-size: 20px !important
 }
 .div-center{
 	margin: 5px auto !important;

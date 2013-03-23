@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="row-fluid">
+    <section class="section1 span8">
+    {% block section1 %}
+    {% endblock %}
+    </section>
+
+    <section class="section2 span3 hidden-phone">
+    {% block section2 %}
+    {% endblock %}
+    </section>
+</section>
+{% endblock %}
