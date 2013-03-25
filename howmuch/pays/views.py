@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.conf import settings
 
 from paypal.standard.forms import PayPalPaymentsForm
 
