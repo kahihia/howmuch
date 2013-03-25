@@ -10,8 +10,8 @@ from howmuch.invoice.functions import change_status_invoice, generate_invoice, u
 
 @login_required(login_url="/login/")
 def invoice(request):
-	from howmuch.invoice.functions import get_paypal_form
-	
+	from howmuch.pays.functions import get_paypal_form
+
 	current_invoice = request.user.profile.get_current_invoice()
 	return render_to_response('invoice/invoice.html', 
 		{'current_invoice' : current_invoice, 'form' : get_paypal_form(current_invoice)}, 

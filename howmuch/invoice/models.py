@@ -17,8 +17,9 @@ class Charge(models.Model):
 
 class Invoice(models.Model):
 	owner = models.ForeignKey(User)
+	invoice = models.CharField(max_length=10)
 	period = models.IntegerField(default=1)
-	reference = models.CharField(max_length=10, blank=True)
+	reference = models.CharField(max_length=15, blank=True)
 	charges = models.ManyToManyField(Charge)
 	total = models.IntegerField(default=0)
 	is_paid = models.BooleanField(default=False)
@@ -28,11 +29,16 @@ class Invoice(models.Model):
 		return u'%s' % (self.reference)
 
 	def create_user_invoice(sender, instance, created, **kwargs):
+		from howmuch.invoice.functions import generate_reference, generate_number_invoice
 		if created:
-			Invoice.objects.create(owner=instance)
+			invoice = Invoice.objects.create(owner=instance)
+			invoice.reference = generate_reference(instance)
+			invoice.invoice = generate_number_invoice(invoice.pk)
+			invoice.save()
+
 
 	def get_item_name(self):
-		return 'Factura numero %s con referencia %s' % (self.period, self.reference)
+		return 'Factura %s' % (self.pk)
 
 	post_save.connect(create_user_invoice, sender=User)
 

@@ -255,7 +255,7 @@ PRESTIGE_TYPES = {
 }
 
 #SITE OFFICIAL URL
-URL_OFFICIAL_SITE = 'http://www.cuantoo.com'
+URL_OFFICIAL_SITE = 'http://www.comprateca.com'
 
 #CHANGE PASSWORD REDIRECT 
 CHANGE_CONFIG_REDIRECT = '/config/notifications/?change_config=True'
@@ -263,5 +263,3 @@ CHANGE_CONFIG_REDIRECT = '/config/notifications/?change_config=True'
 #PAYPAL EMAIL
 PAYPAL_RECEIVER_EMAIL = "paypal@brainn.co"
 
-#SITE NAME
-SITE_NAME = 'http://www.comprateca.com'

@@ -104,6 +104,12 @@ class PayPalPaymentsForm(forms.Form):
     %s
     <input type="image" src="%s" border="0" name="submit" alt="Buy it Now" />
 </form>""" % (POSTBACK_ENDPOINT, self.as_p(), self.get_image()))
+
+    def render2(self):
+        return mark_safe(u"""<form action="%s" method="post">
+    %s 
+    <input class="btn btn-success btn-large" type="submit" value="Pagar"/>
+    </form>""" %(POSTBACK_ENDPOINT, self.as_p()))
         
         
     def sandbox(self):
