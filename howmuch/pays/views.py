@@ -6,7 +6,7 @@ def paypal(request):
 
     # What you want the button to do.
     paypal_dict = {
-        "business": settings.PAYPAL_RECEIVER_EMAIL,,
+        "business": settings.PAYPAL_RECEIVER_EMAIL,
         "amount": "0.01",
         "item_name": "Articulo 1",
         "invoice": "1",
