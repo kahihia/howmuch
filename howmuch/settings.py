@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'howmuch.invoice',
     'howmuch.messages',
     'howmuch.notifications',
+    'howmuch.pays',
     'howmuch.pictures',
     'howmuch.prestige',
     'howmuch.problems',
@@ -162,6 +163,7 @@ INSTALLED_APPS = (
 
 
     'registration',
+    'paypal.standard.ipn'
 
 )
 
@@ -258,3 +260,8 @@ URL_OFFICIAL_SITE = 'http://www.cuantoo.com'
 #CHANGE PASSWORD REDIRECT 
 CHANGE_CONFIG_REDIRECT = '/config/notifications/?change_config=True'
 
+#PAYPAL EMAIL
+PAYPAL_RECEIVER_EMAIL = "paypal@brainn.co"
+
+#SITE NAME
+SITE_NAME = 'http://www.comprateca.com'
