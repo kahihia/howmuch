@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import get_object_or_404
 
 from howmuch.invoice.models import Charge, Invoice
-from howmuch.settings import COMMISSION, DAYS_LIMIT_INVOICE
+from howmuch.settings import COMMISSION, DAYS_LIMIT_INVOICE, PAYPAL_RECEIVER_EMAIL, SITE_NAME
 
 #Cuando el usuario paga la factura, se cambian los status de la factura pagada
 def change_status_invoice(invoice):
@@ -50,6 +50,29 @@ def generate_reference(user):
 def unlock_account(user):
 	user.profile.is_block = True
 	user.profile.save()
+
+
+#Regresa el formulario que contiene el boton para hacer el pago directo a paypal de la factura
+def get_paypal_form(invoice):
+	from django.core.urlresolvers import reverse
+	from paypal.standard.forms import PayPalPaymentsForm
+
+	paypal_dict = {
+		"business" : PAYPAL_RECEIVER_EMAIL,
+		"amount" : "%s" % (str(invoice.total)),
+		"item_name" : "%s" % (invoice.get_item_name()),
+		"invoice" : "%s" % (str(invoice.pk)),
+		"notify_url" : "%s%s" % (SITE_NAME, reverse('paypal-ipn')),
+		"return_url" : "http://www.comprateca.com/return/",
+		"cancel_return" : "http://www.comprateca.com/cancelreturn",
+	}
+
+	form = PayPalPaymentsForm(initial=paypal_dict)
+
+	return form
+
+
+
 
 
 

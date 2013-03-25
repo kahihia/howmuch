@@ -15,7 +15,6 @@ def paypal(request):
         "notify_url": "%s%s" % (settings.SITE_NAME, reverse('paypal-ipn')),
         "return_url": "http://www.comprateca.com/return/",
         "cancel_return": "http://www.comprateca.com/cancelreturn",
-
     }
 
     # Create the instance.

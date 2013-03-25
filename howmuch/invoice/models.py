@@ -31,6 +31,9 @@ class Invoice(models.Model):
 		if created:
 			Invoice.objects.create(owner=instance)
 
+	def get_item_name(self):
+		return 'Factura numero %s con referencia %s' % (self.period, self.reference)
+
 	post_save.connect(create_user_invoice, sender=User)
 
 
