@@ -43,9 +43,11 @@
 		</div>
 	</article>
 	{% empty %}
-	<article>
-		Sin Mensajes
-	</article>
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Vacio!</h4>
+        Aun no tienes mensajes
+    </div>
 	{% endfor %}
 </section>
 {% endblock %}

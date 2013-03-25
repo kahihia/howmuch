@@ -38,12 +38,14 @@ class Invoice(models.Model):
 
 
 	def get_item_name(self):
-		return 'Factura %s' % (self.pk)
+		return 'Pago de Factura %s' % (self.invoice)
 
 	post_save.connect(create_user_invoice, sender=User)
 
 
 class Pay(models.Model):
+	from paypal.standard.ipn.signals import payment_was_successful
+
 	owner = models.ForeignKey(User)
 	date = models.DateTimeField(auto_now_add=True)
 	invoice = models.OneToOneField(Invoice)
@@ -52,6 +54,11 @@ class Pay(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % (self.invoice)
+
+	def register_pay(sender, **kwargs):
+		pass
+
+	payment_was_successful.connect(register_pay)
 
 
 
