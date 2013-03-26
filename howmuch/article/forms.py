@@ -3,6 +3,13 @@ from django.forms import ModelForm, Textarea, TextInput, Select
 
 from howmuch.article.models import Article, Assignment
 
+QUANTITY_CHOICES = (
+    (1,'UNO'),
+    (2,'ENTRE 2 y 5'),
+    (5,'ENTRE 5 y 10'),
+    (10,'MAS DE 10'),
+    )
+
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
@@ -17,8 +24,9 @@ class ArticleForm(ModelForm):
         }
 
 class OfferForm(forms.Form):
-    quantity = forms.IntegerField(
-        widget = forms.TextInput(attrs = {'class' : 'span12'}))
+    quantity = forms.ChoiceField(
+        widget = forms.Select(attrs = {'class' : 'span12'}),
+        choices = QUANTITY_CHOICES)
     cprice = forms.IntegerField(
         widget = forms.TextInput(attrs = {'class' : 'span12'}))
     message = forms.CharField(

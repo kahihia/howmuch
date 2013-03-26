@@ -130,7 +130,7 @@ class Offer(models.Model):
     article = models.ForeignKey(Article)
     date = models.DateTimeField(auto_now_add=True)
     #Precio contra oferta
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(choices=QUANTITY_CHOICES) 
     cprice = models.IntegerField() 
     message = models.CharField(max_length=1024)
     pictures = models.ManyToManyField(Picture)
