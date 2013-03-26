@@ -56,14 +56,14 @@ class Pay(models.Model):
 	def __unicode__(self):
 		return u'%s' % (self.invoice)
 
-	#def create_pay(sender, instance, created, **kwargs):
-	#	from howmuch.invoice.models import Invoice
+	def create_pay(sender, instance, created, **kwargs):
+		from howmuch.invoice.models import Invoice
 
-	#	if created:
-	#		invoice = Invoice.objects.get(invoice=str(instance.invoice))
-	#		pay = Pay.objects.create(invoice=invoice, amount=float(instance.mc_gross), reference=invoice.reference)
+		if created:
+			invoice = Invoice.objects.get(invoice=str(instance.invoice))
+			pay = Pay.objects.create(owner=invoice.owner, invoice=invoice, amount=float(instance.payment_gross), reference=invoice.reference)
 
-	#post_save.connect(create_pay, sender=PayPalIPN)
+	post_save.connect(create_pay, sender=PayPalIPN)
 
 
 
