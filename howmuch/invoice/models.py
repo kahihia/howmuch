@@ -57,6 +57,8 @@ class Pay(models.Model):
 		return u'%s' % (self.invoice)
 
 	def create_pay(sender, instance, created, **kwargs):
+		from howmuch.invoice.models import Invoice
+		
 		if created:
 			invoice = Invoice.objects.get(invoice=str(instance.invoice))
 			pay = Pay.objects.create(invoice=invoice, amount=float(instance.mc_gross), reference=invoice.reference)
