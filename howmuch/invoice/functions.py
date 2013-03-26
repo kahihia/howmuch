@@ -57,7 +57,7 @@ def generate_number_invoice(invoiceID):
 
 #Unlock account
 def unlock_account(user):
-	user.profile.is_block = True
+	user.profile.is_block = False
 	user.profile.save()
 
 
