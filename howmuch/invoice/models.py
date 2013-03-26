@@ -40,25 +40,29 @@ class Invoice(models.Model):
 	def get_item_name(self):
 		return 'Pago de Factura %s' % (self.invoice)
 
+
 	post_save.connect(create_user_invoice, sender=User)
 
 
 class Pay(models.Model):
-	from paypal.standard.ipn.signals import payment_was_successful
+	from paypal.standard.ipn.models import PayPalIPN
 
 	owner = models.ForeignKey(User)
 	date = models.DateTimeField(auto_now_add=True)
 	invoice = models.OneToOneField(Invoice)
-	amount = models.IntegerField()
+	amount = models.DecimalField(decimal_places=2, max_digits=10)
 	reference = models.CharField(max_length=10)
 
 	def __unicode__(self):
 		return u'%s' % (self.invoice)
 
-	def register_pay(sender, **kwargs):
-		pass
+	def create_pay(sender, instance, created, **kwargs):
+		if created:
+			invoice = Invoice.objects.get(invoice=str(instance.invoice))
+			pay = Pay.objects.create(invoice=invoice, amount=instance.mc_gross, reference=invoice.reference)
 
-	payment_was_successful.connect(register_pay)
+	post_save.connect(create_pay, sender=PayPalIPN)
+
 
 
 
