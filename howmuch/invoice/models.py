@@ -58,10 +58,17 @@ class Pay(models.Model):
 
 	def create_pay(sender, instance, created, **kwargs):
 		from howmuch.invoice.models import Invoice
+		from howmuch.invoice.functions import change_status_invoice, generate_invoice, unlock_account
 
 		if created:
 			invoice = Invoice.objects.get(invoice=str(instance.invoice))
 			pay = Pay.objects.create(owner=invoice.owner, invoice=invoice, amount=float(instance.payment_gross), reference=invoice.reference)
+			#Se cambia el status del Invoice
+			change_status_invoice(invoice)
+			#Se genera una nueva factura
+			generate_invoice(invoice.owner)
+			#unlock account
+			unlock_account(invoice.owner)
 
 	post_save.connect(create_pay, sender=PayPalIPN)
 
