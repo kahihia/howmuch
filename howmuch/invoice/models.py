@@ -51,17 +51,17 @@ class Pay(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	invoice = models.OneToOneField(Invoice)
 	amount = models.FloatField()
-	reference = models.CharField(max_length=10)
+	reference = models.CharField(max_length=15)
 
 	def __unicode__(self):
 		return u'%s' % (self.invoice)
 
-	#def create_pay(sender, instance, created, **kwargs):
-	#	if created:
-	#		invoice = Invoice.objects.get(invoice=str(instance.invoice))
-	#		pay = Pay.objects.create(invoice=invoice, amount=float(instance.mc_gross), reference=invoice.reference)
+	def create_pay(sender, instance, created, **kwargs):
+		if created:
+			invoice = Invoice.objects.get(invoice=str(instance.invoice))
+			pay = Pay.objects.create(invoice=invoice, amount=float(instance.mc_gross), reference=invoice.reference)
 
-	#post_save.connect(create_pay, sender=PayPalIPN)
+	post_save.connect(create_pay, sender=PayPalIPN)
 
 
 
