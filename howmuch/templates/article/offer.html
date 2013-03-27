@@ -110,10 +110,20 @@ Aplico para Vender el Articulo {{ article.title }}
 			{{ form.message }}
 			<input class="btn btn-large btn-success" type="submit" value="Venderselo">
 		</div>
-
-
 	{% else %}
-	{{errors}}
+	<div class="wrapper-div3">
+		<div class="alert alert-error">
+    		<h3>No es posible que que ofertes en esta publicación por las siguientes razones</h3>
+    		<ul>
+    			{% for error in errors %}
+    			<li>{{ error }}</li>
+    			{% endfor %}
+    		</ul>
+    	</div>
+    	<div class="text-center">
+    		<a class="btn btn-success btn-large" href="{{ article.get_url }}">Aceptar</a>
+    	</div>
+	</div>
 	{% endif %}
 </section>
 {% endblock %}

@@ -46,7 +46,7 @@ class AboutArticle(object):
         elif self.is_assigned():
             errors.append("Este Articulo ya tiene Asignado un Vendedor, lo sentimos mucho")
         elif self.is_candidate():
-            errors.append("Tu ya eres un Vendedor Candidaro, no puedes volver a serlo para este mismo articulo")
+            errors.append("Tu ya eres un Vendedor Candidato, no puedes volver a serlo para este mismo articulo")
         
         return errors
 
@@ -122,10 +122,8 @@ def validate_offer(articleID, user):
     #Se crea una instancia de AboutArticle, funcion que realiza algunas verificaciones
     aboutArticle = AboutArticle(user, articleID) 
     #Se valida la instancia: User is not candidate, is not owner, is not assigned
-    if aboutArticle.is_valid():
-        return aboutArticle.errors()
-    else:
-        return aboutArticle.errors()
+    return aboutArticle.errors()
+
 
 def validate_quantity(quantity,article):
     if quantity < article.quantity:
