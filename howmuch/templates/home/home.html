@@ -4,20 +4,8 @@
 <link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme8/style.css">
 <script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
-{% endblock %}
-
-{% block search-bar %}
-	{% include "search.html" %}
-{% endblock %}
-
-{% block section1 %}
-	{% include "categories.html" %}
-{% endblock %}
-{% block section2 %}	
-   <a class="button primary" id="starttour">Start this Tour</a>
 <script>
 $(document).ready(function() {
-
    var tourdata = [
       {
         html: "<h1>Publicar una Compra</h1><hr>Aqui puedes comprar un articulo al precio que quieras</hr>",
@@ -76,10 +64,26 @@ $(document).ready(function() {
    //the Button
    $('#starttour').click(function(){
       myTour.restart();                      
-   });
-   
+   }); 
 });
 </script>
+{% endblock %}
+
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
+{% block section1 %}
+	{% include "categories.html" %}
+{% endblock %}
+{% block section2 %}	
+<a class="button primary" id="starttour">Start this Tour</a>
+<section>
+{% for article in articles %}
+  <article>
+  </article>
+  {% endfor %}
+</section>
 {% endblock %}
 
 {% block section3 %}

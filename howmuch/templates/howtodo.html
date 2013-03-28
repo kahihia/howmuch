@@ -4,7 +4,7 @@
 		<p>
 			<em>"Publica una compra y recibe las mejores ofertas de vendedores"</em>
 		</p>
-		<a class="btn btn-info btn-large" href="#">Como Comprar</a>
+		<a class="btn btn-info btn-large" href="#howBuy" role="button" data-toggle="modal">Como Comprar</a>
 
 	</article>
 
@@ -13,6 +13,38 @@
 		<p>
 			<em>"Encuentra lo que la gente esta comprando y vendeselo"</em>
 		</p>
-		<a class="btn btn-info btn-large" href="#">Como Vender</a>
+		<a class="btn btn-info btn-large" href="#howSell" role="button" data-toggle="modal">Como Vender</a>
 	</article>
 </section>
+     
+<!-- Modal How Buy -->
+<div id="howBuy" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    	<h3 id="myModalLabel">Como Comprar</h3>
+    </div>
+    <div class="modal-body">
+    	<div>
+    		<img src="{{ MEDIA_URL }}img/howbuy.png">
+    	</div>
+    </div>
+    <div class="modal-footer">
+    	<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+    </div>
+</div>
+
+<!-- Modal How Sell -->
+<div id="howSell" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    	<h3 id="myModalLabel">Como Vender</h3>
+    </div>
+    <div class="modal-body">
+    	<div>
+    		<img src="{{ MEDIA_URL }}img/howsell.png">
+    	</div>
+    </div>
+    <div class="modal-footer">
+    	<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+    </div>
+</div>
