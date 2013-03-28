@@ -36,7 +36,7 @@ $(document).on('ready', function(){
 		e.preventDefault()
 		var tags_input = tags.getValue()
 		$('#tags').val(tags_input)
-		$('#post-article').submit()
+		$('#form-post-article').submit()
 	})
 });
 </script>
@@ -115,7 +115,7 @@ $(document).ready(function() {
 	<div class="text-center">
 		<h2>Publicar una Compra</h2>
 	</div>
-	<form id="post-article" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+	<form id="form-post-article" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 		<div class="text-center">
 			<legend>Titulo del Articulo</legend>
 			<div id="title-info">

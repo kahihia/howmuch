@@ -153,8 +153,7 @@ Base colors
 .wrapper-div2{
 	background: rgba(255,255,255,.7);
 	border-radius: 2px;
-	border: 1px solid rgb(221, 221, 221);
-	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 0.3);
+	box-shadow: 0pt 1px 3px rgba(150, 150, 150, 1);
 }
 .wrapper-div3{
 	background: white;
@@ -210,7 +209,6 @@ TEST
 	position: relative;
 	top: 50%
 }
-
 
 
 
