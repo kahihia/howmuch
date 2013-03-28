@@ -5,7 +5,7 @@
 {% block facebooktags %}
 <meta property="og:title" content="Pagan ${{ article.price }} por {{ article.title}}"/>
 <meta property="og:type" content="Ecommerce"/>
-<meta property="og:url" content="http://www.howmuch.do{{ article.get_url }}"/>
+<meta property="og:url" content="http://www.comprateca.com{{ article.get_url }}"/>
 <meta property="og:image" content=""/>
 <meta property="og:site_name" content="howmuch"/>
 <meta property="og:description"
@@ -14,7 +14,10 @@
 
 {% block media %}
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme3/style.css">
 <script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
+<script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script>
 $(function () {
     $('.pics').glisse({
@@ -37,18 +40,58 @@ $(document).on('ready', function(){
 				$('#comments-form')[0].reset();
 			});
 	});
+});
+</script>
+<script>
+$(document).ready(function() {
+   var tourdata = [
+      {
+        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
+        element: $('#view-article-sell-button-info'),
+        overlayOpacity: 0.8,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
+        element: $('#view-article-price-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
+        element: $('#view-article-tags-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
+        element: $('#view-article-comments-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },
 
-	$('.unfollow').click(function(e){
-		e.preventDefault()
-		$.getJSON('/profile/e/follow/{{ article.pk }}', function(json){
-		});
-	});
 
-	$('.follow').click(function(e){
-		e.preventDefault();
-		$.getJSON('/profile/e/unfollow/{{ article.pk }}', function(json){
-		});
-	});
+
+   ];
+   
+   var viewArticleTour = jTour(tourdata,{
+      axis:'y',  // use only one axis prevent flickring on iOS devices
+      scrollBack: true //scrolls back to the beginning position
+   });
+   
+   //myTour.start();
+   
+   //the Button
+   $('#starttour').click(function(){
+      viewArticleTour.restart();                      
+   }); 
 });
 </script>
 {% endblock %}
@@ -59,6 +102,9 @@ $(document).on('ready', function(){
 
 {% block section1 %}
 <section class="wrapper-div3">
+	<div class="text-center margin10">
+		<a class="btn btn-danger" id="starttour">Click para Ayuda</a>
+	</div>
 	<article>
 	{% if new_post %}
 	<div class="alert alert-success">
@@ -101,27 +147,23 @@ $(document).on('ready', function(){
 			<div class="text-center">
 				<h4>{{ article.state }}</h4>
 			</div>
-			<div class="text-center font-red margin5">
+			<div id="view-article-price-info" class="text-center font-red margin5">
 				<h2>$ {{ article.price }}</h2>
 			</div>
-			<div class="text-center">
+			<div id="view-article-sell-button-info" class="text-center">
 				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
-				<!-- 
-				<a id="btn-follow" class="btn btn-large btn-success unfollow" href="#">Seguir</a>
-				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
-				 -->
 			</div>
 		</div>
 	</article>
 
-	<article>
+	<article id="view-article-description-info">
 		<h3 class="font-green">Descripcion de la compra</h3>
 		<p>{{ article.description }}</p>
 	</article>
 
 	<article class="margin5">
 		<h3 class="font-green">Quiero algo parecido a</h3>
-		<div class="text-center span12">
+		<div id="view-article-pictures-info" class="text-center span12">
 		{% for picture in article.pictures.all %}
 			<div class="thumbnail span2">
 				<img class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
@@ -130,23 +172,13 @@ $(document).on('ready', function(){
 		</div>
 	</article>
 
-	<!-- 
-	<article class="margin10">
-		<center>
-			<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial">
-			</div>
-		</center>
-	</article>
-	 -->
-
-
 	<article>
 		<h3 class="font-green">Etiquetas</h3>
-		<center>
+		<div id="view-article-tags-info" class="text-center">
 		{% for tag in article.tags.all %}
 			<a class="btn btn-success btn-large" href="#">{{ tag }}</a>
 		{% endfor %}
-		</center>
+		</div>
 	</article>
 
 
@@ -178,7 +210,7 @@ $(document).on('ready', function(){
 	<div>
 		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
 			<div class="row-fluid">
-				<div class="span10">
+				<div id="view-article-comments-info" class="span10">
 					<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
 				</div>
 				<div class="span2">
