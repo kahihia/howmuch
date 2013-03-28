@@ -35,24 +35,32 @@ $(document).ready(function() {
         html: "<h1>Tu Información</h1><hr>Aqui puedes modificar tu Perfil, Configuración y ver tu Estado de Cuenta</hr>",
         element: $('#user-info'),
         overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
         expose: true,
         position: 'sw'
       },{
         html: "<h1>Tus Operaciones</h1><hr>Puedes consultar tus Ofertas, Compras y Ventas</hr>",
         element: $('#operations-info'),
         overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
         expose: true,
         position: 'sw'
       },{
         html: "<h1>Notificaciones</h1><hr>Aqui puedes consultar las notificaciones de tus operaciones</hr>",
         element: $('#notifications-info'),
         overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
         expose: true,
         position: 'se'
       },{
         html: "<h1>Inbox</h1><hr>Aqui puedes consultar los mensajes que te envien otros usuarios</hr>",
         element: $('#inbox-info'),
         overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
         expose: true,
         position: 'se'
       },
