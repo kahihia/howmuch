@@ -15,6 +15,7 @@ urlpatterns = patterns('django.views.generic.simple',
     url(r'^logout/$', logout, {'next_page' : '/'}),
 
     url(r'^test/$', 'direct_to_template', {'template': 'test.html'}),
+    url(r'^tour/$', 'direct_to_template', {'template': 'tour.html'}),
 
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^facebook/', include('django_facebook.urls')),
