@@ -4,6 +4,8 @@
 <link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme8/style.css">
 <script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
+<script src="{{ MEDIA_URL }}/js/jquery.roundabout.js"></script>
+<script src="{{ MEDIA_URL }}/js/jquery.roundabout-shapes.js"></script>
 {% endblock %}
 
 {% block search-bar %}
@@ -17,9 +19,38 @@
 <div class="text-center">
   <a id="startTourHome" class="btn btn-danger">Iniciar Tour</a>
 </div>
+<div class="margin10">
+  <div class="text-center">
+    <h3>Lo que la gente esta comprando ahora</h3>
+  </div>
+  <div>
+    <ul class="unstyled" id="lastPublishedList">
+      {% for article in articles %}
+      <li>
+        <div>
+          <div class="text-center">
+            <a href="{{ article.ger_url }}">
+              <strong class="font-blue size20">{{ article.title|title }}</strong>
+            </a>
+          </div>
+          <div>
+            <a href="{{ article.get_url }}">
+              <div class="thumbnail">
+                <img src="{{ article.get_first_picture_url }}">
+              </div>  
+            </a>
+          </div>
+          <div class="text-center margin10">
+            <strong class="font-red size20">$ {{ article.price }}</strong>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 <script>
 $(document).ready(function() {
-
    var tourdata = [
       {
         html: "<h1>Publicar una Compra</h1><hr>Aqui puedes comprar un articulo al precio que quieras</hr>",
@@ -72,13 +103,16 @@ $(document).ready(function() {
       axis:'y',  // use only one axis prevent flickring on iOS devices
       scrollBack: true //scrolls back to the beginning position
    });
-   
-   //myTour.start();
-   
-   //the Button
+
    $('#startTourHome').click(function(){
       myTour.restart();                      
    });
+
+  $('#lastPublishedList').roundabout({
+    minOpacity:0.1,
+
+  });
+
 });
 </script>
 {% endblock %}

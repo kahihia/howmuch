@@ -7,3 +7,4 @@ def home(request):
 	return render_to_response('home/home.html', 
 		{'articles' : get_last_articles()}, context_instance=RequestContext(request))
     
+  
