@@ -86,10 +86,19 @@ $(document).ready(function() {
    
    var postArticleTour = jTour(tourdata,{
       axis:'y',  // use only one axis prevent flickring on iOS devices
-      scrollBack: true //scrolls back to the beginning position
+      scrollBack: true, //scrolls back to the beginning position
+      onStart: function(){
+        $.ajax({
+          url:'/profile/e/first_post'
+        })
+      }
    });
+
+   {% if user.profile.is_his_first_post %}
+      postArticleTour.restart()
+   {% endif %}
+
    
-   //myTour.start();
    
    //the Button
    $('#startTourPostArticle').click(function(){
