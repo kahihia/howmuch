@@ -162,6 +162,23 @@ def unfollow(request,articleID):
     return HttpResponse(json.dumps({'response' : 'lo dejaste de seguir' }))
 
 
+@login_required(login_url='/login/')
+def first_time(request):
+    from howmuch.profile.functions import change_status_first_time
+
+    change_status_first_time(request.user)
+    return HttpResponse('Gracias')
+
+@login_required(login_url='/login')
+def first_post(request):
+    from howmuch.profile.functions import change_status_first_post
+
+    change_status_first_post(request.user)
+    return HttpResponse('Gracias')
+
+
+
+
 
 
     

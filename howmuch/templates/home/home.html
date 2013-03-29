@@ -15,7 +15,7 @@
 {% block section1 %}
 	{% include "categories.html" %}
 {% endblock %}
-{% block section2 %}	
+{% block section2 %}
 <div class="text-center">
   <a id="startTourHome" class="btn btn-danger">Iniciar Tour</a>
 </div>
@@ -99,20 +99,27 @@ $(document).ready(function() {
       },
    ];
    
-   var myTour = jTour(tourdata,{
+   var tourHome = jTour(tourdata,{
       axis:'y',  // use only one axis prevent flickring on iOS devices
-      scrollBack: true //scrolls back to the beginning position
+      scrollBack: true, //scrolls back to the beginning position
+      onStart: function(){
+        $.ajax({
+          url:'/profile/e/first_time'
+        })
+      }
    });
 
+   {% if user.profile.is_new %}
+      tourHome.restart()
+   {% endif %}
+
    $('#startTourHome').click(function(){
-      myTour.restart();                      
+      tourHome.restart();                      
    });
 
   $('#lastPublishedList').roundabout({
     minOpacity:0.1,
-
   });
-
 });
 </script>
 {% endblock %}

@@ -6,7 +6,7 @@ from howmuch.profile.models import Profile, Address, Phone, AccountBank
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user', 'following','addresses', 'phones', 'banks','total_purchases', 'total_sales', 
+        exclude = ('user','is_new','is_his_first_post','following','addresses', 'phones', 'banks','total_purchases', 'total_sales', 
             'prestige','positive_points','negative_points','unread_notifications', 'unread_conversations',
             'current_invoice', 'credit_limit','is_block')
         widgets = {

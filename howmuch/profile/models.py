@@ -55,6 +55,8 @@ class Profile(FacebookProfileModel):
     user = models.OneToOneField(User)
     profile_picture = models.ImageField(upload_to=make_upload_path, default = '/media/img/cuantoo_profile_picture.png')
     company = models.CharField(max_length=77, null = True, blank=True)
+    is_new = models.BooleanField(default=True)
+    is_his_first_post = models.BooleanField(default=True)
     following = models.ManyToManyField(Article, blank = True)
     addresses = models.ManyToManyField(Address, blank = True)
     phones = models.ManyToManyField(Phone, blank = True)

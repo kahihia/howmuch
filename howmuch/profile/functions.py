@@ -29,3 +29,16 @@ def block_user(user):
 		user.profile.is_block = True
 		user.profile.save()
 
+
+#Change status when the user finished his first tour in homepage
+def change_status_first_time(user):
+	user.profile.is_new = False
+	user.profile.save()
+
+
+#Change status when the user finished his first tour in post article
+def change_status_first_post(user):
+	user.profile.is_his_first_post = False
+	user.profile.save()
+
+
