@@ -26,7 +26,14 @@ $(function () {
 });
 </script>
 <script type="text/javascript">
+
 $(document).on('ready', function(){
+
+	pic_count= {{ article.pictures.all.count }};
+	var pic_ids= new Array();
+	{% for p in article.pictures.all %}
+		pic_ids[{{ forloop.counter0 }}]={{ p.pk }};
+	{% endfor %}
 
 	$('#comments-form').submit(function(e){
 		e.preventDefault();
@@ -48,6 +55,38 @@ $(document).on('ready', function(){
 		e.preventDefault();
 		$.getJSON('/profile/e/unfollow/{{ article.pk }}', function(json){
 		});
+	});
+
+	$('.delete_pic').click(function(e){
+		if (pic_count == 1){
+			$('#uniquepicerrordiv').show();
+		}
+		else {
+			e.preventDefault();
+			$.getJSON('/article/deletepicture/{{ article.pk }}/'+this.id, function(json){
+			});
+			$('#div'+this.id).hide();
+			
+			if ($('#articledisplayimage').attr("src") == $('#pic_'+this.id).attr("src").split("?")[0]){
+            	$('#articledisplayimage').attr("src", $('#pic_'+pic_ids[pic_ids.length-pic_count+1]).attr("src").split("?")[0]);
+            	$('#articledisplayimage').fadeIn();
+			}
+			pic_count--;
+		}
+	});
+
+	$('#uniquepicerrorbutton').click(function(e){
+		$('#uniquepicerrordiv').hide();
+	});
+
+	$('#comments-form').submit(function(e){
+		e.preventDefault();
+		$.post('/comments/post/{{ article.pk }}/', 
+			$('#comments-form').serialize(),
+			function(data){
+				$('.comments-area').append(data);
+				$('#comments-form')[0].reset();
+			});
 	});
 });
 </script>
@@ -94,7 +133,7 @@ $(document).on('ready', function(){
 
 	<article class="row-fluid">
 		<div class="thumbnail span4">
-    		<img src="{{ article.get_first_picture_url }}" alt="">
+    		<img id="articledisplayimage" src="{{ article.get_first_picture_url }}" alt="">
     	</div>
    
 	
@@ -120,10 +159,17 @@ $(document).on('ready', function(){
 
 	<article class="margin5">
 		<legend>Quiero algo parecido a</legend>
+		<div id="uniquepicerrordiv" class="alert alert-error" style="display:none;">
+			<button id="uniquepicerrorbutton" type="button" class="close">&times;</button>
+    		No puedes eliminar la unica imagen del articulo
+    	</div>
 		<div class="text-center span12">
 		{% for picture in article.pictures.all %}
-			<div class="thumbnail span3">
-				<img class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+			<div id="div{{ picture.pk }}" class="thumbnail span3">
+				<img id="pic_{{ picture.pk }}" class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+				{% if user.is_authenticated and user == article.owner %}
+					<a id={{ picture.pk }} class="btn btn-mini delete_pic" href="#"><i class="icon-remove"></i></a>
+				{% endif %}
 			</div>
 		{% endfor%}
 		</div>

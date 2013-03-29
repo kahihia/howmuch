@@ -77,6 +77,13 @@ def view(request, articleID, title_url):
 
 
 @login_required(login_url="/login/")
+def delete_picture(request, articleID, pictureID):
+    a1 = get_object_or_404(Article, pk=articleID)
+    p1 = get_object_or_404(Picture, pk=pictureID)
+    a1.pictures.remove(p1)
+    return render_to_response('article/viewArticle.html', {'article' : a1, 'new_post' : False }, context_instance = RequestContext(request))
+
+@login_required(login_url="/login/")
 def offer(request,articleID):
     #Si la cuenta de usuario esta bloqueada que lo indique
     if request.user.profile.is_block:

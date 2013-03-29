@@ -152,7 +152,7 @@ def tags_to_string(tags):
         string_tags += (str(tag.name) + ',')
     return string_tags
 
-
-
-
-
+def delete_picture(article,pic_to_delete):
+    a1 = Article.objects.get(pk=article)
+    p1 = Picture.objects.get(pk=pic_to_delete)
+    a1.pictures.remove(p1)
