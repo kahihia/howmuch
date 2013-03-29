@@ -84,7 +84,7 @@ $(document).ready(function() {
 
    ];
    
-   var myTour = jTour(tourdata,{
+   var postArticleTour = jTour(tourdata,{
       axis:'y',  // use only one axis prevent flickring on iOS devices
       scrollBack: true //scrolls back to the beginning position
    });
@@ -92,8 +92,8 @@ $(document).ready(function() {
    //myTour.start();
    
    //the Button
-   $('#starttour').click(function(){
-      myTour.restart();                      
+   $('#startTourPostArticle').click(function(){
+      postArticleTour.restart();                      
    });
 });
 </script>
@@ -110,7 +110,7 @@ $(document).ready(function() {
 {% block section2 %}
 <section class="wrapper-div3">
 	<div class="text-center">
-		<a class="btn btn-danger" id="starttour">Click para Ayuda</a>
+		<a class="btn btn-danger" id="startTourPostArticle">Click para Ayuda</a>
 	</div>
 	<div class="text-center">
 		<h2>Publicar una Compra</h2>

@@ -21,9 +21,6 @@
 			{% if user.profile.get_profile_progress < 100 %}
 			<ul class="inline margin10">
 				<li class="middle-align">
-					<a  class="btn btn-danger" href="#">Iniciar Tour</a>
-				</li>
-				<li class="middle-align">
 					<a href="/profile/e/edit">
 						<span class="label label-important">Perfil al {{ user.profile.get_profile_progress }}%</span>
 					</a>
