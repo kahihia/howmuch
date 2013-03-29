@@ -156,12 +156,12 @@ $(document).ready(function() {
 		</div>
 	</article>
 
-	<article id="view-article-description-info">
+	<article id="view-article-description-info" class="margin10">
 		<h3 class="font-green">Descripcion de la compra</h3>
-		<p>{{ article.description }}</p>
+		<p class="size16">{{ article.description }}</p>
 	</article>
 
-	<article class="margin5">
+	<article class="margin10">
 		<h3 class="font-green">Quiero algo parecido a</h3>
 		<div id="view-article-pictures-info" class="text-center span12">
 		{% for picture in article.pictures.all %}
@@ -172,7 +172,7 @@ $(document).ready(function() {
 		</div>
 	</article>
 
-	<article>
+	<article class="margin10">
 		<h3 class="font-green">Etiquetas</h3>
 		<div id="view-article-tags-info" class="text-center">
 		{% for tag in article.tags.all %}
@@ -189,7 +189,7 @@ $(document).ready(function() {
 	<legend class="font-green">Dudas del Articulo</legend>
 	<div class="comments-area">
 		{% for comment in article.comments.all %}
-			<div class="wrapper-div row">
+			<div class="wrapper-div5 row">
 				<div class="span1 thumbnail">
 					<img src="{{ comment.owner.profile.get_profile_picture }}">
 				</div>
@@ -207,14 +207,14 @@ $(document).ready(function() {
 		{% endfor %}
 	</div>
 	{% if user.is_authenticated %}
-	<div>
+	<div class="margin10">
 		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
 			<div class="row-fluid">
 				<div id="view-article-comments-info" class="span10">
-					<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+					<input class="span12 comment-input" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
 				</div>
 				<div class="span2">
-					<input class="btn btn-success" type="submit" value="Enviar">
+					<input class="btn btn-success btn-large" type="submit" value="Enviar">
 				</div>
 			</div>
 		</form>
