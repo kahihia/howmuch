@@ -1,6 +1,6 @@
 Para activar tu cuenta en howmuch.do da click en el siguiente enlace
 
-http://www.howmuch.do/accounts/activate/{{ activation_key }}
+http://www.comprateca.com/accounts/activate/{{ activation_key }}
 
 Te recordamos que tienes {{ expiration_days }} dias para activar tu cuenta, de lo contrario tu registro sera dado de baja.
 

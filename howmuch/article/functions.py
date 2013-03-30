@@ -10,14 +10,14 @@ from howmuch.pictures.models import Picture
 
 
 class AboutArticle(object):
-    def __init__(self, user, itemid):
+    def __init__(self, user, articleID):
         self.user = user
-        self.articleId = itemid
+        self.articleID = articleID
 
     #Regresa True si el Usuario es publico el Articulo dado su id
     def is_owner(self):
         try:
-            Article.objects.get(owner = self.user, pk=self.articleId)
+            Article.objects.get(owner = self.user, pk=self.articleID)
         except Article.DoesNotExist:
             return False
         return True 
@@ -25,7 +25,7 @@ class AboutArticle(object):
     #Regresa True si el Usuario es Candidato de la publicacion del articulo dado su id, Es cuando el usuario da click en VENDER
     def is_candidate(self):
         try:
-            Offer.objects.get(owner = self.user, article = self.articleId)
+            Offer.objects.get(owner = self.user, article = self.articleID)
         except Offer.DoesNotExist:
             return False
         return True
@@ -33,7 +33,7 @@ class AboutArticle(object):
     #Regresa True si el Usuario ha sido Asignado para completar el RequestItem (De los que dieron click en VENDER, es el que fue elegido)
     def is_assigned(self):
         try:
-            Assignment.objects.get(article = self.articleId)
+            Assignment.objects.get(article = self.articleID)
         except Assignment.DoesNotExist:
             return False
         return True
@@ -46,7 +46,7 @@ class AboutArticle(object):
         elif self.is_assigned():
             errors.append("Este Articulo ya tiene Asignado un Vendedor, lo sentimos mucho")
         elif self.is_candidate():
-            errors.append("Tu ya eres un Vendedor Candidaro, no puedes volver a serlo para este mismo articulo")
+            errors.append("Tu ya eres un Vendedor Candidato, no puedes volver a serlo para este mismo articulo")
         
         return errors
 
@@ -122,10 +122,8 @@ def validate_offer(articleID, user):
     #Se crea una instancia de AboutArticle, funcion que realiza algunas verificaciones
     aboutArticle = AboutArticle(user, articleID) 
     #Se valida la instancia: User is not candidate, is not owner, is not assigned
-    if aboutArticle.is_valid():
-        return aboutArticle.errors()
-    else:
-        return aboutArticle.errors()
+    return aboutArticle.errors()
+
 
 def validate_quantity(quantity,article):
     if quantity < article.quantity:

@@ -1,13 +1,11 @@
 {% extends "3columns.html" %}
 
 {% block media %}
-<script type="text/javascript">
-
-$(document).on('ready', function(){
-	$('#carousel-home').carousel()
-});
-
-</script>
+<link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme8/style.css">
+<script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
+<script src="{{ MEDIA_URL }}/js/jTour.js"></script>
+<script src="{{ MEDIA_URL }}/js/jquery.roundabout.js"></script>
+<script src="{{ MEDIA_URL }}/js/jquery.roundabout-shapes.js"></script>
 {% endblock %}
 
 {% block search-bar %}
@@ -17,8 +15,113 @@ $(document).on('ready', function(){
 {% block section1 %}
 	{% include "categories.html" %}
 {% endblock %}
-{% block section2 %}	
-	{% include "carousel.html" %}
+{% block section2 %}
+<div class="text-center">
+  <a id="startTourHome" class="btn btn-danger">Iniciar Tour</a>
+</div>
+<div class="margin10">
+  <div class="text-center">
+    <h3>Lo que la gente esta comprando ahora</h3>
+  </div>
+  <div>
+    <ul class="unstyled" id="lastPublishedList">
+      {% for article in articles %}
+      <li>
+        <div>
+          <div class="text-center">
+            <a href="{{ article.ger_url }}">
+              <strong class="font-blue size20">{{ article.title|title }}</strong>
+            </a>
+          </div>
+          <div>
+            <a href="{{ article.get_url }}">
+              <div class="thumbnail">
+                <img src="{{ article.get_first_picture_url }}">
+              </div>  
+            </a>
+          </div>
+          <div class="text-center margin10">
+            <strong class="font-red size20">$ {{ article.price }}</strong>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+   var tourdata = [
+      {
+        html: "<h1>Publicar una Compra</h1><hr>Aqui puedes comprar un articulo al precio que quieras</hr>",
+        element: $('#post-article'),
+        overlayOpacity: 0.8,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Vende Articulos</h1><hr>Encuentra articulos que la gente esta comprando y vendelos</hr>",
+        element: $('#search-bar'),
+        overlayOpacity: 0.8,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Tu Información</h1><hr>Aqui puedes modificar tu Perfil, Configuración y ver tu Estado de Cuenta</hr>",
+        element: $('#user-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
+        expose: true,
+        position: 'sw'
+      },{
+        html: "<h1>Tus Operaciones</h1><hr>Puedes consultar tus Ofertas, Compras y Ventas</hr>",
+        element: $('#operations-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
+        expose: true,
+        position: 'sw'
+      },{
+        html: "<h1>Notificaciones</h1><hr>Aqui puedes consultar las notificaciones de tus operaciones</hr>",
+        element: $('#notifications-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
+        expose: true,
+        position: 'se'
+      },{
+        html: "<h1>Inbox</h1><hr>Aqui puedes consultar los mensajes que te envien otros usuarios</hr>",
+        element: $('#inbox-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("active");},
+        onHide: function(e){ e.removeClass("active");},
+        expose: true,
+        position: 'se'
+      },
+   ];
+   
+   var tourHome = jTour(tourdata,{
+      axis:'y',  // use only one axis prevent flickring on iOS devices
+      scrollBack: true, //scrolls back to the beginning position
+      onStart: function(){
+        $.ajax({
+          url:'/profile/e/first_time'
+        })
+      }
+   });
+
+   {% if user.profile.is_new %}
+      tourHome.restart()
+   {% endif %}
+
+   $('#startTourHome').click(function(){
+      tourHome.restart();                      
+   });
+
+  $('#lastPublishedList').roundabout({
+    minOpacity:0.1,
+  });
+});
+</script>
 {% endblock %}
 
 {% block section3 %}

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div background1">
+<section class="wrapper-div3 text-center">
 	<h2>Nueva Cuenta Bancaria</h2>
 
 	<form action='' method='POST'>{% csrf_token %}
@@ -23,9 +23,9 @@
 			{{ form.account.errors }}
 		</div>
 
-		<center>
+		<div>
 			<input class="btn btn-large btn-success" type="submit" value="Guardar">
-		</center>
+		</div>
 
 	</form>
 

@@ -5,68 +5,61 @@
 {% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div span9">
+<div class="wrapper-div3 text-center">
 	<form class="form-horizontal" action="" method="POST">{% csrf_token %}
-		<legend>Registrarse</legend>
-    	<div class="control-group">
-    		<label class="control-label">Usuario</label>
-    		<div class="controls">
-    			{{ form.username }}
+		<h2>Registrarse</h2>
+    	<div>
+    		<legend>Usuario</legend>
+    		{{ form.username }}
+            <span class="text-help">Tu nombre de usuario</span>
     			{{ form.username.errors }}
-    		</div>
     	</div>
 
-    	<div class="control-group">
-    		<label class="control-label">Nombres</label>
-    		<div class="controls">
-    			{{ form.first_name }}
-    			{{ form.first_name.errors }}
-    		</div>
+    	<div>
+    		<legend>Nombres</legend>
+    		{{ form.first_name }}
+            <span class="text-help">Tus Nombres</span>
+            {{ form.first_name.errors }}
     	</div>
 
-    	<div class="control-group">
-    		<label class="control-label">Apellidos</label>
-    		<div class="controls">
-    			{{ form.last_name }}
-    			{{ form.last_name.errors }}
-    		</div>
+    	<div >
+    		<legend>Apellidos</legend>
+    		{{ form.last_name }}
+            <span class="text-help">Tus apellidos</span>
+    		{{ form.last_name.errors }}
     	</div>
 
-    	<div class="control-group">
-    		<label class="control-label">Correo Electronico</label>
-    		<div class="controls">
-    			{{ form.email }}
-    			{{ form.email.errors }}
-    		</div>
+    	<div >
+    		<legend>Correo Electronico</legend>
+    		{{ form.email }}
+            <span class="text-help">Tu correo electronico</span>
+    		{{ form.email.errors }}
     	</div>
 
-    	<div class="control-group">
-    		<label class="control-label">Contraseña</label>
-    		<div class="controls">
-    			{{ form.password1 }}
-    			{{ form.password1.errors }}
-    		</div>
+    	<div >
+    		<legend>Contraseña</legend>
+    		{{ form.password1 }}
+            <span class="text-help">Escribe una contraseña</span>
+    		{{ form.password1.errors }}
     	</div>
 
-    	<div class="control-group">
-    		<label class="control-label">Confirma Contraseña</label>
-    		<div class="controls">
-    			{{ form.password2 }}
-    			{{ form.password2.errors }}
-    		</div>
+    	<div >
+    		<legend>Confirma Contraseña</legend>
+    		{{ form.password2 }}
+            <span class="text-help">Repite tu contraseña</span>
+    		{{ form.password2.errors }}
     	</div>
 
-    	<div class="contreol-group">
-    		<div class="controls">
-				{{ form.tos }}
-				{{ form.tos.errors }}
-				<span class="help-block">Acepto los Terminos y Condiciones de cuantoo.com</span>
-    		</div>
+    	<div>
+            <legend>Terminos y Condiciones</legend>
+            {{ form.tos }}
+            <span class="help-block">Acepto los Terminos y Condiciones</span>
+			{{ form.tos.errors }}
 		</div>	
 
-		<center>
+		<div class="margin10">
 			<input class="btn btn-large btn-primary" type="submit" value="Registrarme">
-		</center>
+		</div>
 	</form>
 </div>
 

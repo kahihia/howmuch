@@ -20,36 +20,30 @@ $(function () {
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div">
+<section class="wrapper-div3">
 	<article class="row-fluid margin10">
 		<div class="thumbnail span2">
 			<img src="{{ offer.article.get_first_picture_url }}">
 		</div>
 		<div class="span10">
-			<center>
+			<div class="text-center">
 				<h3>Oferta para el articulo {{ offer.article.title }}</h3>
-			</center>
+			</div>
 		</div>
 	</article>
-	<article>
-		<center>
+	<article class=" margin10">
+		<div class="text-center margin10">
+			<b>Hecha el {{ offer.date }}</b>
+		</div>
+		<div class="text-center wrapper-div4">
 			<h2>Pagan ${{ offer.cprice}}</h2>
-		</center>
-	</article>
-	<article class="row-fluid">
-		<div class="span4">
-			<ul class="thumbnails">
-				<div class="thumbnail">
-    				<img src="{{ offer.get_first_picture_url }}" alt="">
-    			</div>
-    		</ul>
 		</div>
-
-		<div class="span5">
-			<p>
-				<span><b>Fecha:</b></span>
-				<span>{{ offer.date }}</span>
-			</p>
+	</article>
+	<article class="text-center">
+		
+		<h3>Datos del Usuario</h3>
+		
+		<div>
 			<p>
 				<span><b>Usuario:</b></span>
 				<a href="/profile/{{ offer.owner }}">{{ offer.owner }}</a>
@@ -71,18 +65,12 @@ $(function () {
 			</p>
 		</div>
 
-		<div class="span3">
-			<div class="thumbnail">
-				<a href="/profile/{{ offer.owner }}">
-					<img src="{{ offer.owner.profile.get_profile_picture }}">
-				</a>
-			</div>
-		</div>
-
 	</article>
 
 	<article>
-		<legend>Descripción de la Oferta</legend>
+		<div class="text-center">
+			<h3>Descripción de la Oferta</h3>
+		</div>
 		<div>
 			<p>
 				{{ offer.message }}
@@ -91,7 +79,9 @@ $(function () {
 	</article>
 
 	<article>
-		<legend>Imagenes del Articulo</legend>
+		<div class="text-center">
+			<h3>Imagenes del Articulo</h3>
+		</div>
 		<div class="text-center span12">
 		{% for picture in offer.pictures.all %}
 			<div class="span2">
@@ -102,9 +92,9 @@ $(function () {
 	</article>
 
 	<article class="margin10">
-		<center>
+		<div class="text-center">
 			<a class="btn btn-success btn-large" href="/article/assignment/{{ offer.article.pk }}/{{ offer.owner.pk }}">Comprar</a>
-		</center>
+		</div>
 	</article>
 </section>
 {% endblock %}

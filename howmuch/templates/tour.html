@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<title>jQuery Tour - the flexible Tour plugin - Example 2</title>
+<link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme1/style.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="{{ MEDIA_URL }}/js/jTour.js"></script>
+</head>
+<body>
+	<a class="button primary" id="starttour">Start this Tour</a>
+<script>
+$(document).ready(function() {
+
+	var tourdata = [
+	   {
+		  html: "Hello World"
+	   },{
+		  html: "Welcome to the Tour",
+		  live: 5000,
+		  delayIn: 500
+	   }
+	];
+	
+	var myTour = jTour(tourdata,{
+		axis:'y'  // use only one axis prevent flickring on iOS devices
+	});
+	
+	//myTour.start();
+	
+	//the Button
+	$('#starttour').click(function(){
+		myTour.restart();							   
+	});
+	
+});
+</script>
+</body>
+</html>

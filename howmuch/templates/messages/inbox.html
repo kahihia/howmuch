@@ -11,12 +11,12 @@
 {% endblock %}
 
 {% block section2 %}
-<section>
+<section class="wrapper-div">
 	<center>
 		<h2>Inbox</h2>
 	</center>
 	{% for conversation in conversations %}
-	<article class="row-fluid wrapper-div">
+	<article class="row-fluid wrapper-div5">
 		<div class="span2 thumbnail">	
 			<img src="{{ conversation.assignment.article.get_first_picture_url }}">
 		</div>
@@ -43,9 +43,11 @@
 		</div>
 	</article>
 	{% empty %}
-	<article>
-		Sin Mensajes
-	</article>
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Vacio!</h4>
+        Aun no tienes mensajes
+    </div>
 	{% endfor %}
 </section>
 {% endblock %}

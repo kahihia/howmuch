@@ -4,16 +4,22 @@
 
 {% block media %}
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/magicsuggest-1.1.1.css">
+<link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme1/style.css">
 <script type="text/javascript" src="{{ MEDIA_URL }}js/class-0.0.2.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/magicsuggest-1.1.1.js"></script>
+<script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
+<script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script type="text/javascript">
 $(document).on('ready', function(){
 	var tags
+	$('#wrapper-tags').hide()
 	$('#id_category').on('change', function(){
+		$('#wrapper-tags').show("slow")
 		var category_id = $(this).val()
 		tags = new MagicSuggest({
-                renderTo: $('#tags-container'),
+                renderTo: $('#tags-input'),
                 width: 490,
+                cls: 'magicsuggest',
                 emptyText:'Escribe Aqui',
                 noSuggestionText : 'Sin Sugerencias',
                 required: true,
@@ -30,8 +36,74 @@ $(document).on('ready', function(){
 		e.preventDefault()
 		var tags_input = tags.getValue()
 		$('#tags').val(tags_input)
-		$('#post-article').submit()
+		$('#form-post-article').submit()
 	})
+});
+</script>
+<script>
+$(document).ready(function() {
+
+   var tourdata = [
+      {
+        html: "<h1>Titulo del Articulo</h1><hr>Pon el nombre del articulo que quieres comprar, por ejemplo Iphone 5 32 Gb Color Blanco</hr>",
+        element: $('#title-info'),
+        overlayOpacity: 0.3,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Precio</h1><hr>Es el precio que estas dispuesto a pagar por el articulo</hr>",
+        element: $('#price-info'),
+        overlayOpacity: 0.3,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Cantidad</h1><hr>Selecciona cuantos articulos quieres comprar</hr>",
+        element: $('#quantity-info'),
+        overlayOpacity: 0.3,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Describe lo que quieres comprar</h1><hr>Puedes describir el articulo que quieres comprar, incluyendo detalles como marca, modelo, color, entre otros.</hr>",
+        element: $('#description-info'),
+        overlayOpacity: 0.3,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Nuevo o Usado?</h1><hr>Selecciona si quieres un articulo nuevo o usado</hr>",
+        element: $('#state-info'),
+        overlayOpacity: 0.3,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Clasifica el Articulo</h1><hr>Selecciona la categoria donde consideres que entre tu articulo, por ejemplo si es un Playstation debes seleccionar Video Juegos</hr>",
+        element: $('#category-info'),
+        overlayOpacity: 0.3,
+        expose: true,
+        position: 's'
+      },
+
+   ];
+   
+   var postArticleTour = jTour(tourdata,{
+      axis:'y',  // use only one axis prevent flickring on iOS devices
+      scrollBack: true, //scrolls back to the beginning position
+      onStart: function(){
+        $.ajax({
+          url:'/profile/e/first_post'
+        })
+      }
+   });
+
+   {% if user.profile.is_his_first_post %}
+      postArticleTour.restart()
+   {% endif %}
+
+   
+   
+   //the Button
+   $('#startTourPostArticle').click(function(){
+      postArticleTour.restart();                      
+   });
 });
 </script>
 {% endblock %}
@@ -45,12 +117,17 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div background1">
-	<h2>Publicar una Compra</h2>
-	<form id="post-article" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-		<div>
+<section class="wrapper-div3">
+	<div class="text-center">
+		<a class="btn btn-danger" id="startTourPostArticle">Click para Ayuda</a>
+	</div>
+	<div class="text-center">
+		<h2>Publicar una Compra</h2>
+	</div>
+	<form id="form-post-article" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+		<div class="text-center">
 			<legend>Titulo del Articulo</legend>
-			<div>
+			<div id="title-info">
 				{{ form.title }}
 				<span class="block-help">Entre mas claro sea el titulo de tu articulo, mas ofertas recibiras.</span>
 				{{ form.title.errors }}
@@ -60,21 +137,29 @@ $(document).on('ready', function(){
 		<div class="row-fluid">
 			<div class="span6">
 				<legend>Precio</legend>
-				{{ form.price }}
+				<div id="price-info" class="input-prepend input-append">
+					<span class="add-on">$</span>
+					{{ form.price }}
+					<span class="add-on">.00</span>
+				</div>
 				<span class="help-block">Es el precio que estas dispuesto a pagar por tu articulo.</span>
 				{{ form.price.errors }}
 			</div>
 			<div class="span6">
 				<legend>Cantidad</legend>
-				{{ form.quantity }}
+				<div id="quantity-info">
+					{{ form.quantity }}
+				</div>
 				<span class="help-block">Escribe el numero de articulos que estas buscando, solo enteros.</span>
 				{{ form.quantity.errors }}
 			</div>
 		</div>
 
-		<div>
+		<div class="text-center">
 			<legend>Descripcion</legend>
-			{{ form.description }}
+			<div id="description-info">
+				{{ form.description }}
+			</div>
 			<span class="help-block">Describe el articulo que estas buscando e incluye detalles sobre el.</span>
 			{{ form.description.errors }}
 		</div>
@@ -82,27 +167,32 @@ $(document).on('ready', function(){
 		<div class="row-fluid">
 			<div class="span6">
 				<legend>Estado del Articulo</legend>
-				{{ form.state }}
+				<div id="state-info">
+					{{ form.state }}
+				</div>
 				<span class="help-block">El articulo que quieres es nuevo o usado?.</span>
 				{{ form.state.errors }}
 			</div>
 			<div class="span6">
 				<legend>Clasificacion</legend>
-				{{ form.category }}
+				<div id="category-info">
+					{{ form.category }}
+				</div>
 				<span class="help-block">Selecciona la categoria en donde clasificarias tu articulo.</span>
 				{{ form.category.errors }}
 			</div>
 		</div>
 
-		<div>
+		<div id="wrapper-tags">
 			<legend>Tags</legend>
-			<input type="text" id="tags-container">
+			<input type="text" id="tags-input">
 			<input type="hidden" id="tags" name="tags">
+			<span class="help-block">Escribe palabras relacionadas a tu articulo y presiona ENTER</span>
 		</div>
 
-		<center>
+		<div class="text-center margin10">
 			<input id="submit-post" class="btn btn-success btn-large" type="submit" value="Guardar">
-		</center>
+		</div>
 	</form>
 </section>
 {% endblock %}

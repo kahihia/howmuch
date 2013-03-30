@@ -1,0 +1,32 @@
+<div class="hidden-phone">
+	<div class="row-fluid">
+		<div class="span9">
+			<ul class="inline margin5">
+				<li class="middle-align">
+					<h4>Hola {{ user }}!</h4>
+				</li>
+				<li class="middle-align">
+					<div>
+						<span class="label label-success">{{ user.profile.prestige}}</span>
+					</div>
+				</li>
+				<li class="middle-align">
+					<div>
+						<span class="label label-warning">{{ user.profile.total_points}} puntos</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="span3">
+			{% if user.profile.get_profile_progress < 100 %}
+			<ul class="inline margin10">
+				<li class="middle-align">
+					<a href="/profile/e/edit">
+						<span class="label label-important">Perfil al {{ user.profile.get_profile_progress }}%</span>
+					</a>
+				</li>
+			</ul>
+			{% endif %}			
+		</div>
+	</div>
+</div>

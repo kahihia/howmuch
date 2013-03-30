@@ -1,11 +1,11 @@
-{% extends "3columns.html" %}
+{% extends "article/2columns.html" %}
 
 {% block title %}{% endblock %}
 
 {% block facebooktags %}
 <meta property="og:title" content="Pagan ${{ article.price }} por {{ article.title}}"/>
 <meta property="og:type" content="Ecommerce"/>
-<meta property="og:url" content="http://www.howmuch.do{{ article.get_url }}"/>
+<meta property="og:url" content="http://www.comprateca.com{{ article.get_url }}"/>
 <meta property="og:image" content=""/>
 <meta property="og:site_name" content="howmuch"/>
 <meta property="og:description"
@@ -14,7 +14,10 @@
 
 {% block media %}
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme3/style.css">
 <script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
+<script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script>
 $(function () {
     $('.pics').glisse({
@@ -26,7 +29,6 @@ $(function () {
 });
 </script>
 <script type="text/javascript">
-
 $(document).on('ready', function(){
 
 	pic_count= {{ article.pictures.all.count }};
@@ -44,20 +46,60 @@ $(document).on('ready', function(){
 				$('#comments-form')[0].reset();
 			});
 	});
+});
+</script>
+<script>
+$(document).ready(function() {
+   var tourdata = [
+      {
+        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
+        element: $('#view-article-sell-button-info'),
+        overlayOpacity: 0.8,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
+        element: $('#view-article-price-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
+        element: $('#view-article-tags-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
+        element: $('#view-article-comments-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },
 
-	$('.unfollow').click(function(e){
-		e.preventDefault()
-		$.getJSON('/profile/e/follow/{{ article.pk }}', function(json){
-		});
-	});
 
-	$('.follow').click(function(e){
-		e.preventDefault();
-		$.getJSON('/profile/e/unfollow/{{ article.pk }}', function(json){
-		});
-	});
 
-	$('.delete_pic').click(function(e){
+   ];
+   
+   var viewArticleTour = jTour(tourdata,{
+      axis:'y',  // use only one axis prevent flickring on iOS devices
+      scrollBack: true //scrolls back to the beginning position
+   });
+   
+   //myTour.start();
+   
+   //the Button
+   $('#startTourViewArticle').click(function(){
+      viewArticleTour.restart();                      
+   }); 
+
+$('.delete_pic').click(function(e){
 		if (pic_count == 1){
 			$('#uniquepicerrordiv').show();
 		}
@@ -97,11 +139,10 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section1 %}
-	{% include "categories.html" %}
-{% endblock %}
-
-{% block section2 %}
-<section class="wrapper-div">
+<section class="wrapper-div3">
+	<div class="text-center margin10">
+		<a class="btn btn-danger" id="startTourViewArticle">Click para Ayuda</a>
+	</div>
 	<article>
 	{% if new_post %}
 	<div class="alert alert-success">
@@ -138,34 +179,35 @@ $(document).on('ready', function(){
    
 	
 		<div class="span8">
-			<div class="text-center">
+			<div class="text-center font-blue">
 				<h2>COMPRO {{ article.title }}</h2>
 			</div>
-			<div class="background2 text-center">
+			<div class="text-center">
 				<h4>{{ article.state }}</h4>
 			</div>
-			<div class="text-center">
-				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
-				<!-- 
-				<a id="btn-follow" class="btn btn-large btn-success unfollow" href="#">Seguir</a>
-				<a id="btn-follow" class="btn btn-large btn-success follow" href="#">Siguiendo</a>
-				 -->
-			</div>
-			<div class="text-center background4 font1">
+			<div id="view-article-price-info" class="text-center font-red margin5">
 				<h2>$ {{ article.price }}</h2>
+			</div>
+			<div id="view-article-sell-button-info" class="text-center">
+				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
 			</div>
 		</div>
 	</article>
 
-	<article class="margin5">
-		<legend>Quiero algo parecido a</legend>
-		<div id="uniquepicerrordiv" class="alert alert-error" style="display:none;">
+	<article id="view-article-description-info" class="margin10">
+		<h3 class="font-green">Descripcion de la compra</h3>
+		<p class="size16">{{ article.description }}</p>
+	</article>
+
+	<article class="margin10">
+		<h3 class="font-green">Quiero algo parecido a</h3>
+	<div id="uniquepicerrordiv" class="alert alert-error" style="display:none;">
 			<button id="uniquepicerrorbutton" type="button" class="close">&times;</button>
     		No puedes eliminar la unica imagen del articulo
-    	</div>
-		<div class="text-center span12">
+    </div>		
+	<div id="view-article-pictures-info" class="text-center span12">
 		{% for picture in article.pictures.all %}
-			<div id="div{{ picture.pk }}" class="thumbnail span3">
+			<div id="div{{ picture.pk }}" class="thumbnail span2">
 				<img id="pic_{{ picture.pk }}" class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
 				{% if user.is_authenticated and user == article.owner %}
 					<a id={{ picture.pk }} class="btn btn-mini delete_pic" href="#"><i class="icon-remove"></i></a>
@@ -176,33 +218,23 @@ $(document).on('ready', function(){
 	</article>
 
 	<article class="margin10">
-		<center>
-			<div class="fb-like" data-href="http://www.howmuch.do{{ article.get_url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial">
-			</div>
-		</center>
-	</article>
-
-	<article>
-		<legend>Etiquetas</legend>
-		<center>
+		<h3 class="font-green">Etiquetas</h3>
+		<div id="view-article-tags-info" class="text-center">
 		{% for tag in article.tags.all %}
-			<a class="btn btn-info" href="#">{{ tag }}</a>
+			<a class="btn btn-success btn-large" href="#">{{ tag }}</a>
 		{% endfor %}
-		</center>
+		</div>
 	</article>
 
-	<article>
-		<legend>Descripcion de la compra</legend>
-		<p>{{ article.description }}</p>
-	</article>
+
 </section>
 
 <!-- Comments Area -->
-<section class="wrapper-div">
-	<legend>Dudas del Articulo</legend>
+<section class="wrapper-div3">
+	<legend class="font-green">Dudas del Articulo</legend>
 	<div class="comments-area">
 		{% for comment in article.comments.all %}
-			<div class="wrapper-div row">
+			<div class="wrapper-div5 row">
 				<div class="span1 thumbnail">
 					<img src="{{ comment.owner.profile.get_profile_picture }}">
 				</div>
@@ -220,9 +252,16 @@ $(document).on('ready', function(){
 		{% endfor %}
 	</div>
 	{% if user.is_authenticated %}
-	<div>
+	<div class="margin10">
 		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<input class="span12" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+			<div class="row-fluid">
+				<div id="view-article-comments-info" class="span10">
+					<input class="span12 comment-input" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+				</div>
+				<div class="span2">
+					<input class="btn btn-success btn-large" type="submit" value="Enviar">
+				</div>
+			</div>
 		</form>
 	</div>
 	{% else %}
@@ -239,7 +278,7 @@ $(document).on('ready', function(){
 </section>
 {% endblock %}
 
-{% block section3 %}
+{% block section2 %}
 	{% include "howtodo.html" %}
 {% endblock %}
 

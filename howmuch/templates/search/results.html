@@ -1,4 +1,6 @@
-{% extends "3columns.html" %}
+{% extends "2columns.html" %}
+
+{% load search_tags %}
 
 {% block search-bar %}
 	{% include "search.html" %}
@@ -10,10 +12,12 @@
 
 {% block section2 %}
 
-<section>
-	<legend>{{ searchresults.matches }} personas estan comprando una {{ article }}</legend>
+<section class="wrapper-div">
+	<div class="text-center">
+		<h3>{{ searchresults.matches }} personas estan comprando una <em>{{ article }}</em></h3>
+	</div>
 	{% for result in searchresults.results %}
-	<article class="wrapper-div hover1">
+	<article class="wrapper-div5 hover1">
 		<div class="row-fluid">
 			<div class="thumbnail span3">
 				<a href="{{ result.docid }}">
@@ -21,24 +25,28 @@
 				</a>
 			</div>
 			<div class="span6">
-				<a class="a-title-large" href="{{ result.docid }}">{{ result.text }}</a>
-				<p>
+				<div class="margin10">	
+					<a class="a-title-large" href="{{ result.docid }}">{{ result.text|title }}</a>
+				</div>
+				<div class="margin10">
+					<p>
 					{{ result.description }}
-				</p>
-				<div class="background4 font1">
-					{{ result.tags }}
+					</p>
+				</div>
+				<div class="text-center">
+					{{ result.tags|tagsformat }}
 				</div>
 			</div>
 			<div class="span3 text-center">
-				<div class="background2">
+				<div class="wrapper-div4">
 					<h2>$ {{ result.price }}</h2>
 				</div>
-				<div class="background1">
+				<div class="wrapper-div2">
 					<h4>{{ result.state }}</h4>
 				</div>
 			</div>
 		</div>
-</article>
+	</article>
 	{% endfor %}
 </section>
 {% endblock %}

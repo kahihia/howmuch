@@ -23,6 +23,7 @@ def index_article(article):
 def searchservice(request):
     q = urllib.unquote(request.GET.get('q', '')) 
     q = q.strip() 
+    article = q
     resource = defineIndex() 
     index = resource['index']
     results = [] 
@@ -33,7 +34,7 @@ def searchservice(request):
         searchresults = index.search( 'text:%s' % finalq , 
             fetch_fields=['text', 'img','description', 'tags','state', 'price']) 
         return render_to_response('search/results.html', 
-            {'searchresults' : searchresults, 'article' : q }, 
+            {'searchresults' : searchresults, 'article' : article }, 
             context_instance = RequestContext(request) )
     return HttpResponse('{"results": "none"}') 
 

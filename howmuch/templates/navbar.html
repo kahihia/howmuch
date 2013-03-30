@@ -9,15 +9,16 @@
         <div class="nav-collapse collapse navbar-responsive-collapse">
           {% if user.is_authenticated %}
           <ul class="nav">
-            <li class="dropdown">
+            <li id="user-info" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ user }}<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="/profile/e/edit"><i class=""></i>Perfil</a></li>
+                <li class="profile-info"><a href="/profile/e/edit"><i class=""></i>Perfil</a></li>
                 <li><a href="/config/notifications">Configuracion</a></li>
                 <li><a href="/invoice"><i class=""></i>Estado de Cuenta</a></li>
+                <li><a href="/profile/{{ user }}">Mi Prestigio</a></li>
               </ul>
             </li>
-            <li class="dropdown">
+            <li id="operations-info" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon-white"></i> Operaciones<b class="caret"></b></a>
               <ul class="dropdown-menu">
                   <li><a href="/account/offers">Ofertas</a></li>
@@ -26,12 +27,30 @@
               </ul>
             </li>
             <li class="divider-vertical"></li>
-            <li class="active"><a href="/article/post"><i class="icon-pencil icon-white"></i> Publicar Compra</a></li>
+            <li id="post-article" class="active"><a href="/article/post"><i class="icon-pencil icon-white"></i> Publicar Compra</a></li>
           </ul>
 
           <ul class="nav pull-right">
-              <li><a href="/notifications"><i class="icon-bell icon-white"></i> Notificaciones</a></li>
-              <li><a href="/messages/inbox"><i class="icon-envelope icon-white"></i> Mensajes</a></li>
+              <li id="notifications-info">
+                <a href="/notifications">
+                  <i class="icon-bell icon-white">
+                  </i> 
+                  Notificaciones
+                  {% if user.profile.unread_notifications > 0 %}
+                  <span class="badge badge-important">{{ user.profile.unread_notifications }}</span>
+                  {% endif %}
+                </a>
+              </li>
+              <li id="inbox-info">
+                <a href="/messages/inbox">
+                  <i class="icon-envelope icon-white">
+                  </i> 
+                  Mensajes
+                  {% if user.profile.unread_conversations > 0 %}
+                  <span class="badge badge-important">{{ user.profile.unread_conversations }}</span>
+                  {% endif %} 
+                </a>
+              </li>
               <li class="divider-vertical"></li>
               <li><a href="/"><i class="icon-home icon-white"></i> Inicio</a></li>
               <li><a href="/logout"><i class="icon-off icon-white"></i> Salir</a></li>

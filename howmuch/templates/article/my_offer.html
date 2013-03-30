@@ -16,7 +16,7 @@ $(function () {
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div">
+<section class="wrapper-div3">
 	<article class="row-fluid margin10">
 		<div class="thumbnail span2">
 			<img src="{{ offer.article.get_first_picture_url }}">
@@ -27,10 +27,10 @@ $(function () {
 			</center>
 		</div>
 	</article>
-	<article>
-		<center>
+	<article class="wrapper-div4 margin5">
+		<div class="text-center">
 			<h2>Pago ${{ offer.cprice}}</h2>
-		</center>
+		</div>
 	</article>
 	<article class="row-fluid">
 		<div class="span4">
@@ -74,26 +74,28 @@ $(function () {
 				</a>
 			</div>
 		</div>
-
 	</article>
 
 	<article>
-		<legend>Descripción de la Oferta</legend>
-		<div>
-			<p>
-				{{ offer.message }}
-			</p>
+		<div class="text-center">
+			<h3>Imagenes del Articulo</h3>
 		</div>
-	</article>
-
-	<article>
-		<legend>Imagenes del Articulo</legend>
-		<div class="text-center span12">
+		<div class="span12">
 		{% for picture in offer.pictures.all %}
 			<div class="thumbnail span2">
 				<img  class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url  }}" rel="group1">
 			</div>
 		{% endfor %}
+		</div>
+	</article>
+	<article>
+		<div class="text-center">
+			<h3>Descripción de la Oferta</h3>
+		</div>
+		<div>
+			<p>
+				{{ offer.message }}
+			</p>
 		</div>
 	</article>
 </section>

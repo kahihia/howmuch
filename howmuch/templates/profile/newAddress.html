@@ -6,10 +6,10 @@
 
 {% block section2 %}
 
-<section class="wrapper-div background1">
+<section class="wrapper-div3 text-center">
 	<h2>Nueva Dirección</h2>
-	<form action='' method='POST'>{% csrf_token %}
 
+	<form action='' method='POST'>{% csrf_token %}
 		<div>
 			<legend>Calle</legend>
 			{{ form.street }}
@@ -52,10 +52,9 @@
 			{{ form.zipcode.errors }}
 		</div>
 
-		<center>
+		<div>
 			<input class="btn btn-success btn-large" type="submit" value="Guardar">
-		</center>
-		
+		</div>
 	</form>
 
 </section>

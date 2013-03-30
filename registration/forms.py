@@ -33,28 +33,27 @@ class RegistrationForm(forms.Form):
     """
     username = forms.RegexField(regex=r'^\w+$',
                                 max_length=30,
-                                widget=forms.TextInput(attrs=dict(attrs_dict,placeholder="USUARIO")),
+                                widget=forms.TextInput(attrs={'class':'span12'}),
                                 label=_("Username"),
                                 error_messages={ 'invalid': _("This value must contain only letters, numbers and underscores.") })
 
     first_name = forms.CharField(max_length=30,
-                                widget=forms.TextInput(attrs=dict(attrs_dict,placeholder="NOMBRES")),
+                                widget=forms.TextInput(attrs={'class':'span12'}),
                                 label=_("First Name"),
                                 error_messages={ 'invalid': _("Required. 30 characters or fewer.") })
 
     last_name = forms.CharField(max_length=30,
-                                widget=forms.TextInput(attrs=dict(attrs_dict,placeholder="APELLIDOS")),
+                                widget=forms.TextInput(attrs={'class':'span12'}),
                                 label=_("Last Name"),
                                 error_messages={ 'invalid': _("Required. 30 characters or fewer.") })
 
-    email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
-                                                               maxlength=75,placeholder="CORREO ELECTRONICO")),
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class':'span12', 'max_length':75}),
                              label=_("Email address"))
 
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs=dict(attrs_dict,placeholder="CONTRASEÑA"), render_value=False),
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'span12'}, render_value=False),
                                 label=_("Password"))
 
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs=dict(attrs_dict,placeholder="REPITE TU CONTRASEÑA"), render_value=False),
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'span12'}, render_value=False),
                                 label=_("Password (again)"))
 
     tos = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),

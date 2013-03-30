@@ -38,18 +38,32 @@ def generate_invoice(user):
 	except Invoice.DoesNotExist:
 		invoice = Invoice.objects.create(owner=user, period=period, 
 			reference=generate_reference(user))
+		invoice.invoice = generate_number_invoice(invoice.pk)
+		invoice.save()
 	#Se actualiza el current_invoice del usuario
 	user.profile.current_invoice = period
 	user.profile.save()
 
 #Generar Referencia Alfanumerica de la Factura en el formato 'userID' + 'month' + 'year'
 def generate_reference(user):
-	return '%05d%s%s' % (user.pk, datetime.datetime.now().month, datetime.datetime.now().year) 
+	return '%07d%s%s' % (user.pk, datetime.datetime.now().month, datetime.datetime.now().year) 
+
+
+def generate_number_invoice(invoiceID):
+	import hashlib
+	number = hashlib.sha224(str(invoiceID)).hexdigest() 
+	return number[17:27]
+
 
 #Unlock account
 def unlock_account(user):
-	user.profile.is_block = True
+	user.profile.is_block = False
 	user.profile.save()
+
+
+
+
+
 
 
 

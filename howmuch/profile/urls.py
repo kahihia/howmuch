@@ -10,6 +10,10 @@ urlpatterns = patterns('howmuch.profile.views',
         url(r'^e/follow/(?P<articleID>\d+)/$', 'follow', name='follow article'),
         #Unfollow Article
     	url(r'^e/unfollow/(?P<articleID>\d+)/$', 'unfollow', name='unfollow article'),
+        #change first time
+        url(r'^e/first_time/$', 'first_time', name='change first time'),
+        #change first post
+        url(r'^e/first_post/$', 'first_post', name='change first post'),
         url(r'^e/edit/$', 'edit' , name = 'edit profile'),
         url(r'^e/newaddress/$', 'new_address', name = 'new address'),
         url(r'^e/editaddress/(?P<addressID>\d+)/$', 'edit_address', name= 'edit address'),

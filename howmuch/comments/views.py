@@ -25,7 +25,7 @@ def post(request, articleID):
 			#Send email to buyer or followers
 			send_mail(article, request.user, post)
 			#html content for http response
-			html_content = 	"<div class='wrapper-div row'>" +\
+			html_content = 	"<div class='wrapper-div5 row'>" +\
 							"<div class='span1 thumbnail'>" +\
 							"<img src='%s'>" % (post.owner.profile.get_profile_picture()) +\
 							"</div>" +\

@@ -92,8 +92,6 @@ def offer(request,articleID):
     article = get_object_or_404(Article, pk = articleID)    
     #Validar Offer
     errors = validate_offer(articleID, request.user)
-    if errors:
-        return HttpResponse(errors)
     #Formulario
     if request.method == 'POST':
         form = OfferForm(request.POST, request.FILES)
@@ -133,7 +131,8 @@ def offer(request,articleID):
             return HttpResponseRedirect('/account/offers/')
     else:
         form = OfferForm()
-    return render_to_response('article/offer.html', {'form' : form, 'article' : article, 'user' : request.user }, 
+    return render_to_response('article/offer.html', {'form' : form, 'article' : article, 
+            'user' : request.user, 'errors':errors }, 
         context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')

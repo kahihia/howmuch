@@ -159,11 +159,11 @@
     line-height: 22px;
 }
 .ms-sel-ctn .ms-sel-item{
-    background: #555;
+    background: #154A9A;
     color: #EEE;
     float: left;
     font-size: 12px;
-    padding: 0 5px;
+    padding: 5px;
     border-radius: 3px;
     margin-left: 5px;
     margin-top: 4px;
@@ -182,7 +182,7 @@
     color: #FFF;
 }
 .ms-sel-ctn .ms-sel-item:hover{
-    background: #565656;
+    background: #113A78;
 }
 .ms-sel-ctn .ms-sel-text:hover{
     background: #FFF;
@@ -215,4 +215,7 @@
     position: absolute;
     top: -17px;
     right: 0;
+}
+#ms-res-ctn-0{
+    width: 100% !important;
 }

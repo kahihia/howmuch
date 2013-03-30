@@ -19,22 +19,25 @@ $(document).on('ready', function(){
 
 {% block section2 %}
 
-<section>
-    <center>
+<section class="wrapper-div">
+    <div class="text-center">
         <h2>Mis Compras</h2>
-    </center>
+    </div>
 	
-    <ul class="nav nav-tabs" id="myTab">
-    	<li class="active">
-            <a href="#published">Compras Publicadas</a>
-        </li>
-    	<li>
-    		<a href="#process">Compras en Proceso</a>
-    	</li>
-        <li>
-            <a href="#completed">Compras Finalizadas</a>
-        </li>
-    </ul>
+    <div>
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active">
+                <a href="#published">Compras Publicadas</a>
+            </li>
+            <li>
+                <a href="#process">Compras en Proceso</a>
+            </li>
+            <li>
+                <a href="#completed">Compras Finalizadas</a>
+            </li>
+        </ul>
+    </div>
+
    
     <div class="tab-content">
 
@@ -42,24 +45,36 @@ $(document).on('ready', function(){
             {% for item in publishedPurchases %}
                 {% include "account/publishedPurchases.html" %}
             {% empty %}
-            <h3>Aun no has Publicado una compra</h3>
-            <a href="/article/post">Publicar compra</a>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Vacio!</h4>
+                Aun no tienes operaciones
+                <a href="/article/post"> Publicar una Compra</a>
+            </div>
             {% endfor %}
     	</div>
     	<div class="tab-pane" id="process">
             {% for item in processPurchases %}
                 {% include "account/processPurchases.html" %}
             {% empty %}
-            <h3>Aun no has Publicado una compra</h3>
-            <a href="/article/post">Publicar compra</a>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Vacio!</h4>
+                Aun no tienes operaciones
+                <a href="/article/post"> Publicar una Compra</a>
+            </div>
             {% endfor %}
     	</div>
         <div class="tab-pane" id="completed">
             {% for item in completedPurchases %}
                 {% include "account/completedPurchases.html" %}
             {% empty %}
-            <h3>Aun no has Publicado una compra</h3>
-            <a href="/article/post">Publicar compra</a>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Vacio!</h4>
+                Aun no tienes operaciones
+                <a href="/article/post"> Publicar una Compra</a>
+            </div>
             {% endfor %}
         </div>
     </div>

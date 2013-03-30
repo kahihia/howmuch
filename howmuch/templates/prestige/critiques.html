@@ -13,6 +13,7 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section1 %}
+<section class="wrapper-div3">
 <div class="row-fluid">
 	<div class="span2 thumbnail">
 		<img src="{{ user.profile.profile_picture.url }}">
@@ -21,9 +22,11 @@ $(document).on('ready', function(){
 		<legend>{{ user.get_full_name }}  ({{ user }})</legend>
 	</div>
 </div>
-<legend>Prestigio</legend>
-<div>
+<div class="text-center">
 	<h1>{{ user.profile.prestige }}</h1>
+</div>
+<div class="text-center">
+	<h3>criticas para {{ user }}</h3>
 </div>
 <div>
 	<ul class="nav nav-tabs" id="tab-critiques">
@@ -89,4 +92,5 @@ $(document).on('ready', function(){
 		</div>
     </div>
 </div>
+</section>
 {% endblock %}
