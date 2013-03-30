@@ -5,7 +5,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 gettext_noop = lambda s: s
 
-
+a
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
