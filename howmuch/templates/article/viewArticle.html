@@ -30,12 +30,33 @@ $(function () {
 </script>
 <script type="text/javascript">
 $(document).on('ready', function(){
-
 	pic_count= {{ article.pictures.all.count }};
 	var pic_ids= new Array();
 	{% for p in article.pictures.all %}
 		pic_ids[{{ forloop.counter0 }}]={{ p.pk }};
 	{% endfor %}
+
+	$('.delete_pic').click(function(e){
+		if (pic_count == 1){
+			$('#uniquepicerrordiv').show();
+		}
+		else {
+			e.preventDefault();
+			$.getJSON('/article/deletepicture/{{ article.pk }}/'+this.id, function(json){
+			});
+			$('#div'+this.id).hide();
+			
+			if ($('#articledisplayimage').attr("src") == $('#pic_'+this.id).attr("src").split("?")[0]){
+            	$('#articledisplayimage').attr("src", $('#pic_'+pic_ids[pic_ids.length-pic_count+1]).attr("src").split("?")[0]);
+            	$('#articledisplayimage').fadeIn();
+			}
+			pic_count--;
+		}
+	});
+
+	$('#uniquepicerrorbutton').click(function(e){
+		$('#uniquepicerrordiv').hide();
+	});
 
 	$('#comments-form').submit(function(e){
 		e.preventDefault();
@@ -98,38 +119,6 @@ $(document).ready(function() {
    $('#startTourViewArticle').click(function(){
       viewArticleTour.restart();                      
    }); 
-
-$('.delete_pic').click(function(e){
-		if (pic_count == 1){
-			$('#uniquepicerrordiv').show();
-		}
-		else {
-			e.preventDefault();
-			$.getJSON('/article/deletepicture/{{ article.pk }}/'+this.id, function(json){
-			});
-			$('#div'+this.id).hide();
-			
-			if ($('#articledisplayimage').attr("src") == $('#pic_'+this.id).attr("src").split("?")[0]){
-            	$('#articledisplayimage').attr("src", $('#pic_'+pic_ids[pic_ids.length-pic_count+1]).attr("src").split("?")[0]);
-            	$('#articledisplayimage').fadeIn();
-			}
-			pic_count--;
-		}
-	});
-
-	$('#uniquepicerrorbutton').click(function(e){
-		$('#uniquepicerrordiv').hide();
-	});
-
-	$('#comments-form').submit(function(e){
-		e.preventDefault();
-		$.post('/comments/post/{{ article.pk }}/', 
-			$('#comments-form').serialize(),
-			function(data){
-				$('.comments-area').append(data);
-				$('#comments-form')[0].reset();
-			});
-	});
 });
 </script>
 {% endblock %}
@@ -281,7 +270,3 @@ $('.delete_pic').click(function(e){
 {% block section2 %}
 	{% include "howtodo.html" %}
 {% endblock %}
-
-
-
-
