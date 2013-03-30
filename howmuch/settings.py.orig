@@ -20,7 +20,7 @@ MANAGERS = ADMINS
 #import dj_database_url   # use this to setup in localsettings.
 DATABASES = {'default':
                    dj_database_url.config(
-                  default='postgres://kayethano:90ldenb0y@localhost:5432/howmuch')
+                  default='postgres://mario:5xaf9j9u@localhost:5432/howmuch')
         }
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -153,7 +153,6 @@ INSTALLED_APPS = (
     'howmuch.invoice',
     'howmuch.messages',
     'howmuch.notifications',
-    'howmuch.pays',
     'howmuch.pictures',
     'howmuch.prestige',
     'howmuch.problems',
@@ -163,7 +162,6 @@ INSTALLED_APPS = (
 
 
     'registration',
-    'paypal.standard.ipn'
 
 )
 
@@ -211,8 +209,8 @@ DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
 
 
 #Cuantoo.com Facebook Settings
-FACEBOOK_APP_ID = '151714724990012'
-FACEBOOK_APP_SECRET = '96c602d1701ce53c3241652cdec8d6fd' 
+FACEBOOK_APP_ID = '429046753838184'
+FACEBOOK_APP_SECRET = 'f25118e2c2043d335d5aebecded78976' 
 #FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 
 #Comission 
@@ -255,11 +253,4 @@ PRESTIGE_TYPES = {
 }
 
 #SITE OFFICIAL URL
-URL_OFFICIAL_SITE = 'http://www.comprateca.com'
-
-#CHANGE PASSWORD REDIRECT 
-CHANGE_CONFIG_REDIRECT = '/config/notifications/?change_config=True'
-
-#PAYPAL EMAIL
-PAYPAL_RECEIVER_EMAIL = "paypal@brainn.co"
-
+URL_OFFICIAL_SITE = 'http://www.cuantoo.com'

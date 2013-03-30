@@ -1,0 +1,312 @@
+{% extends "article/2columns.html" %}
+
+{% block title %}{% endblock %}
+
+{% block facebooktags %}
+<meta property="og:title" content="Pagan ${{ article.price }} por {{ article.title}}"/>
+<meta property="og:type" content="Ecommerce"/>
+<meta property="og:url" content="http://www.comprateca.com{{ article.get_url }}"/>
+<meta property="og:image" content=""/>
+<meta property="og:site_name" content="howmuch"/>
+<meta property="og:description"
+    content="{{ article.description|truncatechars:100}}"/>
+{% endblock %}
+
+{% block media %}
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+<link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme3/style.css">
+<script src="{{ MEDIA_URL }}js/glisse.js"></script>
+<script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
+<script src="{{ MEDIA_URL }}/js/jTour.js"></script>
+<script>
+$(function () {
+    $('.pics').glisse({
+        changeSpeed: 550,
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    });
+});
+</script>
+<script type="text/javascript">
+
+$(document).on('ready', function(){
+
+	pic_count= {{ article.pictures.all.count }};
+	var pic_ids= new Array();
+	{% for p in article.pictures.all %}
+		pic_ids[{{ forloop.counter0 }}]={{ p.pk }};
+	{% endfor %}
+
+	$('#comments-form').submit(function(e){
+		e.preventDefault();
+		$.post('/comments/post/{{ article.pk }}/', 
+			$('#comments-form').serialize(),
+			function(data){
+				$('.comments-area').append(data);
+				$('#comments-form')[0].reset();
+			});
+	});
+<<<<<<< HEAD
+
+	$('.unfollow').click(function(e){
+		e.preventDefault()
+		$.getJSON('/profile/e/follow/{{ article.pk }}', function(json){
+		});
+	});
+
+	$('.follow').click(function(e){
+		e.preventDefault();
+		$.getJSON('/profile/e/unfollow/{{ article.pk }}', function(json){
+		});
+	});
+
+	$('.delete_pic').click(function(e){
+		if (pic_count == 1){
+			$('#uniquepicerrordiv').show();
+		}
+		else {
+			e.preventDefault();
+			$.getJSON('/article/deletepicture/{{ article.pk }}/'+this.id, function(json){
+			});
+			$('#div'+this.id).hide();
+			
+			if ($('#articledisplayimage').attr("src") == $('#pic_'+this.id).attr("src").split("?")[0]){
+            	$('#articledisplayimage').attr("src", $('#pic_'+pic_ids[pic_ids.length-pic_count+1]).attr("src").split("?")[0]);
+            	$('#articledisplayimage').fadeIn();
+			}
+			pic_count--;
+		}
+	});
+
+	$('#uniquepicerrorbutton').click(function(e){
+		$('#uniquepicerrordiv').hide();
+	});
+
+	$('#comments-form').submit(function(e){
+		e.preventDefault();
+		$.post('/comments/post/{{ article.pk }}/', 
+			$('#comments-form').serialize(),
+			function(data){
+				$('.comments-area').append(data);
+				$('#comments-form')[0].reset();
+			});
+	});
+=======
+});
+</script>
+<script>
+$(document).ready(function() {
+   var tourdata = [
+      {
+        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
+        element: $('#view-article-sell-button-info'),
+        overlayOpacity: 0.8,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
+        element: $('#view-article-price-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
+        element: $('#view-article-tags-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
+        element: $('#view-article-comments-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },
+
+
+
+   ];
+   
+   var viewArticleTour = jTour(tourdata,{
+      axis:'y',  // use only one axis prevent flickring on iOS devices
+      scrollBack: true //scrolls back to the beginning position
+   });
+   
+   //myTour.start();
+   
+   //the Button
+   $('#startTourViewArticle').click(function(){
+      viewArticleTour.restart();                      
+   }); 
+>>>>>>> 19d8cd3b82d2bc1633e9bbe2d019630f0f950b37
+});
+</script>
+{% endblock %}
+
+{% block search-bar %}
+	{% include "search.html" %}
+{% endblock %}
+
+{% block section1 %}
+<section class="wrapper-div3">
+	<div class="text-center margin10">
+		<a class="btn btn-danger" id="startTourViewArticle">Click para Ayuda</a>
+	</div>
+	<article>
+	{% if new_post %}
+	<div class="alert alert-success">
+    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	<h4>Felicidades!</h4>
+    	Acabas de Publicar correctamente tu Compra
+    </div>
+	{% endif %}
+	{% if article.owner == user %}
+    <div class="alert alert-block">
+    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	Esta Es Tu Publicación <a href="{{ article.get_url }}/edit">Editar</a>
+    </div>
+	{% endif %}
+
+	{% if not article.is_active %}
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+    	Esta Publicación Ha Finalizado <a href="/article/post">Publicar una Compra</a>
+    </div>
+	{% endif %}
+	</article>
+
+	<article class="margin10">
+		<center>
+			Publicado <b>hace {{ article.date|timesince }}</b> por <a href="/profile/{{ article.owner }}">{{ article.owner }}</a> 
+		</center>
+	</article>
+
+	<article class="row-fluid">
+		<div class="thumbnail span4">
+    		<img id="articledisplayimage" src="{{ article.get_first_picture_url }}" alt="">
+    	</div>
+   
+	
+		<div class="span8">
+			<div class="text-center font-blue">
+				<h2>COMPRO {{ article.title }}</h2>
+			</div>
+			<div class="text-center">
+				<h4>{{ article.state }}</h4>
+			</div>
+			<div id="view-article-price-info" class="text-center font-red margin5">
+				<h2>$ {{ article.price }}</h2>
+			</div>
+			<div id="view-article-sell-button-info" class="text-center">
+				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
+			</div>
+		</div>
+	</article>
+
+<<<<<<< HEAD
+	<article class="margin5">
+		<legend>Quiero algo parecido a</legend>
+		<div id="uniquepicerrordiv" class="alert alert-error" style="display:none;">
+			<button id="uniquepicerrorbutton" type="button" class="close">&times;</button>
+    		No puedes eliminar la unica imagen del articulo
+    	</div>
+		<div class="text-center span12">
+		{% for picture in article.pictures.all %}
+			<div id="div{{ picture.pk }}" class="thumbnail span3">
+				<img id="pic_{{ picture.pk }}" class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+				{% if user.is_authenticated and user == article.owner %}
+					<a id={{ picture.pk }} class="btn btn-mini delete_pic" href="#"><i class="icon-remove"></i></a>
+				{% endif %}
+=======
+	<article id="view-article-description-info" class="margin10">
+		<h3 class="font-green">Descripcion de la compra</h3>
+		<p class="size16">{{ article.description }}</p>
+	</article>
+
+	<article class="margin10">
+		<h3 class="font-green">Quiero algo parecido a</h3>
+		<div id="view-article-pictures-info" class="text-center span12">
+		{% for picture in article.pictures.all %}
+			<div class="thumbnail span2">
+				<img class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+>>>>>>> 19d8cd3b82d2bc1633e9bbe2d019630f0f950b37
+			</div>
+		{% endfor%}
+		</div>
+	</article>
+
+	<article class="margin10">
+		<h3 class="font-green">Etiquetas</h3>
+		<div id="view-article-tags-info" class="text-center">
+		{% for tag in article.tags.all %}
+			<a class="btn btn-success btn-large" href="#">{{ tag }}</a>
+		{% endfor %}
+		</div>
+	</article>
+
+
+</section>
+
+<!-- Comments Area -->
+<section class="wrapper-div3">
+	<legend class="font-green">Dudas del Articulo</legend>
+	<div class="comments-area">
+		{% for comment in article.comments.all %}
+			<div class="wrapper-div5 row">
+				<div class="span1 thumbnail">
+					<img src="{{ comment.owner.profile.get_profile_picture }}">
+				</div>
+				<div class="span9">
+					<p>	
+						{{ comment.comment }}
+					</p>
+				</div>
+				<div>
+					<b>
+						hace {{ comment.get_timestamp }}
+					</b>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	{% if user.is_authenticated %}
+	<div class="margin10">
+		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			<div class="row-fluid">
+				<div id="view-article-comments-info" class="span10">
+					<input class="span12 comment-input" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
+				</div>
+				<div class="span2">
+					<input class="btn btn-success btn-large" type="submit" value="Enviar">
+				</div>
+			</div>
+		</form>
+	</div>
+	{% else %}
+	<div>
+		<p>
+			<span>Para poder comentar debes iniciar sesión</span>
+			<a href="/login/">Iniciar Sesión</a>
+		</p>
+	</div>
+	{% endif %}
+	<div class="text-center">
+		<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
+	</div>
+</section>
+{% endblock %}
+
+{% block section2 %}
+	{% include "howtodo.html" %}
+{% endblock %}
+
+
+
+
