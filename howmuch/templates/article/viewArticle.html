@@ -20,12 +20,7 @@
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script>
 $(function () {
-    $('.pics').glisse({
-        changeSpeed: 550,
-        speed: 500,
-        effect:'bounce',
-        fullscreen: true,
-    });
+
 });
 </script>
 <script type="text/javascript">
@@ -35,6 +30,49 @@ $(document).on('ready', function(){
 	{% for p in article.pictures.all %}
 		pic_ids[{{ forloop.counter0 }}]={{ p.pk }};
 	{% endfor %}
+
+	var tourdata = [
+      {
+        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
+        element: $('#view-article-sell-button-info'),
+        overlayOpacity: 0.8,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
+        element: $('#view-article-price-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
+        element: $('#view-article-tags-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
+        element: $('#view-article-comments-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },
+   	];
+   
+   	var viewArticleTour = jTour(tourdata,{
+      axis:'y',  // use only one axis prevent flickring on iOS devices
+      scrollBack: true //scrolls back to the beginning position
+   	});
+
+   	$('#startTourViewArticle').click(function(){
+      viewArticleTour.restart();                      
+   	}); 
 
 	$('.delete_pic').click(function(e){
 		if (pic_count == 1){
@@ -67,58 +105,13 @@ $(document).on('ready', function(){
 				$('#comments-form')[0].reset();
 			});
 	});
-});
-</script>
-<script>
-$(document).ready(function() {
-   var tourdata = [
-      {
-        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
-        element: $('#view-article-sell-button-info'),
-        overlayOpacity: 0.8,
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
-        element: $('#view-article-price-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
-        element: $('#view-article-tags-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
-        element: $('#view-article-comments-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },
 
-
-
-   ];
-   
-   var viewArticleTour = jTour(tourdata,{
-      axis:'y',  // use only one axis prevent flickring on iOS devices
-      scrollBack: true //scrolls back to the beginning position
-   });
-   
-   //myTour.start();
-   
-   //the Button
-   $('#startTourViewArticle').click(function(){
-      viewArticleTour.restart();                      
-   }); 
+	$('.pics').glisse({
+        changeSpeed: 550,
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    });
 });
 </script>
 {% endblock %}
