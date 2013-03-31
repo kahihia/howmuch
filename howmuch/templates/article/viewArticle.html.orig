@@ -18,25 +18,87 @@
 <script src="{{ MEDIA_URL }}js/glisse.js"></script>
 <script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
+<<<<<<< HEAD
+=======
 <script>
 $(function () {
-    $('.pics').glisse({
-        changeSpeed: 550,
-        speed: 500,
-        effect:'bounce',
-        fullscreen: true,
-    });
+
 });
 </script>
+>>>>>>> jc
 <script type="text/javascript">
-
 $(document).on('ready', function(){
-
 	pic_count= {{ article.pictures.all.count }};
+
+<<<<<<< HEAD
 	var pic_ids= new Array();
-	{% for p in article.pictures.all %}
-		pic_ids[{{ forloop.counter0 }}]={{ p.pk }};
-	{% endfor %}
+		{% for p in article.pictures.all %}
+			pic_ids[{{ forloop.counter0 }}]={{ p.pk }};
+		{% endfor %}
+
+=======
+>>>>>>> jc
+	var tourdata = [
+      {
+        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
+        element: $('#view-article-sell-button-info'),
+        overlayOpacity: 0.8,
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
+        element: $('#view-article-price-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
+        element: $('#view-article-tags-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },{
+        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
+        element: $('#view-article-comments-info'),
+        overlayOpacity: 0.8,
+        onShow: function(e){ e.addClass("background1");},
+        onHide: function(e){ e.removeClass("background1");},
+        expose: true,
+        position: 's'
+      },
+   	];
+   
+   	var viewArticleTour = jTour(tourdata,{
+      axis:'y',  // use only one axis prevent flickring on iOS devices
+      scrollBack: true //scrolls back to the beginning position
+   	});
+
+<<<<<<< HEAD
+	$('.delete_pic').click(function(e){
+		if (pic_count == 1){
+			$('#uniquepicerrordiv').show();
+		}
+		else {
+			e.preventDefault();
+			$.getJSON('/article/deletepicture/{{ article.pk }}/'+this.id, function(json){
+			});
+			$('#div'+this.id).hide();
+			
+			if ($('#articledisplayimage').attr("src") == $('#pic_'+this.id).attr("src").split("?")[0]){
+            	$('#articledisplayimage').attr("src", $('#pic_'+pic_ids[pic_ids.length-pic_count+1]).attr("src").split("?")[0]);
+            	$('#articledisplayimage').fadeIn();
+			}
+			pic_count--;
+		}
+	});
+
+	$('#uniquepicerrorbutton').click(function(e){
+		$('#uniquepicerrordiv').hide();
+	});
 
 	$('#comments-form').submit(function(e){
 		e.preventDefault();
@@ -47,19 +109,15 @@ $(document).on('ready', function(){
 				$('#comments-form')[0].reset();
 			});
 	});
-<<<<<<< HEAD
 
-	$('.unfollow').click(function(e){
-		e.preventDefault()
-		$.getJSON('/profile/e/follow/{{ article.pk }}', function(json){
-		});
-	});
+	$('#startTourViewArticle').click(function(){
+      viewArticleTour.restart();                      
+   	}); 
 
-	$('.follow').click(function(e){
-		e.preventDefault();
-		$.getJSON('/profile/e/unfollow/{{ article.pk }}', function(json){
-		});
-	});
+=======
+   	$('#startTourViewArticle').click(function(){
+      viewArticleTour.restart();                      
+   	}); 
 
 	$('.delete_pic').click(function(e){
 		if (pic_count == 1){
@@ -92,60 +150,14 @@ $(document).on('ready', function(){
 				$('#comments-form')[0].reset();
 			});
 	});
-=======
-});
-</script>
-<script>
-$(document).ready(function() {
-   var tourdata = [
-      {
-        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
-        element: $('#view-article-sell-button-info'),
-        overlayOpacity: 0.8,
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
-        element: $('#view-article-price-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
-        element: $('#view-article-tags-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
-        element: $('#view-article-comments-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },
 
-
-
-   ];
-   
-   var viewArticleTour = jTour(tourdata,{
-      axis:'y',  // use only one axis prevent flickring on iOS devices
-      scrollBack: true //scrolls back to the beginning position
-   });
-   
-   //myTour.start();
-   
-   //the Button
-   $('#startTourViewArticle').click(function(){
-      viewArticleTour.restart();                      
-   }); 
->>>>>>> 19d8cd3b82d2bc1633e9bbe2d019630f0f950b37
+>>>>>>> jc
+	$('.pics').glisse({
+        changeSpeed: 550,
+        speed: 500,
+        effect:'bounce',
+        fullscreen: true,
+    });
 });
 </script>
 {% endblock %}
@@ -210,21 +222,6 @@ $(document).ready(function() {
 		</div>
 	</article>
 
-<<<<<<< HEAD
-	<article class="margin5">
-		<legend>Quiero algo parecido a</legend>
-		<div id="uniquepicerrordiv" class="alert alert-error" style="display:none;">
-			<button id="uniquepicerrorbutton" type="button" class="close">&times;</button>
-    		No puedes eliminar la unica imagen del articulo
-    	</div>
-		<div class="text-center span12">
-		{% for picture in article.pictures.all %}
-			<div id="div{{ picture.pk }}" class="thumbnail span3">
-				<img id="pic_{{ picture.pk }}" class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
-				{% if user.is_authenticated and user == article.owner %}
-					<a id={{ picture.pk }} class="btn btn-mini delete_pic" href="#"><i class="icon-remove"></i></a>
-				{% endif %}
-=======
 	<article id="view-article-description-info" class="margin10">
 		<h3 class="font-green">Descripcion de la compra</h3>
 		<p class="size16">{{ article.description }}</p>
@@ -232,11 +229,17 @@ $(document).ready(function() {
 
 	<article class="margin10">
 		<h3 class="font-green">Quiero algo parecido a</h3>
-		<div id="view-article-pictures-info" class="text-center span12">
+	<div id="uniquepicerrordiv" class="alert alert-error" style="display:none;">
+			<button id="uniquepicerrorbutton" type="button" class="close">&times;</button>
+    		No puedes eliminar la unica imagen del articulo
+    </div>		
+	<div id="view-article-pictures-info" class="text-center span12">
 		{% for picture in article.pictures.all %}
-			<div class="thumbnail span2">
-				<img class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
->>>>>>> 19d8cd3b82d2bc1633e9bbe2d019630f0f950b37
+			<div id="div{{ picture.pk }}" class="thumbnail span2">
+				<img id="pic_{{ picture.pk }}" class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
+				{% if user.is_authenticated and user == article.owner %}
+					<a id={{ picture.pk }} class="btn btn-mini delete_pic" href="#"><i class="icon-remove"></i></a>
+				{% endif %}
 			</div>
 		{% endfor%}
 		</div>
@@ -306,7 +309,3 @@ $(document).ready(function() {
 {% block section2 %}
 	{% include "howtodo.html" %}
 {% endblock %}
-
-
-
-
