@@ -10,12 +10,14 @@
 
 {% block section2 %}
 <div class="wrapper-div3 text-center">
-  <div>
+  <!-- 
+    <div>
     <form action="{% url facebook_connect %}?facebook_login=1" method="post">
       <a href="javascript:void(0);" style="font-size: 20px;" onclick="F.connect(this.parentNode);">Login with Facebook</a>
       <input type="hidden" value="/" name="next" />
     </form>
   </div>
+   -->
   <form class="form-horizontal" action="" method="post">{% csrf_token %}
 
     <h3>Iniciar Sesión</h3>
