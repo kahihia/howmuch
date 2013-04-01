@@ -4,14 +4,14 @@
     		<img src="{{ group.article.get_first_picture_url }}" alt="">
     	</div>
     	<div class="span9">
-    		<center>
+    		<div class="text-center">
     			<h3>{{ group.article.title }}</h3>
-    		</center>
+    		</div>
     	</div>
 	</div>
 	{% for notification in group.notifications %}
 	{% if not notification.has_been_readed %}
-	<article class="margin10 color1">
+	<article class="margin10 color6">
 	{% else %}
 	<article class="margin10">
 	{% endif %}
