@@ -36,7 +36,8 @@ $(function () {
 			<b>Hecha el {{ offer.date }}</b>
 		</div>
 		<div class="text-center wrapper-div4">
-			<h2>Pagan ${{ offer.cprice}}</h2>
+			<h4>Te lo venden a:</h4>
+			<h2 class="font-blue">${{ offer.cprice}}</h2>
 		</div>
 	</article>
 	<article class="text-center">
@@ -93,7 +94,7 @@ $(function () {
 
 	<article class="margin10">
 		<div class="text-center">
-			<a class="btn btn-success btn-large" href="/article/assignment/{{ offer.article.pk }}/{{ offer.owner.pk }}">Comprar</a>
+			<a class="btn btn-success btn-large" href="/article/assignment/{{ offer.article.pk }}/{{ offer.owner.pk }}">Comprarselo</a>
 		</div>
 	</article>
 </section>

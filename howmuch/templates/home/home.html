@@ -4,8 +4,6 @@
 <link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme8/style.css">
 <script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
-<script src="{{ MEDIA_URL }}/js/jquery.roundabout.js"></script>
-<script src="{{ MEDIA_URL }}/js/jquery.roundabout-shapes.js"></script>
 {% endblock %}
 
 {% block search-bar %}
@@ -24,10 +22,8 @@
     <h3>Lo que la gente esta comprando ahora</h3>
   </div>
   <div>
-    <ul class="unstyled" id="lastPublishedList">
-      {% for article in articles %}
-      <li>
-        <div>
+    {% for article in articles %}
+    <div class="span4 wrapper-div4">
           <div class="text-center">
             <a href="{{ article.ger_url }}">
               <strong class="font-blue size20">{{ article.title|title }}</strong>
@@ -43,10 +39,8 @@
           <div class="text-center margin10">
             <strong class="font-red size20">$ {{ article.price }}</strong>
           </div>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
+    </div>
+    {% endfor %}
   </div>
 </div>
 <script>
@@ -116,10 +110,6 @@ $(document).ready(function() {
    $('#startTourHome').click(function(){
       tourHome.restart();                      
    });
-
-  $('#lastPublishedList').roundabout({
-    minOpacity:0.1,
-  });
 });
 </script>
 {% endblock %}

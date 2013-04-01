@@ -263,3 +263,5 @@ CHANGE_CONFIG_REDIRECT = '/config/notifications/?change_config=True'
 #PAYPAL EMAIL
 PAYPAL_RECEIVER_EMAIL = "paypal@brainn.co"
 
+SEARCHIFY_INDEX = 'idx'
+
