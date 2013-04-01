@@ -15,16 +15,17 @@ from howmuch.settings import URL_OFFICIAL_SITE
 
 STATES_CHOICES = (
 
-    ('NUEVO' , 'NUEVO'),
-    ('USADO' , 'USADO'),
+    ('Nuevo' , 'Nuevo'),
+    ('Usado' , 'Usado'),
+    ('Indistinto', 'Indistinto'),
 
 )
 
 QUANTITY_CHOICES = (
-    (1,'UNO'),
-    (2,'ENTRE 2 y 5'),
-    (5,'ENTRE 5 y 10'),
-    (10,'MAS DE 10'),
+    (1,'1'),
+    (2,'Entre 2 y 5'),
+    (5,'Entre 5 y 10'),
+    (10,'Mas de 10'),
     )
 
 STATUS_ASSIGNMENT = (
