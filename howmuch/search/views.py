@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from howmuch.settings import SEARCHIFY_INDEX
+from django.conf import settings
 
 from indextank.client import ApiClient
 
@@ -12,7 +12,7 @@ from indextank.client import ApiClient
 
 def defineIndex():
     api = ApiClient('http://:rMESs36rCF83rc@8ytx3.api.searchify.com')
-    index = api.get_index(SEARCHIFY_INDEX)
+    index = api.get_index(settings.SEARCHIFY_INDEX)
     return({"api": api, "index": index})
 
 def index_article(article):
