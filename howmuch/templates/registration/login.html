@@ -10,24 +10,25 @@
 
 {% block section2 %}
 <div class="wrapper-div3 text-center">
-  <!-- 
-    <div>
+
+  <h2>Iniciar Sesión</h2>
+
+  <div>
+    <legend>facebook?</legend>
     <form action="{% url facebook_connect %}?facebook_login=1" method="post">
-      <a href="javascript:void(0);" style="font-size: 20px;" onclick="F.connect(this.parentNode);">Login with Facebook</a>
-      <input type="hidden" value="/" name="next" />
+      <a href="javascript:void(0);" style="font-size: 20px;" onclick="F.connect(this.parentNode);">
+        <img src="{{ MEDIA_URL }}img/fb1.png">
+      </a>
+      <input type="hidden" value="{{ next|escape }}" name="next"/>
     </form>
   </div>
-   -->
-  <form class="form-horizontal" action="" method="post">{% csrf_token %}
 
-    <h3>Iniciar Sesión</h3>
-  
+  <form class="form-horizontal" action="" method="post">{% csrf_token %}
     <div>
       <legend>Usuario</legend>
       <div>
       {{ form.username }}
       </div>
-      <span class="help-text">Tu nombre de usuario</span>
       {{ form.username.errors }}
     </div>
 
@@ -36,14 +37,17 @@
       <div>
       {{ form.password }}
       </div>
-      <span class="help-text">Tu contraseña actual</span>
       {{ form.password.errors }}
     </div>
 
     <div class="margin10">
           <input class="btn btn-primary btn-large" type="submit" id="signin" value="Entrar" />
-          <a href="/accounts/register">Registrarse</a>
           <input type="hidden" name="next" value="{{ next|escape }}" />
+    </div>
+
+    <div>
+      <h3>Eres Nuevo?</h3>
+      <a class="btn btn-danger" href="/accounts/register">Registrarse</a>
     </div>
 
   </form>
