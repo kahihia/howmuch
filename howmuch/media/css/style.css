@@ -215,14 +215,3 @@ TEST
 	top: 50%
 }
 
-ul#lastPublishedList{
-	top:200px;
-}
-ul#lastPublishedList li{
-	width: 200px;
-	height: auto;
-	background:#BFBFBF;
-	padding: 10px;
-}
-
-
