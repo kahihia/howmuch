@@ -126,10 +126,10 @@ $(document).ready(function() {
 	</div>
 	<form id="form-post-article" method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 		<div class="text-center">
-			<legend>Titulo del Articulo</legend>
+			<legend>Título del Artículo</legend>
 			<div id="title-info">
 				{{ form.title }}
-				<span class="block-help">Entre mas claro sea el titulo de tu articulo, mas ofertas recibiras.</span>
+				<span class="block-help">Entre más claro sea el título de tu artículo, más ofertas recibirás.</span>
 				{{ form.title.errors }}
 			</div>
 		</div>
@@ -142,7 +142,7 @@ $(document).ready(function() {
 					{{ form.price }}
 					<span class="add-on">.00</span>
 				</div>
-				<span class="help-block">Es el precio que estas dispuesto a pagar por tu articulo.</span>
+				<span class="help-block">Precio que estás dispuesto a pagar por el artículo.</span>
 				{{ form.price.errors }}
 			</div>
 			<div class="span6">
@@ -150,35 +150,35 @@ $(document).ready(function() {
 				<div id="quantity-info">
 					{{ form.quantity }}
 				</div>
-				<span class="help-block">Escribe el numero de articulos que estas buscando, solo enteros.</span>
+				<span class="help-block">Selecciona la cantidad de artículos que estás buscando</span>
 				{{ form.quantity.errors }}
 			</div>
 		</div>
 
 		<div class="text-center">
-			<legend>Descripcion</legend>
+			<legend>Descripción</legend>
 			<div id="description-info">
 				{{ form.description }}
 			</div>
-			<span class="help-block">Describe el articulo que estas buscando e incluye detalles sobre el.</span>
+			<span class="help-block">Describe el artículo que estás buscando e incluye detalles sobre él.</span>
 			{{ form.description.errors }}
 		</div>
 
 		<div class="row-fluid">
 			<div class="span6">
-				<legend>Estado del Articulo</legend>
+				<legend>Estado del artículo</legend>
 				<div id="state-info">
 					{{ form.state }}
 				</div>
-				<span class="help-block">El articulo que quieres es nuevo o usado?.</span>
+				<span class="help-block">El artículo que buscas, ¿Es nuevo o usado?.</span>
 				{{ form.state.errors }}
 			</div>
 			<div class="span6">
-				<legend>Clasificacion</legend>
+				<legend>Clasificación</legend>
 				<div id="category-info">
 					{{ form.category }}
 				</div>
-				<span class="help-block">Selecciona la categoria en donde clasificarias tu articulo.</span>
+				<span class="help-block">Selecciona la categoría en la cual clasificarías tu artículo.</span>
 				{{ form.category.errors }}
 			</div>
 		</div>
@@ -191,7 +191,7 @@ $(document).ready(function() {
 		</div>
 
 		<div class="text-center margin10">
-			<input id="submit-post" class="btn btn-success btn-large" type="submit" value="Guardar">
+			<input id="submit-post" class="btn btn-success btn-large" type="submit" value="Publicar Compra">
 		</div>
 	</form>
 </section>
