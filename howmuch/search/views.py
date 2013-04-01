@@ -1,12 +1,18 @@
+import urllib
+
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from indextank.client import ApiClient
 from django.template import RequestContext
-import urllib
+
+from howmuch.settings import SEARCHIFY_INDEX
+
+from indextank.client import ApiClient
+
+
 
 def defineIndex():
     api = ApiClient('http://:rMESs36rCF83rc@8ytx3.api.searchify.com')
-    index = api.get_index('idx')
+    index = api.get_index(SEARCHIFY_INDEX)
     return({"api": api, "index": index})
 
 def index_article(article):
