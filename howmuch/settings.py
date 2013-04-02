@@ -13,7 +13,7 @@ ADMINS = (
     ('Juan Carlos Cayetano', 'jc@brainn.co'),
 )
 
-AUTH_PROFILE_MODULE = 'profile.profile'
+AUTH_PROFILE_MODULE = 'facebook.FacebookProfile'
 
 MANAGERS = ADMINS
 
@@ -116,7 +116,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'django_facebook.auth_backends.FacebookBackend',
+    'facebook.backend.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -141,7 +141,6 @@ INSTALLED_APPS = (
     'endless_pagination',
     'gunicorn',
     'storages',
-    'django_facebook',
     
     'howmuch.about',
     'howmuch.account',
@@ -161,9 +160,9 @@ INSTALLED_APPS = (
     'howmuch.search',
     'howmuch.tags',
 
-
     'registration',
-    'paypal.standard.ipn'
+    'paypal.standard.ipn',
+    'facebook',
 
 )
 
@@ -210,10 +209,10 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
 
 
-#Cuantoo.com Facebook Settings
+#Facebook Settings
 FACEBOOK_APP_ID = '151714724990012'
 FACEBOOK_APP_SECRET = '96c602d1701ce53c3241652cdec8d6fd' 
-#FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
+FACEBOOK_SCOPE = 'email,publish_stream'
 
 #Comission 
 COMMISSION = .05
