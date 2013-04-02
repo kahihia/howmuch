@@ -17,8 +17,6 @@ STATES_CHOICES = (
 
     ('Nuevo' , 'Nuevo'),
     ('Usado' , 'Usado'),
-    ('Indistinto', 'Indistinto'),
-
 )
 
 QUANTITY_CHOICES = (
@@ -45,11 +43,19 @@ DAYS_CHOICES = (
     )
 
 CATEGORY_CHOICES = (
-    ('1', 'categoria1'),
-    ('2', 'categoria2'),
-    ('3', 'categoria3'),
-    ('4', 'categoria4'),
-    ('5', 'categoria5'),
+    ('1', 'VideoJuegos'),
+    ('2', 'Hogar'),
+    ('3', 'Electrodomesticos'),
+    ('4', 'Peliculas, series y DVDs'),
+    ('5', 'Electronica y Accesorios'),
+    ('6', 'Celulares y Accesorios'),
+    ('7', 'Ropa y Accesorios'),
+    ('8', 'Libros y Revistas'),
+    ('9', 'Coleccionables'),
+    ('10', 'Computacion y Accesorios'),
+    ('11', 'Instrumentos Musicales'),
+    ('12', 'Juguetes'),
+    ('13', 'Joyas y Relojes'),
     )
 
 class Article(models.Model):
