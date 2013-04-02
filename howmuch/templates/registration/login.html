@@ -1,7 +1,6 @@
 {% extends "registration/base.html" %}
 
 {% block media %}
-{% include 'django_facebook/_facebook_js.html' %}
 {% endblock %}
 
 {% block section1 %}
@@ -16,12 +15,9 @@
 
   <div>
     <legend>facebook?</legend>
-    <form action="{% url facebook_connect %}?facebook_login=1" method="post">
-      <a href="javascript:void(0);" style="font-size: 20px;" onclick="F.connect(this.parentNode);">
+      <a href="/facebook/login">
         <img src="{{ MEDIA_URL }}img/fb1.png">
       </a>
-      <input type="hidden" value="{{ next|escape }}" name="next"/>
-    </form>
   </div>
 
   <form class="form-horizontal" action="" method="post">{% csrf_token %}
