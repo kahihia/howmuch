@@ -37,9 +37,9 @@ def index_article2(article):
         'price':article.price, #price of article
         })
     categories = {
-        rangePrice:'',
-        state:'',
-        category:'',
+        rangePrice: article.get_range_price(),
+        state:'%s' % (article.state),
+        category:'%s' % (article.category),
     }
     index.update_categories(docid, categories)
 

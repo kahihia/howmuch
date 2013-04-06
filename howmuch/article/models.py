@@ -15,8 +15,9 @@ from howmuch.settings import URL_OFFICIAL_SITE
 
 STATES_CHOICES = (
 
-    ('Nuevo' , 'Nuevo'),
-    ('Usado' , 'Usado'),
+    ('nuevo' , 'Nuevo'),
+    ('usado' , 'Usado'),
+    ('indistinto', 'Indistinto')
 )
 
 QUANTITY_CHOICES = (
@@ -52,7 +53,7 @@ class Article(models.Model):
     description = models.CharField(max_length=1024)
     quantity = models.IntegerField(choices=QUANTITY_CHOICES) 
     category = models.ForeignKey(Category)
-    state = models.CharField(max_length=7, choices=STATES_CHOICES)
+    state = models.CharField(max_length=12, choices=STATES_CHOICES)
     tags = models.ManyToManyField(Tag)
     date = models.DateTimeField(auto_now_add=True)
     pictures = models.ManyToManyField(Picture)
@@ -117,6 +118,10 @@ class Article(models.Model):
     #Regresa hace que tiempo fue publicado el articulo        
     def get_timestamp(self):
         return get_timestamp(self.date)
+
+    def get_range_price(self):
+        pass
+        
 
 
 class Offer(models.Model):
