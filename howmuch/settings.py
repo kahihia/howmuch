@@ -264,3 +264,19 @@ PAYPAL_RECEIVER_EMAIL = "paypal@brainn.co"
 
 SEARCHIFY_INDEX = 'idx'
 
+CATEGORIES = [
+    'Celulares y Accesorios',
+    'Coleccionables',
+    'Computacion y Accesorios',
+    'Electrodomesticos',
+    'Electronica y Accesorios',
+    'Hogar',
+    'Instrumentos Musicales',
+    'Joyas y Relojes',
+    'Juguetes',
+    'Libros y Revistas',
+    'Peliculas, series y DVDs',
+    'Ropa y Accesorios',
+    'VideoJuegos',
+]
+

@@ -26,6 +26,24 @@ def index_article(article):
         'state' : article.state, 
         'price' : article.price})
 
+def index_article2(article):
+    index = defineIndex()['index']
+    docid = article.get_url()
+    index.add_document(docid,{ #docid
+        'text': article.title, #article title
+        'img': article.get_first_picture_url(), #first picture of the article
+        'description': article.description[:100], #first 100 characters of the description
+        'tags': article.get_list_tags(), #string of tags separated by comma
+        'price':article.price, #price of article
+        })
+    categories = {
+        rangePrice:'',
+        state:'',
+        category:'',
+    }
+    index.update_categories(docid, categories)
+
+
 def searchservice(request):
     q = urllib.unquote(request.GET.get('q', '')) 
     q = q.strip() 
