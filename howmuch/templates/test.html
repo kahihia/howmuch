@@ -1,66 +1,8 @@
 {% extends "3columns.html" %}
 
 {% block section2 %}
-<div class="wrapper-div3">
-	<h2>Publicar una Compra</h2>
-	<form>
-		<div>
-			<legend>Titulo del Articulo</legend>
-			<div>
-				<input type="text" class="span12">
-				<span class="block-help">Entre mas claro sea el titulo de tu articulo, mas ofertas recibiras.</span>
-			</div>
-		</div>
-
-		<div class="row-fluid">
-			<div class="span6">
-				<legend>Precio</legend>
-				<input type="text" class="span12">
-				<span class="help-block">Es el precio que estas dispuesto a pagar por tu articulo.</span>
-			</div>
-			<div class="span6">
-				<legend>Cantidad</legend>
-				<input type="text" class="span12">
-				<span class="help-block">Escribe el numero de articulos que estas buscando, solo enteros.</span>
-			</div>
-		</div>
-
-		<div>
-			<legend>Descripcion</legend>
-			<textarea class="span12">
-			</textarea>
-			<span class="help-block">Describe el articulo que estas buscando e incluye detalles sobre el.</span>
-		</div>
-
-		<div class="row-fluid">
-			<div class="span6">
-				<legend>Estado del Articulo</legend>
-				<select class="span12">
-					<option value="option1">---------</option>
-					<option value="option2">---------</option>
-				</select>
-				<span class="help-block">El articulo que quieres es nuevo o usado?.</span>
-			</div>
-			<div class="span6">
-				<legend>Clasificacion</legend>
-				<select class="span12">
-					<option value="option1">----------</option>
-					<option value="option2">----------</option>
-				</select>
-				<span class="help-block">Selecciona la categoria en donde clasificarias tu articulo.</span>
-			</div>
-		</div>
-		<center>
-			<input class="btn btn-success btn-large" type="submit" value="Guardar">
-		</center>
-	</form>
-</div>
+<form>
+	<input type="text" name="q">
+	<input type="submit" value="buscar">
+</form>
 {% endblock %}
-
-<!-- Test Test Test -->
-
-<div>
-	<div>
-
-	</div>
-</div>
