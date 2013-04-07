@@ -44,14 +44,6 @@ DAYS_CHOICES = (
     (30, 'TREINTA'),
     )
 
-CATEGORY_CHOICES = (
-    ('1', 'categoria1'),
-    ('2', 'categoria2'),
-    ('3', 'categoria3'),
-    ('4', 'categoria4'),
-    ('5', 'categoria5'),
-    )
-
 class Article(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by article")
     price = models.IntegerField()
