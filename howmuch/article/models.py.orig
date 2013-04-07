@@ -43,7 +43,10 @@ DAYS_CHOICES = (
     (30, 'TREINTA'),
     )
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> dev
 class Article(models.Model):
     from howmuch.category.models import Category
 

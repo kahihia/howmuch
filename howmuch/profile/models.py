@@ -49,7 +49,7 @@ class AccountBank(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.bank, self.account)
 
-class Profile(FacebookProfileModel):
+class Profile(models.Model):
     from howmuch.article.models import Article
 
     user = models.OneToOneField(User)
