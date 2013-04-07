@@ -1,123 +1,157 @@
+<script type="text/javascript">
+
+$(document).on('ready', function(){
+	URLParser(u){
+    var path="",query="",hash="",params;
+    if(u.indexOf("#") > 0){
+        hash = u.substr(u.indexOf("#") + 1);
+        u = u.substr(0 , u.indexOf("#"));
+    }
+    if(u.indexOf("?") > 0){
+        path = u.substr(0 , u.indexOf("?"));        
+        query = u.substr(u.indexOf("?") + 1);
+        params= query.split('&');
+    }else
+        path = u;
+    return {
+        getHost: function(){
+            var hostexp = /\/\/([\w.-]*)/;
+            var match = hostexp.exec(path);
+            if (match != null && match.length > 1)
+                return match[1];
+            return "";
+        },
+        getPath: function(){
+            var pathexp = /\/\/[\w.-]*(?:\/([^?]*))/;
+            var match = pathexp.exec(path);
+            if (match != null && match.length > 1)
+                return match[1];
+            return "";
+        },
+        getHash: function(){
+            return hash;
+        },
+        getParams: function(){
+            return params
+        },
+        getQuery: function(){
+            return query;
+        },
+        setHash: function(value){
+            if(query.length > 0)
+                query = "?" + query;
+            if(value.length > 0)
+                query = query + "#" + value;
+            return path + query;
+        },
+        setParam: function(name, value){
+            if(!params){
+                params= new Array();
+            }
+            params.push(name + '=' + value);
+            for (var i = 0; i < params.length; i++) {
+                if(query.length > 0)
+                    query += "&";
+                query += params[i];
+            }
+            if(query.length > 0)
+                query = "?" + query;
+            if(hash.length > 0)
+                query = query + "#" + hash;
+            return path + query;
+        },
+        getParam: function(name){
+            if(params){
+                for (var i = 0; i < params.length; i++) {
+                    var pair = params[i].split('=');
+                    if (decodeURIComponent(pair[0]) == name)
+                        return decodeURIComponent(pair[1]);
+                }
+            }
+            console.log('Query variable %s not found', name);
+        },
+        hasParam: function(name){
+            if(params){
+                for (var i = 0; i < params.length; i++) {
+                    var pair = params[i].split('=');
+                    if (decodeURIComponent(pair[0]) == name)
+                        return true;
+                }
+            }
+            console.log('Query variable %s not found', name);
+        },
+        removeParam: function(name){
+            query = "";
+            if(params){
+                var newparams = new Array();
+                for (var i = 0;i < params.length;i++) {
+                    var pair = params[i].split('=');
+                    if (decodeURIComponent(pair[0]) != name)
+                          newparams .push(params[i]);
+                }
+                params = newparams ;
+                for (var i = 0; i < params.length; i++) {
+                    if(query.length > 0)
+                        query += "&";
+                    query += params[i];
+                }
+            }
+            if(query.length > 0)
+                query = "?" + query;
+            if(hash.length > 0)
+                query = query + "#" + hash;
+            return path + query;
+        },
+    }
+	}
+
+	$('.cat').click(function(e){
+		
+
+		/*if(document.URL.split("?")[1]+""=='undefined'){
+			$('#'+this.id).attr("href","?cat="+this.id.split("cat")[1]);
+		}
+		else{
+			for(i=0;i<document.URL.split("?")[1].split("&").length; i++){
+				if(document.URL.split("?")[1].split("&")[i].split("=")[0]=="cat"){
+
+				}
+			}
+			//alert(document.URL.split("?")[1].split("&")[0]);
+		}
+		//if(document.URL)
+		*/
+	});
+});
+</script>
+
 <section class="dropdown-menu-generic">
 	<ul class="wrapper-div">
-		<li class="color7"><a href="#">Videojuegos</a>
-			<ul class=" wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat1" class="cat" href="#">Videojuegos</a>
 		</li>
-		<li class="color7"><a href="#">Hogar</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat2" class="cat" href="#">Hogar</a>
 		</li>
-		<li class="color7"><a href="#">Electrodomesticos</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat3" class="cat" href="#">Electrodomesticos</a>
 		</li>
-		<li class="color7"><a href="#">Peliculas, series y DVDs</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat4" class="cat" href="#">Peliculas, series y DVDs</a>
 		</li>
-		<li class="color7"><a href="#">Electronica y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat5" class="cat" href="#">Electronica y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Celulares y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat6" class="cat" href="#">Celulares y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Ropa y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat7" class="cat" href="#">Ropa y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Libros y Revistas</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat8" class="cat" href="#">Libros y Revistas</a>
 		</li>
-		<li class="color7"><a href="#">Coleccionables</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat9" class="cat" href="#">Coleccionables</a>
 		</li>
-		<li class="color7"><a href="#">Computación y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat10" class="cat" href="#">Computación y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Instrumentos Musicales</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat11" class="cat" href="#">Instrumentos Musicales</a>
 		</li>
-		<li class="color7"><a href="#">Juguetes</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat12" class="cat" href="#">Juguetes</a>
 		</li>
-		<li class="color7"><a href="#">Joyas y Relojes</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="cat13" class="cat" href="#">Joyas y Relojes</a>
 		</li>
 	</ul>
 </section>
-
-<a href=""></a>
