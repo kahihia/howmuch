@@ -120,9 +120,15 @@ class Article(models.Model):
         return get_timestamp(self.date)
 
     def get_range_price(self):
-        pass
+        if self.price > 0 and self.price < 500:
+            return '$0to$500'
+        elif self.price > 500 and self.price < 1000:
+            return '$500to$1000'
+        elif self.price > 1000 and self.price < 5000:
+            return '$1000to$5000'
+        else:
+            return 'gte$5000'
         
-
 
 class Offer(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by Offer")
