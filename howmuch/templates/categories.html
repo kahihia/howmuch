@@ -7,7 +7,17 @@ $(document).on('ready', function(){
             $('#'+this.id).attr("href","search/_cat_"+this.id);
         }
         else if(document.URL.split("/")[3]=="search"){
-            $('#'+this.id).attr("href",document.URL.split("/")[4]+"_cat_"+this.id);
+            if(document.URL.indexOf("_cat_")!=-1){
+                if(document.URL.indexOf("_",document.URL.indexOf("_cat_")+5)!=-1){
+                    window.location.assign(document.URL.split("_cat_")[0]+"_cat_"+this.id+"_"+document.URL.split("_cat_")[1].substr(document.URL.split("_cat_")[1].indexOf("_")+1));
+                }
+                else{
+                    $('#'+this.id).attr("href",document.URL.split("_cat_")[0]+"_cat_"+this.id);
+                }
+            }
+            else{
+                $('#'+this.id).attr("href",document.URL.split("/")[4]+"_cat_"+this.id);
+            }
         }
         else{
             window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/_cat_"+this.id);
