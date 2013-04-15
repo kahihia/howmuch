@@ -34,7 +34,7 @@ def index_article(article):
 
 
 def searchservice(request):
-    q = urllib.unquote(request.GET.get('q', '')) #Example: unquote('/%7Econnolly/') yields '/~connolly/'.
+    q = urllib.unquote(request.path.split('/')[2].split('_')[0]) #Example: unquote('/%7Econnolly/') yields '/~connolly/'.
     q = q.strip() #Return a copy of the string with the leading and trailing characters removed. 
     article = q
     resource = defineIndex() 
