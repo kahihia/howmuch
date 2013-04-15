@@ -28,27 +28,50 @@ def index_article(article):
     categories = {
         'rangePrice': article.get_range_price(),
         'state':'%s' % (article.state),
-        'category':'%s' % (article.category.name),
+        'category':'%s' % (article.category.subname),
     }
     index.update_categories(docid, categories)
 
 
 def searchservice(request):
-    q = urllib.unquote(request.GET.get('q', '')) 
-    q = q.strip() 
+    q = urllib.unquote(request.GET.get('q', '')) #Example: unquote('/%7Econnolly/') yields '/~connolly/'.
+    q = q.strip() #Return a copy of the string with the leading and trailing characters removed. 
     article = q
     resource = defineIndex() 
     index = resource['index']
     results = [] 
     if q != '': 
         q = q.split(' ') 
-        finalq = ' AND text:'.join(q)
+        finalq = ' AND text:'.join(q) #Example 'juan AND text:carlos AND text:cayetano'
         finalq += "*" 
         searchresults = index.search( 'text:%s' % finalq , 
             fetch_fields=['text', 'img','description', 'tags','state', 'price']) 
         return render_to_response('search/results.html', 
             {'searchresults' : searchresults, 'article' : article }, 
             context_instance = RequestContext(request) )
-    return HttpResponse('{"results": "none"}') 
+    return HttpResponse('Sin Resultados') 
+
+def search(request, query, filters):
+    from howmuch.search.functions import * 
+
+    index = defineIndex()['index']
+    if query != '':
+        new_query = 'text:%s' % convert_query(query)
+        new_query += "*"
+        filters = convert_filters(filters)
+        searchresults = index.search(new_query,
+                                    category_filters={
+                                    'state':[get_state_filter(filters)],
+                                    'rangePrice':[get_rangePrice_filter(filters)],
+                                    'category':[get_category_filter(filters)],
+                                    },
+                                    fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+        return render_to_response('search/results.html',
+                {'searchresults':searchresults},
+                context_instance=RequestContext(request))
+    return HttpResponse('Sin Resultados')
+
+
+    
 
 

@@ -119,15 +119,17 @@ class Article(models.Model):
     def get_timestamp(self):
         return get_timestamp(self.date)
 
+
+    #return price range in format q to q
     def get_range_price(self):
         if self.price > 0 and self.price < 500:
-            return '$0to$500'
+            return '0to500'
         elif self.price > 500 and self.price < 1000:
-            return '$500to$1000'
+            return '500to1000'
         elif self.price > 1000 and self.price < 5000:
-            return '$1000to$5000'
+            return '1000to5000'
         else:
-            return 'gte$5000'
+            return 'gte5000'
         
 
 class Offer(models.Model):
