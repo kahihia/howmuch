@@ -9,24 +9,13 @@ from django.conf import settings
 from indextank.client import ApiClient
 
 
-
 def defineIndex():
     api = ApiClient('http://:rMESs36rCF83rc@8ytx3.api.searchify.com')
     index = api.get_index(settings.SEARCHIFY_INDEX)
     return({"api": api, "index": index})
 
-def index_article(article):
-    resource = defineIndex()
-    index = resource['index']
-    index.add_document(article.get_url(), {
-        'text' : article.title, 
-        'img' : article.get_first_picture_url(),
-        'description' : article.description[:100],
-        'tags' : article.get_list_tags(),
-        'state' : article.state, 
-        'price' : article.price})
 
-def index_article2(article):
+def index_article(article):
     index = defineIndex()['index']
     docid = article.get_url()
     index.add_document(docid,{ #docid
@@ -37,9 +26,9 @@ def index_article2(article):
         'price':article.price, #price of article
         })
     categories = {
-        rangePrice: article.get_range_price(),
-        state:'%s' % (article.state),
-        category:'%s' % (article.category),
+        'rangePrice': article.get_range_price(),
+        'state':'%s' % (article.state),
+        'category':'%s' % (article.category.name),
     }
     index.update_categories(docid, categories)
 
