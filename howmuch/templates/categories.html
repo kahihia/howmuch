@@ -1,26 +1,32 @@
 <script type="text/javascript">
 
 $(document).on('ready', function(){
-	$('.cat').click(function(e){
-        
+    if(document.URL.split("/")[3]=="search"){
+        $('#filtros').show();
+    }
+
+	$('.filtro').click(function(e){
+        if(this.id=="range"){
+            this.id="_range_"+$('#min').attr("value")+"-"+$('#max').attr("value");
+        }
 		if(document.URL.split("/")[3]==""){
-            $('#'+this.id).attr("href","search/_cat_"+this.id);
+            $('#'+this.id).attr("href","search/"+this.id);
         }
         else if(document.URL.split("/")[3]=="search"){
-            if(document.URL.indexOf("_cat_")!=-1){
-                if(document.URL.indexOf("_",document.URL.indexOf("_cat_")+5)!=-1){
-                    window.location.assign(document.URL.split("_cat_")[0]+"_cat_"+this.id+"_"+document.URL.split("_cat_")[1].substr(document.URL.split("_cat_")[1].indexOf("_")+1));
+            if(document.URL.indexOf("_"+this.id.split("_")[1]+"_")!=-1){
+                if(document.URL.indexOf("_",document.URL.indexOf("_"+this.id.split("_")[1]+"_")+this.id.split("_")[1].length+2)!=-1){
+                    window.location.assign(document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id+"_"+document.URL.split("_"+this.id.split("_")[1]+"_")[1].substr(document.URL.split("_"+this.id.split("_")[1]+"_")[1].indexOf("_")+1));
                 }
                 else{
-                    $('#'+this.id).attr("href",document.URL.split("_cat_")[0]+"_cat_"+this.id);
+                    $('#'+this.id).attr("href",document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id);
                 }
             }
             else{
-                $('#'+this.id).attr("href",document.URL.split("/")[4]+"_cat_"+this.id);
+                $('#'+this.id).attr("href",document.URL.split("/")[4]+this.id);
             }
         }
         else{
-            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/_cat_"+this.id);
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+this.id);
         }
 	});
 });
@@ -28,31 +34,45 @@ $(document).on('ready', function(){
 
 <section class="dropdown-menu-generic">
 	<ul class="wrapper-div">
-		<li class="color7"><a id="videojuegos" class="cat" href="#">Videojuegos</a>
+		<li class="color7"><a id="_cat_videojuegos" class="filtro" href="#">Videojuegos</a>
 		</li>
-		<li class="color7"><a id="hogar" class="cat" href="#">Hogar</a>
+		<li class="color7"><a id="_cat_hogar" class="filtro" href="#">Hogar</a>
 		</li>
-		<li class="color7"><a id="electrodomesticos" class="cat" href="#">Electrodomesticos</a>
+		<li class="color7"><a id="_cat_electrodomesticos" class="filtro" href="#">Electrodomesticos</a>
 		</li>
-		<li class="color7"><a id="peliculas-series-dvds" class="cat" href="#">Peliculas, series y DVDs</a>
+		<li class="color7"><a id="_cat_peliculas-series-dvds" class="filtro" href="#">Peliculas, series y DVDs</a>
 		</li>
-		<li class="color7"><a id="electronica-accesorios" class="cat" href="#">Electronica y Accesorios</a>
+		<li class="color7"><a id="_cat_electronica-accesorios" class="filtro" href="#">Electronica y Accesorios</a>
 		</li>
-		<li class="color7"><a id="celulares-accesorios" class="cat" href="#">Celulares y Accesorios</a>
+		<li class="color7"><a id="_cat_celulares-accesorios" class="filtro" href="#">Celulares y Accesorios</a>
 		</li>
-		<li class="color7"><a id="ropa-accesorios" class="cat" href="#">Ropa y Accesorios</a>
+		<li class="color7"><a id="_cat_ropa-accesorios" class="filtro" href="#">Ropa y Accesorios</a>
 		</li>
-		<li class="color7"><a id="libros-revistas" class="cat" href="#">Libros y Revistas</a>
+		<li class="color7"><a id="_cat_libros-revistas" class="filtro" href="#">Libros y Revistas</a>
 		</li>
-		<li class="color7"><a id="coleccionables" class="cat" href="#">Coleccionables</a>
+		<li class="color7"><a id="_cat_coleccionables" class="filtro" href="#">Coleccionables</a>
 		</li>
-		<li class="color7"><a id="computacion-accesorios" class="cat" href="#">Computación y Accesorios</a>
+		<li class="color7"><a id="_cat_computacion-accesorios" class="filtro" href="#">Computación y Accesorios</a>
 		</li>
-		<li class="color7"><a id="instrumentos-musicales" class="cat" href="#">Instrumentos Musicales</a>
+		<li class="color7"><a id="_cat_instrumentos-musicales" class="filtro" href="#">Instrumentos Musicales</a>
 		</li>
-		<li class="color7"><a id="juguetes" class="cat" href="#">Juguetes</a>
+		<li class="color7"><a id="_cat_juguetes" class="filtro" href="#">Juguetes</a>
 		</li>
-		<li class="color7"><a id="joyas-relojes" class="cat" href="#">Joyas y Relojes</a>
+		<li class="color7"><a id="_cat_joyas-relojes" class="filtro" href="#">Joyas y Relojes</a>
 		</li>
+        <div id="filtros" style="display:none;">
+            <li class="color7"><b>Rango de precios</b></a>
+            </li>
+            <li class="color7"><a id="_range_0-500" class="filtro" href="#">Hasta $500</a>
+            </li>
+            <li class="color7"><a id="_range_500-1000" class="filtro" href="#">$500 a $1000</a>
+            </li>
+            <li class="color7"><a id="_range_1000-5000" class="filtro" href="#">$1000 a $5000</a>
+            </li>
+            <li class="color7"><a id="_range_5000-0" class="filtro" href="#">Más de $5000</a>
+            </li>
+            <li class="color7"><input id="min" type="text" placeholder="Min." style="width:60px">-<input id="max" type="text" placeholder="Máx." style="width:60px">&nbsp;&nbsp;<a id="range" class="btn btn-small filtro" href="#"><i class="icon-chevron-right"></i></a>
+            </li>
+        </div>
 	</ul>
 </section>
