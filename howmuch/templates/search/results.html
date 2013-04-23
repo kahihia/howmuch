@@ -13,7 +13,9 @@
 {% block section2 %}
 <section class="wrapper-div">
 	<div class="text-center">
+		{% if not filtros %}
 		<h3>{{ searchresults.matches }} personas estan comprando una <em>{{ article }}</em></h3>
+		{% endif %}
 	</div>
 	{% for result in searchresults.results %}
 	<article class="wrapper-div5 hover1">

@@ -22,7 +22,7 @@ $(document).on('ready', function(){
                 }
             }
             else{
-                $('#'+this.id).attr("href",document.URL.split("/")[4]+this.id);
+                window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+document.URL.split("/")[4]+this.id);
             }
         }
         else{
@@ -38,11 +38,11 @@ $(document).on('ready', function(){
 		</li>
 		<li class="color7"><a id="_category_hogar" class="filtro" href="#">Hogar</a>
 		</li>
-		<li class="color7"><a id="_category_electrodomesticos" class="filtro" href="#">Electrodomesticos</a>
+		<li class="color7"><a id="_category_electrodomesticos" class="filtro" href="#">Electrodomésticos</a>
 		</li>
-		<li class="color7"><a id="_category_peliculas-series-dvds" class="filtro" href="#">Peliculas, series y DVDs</a>
+		<li class="color7"><a id="_category_peliculas-series-dvds" class="filtro" href="#">Películas, series y DVDs</a>
 		</li>
-		<li class="color7"><a id="_category_electronica-accesorios" class="filtro" href="#">Electronica y Accesorios</a>
+		<li class="color7"><a id="_category_electronica-accesorios" class="filtro" href="#">Electrónica y Accesorios</a>
 		</li>
 		<li class="color7"><a id="_category_celulares-accesorios" class="filtro" href="#">Celulares y Accesorios</a>
 		</li>

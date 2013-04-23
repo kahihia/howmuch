@@ -24,6 +24,7 @@ def index_article(article):
         'description': article.description[:100], #first 100 characters of the description
         'tags': article.get_list_tags(), #string of tags separated by comma
         'price':article.price, #price of article
+        'all':"1",
         })
     categories = {
         'rangePrice': article.get_range_price(),
@@ -51,27 +52,60 @@ def searchservice(request):
             context_instance = RequestContext(request) )
     return HttpResponse('Sin Resultados') 
 
-def search(request, query, filters):
+def search_query(request, query):
     from howmuch.search.functions import * 
 
     index = defineIndex()['index']
     if query != '':
+        article = convert_query(query)
         new_query = 'text:%s' % convert_query(query)
         new_query += "*"
-        filters = convert_filters(filters)
         searchresults = index.search(new_query,
-                                    category_filters={
-                                    'state':[get_state_filter(filters)],
-                                    'rangePrice':[get_rangePrice_filter(filters)],
-                                    'category':[get_category_filter(filters)],
-                                    },
-                                    fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
         return render_to_response('search/results.html',
-                {'searchresults':searchresults},
+                {'searchresults':searchresults, 'article' : article },
                 context_instance=RequestContext(request))
     return HttpResponse('Sin Resultados')
 
+def search_filters(request, filters):
+    from howmuch.search.functions import * 
 
-    
+    index = defineIndex()['index']
 
+    article = ""
+    filters = convert_filters(filters)
+    dic={}
+    if get_state_filter(filters) != None:
+        dic.update({'state':[get_state_filter(filters)]})
+    if get_rangePrice_filter(filters) != None:
+        dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
+    if get_category_filter(filters) != None:
+        dic.update({'category':[get_category_filter(filters)]})
+    searchresults = index.search('all:1',
+                                category_filters=dic,
+                                fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+    return render_to_response('search/results.html',
+            {'searchresults':searchresults, 'article' : article, 'filtros' : True },
+            context_instance=RequestContext(request))
+    #return HttpResponse('Sin Resultados')
 
+def search_query_filters(request, query, filters):
+    from howmuch.search.functions import * 
+
+    index = defineIndex()['index']
+
+    article = convert_query(query)
+    new_query = 'text:%s' % convert_query(query)
+    new_query += "*"
+    filters = convert_filters(filters)
+    searchresults = index.search(new_query,
+                                category_filters={
+                                'state':[get_state_filter(filters)],
+                                'rangePrice':[get_rangePrice_filter(filters)],
+                                'category':[get_category_filter(filters)],
+                                },
+                                fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+    return render_to_response('search/results.html',
+            {'searchresults':searchresults, 'article' : article },
+            context_instance=RequestContext(request))
+    #return HttpResponse('Sin Resultados')

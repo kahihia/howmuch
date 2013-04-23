@@ -11,7 +11,7 @@ def replace_category_name(category):
 def create_categories_and_tags():
 	for category in CATEGORIES:
 		new_category = Category.objects.create(name=category['name'])
-		new_category.subname = replace_category_name(new_category.name)
+		new_category.subname = category['index_name']
 		new_category.save()
 		for tag in category['tags']:
 			new_tag = Tag.objects.create(name=tag)
