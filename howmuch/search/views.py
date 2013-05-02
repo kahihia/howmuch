@@ -83,10 +83,14 @@ def search_filters(request, filters):
     if get_rangePrice_filter(filters) != None:
         if get_rangePrice_filter(filters) != "0to500" and get_rangePrice_filter(filters) != "500to1000" and get_rangePrice_filter(filters) != "1000to5000" and get_rangePrice_filter(filters) != "gte5000":
             custom_filter=1
-            if get_rangePrice_filter(filters).split("to")[0] != None:
+            if get_rangePrice_filter(filters).split("to")[0] != '':
                 minrange=get_rangePrice_filter(filters).split("to")[0]
-            if get_rangePrice_filter(filters).split("to")[1] != None:
+            if get_rangePrice_filter(filters).split("to")[1] != '':
                 maxrange=get_rangePrice_filter(filters).split("to")[1]
+            if minrange>maxrange and minrange != None and maxrange != None:
+                temp=minrange
+                minrange=maxrange
+                maxrange=temp
         else:
             dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
     if get_category_filter(filters) != None:
@@ -99,14 +103,21 @@ def search_filters(request, filters):
         searchresults = index.search('all:1',
             category_filters=dic,
             fetch_fields=['text', 'img','description', 'tags','state', 'price'])
-        #for result in searchresults.results:
-        #    if result.price > maxrange or result.price < minrange:
-        #        searchresults.results.remove(result)
-        #lst = searchresults['results']
         lst=[]
-        for x in searchresults['results']:
-            if x['price'] > maxrange or x['price'] < minrange:
-                lst.append(x)
+        if minrange != None:
+            if maxrange != None:
+                for x in searchresults['results']:
+                    if int(x['price']) > int(maxrange) or int(x['price']) < int(minrange):
+                        lst.append(x)
+            else:
+                for x in searchresults['results']:
+                    if int(x['price']) < int(minrange):
+                        lst.append(x)
+        else:
+            if maxrange != None:
+                for x in searchresults['results']:
+                    if int(x['price']) > int(maxrange):
+                        lst.append(x)
         for y in lst:
             searchresults['results'].remove(y)
     return render_to_response('search/results.html',
@@ -124,15 +135,51 @@ def search_query_filters(request, query, filters):
     new_query += "*"
     filters = convert_filters(filters)
     dic={}
+    custom_filter=0
+    minrange=None
+    maxrange=None
     if get_state_filter(filters) != None:
         dic.update({'state':[get_state_filter(filters)]})
     if get_rangePrice_filter(filters) != None:
-        dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
+        if get_rangePrice_filter(filters) != "0to500" and get_rangePrice_filter(filters) != "500to1000" and get_rangePrice_filter(filters) != "1000to5000" and get_rangePrice_filter(filters) != "gte5000":
+            custom_filter=1
+            if get_rangePrice_filter(filters).split("to")[0] != '':
+                minrange=get_rangePrice_filter(filters).split("to")[0]
+            if get_rangePrice_filter(filters).split("to")[1] != '':
+                maxrange=get_rangePrice_filter(filters).split("to")[1]
+            if minrange>maxrange and minrange != None and maxrange != None:
+                temp=minrange
+                minrange=maxrange
+                maxrange=temp
+        else:
+            dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
     if get_category_filter(filters) != None:
         dic.update({'category':[get_category_filter(filters)]})
-    searchresults = index.search(new_query,
-        category_filters=dic,
-        fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+    if custom_filter == 0:
+        searchresults = index.search(new_query,
+            category_filters=dic,
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+    else:
+        searchresults = index.search(new_query,
+            category_filters=dic,
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+        lst=[]
+        if minrange != None:
+            if maxrange != None:
+                for x in searchresults['results']:
+                    if int(x['price']) > int(maxrange) or int(x['price']) < int(minrange):
+                        lst.append(x)
+            else:
+                for x in searchresults['results']:
+                    if int(x['price']) < int(minrange):
+                        lst.append(x)
+        else:
+            if maxrange != None:
+                for x in searchresults['results']:
+                    if int(x['price']) > int(maxrange):
+                        lst.append(x)
+        for y in lst:
+            searchresults['results'].remove(y)
     return render_to_response('search/results.html',
             {'searchresults':searchresults, 'article' : article },
             context_instance=RequestContext(request))
