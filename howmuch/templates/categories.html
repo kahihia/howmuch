@@ -6,9 +6,6 @@ $(document).on('ready', function(){
     }
 
 	$('.filtro').click(function(e){
-        if(this.id=="range"){
-            this.id="_rangePrice_"+$('#min').attr("value")+"to"+$('#max').attr("value");
-        }
 		if(document.URL.split("/")[3]==""){
             $('#'+this.id).attr("href","search/"+this.id);
         }
@@ -29,6 +26,22 @@ $(document).on('ready', function(){
             window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+this.id);
         }
 	});
+
+    $('#range').submit(function(e){
+        e.preventDefault();
+        this.id="_rangePrice_"+$('#min').attr("value")+"to"+$('#max').attr("value");
+        if(document.URL.indexOf("_"+this.id.split("_")[1]+"_")!=-1){
+                if(document.URL.indexOf("_",document.URL.indexOf("_"+this.id.split("_")[1]+"_")+this.id.split("_")[1].length+2)!=-1){
+                    window.location.assign(document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id+"_"+document.URL.split("_"+this.id.split("_")[1]+"_")[1].substr(document.URL.split("_"+this.id.split("_")[1]+"_")[1].indexOf("_")+1));
+                }
+                else{
+                    window.location.assign(document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id);
+                }
+        }
+        else{
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+document.URL.split("/")[4]+this.id);
+        }
+    });
 });
 </script>
 
@@ -71,7 +84,10 @@ $(document).on('ready', function(){
             </li>
             <li class="color7"><a id="_rangePrice_gte5000" class="filtro" href="#">Más de $5000</a>
             </li>
-            <li class="color7"><input id="min" type="text" placeholder="Min." style="width:60px">-<input id="max" type="text" placeholder="Máx." style="width:60px">&nbsp;&nbsp;<a id="range" class="btn btn-small filtro" href="#"><i class="icon-chevron-right"></i></a>
+            <li class="color7">
+                <form id="range" action="/search">
+                    <input id="min" type="text" placeholder="Min." style="width:60px">-<input id="max" type="text" placeholder="Máx." style="width:60px">&nbsp;&nbsp;<button class="btn btn-small" type="submit"><i class="icon-chevron-right"></i></button>
+                </form>
             </li>
         </div>
 	</ul>

@@ -75,17 +75,42 @@ def search_filters(request, filters):
     article = ""
     filters = convert_filters(filters)
     dic={}
+    custom_filter=0
+    minrange=None
+    maxrange=None
     if get_state_filter(filters) != None:
         dic.update({'state':[get_state_filter(filters)]})
     if get_rangePrice_filter(filters) != None:
-        dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
+        if get_rangePrice_filter(filters) != "0to500" and get_rangePrice_filter(filters) != "500to1000" and get_rangePrice_filter(filters) != "1000to5000" and get_rangePrice_filter(filters) != "gte5000":
+            custom_filter=1
+            if get_rangePrice_filter(filters).split("to")[0] != None:
+                minrange=get_rangePrice_filter(filters).split("to")[0]
+            if get_rangePrice_filter(filters).split("to")[1] != None:
+                maxrange=get_rangePrice_filter(filters).split("to")[1]
+        else:
+            dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
     if get_category_filter(filters) != None:
         dic.update({'category':[get_category_filter(filters)]})
-    searchresults = index.search('all:1',
-                                category_filters=dic,
-                                fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+    if custom_filter == 0:
+        searchresults = index.search('all:1',
+            category_filters=dic,
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+    else:
+        searchresults = index.search('all:1',
+            category_filters=dic,
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+        #for result in searchresults.results:
+        #    if result.price > maxrange or result.price < minrange:
+        #        searchresults.results.remove(result)
+        #lst = searchresults['results']
+        lst=[]
+        for x in searchresults['results']:
+            if x['price'] > maxrange or x['price'] < minrange:
+                lst.append(x)
+        for y in lst:
+            searchresults['results'].remove(y)
     return render_to_response('search/results.html',
-            {'searchresults':searchresults, 'article' : article, 'filtros' : True },
+            {'searchresults':searchresults, 'article' : article, 'filtros' : True,},
             context_instance=RequestContext(request))
     #return HttpResponse('Sin Resultados')
 
@@ -98,13 +123,16 @@ def search_query_filters(request, query, filters):
     new_query = 'text:%s' % convert_query(query)
     new_query += "*"
     filters = convert_filters(filters)
+    dic={}
+    if get_state_filter(filters) != None:
+        dic.update({'state':[get_state_filter(filters)]})
+    if get_rangePrice_filter(filters) != None:
+        dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
+    if get_category_filter(filters) != None:
+        dic.update({'category':[get_category_filter(filters)]})
     searchresults = index.search(new_query,
-                                category_filters={
-                                'state':[get_state_filter(filters)],
-                                'rangePrice':[get_rangePrice_filter(filters)],
-                                'category':[get_category_filter(filters)],
-                                },
-                                fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+        category_filters=dic,
+        fetch_fields=['text', 'img','description', 'tags','state', 'price'])
     return render_to_response('search/results.html',
             {'searchresults':searchresults, 'article' : article },
             context_instance=RequestContext(request))
