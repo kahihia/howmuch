@@ -66,4 +66,3 @@ def get_category_filter(filters):
 	except KeyError:
 		category = None
 	return category
-
