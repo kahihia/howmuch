@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block section2 %}
+
+{% include 'django_facebook/_facebook_js.html' %}
+
 <div class="wrapper-div3 text-center">
 
   <h2>Iniciar Sesión</h2>
@@ -15,9 +18,13 @@
 
   <div>
     <legend>facebook?</legend>
-      <a href="/facebook/login">
-        <img src="{{ MEDIA_URL }}img/fb1.png">
-      </a>
+
+      <form action="{% url facebook_connect %}?facebook_login=1" method="post">{% csrf_token %}
+        <a href="javascript:void(0);" style="" onclick="F.connect(this.parentNode);">
+          <img src="{{ MEDIA_URL }}img/fb1.png">
+        </a>
+        <input type="hidden" value="{{ request.path }}" name="next" />
+      </form>
   </div>
 
   <form class="form-horizontal" action="" method="post">{% csrf_token %}

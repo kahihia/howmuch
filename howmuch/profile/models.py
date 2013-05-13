@@ -49,7 +49,7 @@ class AccountBank(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.bank, self.account)
 
-class Profile(models.Model):
+class Profile(FacebookProfileModel):
     from howmuch.article.models import Article
 
     user = models.OneToOneField(User)
@@ -76,7 +76,7 @@ class Profile(models.Model):
     def __unicode__(self):
         return u'%s' % (self.user)
 
-#Se crea el perfil del usuario en el momento que se crea al usuario
+    #Se crea el perfil del usuario en el momento que se crea al usuario
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
