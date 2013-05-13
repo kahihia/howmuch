@@ -1,6 +1,19 @@
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#searchform').submit(function(e){
+		e.preventDefault();
+        if(document.URL.indexOf("_")!=-1){
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+$('#searchfield').attr("value"))+document.URL.substr(document.URL.indexOf("_")+1);
+        }
+        else{
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+$('#searchfield').attr("value"));
+        }
+	});
+});
+</script>
 <section id="search-bar">
-	<div class="wrapper-div2 background1">
-		<form class="search-form" action="/search/" method="GET">
+	<form id="searchform" class="search-form" action="/search">
+		<div class="wrapper-div2 background1">
 			<div class="text-center">
 				<ul class="inline">
 					<li>
@@ -9,15 +22,13 @@
 						</a>
 					</li>
 					<li>
-						<input class="search-input span7" type="text" placeholder="¿Que estas vendiendo?" name="q">
+						<input id="searchfield" class="search-input span7" type="text" placeholder="¿Que estas vendiendo?">
 					</li>
 					<li>
-						<input class="btn btn-success btn-large" type="submit" value="Vender">
+						<button class="btn btn-success btn-large" type="submit" value="Vender">Vender</button>
 					</li>
 				</ul>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 </section>
-
-

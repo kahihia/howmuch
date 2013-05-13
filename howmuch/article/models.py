@@ -15,8 +15,9 @@ from howmuch.settings import URL_OFFICIAL_SITE
 
 STATES_CHOICES = (
 
-    ('Nuevo' , 'Nuevo'),
-    ('Usado' , 'Usado'),
+    ('nuevo' , 'Nuevo'),
+    ('usado' , 'Usado'),
+    ('indistinto', 'Indistinto')
 )
 
 QUANTITY_CHOICES = (
@@ -42,30 +43,17 @@ DAYS_CHOICES = (
     (30, 'TREINTA'),
     )
 
-CATEGORY_CHOICES = (
-    ('1', 'VideoJuegos'),
-    ('2', 'Hogar'),
-    ('3', 'Electrodomesticos'),
-    ('4', 'Peliculas, series y DVDs'),
-    ('5', 'Electronica y Accesorios'),
-    ('6', 'Celulares y Accesorios'),
-    ('7', 'Ropa y Accesorios'),
-    ('8', 'Libros y Revistas'),
-    ('9', 'Coleccionables'),
-    ('10', 'Computacion y Accesorios'),
-    ('11', 'Instrumentos Musicales'),
-    ('12', 'Juguetes'),
-    ('13', 'Joyas y Relojes'),
-    )
 
 class Article(models.Model):
+    from howmuch.category.models import Category
+
     owner = models.ForeignKey(User, related_name = "owner by article")
     price = models.IntegerField()
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=1024)
     quantity = models.IntegerField(choices=QUANTITY_CHOICES) 
-    category = models.CharField(max_length=15, choices=CATEGORY_CHOICES)
-    state = models.CharField(max_length=7, choices=STATES_CHOICES)
+    category = models.ForeignKey(Category)
+    state = models.CharField(max_length=12, choices=STATES_CHOICES)
     tags = models.ManyToManyField(Tag)
     date = models.DateTimeField(auto_now_add=True)
     pictures = models.ManyToManyField(Picture)
@@ -131,6 +119,18 @@ class Article(models.Model):
     def get_timestamp(self):
         return get_timestamp(self.date)
 
+
+    #return price range in format q to q
+    def get_range_price(self):
+        if self.price > 0 and self.price < 500:
+            return '0to500'
+        elif self.price > 500 and self.price < 1000:
+            return '500to1000'
+        elif self.price > 1000 and self.price < 5000:
+            return '1000to5000'
+        else:
+            return 'gte5000'
+        
 
 class Offer(models.Model):
     owner = models.ForeignKey(User, related_name = "owner by Offer")

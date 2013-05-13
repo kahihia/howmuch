@@ -13,7 +13,7 @@ ADMINS = (
     ('Juan Carlos Cayetano', 'jc@brainn.co'),
 )
 
-AUTH_PROFILE_MODULE = 'facebook.FacebookProfile'
+AUTH_PROFILE_MODULE = 'profile.Profile'
 
 MANAGERS = ADMINS
 
@@ -116,8 +116,8 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'facebook.backend.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'django_facebook.auth_backends.FacebookBackend',
 )
 
 ROOT_URLCONF = 'howmuch.urls'
@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.staticfiles',
 
-    'endless_pagination',
+    #'endless_pagination',
     'gunicorn',
     'storages',
     
@@ -162,7 +162,7 @@ INSTALLED_APPS = (
 
     'registration',
     'paypal.standard.ipn',
-    'facebook',
+    'django_facebook',
 
 )
 
@@ -206,13 +206,12 @@ EMAIL_HOST_USER = 'app11900803@heroku.com'
 EMAIL_HOST_PASSWORD = 'gff4vexq'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'noreply@houmuch.com'
+DEFAULT_FROM_EMAIL = 'noreply@comprateca.com'
 
 
 #Facebook Settings
 FACEBOOK_APP_ID = '151714724990012'
 FACEBOOK_APP_SECRET = '96c602d1701ce53c3241652cdec8d6fd' 
-FACEBOOK_SCOPE = 'email,publish_stream'
 
 #Comission 
 COMMISSION = .05

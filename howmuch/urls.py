@@ -6,8 +6,6 @@ from django.contrib import admin
 
 from howmuch.tags.functions import tags_json
 
-from facebook.views import login as login_facebook, authentication_callback
-
 admin.autodiscover()
 
 urlpatterns = patterns('django.views.generic.simple',
@@ -20,8 +18,8 @@ urlpatterns = patterns('django.views.generic.simple',
     url(r'^tour/$', 'direct_to_template', {'template': 'tour.html'}),
 
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^facebook/login$', login_facebook),
-    url(r'^facebook/authentication_callback$', authentication_callback),
+    url(r'^facebook/', include('django_facebook.urls')),
+
     
     url(r'^about/', include('howmuch.about.urls')),
     url(r'^account/', include('howmuch.account.urls')),

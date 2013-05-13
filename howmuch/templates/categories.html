@@ -1,123 +1,78 @@
+<script type="text/javascript">
+
+$(document).on('ready', function(){
+    if(document.URL.split("/")[3]=="search"){
+        $('#filtros').show();
+    }
+
+	$('.filtro').click(function(e){
+        if(this.id=="range"){
+            this.id="_rangePrice_"+$('#min').attr("value")+"to"+$('#max').attr("value");
+        }
+		if(document.URL.split("/")[3]==""){
+            $('#'+this.id).attr("href","search/"+this.id);
+        }
+        else if(document.URL.split("/")[3]=="search"){
+            if(document.URL.indexOf("_"+this.id.split("_")[1]+"_")!=-1){
+                if(document.URL.indexOf("_",document.URL.indexOf("_"+this.id.split("_")[1]+"_")+this.id.split("_")[1].length+2)!=-1){
+                    window.location.assign(document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id+"_"+document.URL.split("_"+this.id.split("_")[1]+"_")[1].substr(document.URL.split("_"+this.id.split("_")[1]+"_")[1].indexOf("_")+1));
+                }
+                else{
+                    $('#'+this.id).attr("href",document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id);
+                }
+            }
+            else{
+                $('#'+this.id).attr("href",document.URL.split("/")[4]+this.id);
+            }
+        }
+        else{
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+this.id);
+        }
+	});
+});
+</script>
+
 <section class="dropdown-menu-generic">
 	<ul class="wrapper-div">
-		<li class="color7"><a href="#">Videojuegos</a>
-			<ul class=" wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_videojuegos" class="filtro" href="#">Videojuegos</a>
 		</li>
-		<li class="color7"><a href="#">Hogar</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_hogar" class="filtro" href="#">Hogar</a>
 		</li>
-		<li class="color7"><a href="#">Electrodomesticos</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_electrodomesticos" class="filtro" href="#">Electrodomesticos</a>
 		</li>
-		<li class="color7"><a href="#">Peliculas, series y DVDs</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_peliculas-series-dvds" class="filtro" href="#">Peliculas, series y DVDs</a>
 		</li>
-		<li class="color7"><a href="#">Electronica y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_electronica-accesorios" class="filtro" href="#">Electronica y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Celulares y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_celulares-accesorios" class="filtro" href="#">Celulares y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Ropa y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_ropa-accesorios" class="filtro" href="#">Ropa y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Libros y Revistas</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_libros-revistas" class="filtro" href="#">Libros y Revistas</a>
 		</li>
-		<li class="color7"><a href="#">Coleccionables</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_coleccionables" class="filtro" href="#">Coleccionables</a>
 		</li>
-		<li class="color7"><a href="#">Computación y Accesorios</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_computacion-accesorios" class="filtro" href="#">Computación y Accesorios</a>
 		</li>
-		<li class="color7"><a href="#">Instrumentos Musicales</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_instrumentos-musicales" class="filtro" href="#">Instrumentos Musicales</a>
 		</li>
-		<li class="color7"><a href="#">Juguetes</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_juguetes" class="filtro" href="#">Juguetes</a>
 		</li>
-		<li class="color7"><a href="#">Joyas y Relojes</a>
-			<ul class="wrapper-div color7">
-				<li><a href="#">Subcategoria 1</a></li>
-				<li><a href="#">Subcategoria 2</a></li>
-				<li><a href="#">Subcategoria 3</a></li>
-				<li><a href="#">Subcategoria 4</a></li>
-				<li><a href="#">Subcategoria 5</a></li>
-			</ul>
+		<li class="color7"><a id="_category_joyas-relojes" class="filtro" href="#">Joyas y Relojes</a>
 		</li>
+        <div id="filtros" style="display:none;">
+            <li class="color7"><b>Rango de precios</b></a>
+            </li>
+            <li class="color7"><a id="_rangePrice_0to500" class="filtro" href="#">Hasta $500</a>
+            </li>
+            <li class="color7"><a id="_rangePrice_500to1000" class="filtro" href="#">$500 a $1000</a>
+            </li>
+            <li class="color7"><a id="_rangePrice_1000to5000" class="filtro" href="#">$1000 a $5000</a>
+            </li>
+            <li class="color7"><a id="_rangePrice_gte5000" class="filtro" href="#">Más de $5000</a>
+            </li>
+            <li class="color7"><input id="min" type="text" placeholder="Min." style="width:60px">-<input id="max" type="text" placeholder="Máx." style="width:60px">&nbsp;&nbsp;<a id="range" class="btn btn-small filtro" href="#"><i class="icon-chevron-right"></i></a>
+            </li>
+        </div>
 	</ul>
 </section>
-
-<a href=""></a>
