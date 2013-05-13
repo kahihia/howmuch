@@ -2,6 +2,7 @@
 CATEGORIES = [
 	{
 		'name':'Celulares y Accesorios',
+		'index_name':'celulares-accesorios',
 		'tags':[
 			'Celulares',
 			'Smartphones',
@@ -40,6 +41,7 @@ CATEGORIES = [
 	},
 	{
 		'name':'Coleccionables',
+		'index_name':'coleccionables',
 		'tags':[
 			'Comics',
 			'Arte',
@@ -132,7 +134,8 @@ CATEGORIES = [
 		]
 	},
 	{
-		'name':'Computacion y Accesorios',
+		'name':'Computación y Accesorios',
+		'index_name':'computacion-accesorios',
 		'tags':[
 			'Accesorios de computacion',
 			'Accesorios y repuestos',
@@ -285,7 +288,8 @@ CATEGORIES = [
 		]
 	},
 	{
-		'name':'Electrodomesticos',
+		'name':'Electrodomésticos',
+		'index_name':'electrodomesticos',
 		'tags':[
 			'AEG',
 			'Ariston',
@@ -358,7 +362,8 @@ CATEGORIES = [
 		]
 	},
 	{
-		'name':'Electronica y Accesorios',
+		'name':'Electrónica y Accesorios',
+		'index_name':'electronica-accesorios',
 		'tags':[
 			'Accesorios para camaras',
 			'Afga',
@@ -597,6 +602,7 @@ CATEGORIES = [
 	},
 	{
 		'name':'Hogar',
+		'index_name':'hogar',
 		'tags':[
 			'AC',
 			'Accesorios',
@@ -685,6 +691,7 @@ CATEGORIES = [
 	},
 	{
 		'name': 'Instrumentos Musicales',
+		'index_name':'instrumentos-musicales',
 		'tags':[
 			'Accesorios ',
 			'Accesorios',
@@ -718,6 +725,7 @@ CATEGORIES = [
 	},
 	{
 		'name':'Joyas y Relojes',
+		'index_name':'joyas-relojes',
 		'tags':[
 			'Accesorios',
 			'anillos',
@@ -742,6 +750,7 @@ CATEGORIES = [
 	},
 	{
 		'name':'Juguetes',
+		'index_name':'juguetes',
 		'tags':[
 			'Adultos',
 			'albercas',
@@ -760,6 +769,7 @@ CATEGORIES = [
 	},
 	{
 		'name':'Libros y Revistas',
+		'index_name':'libros-revistas',
 		'tags':[
 			'Adolescentes',
 			'Arquitectura',
@@ -818,7 +828,8 @@ CATEGORIES = [
 		]
 	},
 	{
-		'name':'Peliculas, series y DVDs',
+		'name':'Películas, series y DVDs',
+		'index_name':'peliculas-series-dvds',
 		'tags':[
 			'Peliculas',
 			'Accion',
@@ -875,6 +886,7 @@ CATEGORIES = [
 	},
 	{
 		'name':'Ropa y Accesorios',
+		'index_name':'ropa-accesorios',
 		'tags':[
 			'Abrigos y chaquetas',
 			'Accesorios de mujer',
@@ -929,7 +941,8 @@ CATEGORIES = [
 		]
 	},
 	{
-		'name':'VideoJuegos',
+		'name':'Videojuegos',
+		'index_name':'videojuegos',
 		'tags':[
 			'Nintendo Wii ',
 			'Nintendo Wii U',
