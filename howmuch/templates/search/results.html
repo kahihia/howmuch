@@ -11,6 +11,85 @@
 {% endblock %}
 
 {% block section2 %}
+<script type="text/javascript">
+$(document).on('ready', function(){
+	if("{{ searchresults.query }}"!="all:1"){
+		$('#query_nav_ind').show();
+		$('#query_nav_delete').show();
+		$('#query_nav').text("\""+"{{ searchresults.query }}".split(":")[1].split("*")[0]+"\"");
+		$('#query_nav').attr("href","/search/"+"{{ searchresults.query }}".split(":")[1].split("*")[0]);
+	}
+	filters="{{ filters }}".split(",");
+	for(i=0; i<filters.length; i++){
+		items=filters[i].split(":");
+		aux=items[0].split("&#39;")[1];
+		if(aux=="category"){
+			$('#category_nav_ind').show();
+			if("{{ searchresults.query }}"!="all:1" || document.URL.split("/search/")[1].split("_category_")[1].indexOf("_")==-1){
+				$('#category_nav_delete').show();
+			}
+			$('#category_nav').text($('#_category_'+items[1].split("&#39;")[1]).text().split("(")[0]);
+			if("{{ searchresults.query }}"!="all:1"){
+				$('#category_nav').attr("href",$('#query_nav').attr("href")+"_category_"+items[1].split("&#39;")[1]);
+			}
+			else{
+				$('#category_nav').attr("href","/search/"+"_category_"+items[1].split("&#39;")[1]);
+			}
+		}
+		else if(aux=="rangePrice"){
+			$('#rangePrice_nav_ind').show();
+			$('#rangePrice_nav_delete').show();
+			if(items[1].split("&#39;")[1]=="0to500" || items[1].split("&#39;")[1]=="500to1000" || items[1].split("&#39;")[1]=="1000to5000" || items[1].split("&#39;")[1]=="gte5000"){
+				$('#rangePrice_nav').text($('#_rangePrice_'+items[1].split("&#39;")[1]).text().split("(")[0]);
+			}
+			else{
+				if(items[1].split("&#39;")[1].split("to")[0]==""){
+					$('#rangePrice_nav').text("Hasta $"+items[1].split("&#39;")[1].split("to")[1]);
+				}
+				else if(items[1].split("&#39;")[1].split("to")[1]==""){
+					$('#rangePrice_nav').text("Más de $"+items[1].split("&#39;")[1].split("to")[0]);
+				}
+				else{
+					$('#rangePrice_nav').text("$"+items[1].split("&#39;")[1].split("to")[0]+" a $"+items[1].split("&#39;")[1].split("to")[1]);
+				}
+			}
+		}
+	}
+
+	$('.delete_query').click(function(e){
+		if(document.URL.split("/search/")[1].indexOf("_")!=-1){
+			window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].substr(document.URL.split("/search/")[1].indexOf("_")));
+		}
+		else{
+			window.location.assign("/");
+		}
+	});
+
+	$('.delete_category').click(function(e){
+		if(document.URL.split("/search/")[1].split("_category_")[0]!=""){
+			if(document.URL.split("/search/")[1].split("_category_")[1].indexOf("_")!=-1){
+				window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].split("_category_")[0]+document.URL.split("/search/")[1].split("_category_")[1].substr(document.URL.split("/search/")[1].split("_category_")[1].indexOf("_")));
+			}
+			else{
+				window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].split("_category_")[0]);
+			}
+		}
+		else{
+			window.location.assign("/");
+		}
+	});
+
+	$('.delete_rangePrice').click(function(e){
+		if(document.URL.split("/search/")[1].split("_rangePrice_")[1].indexOf("_")!=-1){
+			window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].split("_rangePrice_")[0]+document.URL.split("/search/")[1].split("_rangePrice_")[1].substr(document.URL.split("/search/")[1].split("_rangePrice_")[1].indexOf("_")));
+		}
+		else{
+			window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].split("_rangePrice_")[0]);
+		}
+	});
+});
+</script>
+<h3 id="aver"><a href="/">Inicio</a><abbr id="query_nav_ind" style="display:none"> > </abbr><a id="query_nav" href=""></a><a id="query_nav_delete" class="btn btn-mini delete_query" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="category_nav_ind" style="display:none"> > </abbr><a id="category_nav" href=""></a><a id="category_nav_delete" class="btn btn-mini delete_category" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="rangePrice_nav_ind" style="display:none"> > </abbr><a id="rangePrice_nav" href=""></a><a id="rangePrice_nav_delete" class="btn btn-mini delete_rangePrice" href="#" style="display:none"><i class="icon-remove"></i></a></h3>
 <section class="wrapper-div">
 	<div class="text-center">
 		{% if not filtros %}
