@@ -4,7 +4,7 @@ $(document).on('ready', function(){
     if(document.URL.split("/")[3]=="search"){
         $('#filtros').show();
     }
-
+    
 	$('.filtro').click(function(e){
 		if(document.URL.split("/")[3]==""){
             $('#'+this.id).attr("href","search/"+this.id);
@@ -55,6 +55,7 @@ $(document).on('ready', function(){
         $('#_rangePrice_'+rp_name).text($('#_rangePrice_'+rp_name).text().split("(")[0]+"("+rp_matches+")");
     {% endfor %}
 
+    {% if searchresults %}
     if($('._category_videojuegos').text().split("(")[1].charAt(0)=='0'){
         $('._category_videojuegos').hide();
     }
@@ -106,6 +107,7 @@ $(document).on('ready', function(){
     if($('._rangePrice_gte5000').text().split("(")[1].charAt(0)=='0'){
         $('._rangePrice_gte5000').hide();
     }
+    {% endif %}
 });
 </script>
 

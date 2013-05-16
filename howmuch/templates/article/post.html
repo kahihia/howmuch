@@ -11,32 +11,36 @@
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script type="text/javascript">
 $(document).on('ready', function(){
-	var tags
-	$('#wrapper-tags').hide()
+	var tags;
+	//$('#wrapper-tags').hide();
 	$('#id_category').on('change', function(){
-		$('#wrapper-tags').show("slow")
-		var category_id = $(this).val()
+		$('#wrapper-tags').show("slow");
+		$('#tags-input').remove();
+		$( "<input/>", {
+  			"type": "text",
+  			"id": "tags-input",
+		}).appendTo( '#wrapper-tags' );
+		//$( "<input type="text" id="tags-input">" ).appendTo('#wrapper-tags');
 		tags = new MagicSuggest({
-                renderTo: $('#tags-input'),
-                width: 490,
-                cls: 'magicsuggest',
-                emptyText:'Escribe Aqui',
-                noSuggestionText : 'Sin Sugerencias',
-                required: true,
-                data:'/tags/',
-                method: 'GET',
-                valueField:'name',
-                dataParams : {
-                	"category_id" : category_id
-                }
-
+            renderTo: $('#tags-input'),
+            width: 490,
+            cls: 'magicsuggest',
+            emptyText:'Escribe Aqui',
+            noSuggestionText : 'Sin Sugerencias',
+            required: true,
+            data:'/tags/',
+            method: 'GET',
+            valueField:'name',
+            dataParams : {
+            	"category_id" : $(this).val()
+            }
 		});
 	});
 	$('#submit-post').on('click', function(e){
-		e.preventDefault()
-		var tags_input = tags.getValue()
-		$('#tags').val(tags_input)
-		$('#form-post-article').submit()
+		e.preventDefault();
+		var tags_input = tags.getValue();
+		$('#tags').val(tags_input);
+		$('#form-post-article').submit();
 	})
 });
 </script>
