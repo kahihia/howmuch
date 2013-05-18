@@ -1,0 +1,7 @@
+.slide-down, ul ul {
+	display: block !important;
+}
+
+.js-enabled {
+	display: none !important;
+}

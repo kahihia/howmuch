@@ -1,48 +1,20 @@
 {% extends "3columns.html" %}
 
-{% block media %}
+{% block media_css %}
 <link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme8/style.css">
+{% endblock %}
+
+{% block media_js %}
 <script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 {% endblock %}
 
-{% block search-bar %}
-	{% include "search.html" %}
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
-{% block section1 %}
-	{% include "categories.html" %}
-{% endblock %}
 {% block section2 %}
-<div class="text-center">
-  <a id="startTourHome" class="btn btn-danger">Iniciar Tour</a>
-</div>
-<div class="margin10">
-  <div class="text-center">
-    <h3>Lo que la gente esta comprando ahora</h3>
-  </div>
-  <div>
-    {% for article in articles %}
-    <div class="span4 wrapper-div4">
-          <div class="text-center">
-            <a href="{{ article.ger_url }}">
-              <strong class="font-blue size20">{{ article.title|title }}</strong>
-            </a>
-          </div>
-          <div>
-            <a href="{{ article.get_url }}">
-              <div class="thumbnail">
-                <img src="{{ article.get_first_picture_url }}">
-              </div>  
-            </a>
-          </div>
-          <div class="text-center margin10">
-            <strong class="font-red size20">$ {{ article.price }}</strong>
-          </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+
 <script>
 $(document).ready(function() {
    var tourdata = [
@@ -112,6 +84,71 @@ $(document).ready(function() {
    });
 });
 </script>
+
+
+
+
+        <div class="content">
+          <div class="head">
+            <div class="hero padding-2em text-align-center" style="background-image: url('/media/img/hero.jpg')">
+              <h1 class="font-size-3em color-white">
+                <span class="highlight">¡Ahora puedes pedir</span><br/>
+                <span class="highlight">qué comprar!</span>
+              </h1>
+              <div class="button-container margin-0_5em">
+                <a id="startTourHome" class="button green font-size-1_5em" href="#">Iniciar tour</a>
+              </div>
+              <div class="hero-close float-right color-white">
+                <a class="highlight" href="javascript:$('.hero').slideUp(800);">&times; cerrar</a>
+              </div>
+            </div>
+            <div class="info margin-bottom-1em">
+              <h1 class="font-size-1_5em">Productos destacados</h1>
+              <div class="description">
+                Para comenzar, de click o algo así, como que la descripción de lo que está pasando en la página principal y lo que puedes hacer.
+              </div>
+            </div>
+          </div>
+          <div class="items border">
+            <!-- Now, items list starts -->
+            <div class="items-list">
+              <!-- 3 ITEMS GROUP STARTS -->
+              <div class="items-group group margin-bottom-1em border-bottom-dashed">
+                <!-- Item starts -->
+                {% for article in articles %}
+                <div class="item float-left width-33_3 margin-top-1em margin-bottom-1em text-align-justify">
+                  <div class="item-image-container padding-0_5em">
+                    <a href="{{ article.get_url }}">
+                      <img class="item-image width-100" src="{{ article.get_first_picture_url }}" alt="{{ article.title }}" />
+                    </a>
+                  </div>
+                  <div class="item-header padding-0_5em">
+                    <a href="#">{{ article.title }}</a>
+                  </div>
+                  <div class="item-price padding-0_5em">$ {{ article.price }}</div>
+                  <div class="item-extra padding-0_5em font-size-0_8em">
+                    <span class="attention">&laquo;</span>
+                    <span class="item-extra-info">
+                      {{ article.description }}
+                    </span>
+                    <span class="attention">&raquo;</span>
+                  </div>
+                  <div class="tags">
+                    {% for tag in article.tags.all %}
+                    <a class="item-tag tag blue" href="#">{{ tag }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endfor %}
+                <!-- Item ends -->
+                
+              </div>
+              <!-- 3 ITEMS GROUP ENDS -->
+            </div>
+            <!-- Now, items list ends -->
+          </div>
+        </div>
+
 {% endblock %}
 
 {% block section3 %}
