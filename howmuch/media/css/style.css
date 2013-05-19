@@ -549,4 +549,21 @@ html.developer .developer {
 	border: 2px dashed red;
 }
 
+/* UPLOAD PICTURE OFFER */
+
+.image-preview-wrapper{
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+	display: inline-block;
+	border: 5px solid black;
+	cursor: pointer;
+}
+.image-preview-wrapper:hover{
+	background: url("/media/img/more-picture.png") no-repeat scroll transparent !important;
+}
+.input-file{
+	display: none !important;
+}
+
 /* *******   END: WEB DEVELOPER ******* */

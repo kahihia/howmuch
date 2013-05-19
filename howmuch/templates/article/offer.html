@@ -1,130 +1,199 @@
 {% extends "3columns.html" %}
+
 {% block title %}
 Aplico para Vender el Articulo {{ article.title }}
 {% endblock %}
 
-{% block media %}
-{% endblock %}
-
-{% block search-bar %}
-	{% include "search.html" %}
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<section>
-	{% if form.errors %}
-	<div class="alert alert-error">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-    	<h4>Error</h4>
-    	Favor de llenar correctamente el formulario, solo numeros enteros y sube al menos la primer imagen.
-    </div>
-    {% endif %}
-
-	{% if not errors %}
-	<form action=""  method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<div class="wrapper-div3">
-			<div class="row-fluid margin10">
-				<div class="thumbnail span2">
-					<img src="{{ article.get_first_picture_url }}">
-				</div>
-				<div class="span7 text-center">
-					<h3>Tu oferta para {{ article.title }}</h3>
-					<p>
-					{{ article.description|truncatechars:100}}
-					</p>
-				</div>
-				<div class="span3 text-center background3">
-					<h4>Pagan</h4>
-					<h2>$ {{ article.price }}</h2>
-				</div>
-			</div>
-
-			<div class="row-fluid">
-				<div class="span6">
-					<legend>Precio de Venta</legend>
-					<div class="input-prepend input-append">
-						<span class="add-on">$</i></span>
-						{{ form.cprice }}
-						<span class="add-on">.00</span>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Ofrecer artículo</h1>
+							<div class="description">
+								Llena los datos siguientes para realizar oferta de artículo a vender.
+							</div>
+						</div>
 					</div>
-					{{ form.cprice.errors }}
-					<span class="help-block">Precio al que venderas el articulo</span>
+					
+					<!-- FORM STARTS -->
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						{% if form.errors %}
+						<div class="notification error border borders margin-bottom-1em text-align-left">
+							<div class="strong">Error en la forma</div>
+							<div class="notification-info">
+								Verificar que hayas introducido los datos correctos en la forma.
+							</div>
+						</div>
+						{% endif %}
+								
+						<!-- FORM LOGIN STARTS -->
+						<div class="login-form-area div-center-fix">
+							<div class="text-align-left">
+								
+								<!-- PRINCIPAL INFO -->
+								<div class="group border dashed">
+									<div class="width-20 float-left">
+										<div class="padding-1em text-align-center">
+											<img class="width-100 padding-0_5em border" src="{{ article.get_first_picture_url }}" />
+										</div>
+									</div>
+									<div class="width-70 float-right">
+										<div class="padding-1em">
+											<div class="item-title font-size-1_25em strong">
+												{{ article.title }}
+											</div>
+											<div class="item-description">
+												<span class="attention">&laquo;</span>
+												<span>
+													{{ article.description|truncatechars:100}}
+												</span>
+												<span class="attention">&raquo;</span>
+											</div>
+											<div class="item-price margin-top-1em">
+												<div class="border text-align-center font-size-1_25em">
+													<div class="strong attention">Pagan</div>
+													<div>$ {{ article.price }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="group">
+									<div class="float-left width-50">
+										<div class="padding-1em">
+											<!-- STARTS INPUT -->
+											<div class="division">
+												<label for="" class="width-100 font-size-1_25em display-block">Precio</label>
+												{{ form.cprice }}
+												
+												<!-- ERROR -->
+												<div class="slide-down font-size-0_9em margin-top-0_5em">
+													Precio al que venderás el artículo.
+												</div>
+
+												{% if form.cprice.errors %}
+												<div class="error slide-down color-red font-size-0_9em">
+													Verificar precio.
+												</div>
+												{% endif %}
+											</div>
+											<!-- ENDS INPUT -->
+										</div>
+									</div>
+									<div class="float-right width-50">
+										<div class="padding-1em">
+											<!-- STARTS INPUT -->
+											<div class="division">
+												<label for="" class="width-100 font-size-1_25em display-block">Cantidad</label>
+												{{ form.quantity }}
+												<!-- ERROR -->
+												<div class="slide-down font-size-0_9em margin-top-0_5em">
+													El comprador quiere N artículos pero puedes ofrecerle menos.
+												</div>
+												{% if form.quantity.errors %}
+												<div class="error slide-down color-red font-size-0_9em">
+													Verificar cantidad.
+												</div>
+												{% endif %}
+											</div>
+											<!-- ENDS INPUT -->
+										</div>
+									</div>
+								</div>
+								
+								<!-- DIVISION --><hr />
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 font-size-1_25em display-block">Subir fotografías</label>
+
+									<div>
+									{{ form.picture1}}
+									</div>
+
+									<div>
+									{{ form.picture2}}
+									</div>
+
+									<div>
+									{{ form.picture3}}
+									</div>
+
+									<div>
+									{{ form.picture4}}
+									</div>
+
+									<div>
+									{{ form.picture5}}
+									</div>
+
+									<div class="image-preview-wrapper" onclick="$('#id_picture1').click()">
+										<img src="{{ MEDIA_URL }}img/camera1.png" id="image1" width="100" height="100">
+									</div>
+									<div class="image-preview-wrapper" onclick="$('#id_picture2').click()">
+										<img src="{{ MEDIA_URL }}img/camera1.png" id="image2" width="100" height="100">
+									</div>
+									<div class="image-preview-wrapper" onclick="$('#id_picture3').click()">
+										<img src="{{ MEDIA_URL }}img/camera1.png" id="image3" width="100" height="100">
+									</div>
+									<div class="image-preview-wrapper" onclick="$('#id_picture4').click()">
+										<img src="{{ MEDIA_URL }}img/camera1.png" id="image4" width="100" height="100">
+									</div>
+									<div class="image-preview-wrapper" onclick="$('#id_picture5').click()">
+										<img src="{{ MEDIA_URL }}img/camera1.png" id="image5" width="100" height="100">
+									</div>
+								</div>
+
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em margin-top-0_5em">
+										Archivo tipo .jpg, .gif, .bmp o .png
+									</div>
+									{% if form.picture1.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										Verificar archivo.
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- DIVISION --><hr />
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 font-size-1_25em display-block">Descripción</label>
+									{{ form.message }}
+									
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em margin-top-0_5em">
+										Describe el artículo que estás vendiendo e incluye detalles sobre él.
+									</div>
+									{% if form.message.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										Verificar descripción.
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- DIVISION --><hr />
+								
+								<div class="division margin-1em text-align-center">
+									<input type="submit" name="" class="button green width-50" value="Publicar oferta" />
+								</div>
+								
+							</div>
+						</div>
+					</form>
+					<!-- FORM ENDS -->
 				</div>
+{% endblock %}
 
-				<div class="span6">
-					<legend>Cantidad de Articulos</legend>
-					<div>	
-						{{ form.quantity }}
-					</div>
-					{{ form.quantity.errors }}
-					<span class="help-block">El comprador quiere {{ article.quantity }} articulos, pero puedes ofrecerle menos</span>
-				</div>
-			</div>
-		</div>
-
-		<div class="wrapper-div3">
-			<legend>Sube Imagenes del Articulo que estas Vendiendo</legend>
-			<div>
-			{{ form.picture1}}
-			</div>
-
-			<div>
-			{{ form.picture2}}
-			</div>
-
-			<div>
-			{{ form.picture3}}
-			</div>
-
-			<div>
-			{{ form.picture4}}
-			</div>
-
-			<div>
-			{{ form.picture5}}
-			</div>
-
-
-			<div class="image-preview-wrapper" onclick="$('#id_picture1').click()">
-				<img src="{{ MEDIA_URL }}img/camera1.png" id="image1" width="100" height="100">
-			</div>
-			<div class="image-preview-wrapper" onclick="$('#id_picture2').click()">
-				<img src="{{ MEDIA_URL }}img/camera1.png" id="image2" width="100" height="100">
-			</div>
-			<div class="image-preview-wrapper" onclick="$('#id_picture3').click()">
-				<img src="{{ MEDIA_URL }}img/camera1.png" id="image3" width="100" height="100">
-			</div>
-			<div class="image-preview-wrapper" onclick="$('#id_picture4').click()">
-				<img src="{{ MEDIA_URL }}img/camera1.png" id="image4" width="100" height="100">
-			</div>
-			<div class="image-preview-wrapper" onclick="$('#id_picture5').click()">
-				<img src="{{ MEDIA_URL }}img/camera1.png" id="image5" width="100" height="100">
-			</div>
-
-			<span class="help-block">Click en el cuadro para subir imagen</span>
-			
-		</div>
-
-		<div class="wrapper-div3 text-center">
-			<legend>Agrega una breve Descripcion de tu Articulo</legend>
-			{{ form.message }}
-			<input class="btn btn-large btn-success" type="submit" value="Venderselo">
-		</div>
-	{% else %}
-	<div class="wrapper-div3">
-		<div class="alert alert-error">
-    		<h3>No es posible que que ofertes en esta publicación por las siguientes razones</h3>
-    		<ul>
-    			{% for error in errors %}
-    			<li>{{ error }}</li>
-    			{% endfor %}
-    		</ul>
-    	</div>
-    	<div class="text-center">
-    		<a class="btn btn-success btn-large" href="{{ article.get_url }}">Aceptar</a>
-    	</div>
-	</div>
-	{% endif %}
-</section>
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
 

@@ -25,12 +25,12 @@ class ArticleForm(ModelForm):
 
 class OfferForm(forms.Form):
     quantity = forms.ChoiceField(
-        widget = forms.Select(attrs = {'class' : 'span12'}),
+        widget = forms.Select(attrs = {'class' : 'width-100'}),
         choices = QUANTITY_CHOICES)
     cprice = forms.IntegerField(
-        widget = forms.TextInput(attrs = {'class' : 'span12'}))
+        widget = forms.TextInput(attrs = {'class' : 'text width-100'}))
     message = forms.CharField(
-        widget = forms.Textarea(attrs = {'class' : 'span12'}))
+        widget = forms.Textarea(attrs = {'class' : 'width-100', 'style':'height:10em'}))
     picture1 = forms.ImageField(
         widget = forms.ClearableFileInput(attrs = {'class' : 'input-file', 
             'onChange' : "readURL(this,'image1')"}))
