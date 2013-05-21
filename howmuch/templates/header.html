@@ -13,10 +13,13 @@
 			<div class="user group float-right width-25">
 				<div class="menu group width-50 float-left text-align-right">
 					<div class="arrow attention float-right width-15">&#9662;</div>
-					<div class="text float-right">Mi cuenta</div>
+					{% if user.is_authenticated %}
+					<div class="text float-right">{{ user }}</div>
+					{% endif %}
 				</div>
 				<div class="publish width-50 float-right">
 					<a class="button green" href="/article/post/">Publicar</a>
 				</div>
 			</div>
 		</div>
+
