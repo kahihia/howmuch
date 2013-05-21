@@ -1,67 +1,148 @@
-{% extends "registration/base.html" %}
+{% extends "3columns.html" %}
 
 {% block section1 %}
-
+    {% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div3 text-center">
-	<form class="form-horizontal" action="" method="POST">{% csrf_token %}
-		<h2>Registrarse</h2>
-    	<div>
-    		<legend>Usuario</legend>
-    		{{ form.username }}
-            <span class="text-help">Tu nombre de usuario</span>
-    			{{ form.username.errors }}
-    	</div>
-
-    	<div>
-    		<legend>Nombres</legend>
-    		{{ form.first_name }}
-            <span class="text-help">Tus Nombres</span>
-            {{ form.first_name.errors }}
-    	</div>
-
-    	<div >
-    		<legend>Apellidos</legend>
-    		{{ form.last_name }}
-            <span class="text-help">Tus apellidos</span>
-    		{{ form.last_name.errors }}
-    	</div>
-
-    	<div >
-    		<legend>Correo Electronico</legend>
-    		{{ form.email }}
-            <span class="text-help">Tu correo electronico</span>
-    		{{ form.email.errors }}
-    	</div>
-
-    	<div >
-    		<legend>Contraseña</legend>
-    		{{ form.password1 }}
-            <span class="text-help">Escribe una contraseña</span>
-    		{{ form.password1.errors }}
-    	</div>
-
-    	<div >
-    		<legend>Confirma Contraseña</legend>
-    		{{ form.password2 }}
-            <span class="text-help">Repite tu contraseña</span>
-    		{{ form.password2.errors }}
-    	</div>
-
-    	<div>
-            <legend>Terminos y Condiciones</legend>
-            {{ form.tos }}
-            <span class="help-block">Acepto los Terminos y Condiciones</span>
-			{{ form.tos.errors }}
-		</div>	
-
-		<div class="margin10">
-			<input class="btn btn-large btn-primary" type="submit" value="Registrarme">
-		</div>
-	</form>
-</div>
+{% include 'django_facebook/_facebook_js.html' %}
+                <div class="content padding-1_5em">
+                    <div class="head">
+                        <div class="info margin-bottom-1em">
+                            <h1 class="font-size-1_5em">Registro</h1>
+                            <div class="description">
+                                Favor de introducir los datos necesarios para el registro
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- FACEBOOK LOGIN STARTS -->
+                    <div class="facebook-login div-center-fix border dashed text-align-center">
+                      <h2 class="margin-0_5em font-size-1_25em">¿Facebook?</h2>
+                      <p class="margin-1em">¿Sabías que puedes <strong>iniciar sesión con tu cuenta de Facebook</strong>? Para comenzar, da click aquí.</p>       
+                      <div class="button-wrapper margin-1em padding-1em">
+                        <form action="{% url facebook_connect %}?facebook_login=1" method="post">{% csrf_token %}
+                          <a href="javascript:void(0);" class="button facebook-blue border-radius" onclick="F.connect(this.parentNode);">
+                            <img src="{{ MEDIA_URL }}img/facebook.png" class="icon">&nbsp; 
+                            Iniciar sesión
+                          </a>
+                          <input type="hidden" value="{{ request.path }}" name="next" />
+                        </form>
+                      </div>
+                    </div>
+                    <!-- FACEBOOK LOGIN ENDS -->
+                    
+                    
+                    <!-- FORM STARTS -->
+                    <form class="register-form border padding-1em text-align-center" action="" method="POST">{% csrf_token %}
+                        
+                        <!-- FORM LOGIN STARTS -->
+                        <div class="login-form-area width-60 div-center-fix">
+                            <div class="text-align-left">
+                                <div class="division margin-1em">
+                                    <label for="" class="width-100 display-block">Nombre de usuario</label>
+                                    <input type="text" name="username" class="text width-100" />
+                                    
+                                    {% if form.username.errors %}
+                                    <!-- ERROR -->
+                                    <div class="error slide-down color-red font-size-0_9em">
+                                    {{ form.username.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="division margin-1em">
+                                    <label for="" class="width-100 display-block">Correo electrónico</label>
+                                    <input type="text" name="email" class="text width-100" />
+                                    
+                                    {% if form.email.errors %}
+                                    <!-- ERROR -->
+                                    <div class="error slide-down color-red font-size-0_9em">
+                                    {{ form.email.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                
+                                
+                                
+                                <!-- DIVISION --><hr/>
+                                
+                                <div class="division margin-1em">
+                                    <label for="" class="width-100 display-block">Nombre</label>
+                                    <input type="text" name="first_name" class="text width-100" />
+                                    
+                                    {% if form.first_name.errors %}
+                                    <!-- ERROR -->
+                                    <div class="error slide-down color-red font-size-0_9em">
+                                    {{ form.first_name.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="division margin-1em">
+                                    <label for="" class="width-100 display-block">Apellidos</label>
+                                    <input type="text" name="last_name" class="text width-100" />
+                                    
+                                    {% if form.last_name.errors %}
+                                    <!-- ERROR -->
+                                    <div class="error slide-down color-red font-size-0_9em">
+                                    {{ form.last_name.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- DIVISION --><hr/>
+                                
+                                <div class="division margin-1em">
+                                    <label for="" class="width-100 display-block">Contraseña</label>
+                                    <input type="password" name="password1" class="text password width-100" />
+                                </div>
+                                
+                                <div class="division margin-1em">
+                                    <label for="" class="width-100 display-block">Confirmar contraseña</label>
+                                    <input type="password" name="password2" class="text password width-100" />
+                                    
+                                    {% if form.password1.errors %}
+                                    <!-- ERROR -->
+                                    <div class="error slide-down color-red font-size-0_9em">
+                                        {{ form.password1.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                
+                                <!-- DIVISION --><hr/>
+                                
+                                <div class="division margin-1em">
+                                    <label for="" class="width-100 display-block">Terminos y condiciones</label>
+                                    
+                                    {% if form.tos.errors %}
+                                    <!-- ERROR -->
+                                    <div class="error slide-down color-red font-size-0_9em">
+                                        Debe de aceptar los términos y condiciones.
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <div class="text-align-center margin-1em">
+                                        <input type="checkbox" name="tos" /> Acepto los terminos y condiciones
+                                    </div>
+                                    
+                                </div>
+                                
+                                <!-- DIVISION --><hr/>
+                                
+                                <div class="division margin-1em text-align-center">
+                                    <input type="submit" name="" class="button red width-50" value="Registro" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FORM LOGIN ENDS -->
+                        <br/>
+                    </form>
+                    <!-- FORM ENDS -->
+                </div>
 
 {% endblock %}
 
