@@ -1,24 +1,40 @@
-{% extends "registration/base.html" %}
+{% extends "3columns.html" %}
+
+{% block section1 %}
+
+{% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div3">
-  <div class="alert alert-success text-center">
-    <h3>Felicidades</h3>
-    Tu Cuenta ha sido activada correctamente 
-  </div>
-
-  <div class="text-center margin10">
-    <a class="btn btn-success btn-primary" href="/login/">Iniciar Sesión</a>
-  </div>
-</div>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">¡Felicidades!</h1>
+							<div class="description">Tu cuenta ha sido activada correctamente.</div>
+						</div>
+					</div>
+					
+					
+					<!-- DESCRIPTION TEXT STARTS -->
+					<div class="complete-description border dashed text-align-center">
+						<p class="margin-2em strong">
+							Muchas gracias por registrate en <a href="#" class="attention">comprateca.com</a>, para comenzar a pedir qué comprar, inicia sesión aquí.
+						</p>
+						
+						<div class="margin-2em">
+							<a href="" class="button green">
+								Iniciar sesión
+							</a>
+						</div>
+						
+					</div>
+					<!-- DESCRIPTION TEXT ENDS -->
+				</div>
 {% endblock %}
 
 {% block section3 %}
   {% include "howtodo.html" %}
 {% endblock %}
 
-
-{% include "footer.html" %}
 
 
 

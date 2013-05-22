@@ -10,8 +10,8 @@ class ProfileForm(ModelForm):
             'prestige','positive_points','negative_points','unread_notifications', 'unread_conversations',
             'current_invoice', 'credit_limit','is_block')
         widgets = {
-            'profile_picture' : FileInput(attrs={'class':'span12',}),
-            'company' : TextInput(attrs={'class':'span12',}),
+            'profile_picture' : FileInput(attrs={'class':'text password width-100',}),
+            'company' : TextInput(attrs={'class':'text width-100',}),
         }
 
 class AddressForm(ModelForm):

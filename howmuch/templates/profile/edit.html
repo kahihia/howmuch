@@ -5,113 +5,184 @@
 {% block media %}
 {% endblock %}
 
+{% block section1 %}
+	{% include "categories2.html" %}
+{% endblock %}
+
 {% block section2 %}
-    	<div class="wrapper-div3">
-    		{% if user.profile.get_profile_progress < 100 %}
-    		<div class="alert alert-info">
-    			<button type="button" class="close" data-dismiss="alert">&times;</button>
-    			<h4>Perfil Incompleto</h4>
-    			Completalo agregando tu imagen de perfil, direcciones y telefonos.
-    			<a href="#">¿Porque proporciono esta informacion?</a>
-    		</div>
-    		{% endif %}
-    		<div class="row-fluid">
-    			<div class="thumbnail span3">
-    				<img src="{{ user.profile.get_profile_picture }}">
-    			</div>
-
-    			<div class="span8">
-    				<h3>{{ user.get_full_name }}</h3>
-    			</div>
-    		</div>
-
-    		<div>
-				<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		
-					<div>
-						<legend>Nombre de tu Empresa</legend>
-						{{ form.company }}
-						<span class="help-block">Solo en Caso que representes una Empresa</span>
-						{{ form.company.errors }}
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Perfil de usuario</h1>
+							<div class="description">
+								Aquí puedes cambiar los datos de tu perfil.
+							</div>
+						</div>
 					</div>
-
-					<div>
-						<legend>Imagen de Perfil</legend>
-						{{ form.profile_picture }}
-						<span class="help-block">Formato .jpg, .png, .bmp</span>
-						{{ form.profile_picture.errors }}
+					
+					<!-- FORM STARTS -->
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">
+						{% if user.profile.get_profile_progress < 100 %}
+						<div class="notification border borders margin-bottom-1em text-align-left">
+							<div class="strong">Perfil Incompleto</div>
+							<div class="notification-info">
+								Completalo agregando tu imagen de perfil, direcciones y teléfonos. <a href="#">¿Porque proporciono esta informacion?</a>.
+							</div>
+						</div>
+						{% endif %}
+								
+						<!-- FORM LOGIN STARTS -->
+						<div class="login-form-area width-60 div-center-fix">
+							<div class="text-align-left">
+								
+								<div class="big-user-name margin-1em text-align-center">
+									<span class="font-size-1_5em strong">{{ user.get_full_name }}</span>
+								</div>
+								
+								<div class="text-align-center">
+									<img class="width-50 border padding-0_5em" src="{{ user.profile.get_profile_picture }}" />
+								</div>
+								
+								<!-- DIVISION --><hr/>
+								
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Nombre de la empresa</label>
+									{{ form.company }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Introducir en caso de que representes a una empresa.
+									</div>
+									{% if form.company.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										Favor de introducir correctamente.
+									</div>
+									{% endif %}
+								</div>
+								
+								<!-- DIVISION --><hr/>
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Subir imagen de perfil</label>
+									{{ form.profile_picture }}
+									<input id="file-upload-button" type="" class="button green" value="Seleccionar archivo" style="margin:0.5em 0px" />
+									
+									<script>
+										$(window).on('load', function () {
+											$('#id_profile_picture').hide();
+											$('#file-upload-button').on('click', function () {
+												$('#id_profile_picture').click();
+											});
+										});
+									</script>
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Archivo tipo .jpg, .gif, .bmp o .png
+									</div>
+									{% if form.profile_picture.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										Verificar archivo
+									</div>
+									{% endif %}
+								</div>
+								
+								
+								<!-- DIVISION --><hr/>
+								
+								<div class="division margin-1em text-align-center">
+									<input type="submit" name="" class="button red width-50" value="Registro" />
+								</div>
+								
+							</div>
+						</div>
+						<!-- FORM LOGIN ENDS -->
+						<br/>
+					</form>
+					<!-- FORM ENDS -->
+					
+					<!-- STARTS AREA -->
+					<div class="border margin-top-1em padding-1em">
+						<div class="title font-size-1_5em">Direcciones</div>
+						<div class="notification border borders margin-bottom-1em text-align-left">
+							<div class="notification-info">
+								<a href="#">¿Para qué agrego ésta información?</a>
+							</div>
+							</div>
+							{% for address in user.profile.addresses.all %}
+							<!-- IF INFORMATION -->
+							<div class="info-enum border dashed margin-bottom-1em">
+								<div class="container padding-1em">
+									<div>{{ address.street }}</div>
+									<div>{{ address.city }}</div>
+									<div>{{ addreess.state }}</div>
+								</div>
+							</div>
+							<!-- ENDIF -->
+							{% empty %}
+								<div class="strong">No hay direcciones guardadas.
+								</div>
+							{% endfor %}
+							<div>
+								<a class="attention" href="/profile/e/newaddress">+ Agregar dirección</a>
+							</div>
 					</div>
-
-					<center>
-						<input type="submit" class="btn btn-large btn-success" value="Guardar">
-					</center>
-				</form>
-			</div>
-    	</div>
-
-    	<div class="wrapper-div3">
-			<legend>Direcciones</legend>
-			{% for address in user.profile.addresses.all %}
-				<div class="row-fluid hover1">
-					<div class="span9">
-						{{ address }}
+					<!-- ENDS AREA -->
+					<!-- STARTS AREA -->
+					<div class="border margin-top-1em padding-1em">
+						<div class="title font-size-1_5em">Teléfonos</div>
+						<div class="notification border borders margin-bottom-1em text-align-left">
+							<div class="notification-info">
+									<a href="#">¿Para qué agrego ésta información?</a>
+							</div>
+							</div>
+							{% for phone in user.profile.phones.all %}
+							<!-- IF INFORMATION -->
+							<div class="info-enum border dashed margin-bottom-1em">
+								<div class="container padding-1em">
+									<div>Teléfono <span class="strong">{{ phone.place }}</span>
+									</div>
+									<div>{{ phone.number }}</div>
+								</div>
+							</div>
+							<!-- ENDIF -->
+							{% empty %}
+							<div class="strong">No hay teléfonos guardados.
+							</div>
+							{% endfor %}
+							<div>
+								<a class="attention" href="/profile/e/newphone">+ Agregar teléfono</a>
+							</div>
 					</div>
-					<div>
-						<a class="margin5" href="/profile/e/editaddress/{{ address.pk }}">Editar</a>
-						<a class="margin5" href="#">Eliminar</a>
+					<!-- ENDS AREA -->
+					<!-- STARTS AREA -->
+					<div class="border margin-top-1em padding-1em">
+						<div class="title font-size-1_5em">Cuentas bancarias</div>
+						<div class="notification border borders margin-bottom-1em text-align-left">
+							<div class="notification-info">
+								<a href="#">¿Para qué agrego ésta información?</a>
+							</div>
+							</div>
+							{% for bank in user.profile.banks.all %}
+							<!-- IF INFORMATION -->
+							<div class="info-enum border dashed margin-bottom-1em">
+								<div class="container padding-1em">
+									<div>Banco <span class="strong">{{ bank.bank }}</span>
+									</div>
+									<div>{{ bank.account }}</div>
+								</div>
+							</div>
+							<!-- ENDIF -->
+							{% empty %}
+							<div class="strong">No hay cuentas bancarias guardadas.
+							</div>
+							{% endfor %}
+							<div>
+								<a class="attention" href="/profile/e/newaccountbank/">+ Agregar cuenta bancaria</a>
+							</div>
 					</div>
+					<!-- ENDS AREA -->
 				</div>
-			{% empty %}
-			<div class="alert alert-danger">
-				<h4>No has agregado ninguna direccion</h4>
-				<a href="#">¿Porque agrego esta información?</a>
-			</div>
-			{% endfor %}
-			<a href="/profile/e/newaddress">+ Agregar</a>
-		</div>
+{% endblock %}
 
-
-		<div class="wrapper-div3">
-			<legend>Telefonos</legend>
-			{% for phone in user.profile.phones.all %}
-				<div class="row-fluid hover1">
-					<div class="span9">
-						{{ phone }}
-					</div>
-					<div>
-						<a class="margin5" href="/profile/e/editphone/{{ phone.pk }}">Editar</a>
-						<a class="margin5" href="#">Eliminar</a>
-					</div>
-				</div>
-			{% empty %}
-			<div class="alert alert-danger">
-				<h4>No has agregado ningun telefono</h4>
-				<a href="#">¿Porque agrego esta información?</a>
-			</div>
-			{% endfor %}
-
-			<a href="/profile/e/newphone">+ Agregar</a>
-		</div>
-
-		<div class="wrapper-div3">
-			<legend>Cuentas Bancarias</legend>
-			{% for bank in user.profile.banks.all %}
-				<div class="row-fluid hover1">
-					<div class="span9">
-						{{ bank }}
-					</div>
-					<div>
-						<a class="margin5" href="/profile/e/editbank/{{ bank.pk }}">Editar</a>
-						<a class="margin5" href="#">Eliminar</a>
-					</div>
-				</div>
-			{% empty %}
-			<div class="alert alert-danger">
-				<h4>No has agregado ninguna cuenta bancaria</h4>
-				<a href="#">¿Porque agrego esta información?</a>
-			</div>
-			{% endfor %}
-			<a href="/profile/e/newaccountbank">+ Agregar</a>
-		</div>
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
 
