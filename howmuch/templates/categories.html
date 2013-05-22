@@ -55,6 +55,12 @@ $(document).on('ready', function(){
         $('#_rangePrice_'+rp_name).text($('#_rangePrice_'+rp_name).text().split("(")[0]+"("+rp_matches+")");
     {% endfor %}
 
+    {% for st in state %}
+        st_name="{{ st }}".split("&#39;")[1];
+        st_matches="{{ st }}".split(",")[1].split(")")[0].trim();
+        $('#_state_'+st_name).text($('#_state_'+st_name).text().split("(")[0]+"("+st_matches+")");
+    {% endfor %}
+
     {% if searchresults %}
     if($('._category_videojuegos').text().split("(")[1].charAt(0)=='0'){
         $('._category_videojuegos').hide();
@@ -106,6 +112,15 @@ $(document).on('ready', function(){
     }
     if($('._rangePrice_gte5000').text().split("(")[1].charAt(0)=='0'){
         $('._rangePrice_gte5000').hide();
+    }
+    if($('._state_nuevo').text().split("(")[1].charAt(0)=='0'){
+        $('._state_nuevo').hide();
+    }
+    if($('._state_usado').text().split("(")[1].charAt(0)=='0'){
+        $('._state_usado').hide();
+    }
+    if($('._state_indistinto').text().split("(")[1].charAt(0)=='0'){
+        $('._state_indistinto').hide();
     }
     {% endif %}
 });
@@ -183,6 +198,14 @@ $(document).on('ready', function(){
                 <form id="range" action="/search">
                     <input id="min" type="text" placeholder="Min." style="width:60px">-<input id="max" type="text" placeholder="Máx." style="width:60px">&nbsp;&nbsp;<button class="btn btn-small" type="submit"><i class="icon-chevron-right"></i></button>
                 </form>
+            </li>
+            <li class="color7"><b>Estado</b></a>
+            </li>
+            <li class="color7 _state_nuevo"><a id="_state_nuevo" class="filtro" href="#">Nuevo (0)</a>
+            </li>
+            <li class="color7 _state_usado"><a id="_state_usado" class="filtro" href="#">Usado (0)</a>
+            </li>
+            <li class="color7 _state_indistinto"><a id="_state_indistinto" class="filtro" href="#">Indistinto (0)</a>
             </li>
         </div>
 	</ul>

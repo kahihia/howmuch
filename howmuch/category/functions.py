@@ -58,9 +58,15 @@ def rangePrice_matches_query(query, dic, minrange, maxrange):
 		searchresults['results'].remove(y)
 		ind = index.search('docid:%s' % (y['docid']))
 		cat_ind = ind['facets']['category'].items().pop()[0]
+		st_ind = ind['facets']['state'].items().pop()[0]
 		for cat in searchresults['facets']['category'].items():
 			if cat_ind == cat[0]:
 				tmp = cat
 				del searchresults['facets']['category'][cat[0]]
 				searchresults['facets']['category'].update({tmp[0]:tmp[1]-1})
-	return searchresults['facets']['category'].items()
+		for st in searchresults['facets']['state'].items():
+			if st_ind == st[0]:
+				tmp = st
+				del searchresults['facets']['state'][st[0]]
+				searchresults['facets']['state'].update({tmp[0]:tmp[1]-1})
+	return searchresults['facets']['category'].items(), searchresults['facets']['state'].items()

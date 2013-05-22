@@ -71,12 +71,12 @@ def search_query(request, query):
                 context_instance=RequestContext(request))
         else:
             return render_to_response('search/results.html',
-                {'searchresults':searchresults, 'article' : article, 'cats' : searchresults['facets']['category'].items(), 'rangePrice' : searchresults['facets']['rangePrice'].items() },
+                {'searchresults':searchresults, 'article' : article, 'cats' : searchresults['facets']['category'].items(), 'rangePrice' : searchresults['facets']['rangePrice'].items(), 'state' : searchresults['facets']['state'].items() },
                 context_instance=RequestContext(request))
     return HttpResponse('Sin Resultados')
 
 def search_filters(request, filters):
-    from howmuch.search.functions import * 
+    from howmuch.search.functions import *
 
     index = defineIndex()['index']
 
@@ -136,11 +136,11 @@ def search_filters(request, filters):
     else:
         if get_rangePrice_filter(filters) != None:
             return render_to_response('search/results.html',
-            {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : searchresults['facets']['category'].items(), 'rangePrice' : searchresults['facets']['rangePrice'].items() },
+            {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : searchresults['facets']['category'].items(), 'rangePrice' : searchresults['facets']['rangePrice'].items(), 'state' : searchresults['facets']['state'].items() },
             context_instance=RequestContext(request))
         else:
             return render_to_response('search/results.html',
-            {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats, 'rangePrice' : searchresults['facets']['rangePrice'].items() },
+            {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats, 'rangePrice' : searchresults['facets']['rangePrice'].items(), 'state' : searchresults['facets']['state'].items() },
             context_instance=RequestContext(request))
     return HttpResponse('Sin Resultados')
 
@@ -166,10 +166,11 @@ def search_query_filters(request, query, filters):
                 minrange=get_rangePrice_filter(filters).split("to")[0]
             if get_rangePrice_filter(filters).split("to")[1] != '':
                 maxrange=get_rangePrice_filter(filters).split("to")[1]
-            if minrange>maxrange and minrange != None and maxrange != None:
-                temp=minrange
-                minrange=maxrange
-                maxrange=temp
+            if minrange != None and maxrange != None:
+                if int(minrange)>int(maxrange):
+                    temp=int(minrange)
+                    minrange=int(maxrange)
+                    maxrange=temp
         else:
             dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
     if get_category_filter(filters) != None:
@@ -199,21 +200,21 @@ def search_query_filters(request, query, filters):
                         lst.append(x)
         for y in lst:
             searchresults['results'].remove(y)
-            ind = index.search("docid:/article/4/Flash-Light")
-            algo = ind['facets']['category'].items().pop()[0]
+            #ind = index.search("docid:/article/4/Flash-Light")
+            #algo = ind['facets']['category'].items().pop()[0]
     if get_rangePrice_filter(filters) != None:
         if custom_filter == 0:
             return render_to_response('search/results.html',
-                {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : searchresults['facets']['category'].items(), 'rangePrice' : searchresults['facets']['rangePrice'].items() },
+                {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : searchresults['facets']['category'].items(), 'rangePrice' : searchresults['facets']['rangePrice'].items(), 'state' : searchresults['facets']['state'].items() },
                 context_instance=RequestContext(request))
         else:
-            cats=rangePrice_matches_query(new_query,dic,minrange,maxrange)         
+            cats, sts=rangePrice_matches_query(new_query,dic,minrange,maxrange)         
             return render_to_response('search/results.html',
-                {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats },
+                {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats, 'state' : sts },
                 context_instance=RequestContext(request))
     else:
         cats = categories_matches_query(new_query)
         return render_to_response('search/results.html',
-        {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats, 'rangePrice' : searchresults['facets']['rangePrice'].items() },
+        {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats, 'rangePrice' : searchresults['facets']['rangePrice'].items(), 'state': searchresults['facets']['state'].items() },
         context_instance=RequestContext(request))
     #return HttpResponse('Sin Resultados')
