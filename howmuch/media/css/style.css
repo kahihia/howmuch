@@ -241,7 +241,6 @@ ul {
 .margin-top-0_5em {
 	margin-top: 0.5em;
 }
-
 .padding-2em {
 	padding: 2em;
 }
@@ -467,6 +466,10 @@ input:focus, input.search:focus, input.text:focus, select:focus, textarea:focus 
 
 
 /* ******* START: WEBPAGE STYLING ******* */
+.background-gray {
+	background: #e0e0e0;
+}
+
 body {
 	font-family: /* "Source Sans Pro", */sans-serif;
 	font-size: 14px;
@@ -567,3 +570,73 @@ html.developer .developer {
 }
 
 /* *******   END: WEB DEVELOPER ******* */
+
+
+.header {
+	box-shadow: inset 0px -1em 3em rgba(0, 0, 0, 0.05);
+}
+
+/* MENU AREA */
+.menu {
+	position: relative;
+}
+
+.menu-icon {
+	border-left: 1px solid #cbcbcb;
+	cursor: pointer;
+	padding: 0px 1em;
+}
+
+.menu-icon:hover, .menu-icon.hover {
+	background: #e0e0e0;
+}
+
+.menu-icon:active, .menu-icon.active {
+	box-shadow: inset 0px 1em 3em rgba(0, 0, 0, 0.15);
+}
+
+.menu-options {
+	background: #dadada;
+	position: absolute;
+	width: 200px;
+	top: 100%;
+	right: 0px;
+
+	line-height: 1em;
+	border: 1px solid #cbcbcb;
+
+	box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.option {
+	border-bottom: 1px solid #cbcbcb;
+}
+
+.option:hover, .option.hover {
+	color: white;
+	background: #7CB85B;
+}
+
+.no-underline {
+	text-decoration: none;
+}
+
+input.search {
+	width: 300px;
+}
+
+@media all and (max-width: 800px) {
+	input.search {
+		width: 180px;
+	}
+
+	.header .menu-text {
+		display: none;
+	}
+}
+
+@media all and (max-width: 480px) {
+	input.search {
+		width: auto;
+	}
+}

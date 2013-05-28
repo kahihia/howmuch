@@ -19,13 +19,13 @@ class AddressForm(ModelForm):
         model = Address
         exclude = ('owner',)
         widgets = {
-            'street' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Calle'}) ,
-            'number' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Numero'}) ,
-            'suburb' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Colonia'}) ,
-            'city' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Ciudad'}) ,
-            'state' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Estado'}) ,
-            'country' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Pais'}) ,
-            'zipcode' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Codigo Postal'}) ,
+            'street' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Calle'}) ,
+            'number' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Numero'}) ,
+            'suburb' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Colonia'}) ,
+            'city' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Ciudad'}) ,
+            'state' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Estado'}) ,
+            'country' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Pais'}) ,
+            'zipcode' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Codigo Postal'}) ,
         }
 
 class PhoneForm(ModelForm):
