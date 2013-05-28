@@ -15,15 +15,15 @@
 <script type="text/javascript">
 $(document).on('ready', function(){
 	var tags;
-	//$('#wrapper-tags').hide();
+	$('#wrapper-tags').hide();
 	$('#id_category').on('change', function(){
 		$('#wrapper-tags').show("slow");
 		$('#tags-input').remove();
+		$('#ms-ctn-0').remove();
 		$( "<input/>", {
   			"type": "text",
   			"id": "tags-input",
 		}).appendTo( '#wrapper-tags' );
-		//$( "<input type="text" id="tags-input">" ).appendTo('#wrapper-tags');
 		tags = new MagicSuggest({
             renderTo: $('#tags-input'),
             width: 490,
