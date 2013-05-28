@@ -126,7 +126,9 @@
 			<div class="options-area group float-right text-align-center whole-width-on-mobile">
 				{% if user.is_authenticated %}
 				<div class="menu-text float-left" style="margin-right: 1.5em">
-					{{ user.get_full_name }}
+					<a class="no-underline" href="/profile/e/edit/">
+						{{ user.get_full_name }}
+					</a>
 				</div>
 				{% else %}
 				<a style="margin-right: 1em" class="button blue" href="/login/">Iniciar Sesión</a>
