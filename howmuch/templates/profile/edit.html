@@ -21,7 +21,7 @@
 					</div>
 					
 					<!-- FORM STARTS -->
-					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 						{% if user.profile.get_profile_progress < 100 %}
 						<div class="notification border borders margin-bottom-1em text-align-left">
 							<div class="strong">Perfil Incompleto</div>

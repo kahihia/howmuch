@@ -1,62 +1,12 @@
 {% extends "3columns.html" %}
-{% block title %}{% endblock %}
-{% block media %}
 
+{% block title %}Agregar una Dirección{% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div3 text-center">
-	<h2>Nueva Dirección</h2>
-
-	<form action='' method='POST'>{% csrf_token %}
-		<div>
-			<legend>Calle</legend>
-			{{ form.street }}
-			{{ form.street.errors }}
-		</div>
-
-		<div>
-			<legend>Numero</legend>
-			{{ form.number }}
-			{{ form.number.errors }}
-		</div>
-
-		<div>
-			<legend>Colonia</legend>
-			{{ form.suburb }}
-			{{ form.suburb.errors }}
-		</div>
-
-		<div>
-			<legend>Ciudad</legend>
-			{{ form.city }}
-			{{ form.city.errors }}
-		</div>
-
-		<div>
-			<legend>Estado</legend>
-			{{ form.state }}
-			{{ form.state.errors }}
-		</div>
-
-		<div>
-			<legend>Pais</legend>
-			{{ form.country }}
-			{{ form.country.errors }}
-		</div>
-
-		<div>
-			<legend>Codigo Postal</legend>
-			{{ form.zipcode }}
-			{{ form.zipcode.errors }}
-		</div>
-
-		<div>
-			<input class="btn btn-success btn-large" type="submit" value="Guardar">
-		</div>
-	</form>
-</section>
-			<div class="page-content float-left width-65">
 				<div class="content padding-1_5em">
 					<div class="head">
 						<div class="info margin-bottom-1em">
@@ -66,9 +16,8 @@
 							</div>
 						</div>
 					</div>
-					
 					<!-- FORM STARTS -->
-					<form class="register-form border padding-1em text-align-center" action="" method="">
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 						{% if form.errors %}
 						<div class="notification error border borders margin-bottom-1em text-align-left">
 							<div class="strong">Error en la forma</div>
@@ -157,7 +106,21 @@
 								</div>
 								<!-- ENDS INPUT -->
 								
-								<!-- DIVISION --><br />
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Codigo Postal</label>
+									{{ form.zipcode }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.zipcode.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										Favor de introducir correctamente.
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
 								
 								<!-- STARTS INPUT -->
 								<div class="division margin-1em">
@@ -176,7 +139,7 @@
 								<!-- ENDS INPUT -->
 								
 								<div class="division margin-1em text-align-center">
-									<input type="submit" name="" class="button green width-50" value="Subir forma" />
+									<input type="submit" name="" class="button green width-50" value="Guardar" />
 								</div>
 								
 							</div>
@@ -186,5 +149,8 @@
 					</form>
 					<!-- FORM ENDS -->
 				</div>
-			</div>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

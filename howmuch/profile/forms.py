@@ -33,8 +33,8 @@ class PhoneForm(ModelForm):
         model = Phone
         exclude = ('owner', )
         widgets = {
-            'place' : Select(attrs={'class' : 'span12'}),
-            'number' : TextInput(attrs={'class' : 'span12'}),
+            'place' : Select(attrs={'class' : 'text width-100'}),
+            'number' : TextInput(attrs={'class' : 'text width-100'}),
         }
 
 class AccountBankForm(ModelForm):
@@ -42,6 +42,6 @@ class AccountBankForm(ModelForm):
         model = AccountBank
         exclude = ('owner', )
         widgets = {
-            'bank' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Nombre del Banco'}),
-            'account' : TextInput(attrs={'class' : 'span12', 'placeholder' : 'Numero de cuenta'})
+            'bank' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Nombre del Banco'}),
+            'account' : TextInput(attrs={'class' : 'text width-100', 'placeholder' : 'Numero de cuenta'})
         }
