@@ -23,6 +23,7 @@
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script type="text/javascript">
 $(document).on('ready', function(){
+
 	pic_count= {{ article.pictures.all.count }};
 
 	var pic_ids= new Array();
@@ -91,16 +92,6 @@ $(document).on('ready', function(){
 		$('#uniquepicerrordiv').hide();
 	});
 
-	$('#comments-form').submit(function(e){
-		e.preventDefault();
-		$.post('/comments/post/{{ article.pk }}/', 
-			$('#comments-form').serialize(),
-			function(data){
-				$('.comments-area').append(data);
-				$('#comments-form')[0].reset();
-			});
-	});
-
 	$('#startTourViewArticle').click(function(){
       viewArticleTour.restart();                      
    	}); 
@@ -112,6 +103,18 @@ $(document).on('ready', function(){
         fullscreen: true,
     });
 });
+
+$(document).on('ready', function(){
+	$('#comments-form').submit(function(e){
+		e.preventDefault();
+		$.post('/comments/post/{{ article.pk }}/', 
+			$('#comments-form').serialize(),
+			function(data){
+				$('.comments-area').append(data);
+				$('#comments-form')[0].reset();
+		});
+	});
+})
 </script>
 {% endblock %}
 
@@ -189,7 +192,7 @@ $(document).on('ready', function(){
 								</div>
 								
 								<div class="sell-button">
-									<a class="button green margin-botton-1em" href="#">
+									<a class="button green margin-botton-1em" href="/article/offer/{{ article.pk }}">
 										Vender producto
 									</a>
 									<br />

@@ -37,11 +37,11 @@ def sales_list(request):
 def offers_list(request):
     offers = Offer.objects.filter(owner=request.user)
     #Ofertas realizadas
-    offers_list = []
+    offer_list = []
     for offer in offers:
         if offer.is_open():
-            offers_list.append(offer)
-    return render_to_response('account/offers_list.html', {'offers_list':offers_list}, 
+            offer_list.append(offer)
+    return render_to_response('account/offers_list.html', {'offer_list':offer_list}, 
         context_instance=RequestContext(request))
 
     
