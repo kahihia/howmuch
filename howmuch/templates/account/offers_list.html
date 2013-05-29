@@ -16,6 +16,17 @@
                             </div>
                         </div>
                     </div>
+
+                    {% if not offer_list %}
+                                <div class="notification error borders">
+                                    <div class="strong">
+                                        Sin Ofertas
+                                    </div>
+                                    <div>
+                                        Aun no has ofrecido vender ningun articulo
+                                    </div>
+                                </div>
+                    {% endif %}
                     
                     <!-- ENUM OFFERS -->
                     <div class="offers">
@@ -33,7 +44,7 @@
                                             {{ offer.article.title|title }}
                                         </div>
                                         <div class="offer-link margin-bottom-1em">
-                                            <a class="attention" href="#">Ver mi oferta</a>
+                                            <a class="attention" href="/article/myoffer/{{ offer.pk }}">Ver mi oferta</a>
                                         </div>
                                         <div class="offer-description">
                                             <span class="attention">&laquo;</span>
