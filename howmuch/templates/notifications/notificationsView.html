@@ -1,8 +1,8 @@
 {% extends "3columns.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Notificaciones{% endblock %}
 
-{% block media %}
+{% block media_js %}
 <script type="text/javascript">
 $(document).on('ready', function(){
 	$('#myTab a').click(function (e) {
@@ -11,51 +11,122 @@ $(document).on('ready', function(){
     });
 });
 </script>
-
 {% endblock %}
 
-{% block search-bar %}
-	{% include "search.html" %}
+{% block section1 %}
+    {% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
+                <div class="content padding-1_5em">
+                    <div class="head">
+                        <div class="info margin-bottom-1em">
+                            <h1 class="font-size-1_5em">Notificaciones</h1>
+                            <div class="description">
+                                Aquí se muestran las notificaciones relacionadas con tus transacciones y movimientos en ésta página.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- STARTS CONTENT -->
 
-<section class="wrapper-div">
-    <div class="text-center">
-        <h2>Tus Notificaciones</h2>
-    </div>
-	
-    <ul class="nav nav-tabs" id="myTab">
-    	<li class="active"><a href="#like-buyer">Como Comprador</a></li>
-    	<li>
-    		<a href="#like-seller">Como Vendedor</a>
-    	</li>
-    </ul>
-   
-    <div class="tab-content">
+                    <div class="notifications-buyer border margin-bottom-1em">
+                        <div class="padding-1em">
+                            <div class="text-align-center strong font-size-1_25em">Como comprador</div>
+                            <!-- DIVISION --><hr />
+                            {% if not notifications_like_buyer %}
+                            <!-- IF NO NOTIFICATIONS AS BUYER -->
+                            <div class="notification error borders">
+                                <div class="strong">¡Vacío!</div>
+                                <div>Aún no tienes notificaciones en ésta área.</div>
+                            </div>
+                            <!-- ENDIF -->
+                            {% endif %}
 
-    	<div class="tab-pane active" id="like-buyer">
-    		{% for group in notifications_like_buyer %}
-    			{% include "notifications/notification_wrapper.html" %}
-    		{% empty %}
-				<div class="alert alert-error">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <h4>Vacio!</h4>
-                    Aun no tienes notificaciones
+                            {% for group in notifications_like_buyer %}
+                                <div class="a-notification group margin-top-1em">
+                                    <div class="width-15 float-left">
+                                        <div class="padding-1em text-align-center">
+                                            <img class="padding-0_5em border width-90" src="{{ group.article.get_first_picture_url }}" />
+                                        </div>
+                                    </div>
+                                    <div class="width-85 float-right group">
+                                        <div class="padding-1em">
+                                            <div class="width-60 float-left font-size-1_5em">
+                                                {{ group.article.title|title }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% for notification in group.notifications %}
+                                <div class="a-notification group border dashed margin-top-1em">
+                                    <div class="width-85 float-right group">
+                                        <div class="padding-1em">
+                                            <div class="width-60 float-left">
+                                                {{ notification.title|title }}
+                                            </div>
+                                            <div class="width-30 float-right text-align-right">
+                                                {{ notification.get_timestamp }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="notifications-seller border">
+                        <div class="padding-1em">
+                            <div class="text-align-center strong font-size-1_25em">Como vendedor</div>
+                            <!-- DIVISION --><hr />
+                            
+                            {% if not notifications_like_seller %}
+                            <!-- IF NO NOTIFICATIONS AS SELLER -->
+                            <div class="notification error borders">
+                                <div class="strong">¡Vacío!</div>
+                                <div>Aún no tienes notificaciones en ésta área.</div>
+                            </div>
+                            <!-- ENDIF -->
+                            {% endif %}
+                            
+                            {% for group in notifications_like_seller %}
+                                <div class="a-notification group margin-top-1em">
+                                    <div class="width-15 float-left">
+                                        <div class="padding-1em text-align-center">
+                                            <img class="padding-0_5em border width-90" src="{{ group.article.get_first_picture_url }}" />
+                                        </div>
+                                    </div>
+                                    <div class="width-85 float-right group">
+                                        <div class="padding-1em">
+                                            <div class="width-60 float-left">
+                                                {{ group.article.title }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% for notification in group.notifications %}
+                                <div class="a-notification group border dashed margin-top-1em">
+                                    <div class="width-85 float-right group">
+                                        <div class="padding-1em">
+                                            <div class="width-60 float-left">
+                                                {{ notification.title }}
+                                            </div>
+                                            <div class="width-30 float-right text-align-right">
+                                                {{ notification.get_timestamp }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <!-- ENDS CONTENT -->
                 </div>
-    		{% endfor %}
-    	</div>
-    	<div class="tab-pane" id="like-seller">
-			{% for group in notifications_like_seller %}
-    			{% include "notifications/notification_wrapper.html" %}
-    		{% empty %}
-                <div class="alert alert-error">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <h4>Vacio!</h4>
-                    Aun no tienes notificaciones
-                </div>
-    		{% endfor %}
-    	</div>
-    </div>
-</section>
+{% endblock %}
+
+{% block section3 %}
+    {% include "howtodo.html" %}
 {% endblock %}
