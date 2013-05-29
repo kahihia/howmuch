@@ -1,58 +1,127 @@
 {% extends "3columns.html" %}
-{% block title %}
 
+{% block title %}
+	{{ profile.user.get_full_name }}
 {% endblock %}
 
-{% block media %}
-
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div3">
-	<div>
-		<div class="text-center">
-			<h2>Información {{ profile.user }}</h2>
-		</div>
-		<div class="row-fluid">
-			<div class="span3 thumbnail">
-				<img src="{{ profile.profile_picture.url }}">
-			</div>
-			<div class="span8">
-				<legend>{{ profile.user.get_full_name }}  ({{ profile.user }})</legend>
-			</div>
-		</div>
-		<div class="text-center">
-			<h3>Prestigio</h3>
-			<h2>{{ profile.prestige }}</h2>
-		</div>
-		<div>
-			<h1>{{ profile.prestige }}</h1>
-			<div class="row-fluid text-center">
-				<div class="span6 wrapper-div4">
-					<h3>Puntos Positivos</h3>
-					<h4>{{ profile.positive_points }}</h4>
+				<div class="content padding-1_5em">
+					<!-- STARTS CONTENT -->
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Información de {{ profile.user }}</h1>
+							<div class="description">
+								Aquí puedes consultar la información de {{ profile.user }}.
+							</div>
+						</div>
+					</div>
+					<div class="border">
+						<div class="padding-1em text-align-center">
+							<!-- USERNAME -->
+							<div class="big-user-name margin-1em">
+								<div class="font-size-1_5em strong">{{ profile.user.get_full_name }}</div>
+								<div class="font-size-1_25em">{{ profile.user }}</div>
+							</div>
+							
+							<!-- DIVISION --><hr/>
+							
+							<!-- USER IMAGE -->
+							<div class="text-align-center">
+								<img class="width-40 border padding-0_5em" src="{{ profile.profile_picture.url }}" />
+							</div>
+							
+							<!-- DIVISION --><hr/>
+							
+							<!-- PRESTIGIO -->
+							<div class="font-size-1_25em">
+								<div>Prestigio</div>
+								<div class="font-size-1_25em strong">{{ profile.prestige }}</div>
+							</div>
+							<!-- ENDS PRESTIGIO -->
+							<!-- STARTS PUNTOS -->
+							<div class="group font-size-1_5em">
+								<div class="float-left width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="strong margin-top-1em">
+												Puntos positivos
+											</div>
+											<div class="margin-bottom-1em">
+												{{ profile.positive_points }}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="float-right width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="strong margin-top-1em">
+												Puntos negativos
+											</div>
+											<div class="margin-bottom-1em">
+												{{ profile.negative_points }}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ENDS PUNTOS -->
+							
+							<!-- DIVISION --><hr />
+							
+							<!-- INFORMACIÓN -->
+							<div class="font-size-1_25em">
+								<div class="strong">Información</div>
+							</div>
+							<!-- ENDS PRESTIGIO -->
+							<!-- STARTS PUNTOS -->
+							<div class="group">
+								<div class="float-left width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="font-size-1_5em">
+												<div class="strong margin-top-1em">
+													Total de Compras
+												</div>
+												<div class="margin-bottom-1em">
+													{{ profile.total_purchases }}
+												</div>
+											</div>
+											<div class="margin-bottom-1em">
+												<a class="attention" href="/prestige/critiques/{{ profile.user }}">Ver críticas</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="float-right width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="font-size-1_5em">
+												<div class="strong margin-top-1em">
+													Total de Ventas
+												</div>
+												<div class="margin-bottom-1em">
+													{{ profile.total_sales }}
+												</div>
+											</div>
+											<div class="margin-bottom-1em">
+												<a class="attention" href="/prestige/critiques/{{ profile.user }}">Ver críticas</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ENDS PUNTOS -->
+						</div>
+					</div>
+					<!-- ENDS CONTENT -->
 				</div>
-				<div class="span6 wrapper-div4">
-					<h3>Puntos Negativos</h3>
-					<h4>{{ profile.negative_points }}</h4>
-				</div>	
-			</div>
-		</div>
-		<div class="text-center">
-			<h3>Información</h3>
-		</div>
-		<div class="row-fluid text-center">
-			<div class="span6 wrapper-div4">
-				<h3>Total de Compras</h3>
-				<h4>{{ profile.total_purchases }}</h4>
-				<a href="/prestige/critiques/{{ profile.user }}">Ver Criticas</a>
-			</div>
-			<div class="span6 wrapper-div4">
-				<h3>Total de Ventas</h3>
-				<h4>{{ profile.total_sales }}</h4>
-				<a href="/prestige/critiques/{{ profile.user }}">Ver Criticas</a>
-			</div>
-		</div>
-	</div>
-</section>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
