@@ -62,7 +62,9 @@ $(document).on('ready', function(){
                                     <div class="width-85 float-right group">
                                         <div class="padding-1em">
                                             <div class="width-60 float-left">
+                                                <a href="{{ notification.get_url }}">
                                                 {{ notification.title|title }}
+                                                </a>
                                             </div>
                                             <div class="width-30 float-right text-align-right">
                                                 {{ notification.get_timestamp }}
@@ -109,7 +111,9 @@ $(document).on('ready', function(){
                                     <div class="width-85 float-right group">
                                         <div class="padding-1em">
                                             <div class="width-60 float-left">
-                                                {{ notification.title }}
+                                                <a href="{{ notification.get_url }}">
+                                                {{ notification.title|title }}
+                                                </a>
                                             </div>
                                             <div class="width-30 float-right text-align-right">
                                                 {{ notification.get_timestamp }}
