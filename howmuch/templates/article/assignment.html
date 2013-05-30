@@ -1,20 +1,41 @@
 {% extends '3columns.html' %}
-{% block title %}{% endblock %}
-{% block media %}{% endblock %}
+
+{% block title %}
+	Has seleccionado a {{ candidate }} para que te venda el articulo {{ article.title }}
+{% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
+{% endblock %}
 
 {% block section2 %}
-	<section class="wrapper-div">
-		<p>
-		Has seleccionado a <b>{{ candidate }}</b> para que te venda el articulo <b>{{ article.title }}</b>
-		</p>
-		<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<div>
-				{{ form.comment }}
-				{{ form.comment.errors }}
-			</div>	
-			<div style="text-align:center">
-				<input class="btn btn-large btn-primary" type="submit" value="Continuar">
-			</div>
-		</form>
-	</section>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">¡Felicidades!</h1>
+						</div>
+					</div>
+					
+					
+					<!-- DESCRIPTION TEXT STARTS -->
+					<div class="complete-description border dashed text-align-center">
+						<p class="margin-2em strong">
+							Has seleccionado a <b>{{ candidate }}</b> para que te venda el articulo <b>{{ article.title }}</b>
+						</p>
+						
+						<div class="margin-2em">
+							<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+								<div style="text-align:center">
+									<input class="button green" type="submit" value="Continuar">
+								</div>
+							</form>
+						</div>
+						
+					</div>
+					<!-- DESCRIPTION TEXT ENDS -->
+				</div>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
