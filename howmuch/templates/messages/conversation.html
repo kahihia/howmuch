@@ -1,7 +1,10 @@
 {% extends "3columns.html" %}
+
 {% block title %}
+Conversación de {{ conversation.assignment.get_seller }} y {{ conversation.assignment.get_buyer }}
 {% endblock %}
-{% block media %}
+
+{% block media_js %}
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#message-form').submit(function(e){
@@ -18,127 +21,224 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block section1 %}
-<!-- Opciones de la transaccion -->
-<div class="wrapper-div3">
-	<legend>Opciones</legend>
-	<div>
-		<ul class="unstyled">
-			{% if conversation.assignment.get_seller == user %}
-			<li><a class="a-title-large" href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">- Confirmar Envio</a></li>
-			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">- Criticar Contraparte</a></li>
-			{% else %}
-			<li><a class="a-title-large" href="/prestige/confirmpay/{{ conversation.assignment.pk }}">- Confirmar Pago</a></li>
-			<li><a class="a-title-large" href="/prestige/critique/{{ conversation.assignment.pk }}">- Criticar Contraparte</a></li>
-			{% endif %}
-			<li><a class="a-title-large" href="/problems/problem/{{ conversation.assignment.pk }}">- Reportar Problema</a></li>
-		</ul>
-	</div>
-</div>
-
-<!-- Estado de la transaccion -->
-<div class="wrapper-div3">
-	<legend>Estado de la operación</legend>
-	<div class="progress progress-info progress-striped">
-		<div class="bar" style="width: {{ status }}%"></div>
-	</div>
-	<!-- 
-	<div>
-		<div>
-			<span class="badge status1">1</span>
-			<b>Notificado</b>
-		</div>
-		<div>
-			<span class="badge status2">2</span>
-			<b>Pago Confirmado</b>
-		</div>
-		<div>
-			<span class="badge status3">3</span>
-			<b>Envio Confirmado</b>
-		</div>
-		<div>
-			<span class="badge status4">4</span>
-			<b>En Espera de Critica</b>
-		</div>
-		<div>
-			<span class="badge status5">5</span>
-			<b>En Espera de Critica</b>
-		</div>
-	</div>
-	 -->
-</div>
-<!-- Detalles -->
-<div class="wrapper-div3">
-	<legend>Detalles</legend>
-	<div>
-		<ul class="unstyled">
-			{% if conversation.assignment.get_seller == user %}
-			<li><a class="a-title-large" href="/messages/infoconfirmpay/{{ conversation.pk }}">- Ver Detalle de Pago</a></li>
-			{% else %}	
-			<li><a class="a-title-large" href="/messages/infoconfirmdelivery/{{ conversation.pk }}">- Ver Detalle de Envio</a></li>
-			{% endif %}	
-			<li><a class="a-title-large" href="/messages/infocritique/{{ conversation.pk }}">- Ver mi Critica</a></li>
-		</ul>
-	</div>
-</div>
-
-
+				<div class="messages-users text-align-center">
+					<div class="boxes padding-1em">
+						<!-- ENUM BOXES -->
+						<div class="box border">
+							<div>
+								<div class="padding-0_5em">
+									<img class="width-75 padding-0_25em border" src="{{ conversation.assignment.get_buyer.profile.profile_picture.url }}" />
+								</div>
+							</div>
+							<div>
+								<div class="padding-0_5em">
+									<div class="strong">Comprador</div>
+									<div class="attention">
+										<a href="/messages/infobuyer/{{ conversation.pk }}">{{ conversation.assignment.get_buyer }}</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="box border margin-top-1em">
+							<div>
+								<div class="padding-0_5em">
+									<img class="width-75 padding-0_25em border" src="{{ conversation.assignment.get_seller.profile.profile_picture.url }}" />
+								</div>
+							</div>
+							<div>
+								<div class="padding-0_5em">
+									<div class="strong">Vendedor</div>
+									<div class="attention">
+										<a href="/messages/infoseller/{{ conversation.pk }}">{{ conversation.assignment.get_seller }}</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ENDENUM -->
+					</div>
+				</div>
 {% endblock %}
 
 {% block section2 %}
-<div class="text-center wrapper-div4">
-	<h2>{{ conversation.assignment.article.title }}</h2>
-</div>
-<div class="comments-area">
-{% for message in messages %}
-   <div class="wrapper-div row">
-		<div class="span1 thumbnail">
-			<img src="{{ message.owner.profile.get_profile_picture }}">
-		</div> 
-		<div class="span9">
-			{{ message.message }}
-		</div>
-		<div>
-			<b>hace {{ message.get_timestamp }}</b>
-		</div> 
-	</div>
-{% endfor %}
-</div>
-<section class="wrapper-div5 color7">
-	<form id="message-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<h4>Envia un mensaje..</h4>
-		<div class="row-fluid">
-			<div class="span10">
-				<input class="span12" id="message" name="message" type="text">
-			</div>
-			<div class="span2">
-				<input class="btn btn-success span12" type="submit" value="Enviar">
-			</div>
-		</div>
-	</form>
-</section>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Conversación</h1>
+							<div class="description">
+								Mensajes envíados y recibidos entre {{ conversation.assignment.get_buyer }} y {{ conversation.assignment.get_seller }}
+							</div>
+						</div>
+					</div>
+					
+					<!-- STARTS CONTENT -->
+					<!-- TOP INFO -->
+					<div class="group border margin-bottom-1em">
+						<div class="width-20 float-left">
+							<div class="padding-1em text-align-center">
+								<img class="width-100 padding-0_5em border" src="{{ conversation.assignment.article.get_first_picture_url }}">
+							</div>
+						</div>
+						<div class="width-70 float-right">
+							<div class="padding-1em">
+								<div class="item-title font-size-1_25em strong">
+									{{ conversation.assignment.article.title|title }}
+								</div>
+								<div class="item-description">
+									<span class="attention">«</span>
+									<span>
+										{{ conversation.assignment.article.description|title }}
+									</span>
+									<span class="attention">»</span>
+								</div>
+								<div class="item-price margin-top-1em">
+									<div class="border text-align-center font-size-1_25em">
+										<div class="strong attention">Cantidad Fijada</div>
+										<div>$ {{ conversation.assignment.article.price }} MXN</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- ENDS TOP INFO -->
+					
+					<div class="messages border margin-bottom-1em">
+						<div class="padding-1em">
+							
+							<div class="text-align-center font-size-1_5em strong">
+								Mensajes
+							</div>
+							<!-- DIVISION --><hr />
+							{% if not messages %}
+							<!-- IF NO NOTIFICATIONS FROM INBOX -->
+							<div class="notification error borders margin-bottom-1em">
+								<div class="strong">¡Vacío!</div>
+								<div>Aún no has recibido o enviado mensajes.</div>
+							</div>
+							<!-- ENDIF -->
+							{% endif %}							
+							<!-- ENUM MESSAGES -->
+							<div class="comments-area">
+								{% for message in messages %}
+								<div class="message group border dashed margin-top-1em">
+									<div class="width-15 float-left">
+										<div class="padding-1em text-align-center">
+											<img class="padding-0_5em border width-90" src="{{ message.owner.profile.get_profile_picture }}" />
+										</div>
+									</div>
+									<div class="width-85 float-right group">
+										<div class="padding-1em">
+											<div class="width-60 float-left">
+												<div>
+													{{ message.message }}
+												</div>
+											</div>
+											<div class="width-30 float-right text-align-right">
+												hace {{ message.get_timestamp }}
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+							<!-- ENDS ENUM -->
+
+							<!-- TEXTAREA -->
+							<div class="text-align-center margin-2em">
+								<form id="message-form" action="/messages/send/{{ conversation.pk }}/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+									<div>
+										<textarea id="message" name="message" class="width-90" placeholder="Escribe aquí..."></textarea>
+										{% if form.errors %}
+										<div class="color-red font-size-0_9em margin-bottom-1em">
+											Verificar mensaje.
+										</div>
+										{% endif %}
+									</div>
+									<div>
+										<input type="submit" class="green button" value="Enviar" />
+									</div>
+								</form>
+							</div>
+							<!-- END TEXTAREA -->
+						</div>
+					</div>
+					<!-- ENDS CONTENT -->
+				</div>
 {% endblock %}
 
 {% block section3 %}
-<!-- Informacion del Comprador -->
-<div class="text-center wrapper-div3 margin10 padding10">
-	<h3>Comprador</h3>
-	<h4>{{ conversation.assignment.get_buyer }}</h4>
-	<div class="thumbnail">
-    	<img src="{{ conversation.assignment.get_buyer.profile.profile_picture.url }}" alt="">
-    </div>
-	<div>
-		<a class="btn btn-info" href="/messages/infobuyer/{{ conversation.pk }}">Ver Información</a>
-	</div>
-</div>
-<!-- Informacion del Vendedor -->
-<div class="text-center wrapper-div3 margin10 padding10">
-	<h3>Vendedor</h3>
-	<h4>{{ conversation.assignment.get_seller }}</h4>
-		<div class="thumbnail">
-    		<img src="{{ conversation.assignment.get_seller.profile.profile_picture.url }}" alt="">
-    	</div>
-	<div>
-		<a class="btn btn-success" href="/messages/infoseller/{{ conversation.pk }}">Ver Información</a>
-	</div>
-</div>
+				<div class="messages-options text-align-center">
+					<div class="boxes padding-1em">
+						<!-- ENUM BOXES -->
+						<div class="box border">
+							<div class="box-title strong margin-top-1em">
+								Opciones
+							</div>
+							<div class="box-info text-align-left">
+								<ul class="padding-1em">
+									{% if conversation.assignment.get_seller == user %}
+									<li>
+										- <a class="attention" href="/prestige/confirmdelivery/{{ conversation.assignment.pk }}">Confirmar Envío</a>
+									</li>
+									<li>
+										- <a class="attention" href="/prestige/critique/{{ conversation.assignment.pk }}">Críticar contraparte</a>
+									</li>
+									{% else %}
+									<li>
+										- <a class="attention" href="/prestige/confirmpay/{{ conversation.assignment.pk }}">Confirmar Pago</a>
+									</li>
+									<li>
+										- <a class="attention" href="/prestige/critique/{{ conversation.assignment.pk }}">Críticar Contraparte</a>
+									</li>
+									{% endif %}
+									<li>
+										- <a class="attention" href="/problems/problem/{{ conversation.assignment.pk }}">Reportar Problema</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="box border margin-top-1em">
+							<div class="box-title strong margin-top-1em">
+								Estado de la operación
+							</div>
+							<div class="box-info">
+								<div class="padding-1em">
+									<!-- STATUS BAR -->
+									<div class="status-bar group border">
+										<div class="status-percentage float-left" style="background:#7CB85B; width:{{ status }}%">
+											&nbsp;<!-- CHANGE WIDTH ON THIS ELEMENT ON STYLE TO GET PERCENTAGE! -->
+										</div>
+									</div>
+									<!-- END STATUS BAR -->
+									<!-- DESCRIPTION -->
+									<div class="padding-0_5em font-size-0_9em">
+										El estado en el que está la transacción.
+									</div>
+									<!-- END DESCRIPTION -->
+								</div>
+							</div>
+						</div>
+						<div class="box border margin-top-1em">
+							<div class="box-title strong margin-top-1em">
+								Detalles
+							</div>
+							<div class="box-info text-align-left">
+								<ul class="padding-1em">
+									{% if conversation.assignment.get_seller == user %}
+									<li>
+										- <a class="attention" href="/messages/infoconfirmpay/{{ conversation.pk }}">Ver detalle de mi pago</a>
+									</li>
+									{% else %}	
+									<li>
+										- <a class="attention" href="/messages/infoconfirmdelivery/{{ conversation.pk }}">Ver detalle de Envio</a>
+									</li>
+									<li>
+										- <a class="attention" href="messages/infocritique/{{ conversation.pk }}">Ver mi crítica</a>
+									</li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+						<!-- ENDENUM -->
+					</div>
+				</div>
 {% endblock %}

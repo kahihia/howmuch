@@ -27,17 +27,26 @@ def send(request, conversationID):
             #Send mail to other user
             send_mail(newMessage, request.user)
             #html_response to append conversation
-            html_response = "<div class='wrapper-div row'>" +\
-                            "<div class='span1 thumbnail'>" +\
-                            "<img src='%s'>" % ( newMessage.owner.profile.get_profile_picture() ) +\
-                            "</div>" +\
-                            "<div class='span9'>" +\
-                            "%s" % ( newMessage.message ) +\
-                            "</diV>" +\
-                            "<div>"+\
-                            "<b>hace %s</b>" % ( newMessage.get_timestamp() ) +\
-                            "</div>" +\
-                            "</div>" 
+            html_response =  "<div class='message group border dashed margin-top-1em'>" +\
+            "<div class='width-15 float-left'>" +\
+            "<div class='padding-1em text-align-center'>" +\
+            "<img class='padding-0_5em border width-90' src='%s'/>" % (newMessage.owner.profile.get_profile_picture()) +\
+            "</div>" +\
+            "</div>" +\
+            "<div class='width-85 float-right group'>" +\
+            "<div class='padding-1em'>" +\
+            "<div class='width-60 float-left'>" +\
+            "<div>" +\
+            "%s" % (newMessage.message) +\
+            "</div>" +\
+            "</div>" +\
+            "<div class='width-30 float-right text-align-right'>" +\
+            "hace %s" % (newMessage.get_timestamp()) +\
+            "</div>" +\
+            "</div>" +\
+            "</div>" +\
+            "</div>"
+
             return HttpResponse(html_response)
 
 @login_required(login_url = '/login/')

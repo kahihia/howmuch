@@ -25,21 +25,26 @@ def post(request, articleID):
 			#Send email to buyer or followers
 			send_mail(article, request.user, post)
 			#html content for http response
-			html_content = 	"<div class='wrapper-div5 row'>" +\
-							"<div class='span1 thumbnail'>" +\
-							"<img src='%s'>" % (post.owner.profile.get_profile_picture()) +\
-							"</div>" +\
-							"<div class='span9'>" +\
-							"<p>" +\
-							"%s" % (post.comment) +\
-							"</p>" +\
-							"</div>" +\
-							"<div>" +\
-							"<b>" +\
-							"hace %s" % (post.get_timestamp()) +\
-							"</b>" +\
-							"</div>" +\
-							"</div>" 
+			html_content = 	"<div class='message group border dashed margin-top-1em'>" +\
+			"<div class='width-15 float-left'>" +\
+			"<div class='padding-1em text-align-center'>" +\
+			"<img class='padding-0_5em border width-90' src='%s'/>" % (post.owner.profile.get_profile_picture()) +\
+			"</div>" +\
+			"</div>" +\
+			"<div class='width-85 float-right group'>" +\
+			"<div class='padding-1em'>" +\
+			"<div class='width-60 float-left'>" +\
+			"<div>" +\
+			"%s" % (post.comment) +\
+			"</div>" +\
+			"</div>" +\
+			"<div class='width-30 float-right text-align-right'>" +\
+			"hace %s" % (post.get_timestamp()) +\
+			"</div>" +\
+			"</div>" +\
+			"</div>" +\
+			"</div>"
+
 			return HttpResponse(html_content)
 
 

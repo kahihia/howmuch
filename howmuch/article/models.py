@@ -172,6 +172,7 @@ class Assignment(models.Model):
     article = models.OneToOneField(Article)
     date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=2, default = 1)
+    #offer = models.ForeignKey(Offer)
 
     def __unicode__(self):
         return u'Owner: %s and item: %s' % (self.owner, self.article)
