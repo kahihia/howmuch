@@ -108,6 +108,42 @@ $(document).on('ready', function(){
 	});
 });
 </script>
+<<<<<<< HEAD
+<h3 id="aver"><a href="/">Inicio</a><abbr id="query_nav_ind" style="display:none"> > </abbr><a id="query_nav" href=""></a><a id="query_nav_delete" class="btn btn-mini delete_query" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="category_nav_ind" style="display:none"> > </abbr><a id="category_nav" href=""></a><a id="category_nav_delete" class="btn btn-mini delete_category" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="state_nav_ind" style="display:none"> > </abbr><a id="state_nav" href=""></a><a id="state_nav_delete" class="btn btn-mini delete_state" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="rangePrice_nav_ind" style="display:none"> > </abbr><a id="rangePrice_nav" href=""></a><a id="rangePrice_nav_delete" class="btn btn-mini delete_rangePrice" href="#" style="display:none"><i class="icon-remove"></i></a></h3>
+<section class="wrapper-div">
+	<div class="text-center">
+		{% if not filtros %}
+		<h3>{{ searchresults.matches }} personas estan comprando una <em>{{ article }}</em></h3>
+		{% endif %}
+	</div>
+	{% for result in searchresults.results %}
+	<article class="wrapper-div5 hover1">
+		<div class="row-fluid">
+			<div class="thumbnail span3">
+				<a href="{{ result.docid }}">
+					<img src="{{ result.img }}">
+				</a>
+			</div>
+			<div class="span6">
+				<div class="margin10">	
+					<a class="a-title-large" href="{{ result.docid }}">{{ result.text|title }}</a>
+				</div>
+				<div class="margin10">
+					<p>
+					{{ result.description }}
+					</p>
+				</div>
+				<div class="text-center">
+					{{ result.tags|tagsformat }}
+				</div>
+			</div>
+			<div class="span3 text-center">
+				<div class="wrapper-div4">
+					<h2>$ {{ result.price }}</h2>
+				</div>
+				<div class="wrapper-div2">
+					<h4>{{ result.state }}</h4>
+=======
 {% endblock %}
 
 {% block section1 %}
@@ -192,48 +228,22 @@ $(document).on('ready', function(){
 						</div>
 						<!-- Now, items list ends -->
 					</div>
+>>>>>>> dev
 				</div>
-<!-- Old
-<h3 id="aver"><a href="/">Inicio</a><abbr id="query_nav_ind" style="display:none"> > </abbr><a id="query_nav" href=""></a><a id="query_nav_delete" class="btn btn-mini delete_query" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="category_nav_ind" style="display:none"> > </abbr><a id="category_nav" href=""></a><a id="category_nav_delete" class="btn btn-mini delete_category" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="state_nav_ind" style="display:none"> > </abbr><a id="state_nav" href=""></a><a id="state_nav_delete" class="btn btn-mini delete_state" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="rangePrice_nav_ind" style="display:none"> > </abbr><a id="rangePrice_nav" href=""></a><a id="rangePrice_nav_delete" class="btn btn-mini delete_rangePrice" href="#" style="display:none"><i class="icon-remove"></i></a></h3>
-<section class="wrapper-div">
-	<div class="text-center">
-		{% if not filtros %}
-		<h3>{{ searchresults.matches }} personas estan comprando una <em>{{ article }}</em></h3>
-		{% endif %}
-	</div>
-	{% for result in searchresults.results %}
-	<article class="wrapper-div5 hover1">
-		<div class="row-fluid">
-			<div class="thumbnail span3">
-				<a href="{{ result.docid }}">
-					<img src="{{ result.img }}">
-				</a>
-			</div>
-			<div class="span6">
-				<div class="margin10">	
-					<a class="a-title-large" href="{{ result.docid }}">{{ result.text|title }}</a>
-				</div>
-				<div class="margin10">
-					<p>
-					{{ result.description }}
-					</p>
-				</div>
-				<div class="text-center">
-					{{ result.tags|tagsformat }}
-				</div>
-			</div>
-			<div class="span3 text-center">
-				<div class="wrapper-div4">
-					<h2>$ {{ result.price }}</h2>
-				</div>
-				<div class="wrapper-div2">
-					<h4>{{ result.state }}</h4>
-				</div>
-			</div>
-		</div>
-	</article>
-	{% endfor %}
-</section> Old -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
 
 {% block section3 %}
