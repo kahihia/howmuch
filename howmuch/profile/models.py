@@ -9,9 +9,9 @@ from howmuch.settings import PRESTIGE_TYPES
 
 PHONE_CHOICES =(
 
-    ('1','Casa'),
-    ('2','Trabajo'),
-    ('3', 'Celular'),
+    ('Casa','Casa'),
+    ('Trabajo','Trabajo'),
+    ('Celular', 'Celular'),
 
     )
 

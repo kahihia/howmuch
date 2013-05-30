@@ -1,7 +1,6 @@
 {% extends "3columns.html" %}
 
-{% block media %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+{% block media_js %}
 <script src="{{ MEDIA_URL }}js/glisse.js"></script>
 <script>
 $(function () {
@@ -15,87 +14,138 @@ $(function () {
 </script>
 {% endblock %}
 
-{% block search-bar %}
-	{% include "search.html" %}
+{% block media_css %}
+	<link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
+{% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div3">
-	<article class="row-fluid margin10">
-		<div class="thumbnail span2">
-			<img src="{{ offer.article.get_first_picture_url }}">
-		</div>
-		<div class="span10">
-			<div class="text-center">
-				<h3>Oferta para el articulo {{ offer.article.title }}</h3>
-			</div>
-		</div>
-	</article>
-	<article class=" margin10">
-		<div class="text-center margin10">
-			<b>Hecha el {{ offer.date }}</b>
-		</div>
-		<div class="text-center wrapper-div4">
-			<h4>Te lo venden a:</h4>
-			<h2 class="font-blue">${{ offer.cprice}}</h2>
-		</div>
-	</article>
-	<article class="text-center">
-		
-		<h3>Datos del Usuario</h3>
-		
-		<div>
-			<p>
-				<span><b>Usuario:</b></span>
-				<a href="/profile/{{ offer.owner }}">{{ offer.owner }}</a>
-			</p>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Oferta</h1>
+							<div class="description">
+								Una oferta que han realizado para venderte un artículo.
+							</div>
+						</div>
+					</div>
+					
+					<!-- START CONTENT -->
+					<div class="border">
+						<div class="padding-1em">
+							<!-- TOP INFO -->
+							<div class="top-info group">
+								<div class="width-30 float-left">
+									<div class="padding-1em">
+										<img class="width-90 padding-0_5em border" src="media/image.png" />
+									</div>
+								</div>
+								<div class="width-70 float-right">
+									<div class="padding-1em">
+										<div class="offer-title font-size-1_5em strong">
+											Artículo Lorem Ipsum
+										</div>
+										<!-- DIVISION --><hr />
+										
+										<div class="what-i-pay font-size-1_25em text-align-center border">
+											<div class="padding-1em">
+												<div class="attention strong">Te lo venden en</div>
+												<div>$ 10,000.00 MXN</div>
+											</div>
+											<!-- BUY -->
+											<div class="margin-1em text-align-center">
+												<a class="green button" href="#">Comprar</a>
+											</div>
+											
+										</div>
+										
+										<!-- DIVISION --><hr />
+										
+										<div class="me-offering-info">
+											<div class="me-offering-date group margin-bottom-1em">
+												<div class="width-40 float-left strong">Realizada en</div>
+												<div class="width-80 float-left">May 15, 2013 1:00AM</div>
+											</div>
+											<div class="me-offering-date group margin-bottom-1em">
+												<div class="width-40 float-left strong">Usuario</div>
+												<div class="width-80 float-left">
+													<a class="attention" href="#">fulanito</a>
+												</div>
+											</div>
+											<div class="me-offering-date group margin-bottom-1em">
+												<div class="width-40 float-left strong">Prestigio</div>
+												<div class="width-80 float-left">SIRIUS</div>
+											</div>
+											<div class="me-offering-date group margin-bottom-1em">
+												<div class="width-40 float-left strong">Total de compras</div>
+												<div class="width-80 float-left">10</div>
+											</div>
+											<div class="me-offering-date group margin-bottom-1em">
+												<div class="width-40 float-left strong">Total de ventas</div>
+												<div class="width-80 float-left">0</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- DIVISION --><hr />
+							
+							<!-- ENDS TOP INFO -->
+							
+							<!-- LAST INFO -->
+							<div class="me-offering-images group">
+								<div class="font-size-1_25em strong margin-bottom-0_5em text-align-center">
+									Más imágenes del artículo
+								</div>
+								<!-- ENUM IMAGES -->
+								<div class="width-20 float-left text-align-center">
+									<div class="padding-1em">
+										<img class="width-90 padding-0_5em border" src="media/image.png" />
+									</div>
+								</div>
+								<div class="width-20 float-left text-align-center">
+									<div class="padding-1em">
+										<img class="width-90 padding-0_5em border" src="media/image.png" />
+									</div>
+								</div>
+								<div class="width-20 float-left text-align-center">
+									<div class="padding-1em">
+										<img class="width-90 padding-0_5em border" src="media/image.png" />
+									</div>
+								</div>
+								<div class="width-20 float-left text-align-center">
+									<div class="padding-1em">
+										<img class="width-90 padding-0_5em border" src="media/image.png" />
+									</div>
+								</div>
+								<!-- END ENUM IMAGES -->
+							</div>
+							
+							<!-- DIVISION --><hr />
+							<div class="me-offering-description margin-bottom-1em">
+								<div class="font-size-1_25em strong margin-bottom-0_5em text-align-center">
+									Descripción
+								</div>
+								<div class="margin-top-1em">
+									<span class="attention">&laquo;</span>
+									<span>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+									</span>
+									<span class="attention">&raquo;</span>
+								</div>
+							</div>
+							
+							<!-- ENDS LAST INFO -->
+						</div>
+					</div>
+					<!-- ENDS CONTENT -->
+				</div>
+{% endblock %}
 
-			<p>
-				<span><b>Prestigio:</b></span>
-				<span>{{ offer.owner.profile.prestige }}</span>
-			</p>
-
-			<p>
-				<span><b>Total Compras:</b></span>
-				<span>{{ offer.owner.profile.total_purchases }}</span>
-			</p>
-
-			<p>
-				<span><b>Total Ventas:</b></span>
-				<span>{{ offer.owner.profile.total_sales }}</span>
-			</p>
-		</div>
-
-	</article>
-
-	<article>
-		<div class="text-center">
-			<h3>Descripción de la Oferta</h3>
-		</div>
-		<div>
-			<p>
-				{{ offer.message }}
-			</p>
-		</div>
-	</article>
-
-	<article>
-		<div class="text-center">
-			<h3>Imagenes del Articulo</h3>
-		</div>
-		<div class="text-center span12">
-		{% for picture in offer.pictures.all %}
-			<div class="span2">
-				<img  class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url  }}" rel="group1">
-			</div>
-		{% endfor %}
-		</div>
-	</article>
-
-	<article class="margin10">
-		<div class="text-center">
-			<a class="btn btn-success btn-large" href="/article/assignment/{{ offer.article.pk }}/{{ offer.owner.pk }}">Comprarselo</a>
-		</div>
-	</article>
-</section>
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

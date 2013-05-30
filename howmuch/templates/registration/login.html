@@ -1,61 +1,101 @@
-{% extends "registration/base.html" %}
-
-{% block media %}
-{% endblock %}
+{% extends "3columns.html" %}
 
 {% block section1 %}
-  {% include "categories.html" %}
+  {% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
 
 {% include 'django_facebook/_facebook_js.html' %}
+        <div class="content padding-1_5em">
+          <div class="head">
+            <div class="info margin-bottom-1em">
+              <h1 class="font-size-1_5em">Inicio de sesión</h1>
+              <div class="description">
+                ¡Bienvenido!, para iniciar sesión, favor de introducir sus datos de usuario
+              </div>
+            </div>
+          </div>
+          
+          {% if form.errors %}
+          <div class="notification borders margin-bottom-1em slide-down text-align-center">
+            <p class="margin-1em">
+              Disculpa, no hemos encontrado un usuario que coincida con tu nombre de usuario, o puede que tu contraseña esté incorrecta, ¡Lo siento!.
+            </p>
+          </div>
+          {% endif %}
 
-<div class="wrapper-div3 text-center">
+            <!-- FACEBOOK LOGIN STARTS -->
+            <div class="facebook-login div-center-fix border dashed text-align-center">
+              <h2 class="margin-0_5em font-size-1_25em">¿Facebook?</h2>
+              <p class="margin-1em">¿Sabías que puedes <strong>iniciar sesión con tu cuenta de Facebook</strong>? Para comenzar, da click aquí.</p>       
+              <div class="button-wrapper margin-1em padding-1em">
+                <form action="{% url facebook_connect %}?facebook_login=1" method="post">{% csrf_token %}
+                  <a href="javascript:void(0);" class="button facebook-blue border-radius" onclick="F.connect(this.parentNode);">
+                    <img src="{{ MEDIA_URL }}img/facebook.png" class="icon">&nbsp; 
+                    Iniciar sesión
+                  </a>
+                  <input type="hidden" value="{{ request.path }}" name="next" />
+                </form>
+              </div>
+            </div>
+            <!-- FACEBOOK LOGIN ENDS -->
+          
+          <!-- FORM STARTS -->
+          <form class="login-form border padding-1em text-align-center margin-top-1em" action="" method="POST">{% csrf_token %}
+            <!-- FORM LOGIN STARTS -->
+            <div class="login-form-area width-50 div-center-fix">
+              <div class="text-align-left">
+                <div class="division margin-1em">
+                  <label for="" class="width-100 display-block">Nombre</label>
+                  <input type="text" name="username" class="text width-100" />
+                  {% if form.username.errors %}
+                  <!-- ERROR -->
+                  <div class="error slide-down color-red font-size-0_9em">
+                    Has olvidado introducir tu nombre de usuario.
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="division margin-1em">
+                  <label for="" class="width-100 display-block">Contraseña</label>
+                  <input type="password" name="password" class="text password width-100" />
+                  {% if form.password.errors %}
+                  <!-- ERROR -->
+                  <div class="error slide-down color-red font-size-0_9em">
+                    Olvidaste tu contraseña.
+                  </div>
+                  {% endif %}
+                </div>
+                
+                <div class="division margin-1em text-align-center font-size-0_9em">
+                  ¿Has olvidado tu contraseña?
+                    <a href="#">Click aquí</a>
+                </div>
+                
+                <div class="division margin-1em text-align-center">
+                  <input type="submit" name="" class="button green" value="Iniciar sesión" />
+                  <input type="hidden" name="next" value="{{ next|escape }}" />
+                </div>
+              </div>
+            </div>
+            <!-- FORM LOGIN ENDS -->
+            <br/>
+          </form>
+          <!-- FORM ENDS -->
+             
+          <!-- NEW USER STARTS -->
+          <div class="text-align-center border dashed margin-top-1em">
+            <p class="margin-1em"><strong>¿Nuevo usuario?</strong></p>
+            <p class="margin-1em">Para registrarte has click <strong>aquí</strong>.</p>
+            <div class="button-wrapper margin-1em padding-1em">
+              <a href="/accounts/register/" class="button red">
+                Registro
+              </a>
+            </div>
+          </div>
+          <!-- NEW USER ENDS -->
+        </div>
 
-  <h2>Iniciar Sesión</h2>
-
-
-  <div>
-    <legend>facebook?</legend>
-
-      <form action="{% url facebook_connect %}?facebook_login=1" method="post">{% csrf_token %}
-        <a href="javascript:void(0);" style="" onclick="F.connect(this.parentNode);">
-          <img src="{{ MEDIA_URL }}img/fb1.png">
-        </a>
-        <input type="hidden" value="{{ request.path }}" name="next" />
-      </form>
-  </div>
-
-  <form class="form-horizontal" action="" method="post">{% csrf_token %}
-    <div>
-      <legend>Usuario</legend>
-      <div>
-      {{ form.username }}
-      </div>
-      {{ form.username.errors }}
-    </div>
-
-    <div>
-      <legend>Contraseña</legend>
-      <div>
-      {{ form.password }}
-      </div>
-      {{ form.password.errors }}
-    </div>
-
-    <div class="margin10">
-          <input class="btn btn-primary btn-large" type="submit" id="signin" value="Entrar" />
-          <input type="hidden" name="next" value="{{ next|escape }}" />
-    </div>
-
-    <div>
-      <h3>Eres Nuevo?</h3>
-      <a class="btn btn-danger" href="/accounts/register">Registrarse</a>
-    </div>
-
-  </form>
-</div>
 {% endblock %}
 
 {% block section3 %}

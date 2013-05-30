@@ -1,34 +1,80 @@
 {% extends "3columns.html" %}
-{% block title %}{% endblock %}
-{% block media %}
 
+{% block title %}Agregar una Cuenta Bancaria{% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div3 text-center">
-	<h2>Nueva Cuenta Bancaria</h2>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Agrega una cuenta Bancaria</h1>
+							<div class="description">
+								Agrega una cuenta Bancaria
+							</div>
+						</div>
+					</div>
+					<!-- FORM STARTS -->
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						{% if form.errors %}
+						<div class="notification error border borders margin-bottom-1em text-align-left">
+							<div class="strong">Error en la forma</div>
+							<div class="notification-info">
+								Información adicional acerca del error de la forma.
+							</div>
+						</div>
+						{% endif %}
+								
+						<!-- FORM LOGIN STARTS -->
+						<div class="login-form-area div-center-fix">
+							<div class="text-align-left">
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Nombre del Banco</label>
+									{{ form.bank }}
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.bank.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.bank.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
 
-	<form action='' method='POST'>{% csrf_token %}
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Numero de Cuenta</label>
+									{{ form.account }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.account.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.account.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+																
+								<div class="division margin-1em text-align-center">
+									<input type="submit" name="" class="button green width-50" value="Guardar" />
+								</div>
+								
+							</div>
+						</div>
+						<!-- FORM LOGIN ENDS -->
+						<br/>
+					</form>
+					<!-- FORM ENDS -->
+				</div>
+{% endblock %}
 
-		<div>
-			<legend>Nombre del Banco</legend>
-			{{ form.bank }}
-			<span class="block-help">Ej. Banamex, Bancomer, Banorte</span>
-			{{ form.bank.errors }}
-		</div>
-
-		<div>
-			<legend>Numero de Cuenta</legend>
-			{{ form.account }}
-			{{ form.account.errors }}
-		</div>
-
-		<div>
-			<input class="btn btn-large btn-success" type="submit" value="Guardar">
-		</div>
-
-	</form>
-
-</section>
-
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

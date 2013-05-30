@@ -1,32 +1,77 @@
 {% extends "3columns.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Mis Ofertas{% endblock %}
 
-{% block media %}
-{% endblock %}
-
-{% block search-bar %}
-	{% include "search.html" %}
+{% block section1 %}
+    {% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div">
-    <div class="text-center">
-        <h2>Mis Ofertas</h2>
-    </div>
-    	<div class="tab-pane active" id="possible">
-            {% for offer in offers_list %}
-                {% include "account/offers.html" %}
-            {% empty %}
-            <div class="alert alert-error">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4>Vacio!</h4>
-                Aun no tienes operaciones
-                <a href="/article/post"> Publicar una Compra</a>
-            </div>
-            {% endfor %}
-    	</div>
-</section>
+                <div class="content padding-1_5em">
+                    <div class="head">
+                        <div class="info margin-bottom-1em">
+                            <h1 class="font-size-1_5em">Mis ofertas</h1>
+                            <div class="description">
+                                Aquí puedes ver qué los artículos has ofrecido.
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if not offer_list %}
+                                <div class="notification error borders">
+                                    <div class="strong">
+                                        Sin Ofertas
+                                    </div>
+                                    <div>
+                                        Aun no has ofrecido vender ningun articulo
+                                    </div>
+                                </div>
+                    {% endif %}
+                    
+                    <!-- ENUM OFFERS -->
+                    <div class="offers">
+                        {% for offer in offer_list %}
+                        <div class="offer border margin-bottom-1em">
+                            <div class="padding-1em group">                                
+                                <div class="width-20 float-left">
+                                    <div class="padding-1em">
+                                        <img class="width-100 padding-0_5em border" src="{{ offer.get_first_picture_url }}" />
+                                    </div>
+                                </div>
+                                <div class="width-70 float-right">
+                                    <div class="padding-1em">
+                                        <div class="offer-title strong font-size-1_5em">
+                                            {{ offer.article.title|title }}
+                                        </div>
+                                        <div class="offer-link margin-bottom-1em">
+                                            <a class="attention" href="/article/myoffer/{{ offer.pk }}">Ver mi oferta</a>
+                                        </div>
+                                        <div class="offer-description">
+                                            <span class="attention">&laquo;</span>
+                                            <span class="offer-info">
+                                                {{ offer.message|truncatechars:100}}
+                                            </span>
+                                            <span class="attention">&raquo;</span>
+                                        </div>
+                                        <div class="offer-price margin-top-1em">
+                                            <div class="border dashed text-align-center font-size-1_25em">
+                                                <div class="strong attention">Pagas</div>
+                                                <div>$ {{ offer.cprice }} MXN</div>
+                                            </div>
+                                        </div>
+                                        <div class="offer-description text-align-center margin-1em">
+                                            <span class="offer-info">
+                                            hace {{ offer.get_timestamp }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- ENUM ENDS OFFERS -->
+                </div>
 {% endblock %}
 
 {% block section3 %}

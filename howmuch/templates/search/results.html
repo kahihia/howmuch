@@ -1,16 +1,8 @@
-{% extends "2columns.html" %}
+{% extends "3columns.html" %}
 
 {% load search_tags %}
 
-{% block search-bar %}
-	{% include "search.html" %}
-{% endblock %}
-
-{% block section1 %}
-	{% include "categories.html" %}
-{% endblock %}
-
-{% block section2 %}
+{% block media_js %}
 <script type="text/javascript">
 $(document).on('ready', function(){
 	if("{{ searchresults.query }}"!="all:1"){
@@ -116,6 +108,92 @@ $(document).on('ready', function(){
 	});
 });
 </script>
+{% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
+{% endblock %}
+
+{% block section2 %}
+				<div class="content">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Búsqueda</h1>
+							<div class="description">
+								Has buscado
+								<span class="attention">&laquo;</span>
+								<span class="query strong">{{ article }}</span>
+								<span class="attention">&raquo;</span>.
+							</div>
+						</div>
+					</div>
+										
+					<div class="items border">
+						<!-- Top items options starts -->
+						<div class="path padding-0_5em">
+							<span class="name">Categoría 1</span>
+							<span class="attention">&raquo;</span>
+							<span class="name">Sub-categoría 1.1</span>
+							<span class="attention">&raquo;</span>
+							<span class="name">Sub-categoría 1.1.1</span>
+						</div>
+
+						<div class="arrange group padding-0_5em">
+							<div class="float-left width-75">
+								Se muestran <strong>10</strong> de <strong>1000</strong> resultados
+							</div>
+							<div class="float-right width-25">
+								<select class="width-100 font-size-0_8em">
+									<option>Precio alto a bajo</option>
+									<option>Precio bajo a alto</option>
+									<option>Orden alfabético</option>
+								</select>
+							</div>
+						</div>
+						<!-- Top items options ends -->
+						
+						
+						<!-- Now, items list starts -->
+						<div class="items-list">
+							<!-- 3 ITEMS GROUP STARTS -->
+							<div class="items-group group margin-bottom-1em border-bottom-dashed">
+								{% for result in searchresults.results %}
+								<!-- Item starts -->
+								<div class="item float-left width-33_3 margin-top-1em margin-bottom-1em text-align-justify">
+									<div class="item-image-container padding-0_5em">
+										<a href="#">
+											<img class="item-image width-100" src="{{ result.img }}" alt="{{ result.text|title }}" />
+										</a>
+									</div>
+									<div class="item-header padding-0_5em">
+										<a href="#">{{ result.text|title }}</a>
+									</div>
+									<div class="item-price padding-0_5em">$ {{ result.price }}</div>
+									<div class="item-extra padding-0_5em font-size-0_8em">
+										<span class="attention">&laquo;</span>
+										<span class="item-extra-info">
+											{{ result.description }}
+										</span>
+										<span class="attention">&raquo;</span>
+									</div>
+									<div class="tags">
+										{{ result.tags|tagsformat }}
+									</div>
+								</div>
+								<!-- Item ends -->
+								{% empty %}
+								<!-- NOT FOUND -->
+								<div class="notification borders margin-top-1em margin-bottom-1em">
+									No se encontraron resultados.
+								</div>
+								{% endfor %}								
+							</div>
+							<!-- 3 ITEMS GROUP ENDS -->						
+						</div>
+						<!-- Now, items list ends -->
+					</div>
+				</div>
+<!-- Old
 <h3 id="aver"><a href="/">Inicio</a><abbr id="query_nav_ind" style="display:none"> > </abbr><a id="query_nav" href=""></a><a id="query_nav_delete" class="btn btn-mini delete_query" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="category_nav_ind" style="display:none"> > </abbr><a id="category_nav" href=""></a><a id="category_nav_delete" class="btn btn-mini delete_category" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="state_nav_ind" style="display:none"> > </abbr><a id="state_nav" href=""></a><a id="state_nav_delete" class="btn btn-mini delete_state" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="rangePrice_nav_ind" style="display:none"> > </abbr><a id="rangePrice_nav" href=""></a><a id="rangePrice_nav_delete" class="btn btn-mini delete_rangePrice" href="#" style="display:none"><i class="icon-remove"></i></a></h3>
 <section class="wrapper-div">
 	<div class="text-center">
@@ -155,5 +233,9 @@ $(document).on('ready', function(){
 		</div>
 	</article>
 	{% endfor %}
-</section>
+</section> Old --!>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

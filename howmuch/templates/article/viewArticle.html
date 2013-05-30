@@ -1,4 +1,4 @@
-{% extends "article/2columns.html" %}
+{% extends "3columns.html" %}
 
 {% block title %}{% endblock %}
 
@@ -12,14 +12,18 @@
     content="{{ article.description|truncatechars:100}}"/>
 {% endblock %}
 
-{% block media %}
+{% block media_css %}
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/glisse.css" />
 <link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme3/style.css">
+{% endblock %}
+
+{% block media_js %}
 <script src="{{ MEDIA_URL }}js/glisse.js"></script>
 <script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script type="text/javascript">
 $(document).on('ready', function(){
+
 	pic_count= {{ article.pictures.all.count }};
 
 	var pic_ids= new Array();
@@ -88,16 +92,6 @@ $(document).on('ready', function(){
 		$('#uniquepicerrordiv').hide();
 	});
 
-	$('#comments-form').submit(function(e){
-		e.preventDefault();
-		$.post('/comments/post/{{ article.pk }}/', 
-			$('#comments-form').serialize(),
-			function(data){
-				$('.comments-area').append(data);
-				$('#comments-form')[0].reset();
-			});
-	});
-
 	$('#startTourViewArticle').click(function(){
       viewArticleTour.restart();                      
    	}); 
@@ -109,153 +103,187 @@ $(document).on('ready', function(){
         fullscreen: true,
     });
 });
+
+$(document).on('ready', function(){
+	$('#comments-form').submit(function(e){
+		e.preventDefault();
+		$.post('/comments/post/{{ article.pk }}/', 
+			$('#comments-form').serialize(),
+			function(data){
+				$('.comments-area').append(data);
+				$('#comments-form')[0].reset();
+		});
+	});
+})
 </script>
 {% endblock %}
 
-{% block search-bar %}
-	{% include "search.html" %}
-{% endblock %}
-
 {% block section1 %}
-<section class="wrapper-div3">
-	<div class="text-center margin10">
-		<a class="btn btn-danger" id="startTourViewArticle">Click para Ayuda</a>
-	</div>
-	<article>
-	{% if new_post %}
-	<div class="alert alert-success">
-    	<button type="button" class="close" data-dismiss="alert">&times;</button>
-    	<h4>Felicidades!</h4>
-    	Acabas de Publicar correctamente tu Compra
-    </div>
-	{% endif %}
-	{% if article.owner == user %}
-    <div class="alert alert-block">
-    	<button type="button" class="close" data-dismiss="alert">&times;</button>
-    	Esta Es Tu Publicación <a href="{{ article.get_url }}/edit">Editar</a>
-    </div>
-	{% endif %}
-
-	{% if not article.is_active %}
-	<div class="alert alert-error">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-    	Esta Publicación Ha Finalizado <a href="/article/post">Publicar una Compra</a>
-    </div>
-	{% endif %}
-	</article>
-
-	<article class="margin10">
-		<center>
-			Publicado <b>hace {{ article.date|timesince }}</b> por <a href="/profile/{{ article.owner }}">{{ article.owner }}</a> 
-		</center>
-	</article>
-
-	<article class="row-fluid">
-		<div class="thumbnail span4">
-    		<img id="articledisplayimage" src="{{ article.get_first_picture_url }}" alt="">
-    	</div>
-   
-	
-		<div class="span8">
-			<div class="text-center font-blue">
-				<h2>Compro: {{ article.title }}</h2>
-			</div>
-			<div class="text-center">
-				<h4>{{ article.state }}</h4>
-			</div>
-			<div id="view-article-price-info" class="text-center font-red margin5">
-				<h2>$ {{ article.price }}</h2>
-			</div>
-			<div id="view-article-sell-button-info" class="text-center">
-				<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
-			</div>
-		</div>
-	</article>
-
-	<article id="view-article-description-info" class="margin10">
-		<h3 class="font-green">Descripcion de la compra</h3>
-		<p class="size16">{{ article.description }}</p>
-	</article>
-
-	<article class="margin10">
-		<h3 class="font-green">Quiero algo parecido a</h3>
-	<div id="uniquepicerrordiv" class="alert alert-error" style="display:none;">
-			<button id="uniquepicerrorbutton" type="button" class="close">&times;</button>
-    		No puedes eliminar la unica imagen del articulo
-    </div>		
-	<div id="view-article-pictures-info" class="text-center span12">
-		{% for picture in article.pictures.all %}
-			<div id="div{{ picture.pk }}" class="thumbnail span2">
-				<img id="pic_{{ picture.pk }}" class="pics" src="{{ picture.picture.url }}" data-glisse-big="{{ picture.picture.url }}" rel="group1"/>
-				{% if user.is_authenticated and user == article.owner %}
-					<a id={{ picture.pk }} class="btn btn-mini delete_pic" href="#"><i class="icon-remove"></i></a>
-				{% endif %}
-			</div>
-		{% endfor%}
-		</div>
-	</article>
-
-	<article class="margin10">
-		<h3 class="font-green">Etiquetas</h3>
-		<div id="view-article-tags-info" class="text-center">
-		{% for tag in article.tags.all %}
-			<a class="btn btn-success btn-large" href="#">{{ tag }}</a>
-		{% endfor %}
-		</div>
-	</article>
-
-
-</section>
-
-<!-- Comments Area -->
-<section class="wrapper-div3">
-	<legend class="font-green">Dudas del Articulo</legend>
-	<div class="comments-area">
-		{% for comment in article.comments.all %}
-			<div class="wrapper-div5 row">
-				<div class="span1 thumbnail">
-					<img src="{{ comment.owner.profile.get_profile_picture }}">
-				</div>
-				<div class="span9">
-					<p>	
-						{{ comment.comment }}
-					</p>
-				</div>
-				<div>
-					<b>
-						hace {{ comment.get_timestamp }}
-					</b>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
-	{% if user.is_authenticated %}
-	<div class="margin10">
-		<form id="comments-form" method="POST" enctype="multipart/form-data">{% csrf_token %}
-			<div class="row-fluid">
-				<div id="view-article-comments-info" class="span10">
-					<input class="span12 comment-input" type="text" id="comment" name="comment" placeholder="Escribe una duda...">
-				</div>
-				<div class="span2">
-					<input class="btn btn-success btn-large" type="submit" value="Enviar">
-				</div>
-			</div>
-		</form>
-	</div>
-	{% else %}
-	<div>
-		<p>
-			<span>Para poder comentar debes iniciar sesión</span>
-			<a href="/login/">Iniciar Sesión</a>
-		</p>
-	</div>
-	{% endif %}
-	<div class="text-center">
-		<a class="btn btn-primary btn-large" href="/article/offer/{{ article.pk }}">Venderlo</a>
-	</div>
-</section>
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
+				<div class="content padding-1_5em">
+					<div class="head margin-bottom-1em">
+						<div class="path margin-bottom-1em">
+							Path
+							<span class="attention">&gt;</span>
+							Al
+							<span class="attention">&gt;</span>
+							Producto.
+						</div>
+						<div class="product-name strong font-size-1_5em">
+							{{ article.title|title }}
+						</div>
+					</div>
+					
+					<!-- PRODUCT TOP DESCRIPTION -->
+					<div class="general-description group">
+						<div class="picture width-50 float-left border">
+							<div class="principal padding-0_5em">
+								<img class="width-100" src="{{ article.get_first_picture_url }}" />
+							</div>
+							
+							<!-- STARTS PICTURES GROUP -->
+							<div class="all-pictures group">
+								<!-- STARTS PICTURES LOOP -->
+								{% for picture in article.pictures.all %}
+								<div class="width-25 float-left">
+									<div class="container padding-0_5em">
+										<img class="width-100" src="{{ picture.picture.url }}"/>
+									</div>
+								</div>
+								{% endfor %}
+								<!-- ENDS PICTURE LOOP -->
+							</div>
+							<!--  ENDS PICTURES GROUP -->
+						</div>
+						
+						<!-- PRODUCT INFO -->
+						<div class="info width-45 float-right">
+							<div class="container">
+								<!-- IF NOTIFICATION -->
+								{% if article.owner == user %}
+								<div class="notification borders margin-bottom-1em">
+									Esta publicación es tuya, <a href="#">editar</a>.
+								</div>
+								{% endif %}
+								
+								{% if not article.is_active %}
+								<div class="notification error borders margin-bottom-1em">
+									Esta publicación ha terminado, <a href="#">ver otras</a>.
+								</div>
+								{% endif %}
+								
+								{% if new_post %}
+								<div class="notification success borders margin-bottom-1em">
+									<div class="strong">¡Felicidades!</div>
+									<div>¡Acabas de publicar correctamente tu compra!</div>
+								</div>
+								{% endif %}
+								<!-- ENDIF NOTIFICATION -->
+								
+								<div class="published-date margin-bottom-1em">
+									Publicado <span class="strong">{{ article.date|timesince }}</span> por <a class="strong attention" href="/profile/{{ article.owner }}">{{ article.owner }}</a>.
+								</div>
+			
+								<div class="price strong font-size-2em margin-bottom-1em">
+									$ {{ article.price }}
+								</div>
+								
+								<div class="sell-button">
+									<a class="button green margin-botton-1em" href="/article/offer/{{ article.pk }}">
+										Vender producto
+									</a>
+									<br />
+									<br />
+									<br />
+								</div>
+								
+								
+								<!--  PRODUCT DESCRIPTION -->
+								<div class="product-description margin-bottom-1em">
+									<div class="description-header strong attention margin-bottom-0_5em">
+										Descripción
+									</div>
+									<div class="description-info">
+										<span class="attention">&laquo;</span>
+										<span class="info">
+											{{ article.description }}
+										</span>
+										<span class="attention">&raquo;</span>
+									</div>
+									
+								</div>
+								
+								<!-- PRODUCT TAGS -->
+								<div class="tags font-size-1_25em ">
+									{% for tag in article.tags.all %}
+									<a class="item-tag tag blue" href="#">{{ tag }}</a>
+									{% endfor %}
+								</div>
+								
+							</div>
+						</div>
+						
+					</div>
+					<!--  ENDS TOP PRODUCT DESCRIPTION -->
+					
+					<!-- PRODUCT QUESTIONS -->
+					<div class="product-questions border margin-top-1em">
+						<div class="container padding-1em">
+							<div class="questions-header font-size-1_25em strong">
+								Dudas
+							</div>
+							<div class="questions-container padding-1em">
+								<!-- STARTS QUESTIONS LOOP -->
+								{% for comment in article.comments.all %}
+								<div class="question group">
+									<div class="question-profile-picture width-10 float-left">
+										<div class="container padding-0_5em">
+											<img class="width-100" src="{{ comment.owner.profile.get_profile_picture }}" />
+										</div>
+									</div>
+									
+									<div class="question-content width-90 float-right">
+										<div class="container padding-0_5em">
+											<div class="question-user-name">
+												<a class="strong attention" href="#">{{ comment.owner }}/a>
+											</div>
+											<div class="question-info">
+												{{ comment.comment }}
+											</div>
+											<div class="question-published text-align-right">
+												{{ comment.get_timestamp }}
+										</div>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+								<!-- ENDS QUESTIONS LOOP -->
+								
+								<!-- QUESTION FORM -->
+								{% if user.is_authenticated %}
+								<div class="question-form margin-top-1em">
+									<form id="comments-form" class="text-align-center margin-top-1em border dashed" method="POST" enctype="multipart/form-data">{% csrf_token %}
+										<div class="container padding-1em">
+											<textarea id="comment" class="width-90" name="comment" placeholder="¿Qué quieres preguntar?"></textarea>
+											<div>
+												<input class="button green" type="submit" value="Preguntar" />
+											</div>
+										</div>
+									</form>
+								</div>
+								{% else %}
+
+								{% endif %}
+								<!-- ENDS QUESTION FORM -->
+							</div>
+						</div>
+					</div>
+				</div>
+{% endblock %}
+
+{% block section3 %}
 	{% include "howtodo.html" %}
 {% endblock %}

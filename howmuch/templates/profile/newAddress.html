@@ -1,62 +1,156 @@
 {% extends "3columns.html" %}
-{% block title %}{% endblock %}
-{% block media %}
 
+{% block title %}Agregar una Dirección{% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Agrega una nueva dirección</h1>
+							<div class="description">
+								Agrega una nueva dirección
+							</div>
+						</div>
+					</div>
+					<!-- FORM STARTS -->
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						{% if form.errors %}
+						<div class="notification error border borders margin-bottom-1em text-align-left">
+							<div class="strong">Error en la forma</div>
+							<div class="notification-info">
+								Información adicional acerca del error de la forma.
+							</div>
+						</div>
+						{% endif %}
+								
+						<!-- FORM LOGIN STARTS -->
+						<div class="login-form-area div-center-fix">
+							<div class="text-align-left">
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Calle</label>
+									{{ form.street }}
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.street.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.street.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Numero</label>
+									{{ form.number }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.number.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.number.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- DIVISION --><hr/>
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Colonia</label>
+									{{ form.suburb }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.suburb.errors }}
+									</div>
+								</div>
+								<!-- ENDS INPUT -->								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Ciudad</label>
+									{{ form.city }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.city.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.city.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Estado</label>
+									{{ form.state }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.state.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.state.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Codigo Postal</label>
+									{{ form.zipcode }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.zipcode.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										Favor de introducir correctamente.
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">Pais</label>
+									{{ form.country }}
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em">
+										Información adicional del campo.
+									</div>
+									{% if form.country.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										Favor de introducir correctamente.
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<div class="division margin-1em text-align-center">
+									<input type="submit" name="" class="button green width-50" value="Guardar" />
+								</div>
+								
+							</div>
+						</div>
+						<!-- FORM LOGIN ENDS -->
+						<br/>
+					</form>
+					<!-- FORM ENDS -->
+				</div>
+{% endblock %}
 
-<section class="wrapper-div3 text-center">
-	<h2>Nueva Dirección</h2>
-
-	<form action='' method='POST'>{% csrf_token %}
-		<div>
-			<legend>Calle</legend>
-			{{ form.street }}
-			{{ form.street.errors }}
-		</div>
-
-		<div>
-			<legend>Numero</legend>
-			{{ form.number }}
-			{{ form.number.errors }}
-		</div>
-
-		<div>
-			<legend>Colonia</legend>
-			{{ form.suburb }}
-			{{ form.suburb.errors }}
-		</div>
-
-		<div>
-			<legend>Ciudad</legend>
-			{{ form.city }}
-			{{ form.city.errors }}
-		</div>
-
-		<div>
-			<legend>Estado</legend>
-			{{ form.state }}
-			{{ form.state.errors }}
-		</div>
-
-		<div>
-			<legend>Pais</legend>
-			{{ form.country }}
-			{{ form.country.errors }}
-		</div>
-
-		<div>
-			<legend>Codigo Postal</legend>
-			{{ form.zipcode }}
-			{{ form.zipcode.errors }}
-		</div>
-
-		<div>
-			<input class="btn btn-success btn-large" type="submit" value="Guardar">
-		</div>
-	</form>
-
-</section>
-
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

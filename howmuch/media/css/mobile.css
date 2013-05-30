@@ -1,0 +1,49 @@
+.show-on-mobile, .show-on-tablet {
+	display: none;
+}
+
+@media all and (max-width: 800px) {
+	.hide-on-tablet {
+		display: none !important;
+	}
+
+	.show-on-tablet {
+		display: block;
+	}
+}
+
+@media all and (max-width: 500px) {
+	.show-on-mobile {
+		display: block;
+	}
+
+	.whole-width-on-mobile, .width-100-on-mobile {
+		width: 100% !important;
+	}
+	
+	.width-75-on-mobile {
+		width: 75% !important;
+	}
+	
+	.width-40-on-mobile {
+		width: 40% !important;
+	}
+	
+	.display-none-on-mobile {
+		display: none !important;
+	}
+	
+	.display-block-on-mobile, .show-on-mobile {
+		display: auto !important;
+	}
+	
+	.text-align-center-on-mobile {
+		text-align: center !important;
+	}
+	
+	.reset-height-on-mobile {
+		height: auto !important;
+		min-height: auto !important;
+		line-height: 1em !important;
+	}
+}

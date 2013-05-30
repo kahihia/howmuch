@@ -15,7 +15,7 @@ def tagsformat(value, autoescape=None):
 		esc = lambda x: str(x)
 	tags = value.split(',')
 	for tag in tags[:len(tags)-1]:
-		result += '<a class="btn btn-info margin5" href="#">%s</a>' % (esc(tag))
+		result += '<a class="item-tag tag blue" href="#">%s</a>' % (esc(tag))
 	return mark_safe(result)
 
 @register.filter(is_safe=True)

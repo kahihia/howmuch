@@ -1,70 +1,86 @@
 {% extends "3columns.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Candidatos de {{ article.title }}{% endblock %}
 
-{% block media %}{% endblock %}
-
-{% block search-bar %}
-	{% include "search.html" %}
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
-{% block section2 %}
-<section class="wrapper-div">
-	<div class="row-fluid margin10">
-		<div class="thumbnail span3">
-			<img src="{{ article.get_first_picture_url }}">
-		</div>
-		<div class="span9">
-			<center>
-				<h3>Ofertas para tu {{ article.title }}</h3>
-			</center>
-			<center>
-				<p>
-					{{ article.description|truncatechars:100}}
-				</p>
-			</center>
-		</div>
-	</div>
 
-	<div class="margin10">
-            {% for candidate in candidates %}
-                <div class="wrapper-div3 hover1">
-					<div class="row-fluid">
-						<div class="thumbnail span3">
-							<a href="/article/offer/view/{{ candidate.pk }}">
-								<img src="{{ candidate.get_first_picture_url }}">
-							</a>
-						</div>
-						<div class="span6">
-							<div class="text-center">
-								<a href="/article/offer/view/{{ candidate.pk }}">
-									{{ candidate.message|truncatechars:200}}
-								</a>
-							</div>
-						</div>
-						<div class="span3">
-							<div class="text-center">
-								<div class="wrapper-div4">
-									<h4>Te lo venden a</h4>
-									<h2 class="font-blue">$ {{ candidate.cprice }}</h2>
-									<h3>c/u</h3>
-								</div>
-								<p>
-									<b>hace {{ candidate.get_timestamp }}</b>
-								</p>	
-							</div>
-						</div>
-					</div>
-				</div>
-            {% empty %}
-            <div class="alert alert-error">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4>Vacio!</h4>
-                Aun no tienes candidatos.
-            </div>
-            {% endfor %}
-	</div>
-</section>
+{% block section2 %}
+                <div class="content padding-1_5em">
+                    <div class="head">
+                        <div class="info margin-bottom-1em">
+                            <h1 class="font-size-1_5em">Candidatos</h1>
+                            <div class="description">
+                                Aquí puedes ver qué las personas que quieren venderte el articulo.
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if not candidates %}
+                                <div class="notification error borders">
+                                    <div class="strong">
+                                        Sin Candidatos
+                                    </div>
+                                    <div>
+                                        Por ahora no hay interesados en venderte el articulo.
+                                    </div>
+                                </div>
+                    {% endif %}
+                    
+                    <!-- ENUM OFFERS -->
+                    <div class="offers">
+                        {% for candidate in candidates %}
+                        <div class="offer border margin-bottom-1em">
+                            <div class="padding-1em group">                                
+                                <div class="width-20 float-left">
+                                    <div class="padding-1em">
+                                    	<a href="/article/offer/view/{{ candidate.pk }}">
+											<img class="width-100 padding-0_5em border" src="{{ candidate.get_first_picture_url }}" />
+                                    	</a>
+                                    </div>
+                                </div>
+                                <div class="width-70 float-right">
+                                    <div class="padding-1em">
+                                        <div class="offer-title strong font-size-1_5em">
+                                        	<a href="/profile/{{ candidate.owner }}">
+                                            {{ candidate.owner }}
+                                        	</a>
+                                        </div></br>
+                                        <div class="offer-link margin-bottom-1em">
+                                            <a class="attention" href="/article/offer/view/{{ candidate.pk }}">Ver Oferta</a>
+                                        </div>
+                                        <div class="offer-description">
+                                            <span class="attention">&laquo;</span>
+                                            <span class="offer-info">
+                                                {{ candidate.message|truncatechars:100}}
+                                            </span>
+                                            <span class="attention">&raquo;</span>
+                                        </div>
+                                        <div class="offer-price margin-top-1em">
+                                            <div class="border dashed text-align-center font-size-1_25em">
+                                                <div class="strong attention">Te lo venden a </div>
+                                                <div>$ {{ candidate.cprice }} MXN</div>
+                                            </div>
+                                        </div>
+                                        <div class="offer-description text-align-center margin-1em">
+                                            <span class="offer-info">
+                                            hace {{ candidate.get_timestamp }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- ENUM ENDS OFFERS -->
+                </div>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
 
 

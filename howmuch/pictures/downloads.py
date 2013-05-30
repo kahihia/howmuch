@@ -37,6 +37,7 @@ def download_picture(query, path='howmuch/media/downloads'):
       title = image_info['titleNoFormatting'].replace('/', '').replace('\\', '')
 
       file = open(os.path.join(BASE_PATH, '%s.jpg') % title, 'w')
+
       try:
         Image.open(StringIO(image_r.content)).save(file, 'JPEG')
       except IOError, e:
