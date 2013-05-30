@@ -23,98 +23,16 @@
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script type="text/javascript">
 $(document).on('ready', function(){
-
-	pic_count= {{ article.pictures.all.count }};
-
-	var pic_ids= new Array();
-		{% for p in article.pictures.all %}
-			pic_ids[{{ forloop.counter0 }}]={{ p.pk }};
-		{% endfor %}
-
-	var tourdata = [
-      {
-        html: "<h1>Vender un Articulo</h1><hr>Al darle click podras ofertarle al comprador el articulo que le quieres vender</hr>",
-        element: $('#view-article-sell-button-info'),
-        overlayOpacity: 0.8,
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Precio</h1><hr>Este es el precio que el comprador esta dispuesto a pagar por el articulo, pero puedes ofrecerle otra cantidad</hr>",
-        element: $('#view-article-price-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Etiquetas</h1><hr>Estas etiquetas representan palabras clave acerca del articulo</hr>",
-        element: $('#view-article-tags-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },{
-        html: "<h1>Dudas del Articulo</h1><hr>Aqui podras escribirle al comprador todas tus dudas sobre el articulo, el te contestara enseguida</hr>",
-        element: $('#view-article-comments-info'),
-        overlayOpacity: 0.8,
-        onShow: function(e){ e.addClass("background1");},
-        onHide: function(e){ e.removeClass("background1");},
-        expose: true,
-        position: 's'
-      },
-   	];
-   
-   	var viewArticleTour = jTour(tourdata,{
-      axis:'y',  // use only one axis prevent flickring on iOS devices
-      scrollBack: true //scrolls back to the beginning position
-   	});
-
-	$('.delete_pic').click(function(e){
-		if (pic_count == 1){
-			$('#uniquepicerrordiv').show();
-		}
-		else {
-			e.preventDefault();
-			$.getJSON('/article/deletepicture/{{ article.pk }}/'+this.id, function(json){
-			});
-			$('#div'+this.id).hide();
-			
-			if ($('#articledisplayimage').attr("src") == $('#pic_'+this.id).attr("src").split("?")[0]){
-            	$('#articledisplayimage').attr("src", $('#pic_'+pic_ids[pic_ids.length-pic_count+1]).attr("src").split("?")[0]);
-            	$('#articledisplayimage').fadeIn();
-			}
-			pic_count--;
-		}
-	});
-
-	$('#uniquepicerrorbutton').click(function(e){
-		$('#uniquepicerrordiv').hide();
-	});
-
-	$('#startTourViewArticle').click(function(){
-      viewArticleTour.restart();                      
-   	}); 
-
-	$('.pics').glisse({
-        changeSpeed: 550,
-        speed: 500,
-        effect:'bounce',
-        fullscreen: true,
+  $('#comments-form').submit(function(e){
+    e.preventDefault();
+    $.post('/comments/post/{{ article.pk }}/', 
+      $('#comments-form').serialize(),
+      function(data){
+        $('.comments-area').append(data);
+        $('#comments-form')[0].reset();
     });
+  });
 });
-
-$(document).on('ready', function(){
-	$('#comments-form').submit(function(e){
-		e.preventDefault();
-		$.post('/comments/post/{{ article.pk }}/', 
-			$('#comments-form').serialize(),
-			function(data){
-				$('.comments-area').append(data);
-				$('#comments-form')[0].reset();
-		});
-	});
-})
 </script>
 {% endblock %}
 
@@ -236,48 +154,49 @@ $(document).on('ready', function(){
 								Dudas
 							</div>
 							<div class="questions-container padding-1em">
-								<!-- STARTS QUESTIONS LOOP -->
-								{% for comment in article.comments.all %}
-								<div class="question group">
-									<div class="question-profile-picture width-10 float-left">
-										<div class="container padding-0_5em">
-											<img class="width-100" src="{{ comment.owner.profile.get_profile_picture }}" />
-										</div>
+
+								<div class="comments-area">
+									<!-- QUESTION FORM -->
+									{% if user.is_authenticated %}
+									<div class="question-form margin-2em">
+										<form id="comments-form" class="text-align-center margin-top-1em border dashed" method="POST" enctype="multipart/form-data">{% csrf_token %}
+											<div class="container padding-1em">
+												<textarea id="comment" class="width-90" name="comment" placeholder="¿Qué quieres preguntar?"></textarea>
+												<div>
+													<input class="button green" type="submit" value="Preguntar" />
+												</div>
+											</div>
+										</form>
 									</div>
-									
-									<div class="question-content width-90 float-right">
-										<div class="container padding-0_5em">
-											<div class="question-user-name">
-												<a class="strong attention" href="#">{{ comment.owner }}/a>
+									{% else %}
+									{% endif %}
+									<!-- ENDS QUESTION FORM -->
+									<!-- STARTS QUESTIONS LOOP -->
+									{% for comment in article.comments.all %}
+									<div class="question group">
+										<div class="question-profile-picture width-10 float-left">
+											<div class="container padding-0_5em">
+												<img class="width-100" src="{{ comment.owner.profile.get_profile_picture }}"/>
 											</div>
-											<div class="question-info">
-												{{ comment.comment }}
-											</div>
-											<div class="question-published text-align-right">
-												{{ comment.get_timestamp }}
 										</div>
+										
+										<div class="question-content width-90 float-right">
+											<div class="container padding-0_5em">
+												<div class="question-user-name">
+													<a class="strong attention" href="#">{{ comment.owner }}</a>
+												</div>
+												<div class="question-info">
+													{{ comment.comment }}
+												</div>
+												<div class="question-published text-align-right">
+													hace {{ comment.get_timestamp}}
+											</div>
+											</div>
 										</div>
 									</div>
 									{% endfor %}
-								</div>
-								<!-- ENDS QUESTIONS LOOP -->
-								
-								<!-- QUESTION FORM -->
-								{% if user.is_authenticated %}
-								<div class="question-form margin-top-1em">
-									<form id="comments-form" class="text-align-center margin-top-1em border dashed" method="POST" enctype="multipart/form-data">{% csrf_token %}
-										<div class="container padding-1em">
-											<textarea id="comment" class="width-90" name="comment" placeholder="¿Qué quieres preguntar?"></textarea>
-											<div>
-												<input class="button green" type="submit" value="Preguntar" />
-											</div>
-										</div>
-									</form>
-								</div>
-								{% else %}
-
-								{% endif %}
-								<!-- ENDS QUESTION FORM -->
+									<!-- ENDS QUESTIONS LOOP -->
+								</div>								
 							</div>
 						</div>
 					</div>

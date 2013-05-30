@@ -25,25 +25,26 @@ def post(request, articleID):
 			#Send email to buyer or followers
 			send_mail(article, request.user, post)
 			#html content for http response
-			html_content = 	"<div class='message group border dashed margin-top-1em'>" +\
-			"<div class='width-15 float-left'>" +\
-			"<div class='padding-1em text-align-center'>" +\
-			"<img class='padding-0_5em border width-90' src='%s'/>" % (post.owner.profile.get_profile_picture()) +\
+			html_content = "<div class='question group'>" +\
+			"<div class='question-profile-picture width-10 float-left'>" +\
+			"<div class='container padding-0_5em'>" +\
+			"<img class='width-100' src='%s'/>" % (post.owner.profile.get_profile_picture()) +\
 			"</div>" +\
 			"</div>" +\
-			"<div class='width-85 float-right group'>" +\
-			"<div class='padding-1em'>" +\
-			"<div class='width-60 float-left'>" +\
-			"<div>" +\
+			"<div class='question-content width-90 float-right'>" +\
+			"<div class='container padding-0_5em'>" +\
+			"<div class='question-user-name'>" +\
+			"<a class='strong attention' href='#'>%s</a>" % (post.owner) +\
+			"</div>" +\
+			"<div class='question-info'>" +\
 			"%s" % (post.comment) +\
 			"</div>" +\
-			"</div>" +\
-			"<div class='width-30 float-right text-align-right'>" +\
+			"<div class='question-published text-align-right'>" +\
 			"hace %s" % (post.get_timestamp()) +\
 			"</div>" +\
 			"</div>" +\
 			"</div>" +\
-			"</div>"
+			"</div>" 
 
 			return HttpResponse(html_content)
 
