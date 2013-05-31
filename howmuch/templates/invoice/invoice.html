@@ -1,51 +1,72 @@
-{% extends "1columns.html" %}
-{% block media %}
-<script type="text/javascript">
-$(document).on('ready', function(){
-	$('#tab-invoice a').click(function (e) {
-    	e.preventDefault();
-    	$(this).tab('show');
-    });
-});
-</script>
-{% endblock %}
+{% extends "3columns.html" %}
+
 {% block section1 %}
-		<div class="wrapper-div">
-		<div class="text-center">
-			<h2>Factura Actual</h2>
-		</div>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Fecha</th>
-						<th>Concepto</th>
-						<th>Precio</th>
-						<th>Comisíon</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for charge in current_invoice.charges.all %}
-					<tr>
-						<th>{{ forloop.counter }}</th>
-						<th>{{ charge.date }}</th>
-						<th><a href="/messages/{{ charge.assignment.conversation.pk }}">{{ charge.assignment.article.title }}</th></a>
-						<th>{{ charge.price }}</th>
-						<th>{{ charge.commission }}</th>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+	{% include "categories2.html" %}
+{% endblock %}
 
-			<div class="text-center wrapper-div4 margin10">
-				<h3>
-					Total a pagar $ {{ current_invoice.total }}
-				</h3>
-			</div>
-		
-			<div class="text-center">
-				{{ form.render2 }}
-			</div>
+{% block section2 %}
+				<div class="content padding-1_5em">
+					<!-- STARTS CONTENT -->
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Estado de cuenta</h1>
+							<div class="description">
+								Aquí puedes consultar los datos y movimientos relacionados con Factura Actual.
+							</div>
+						</div>
+					</div>
+					
+					<!-- STARTS TABLE -->
+					<div class="invoice-table border">
+						<div class="padding-1em">
+							{% if not current_invoice.charges.all %}
+							<div class="notification error border borders margin-bottom-1em text-align-left">
+								<div class="strong">Sin Movimientos</div>
+								<div class="notification-info">
+									Aun no presentas movimientos
+								</div>
+							</div>
+							{% endif %}
+							<div class="invoice-table-header strong attention text-align-center margin-bottom-1em group">
+								<div class="float-left width-10">#</div>
+								<div class="float-left width-15">Fecha</div>
+								<div class="float-left width-30">Concepto</div>
+								<div class="float-left width-25">Precio</div>
+								<div class="float-left width-15">Comisión</div>
+							</div>
+							
+							<!-- ENUM PAYMENTS -->
+							{% for charge in current_invoice.charges.all %}
+							<div class="invoice-table-header margin-bottom-1em group">
+								<div class="float-left width-10">{{ forloop.counter }}</div>
+								<div class="float-left width-15">{{ charge.date }}</div>
+								<div class="float-left width-30">
+									<a href="/messages/{{ charge.assignment.conversation.pk }}">
+									{{ charge.assignment.article.title }}
+									</a>
+								</div>
+								<div class="float-left width-25">$ {{ charge.price }} MXN</div>
+								<div class="float-left width-15">$ {{ charge.commission }} MXN</div>
+							</div>
+							{% endfor %}
+							<!-- ENDENUM PAYMENTS -->							
+							<div class="invoice-total border dashed text-align-center padding-1em">
+								<div class="font-size-1_25em">
+									<div class="strong">Total a pagar</div>
+									<div>$ {{ current_invoice.total }}</div>
+								</div>
+								<div>
+									<!-- FIX --><br />
+									{{ form.render2 }}
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- ENDS TABLE -->	
+					<!-- ENDS CONTENT -->
+				</div>
+{% endblock %}
 
-		</div>
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

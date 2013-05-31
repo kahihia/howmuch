@@ -1,7 +1,10 @@
 {% extends "3columns.html" %}
+
 {% block title %}
+Configuración de Cuenta
 {% endblock %}
-{% block media %}
+
+{% block media_js %}
 <script type="text/javascript">
 $(document).on('ready', function(){
 	$('#tab-config a').click(function (e) {
@@ -11,145 +14,154 @@ $(document).on('ready', function(){
 });
 </script>
 {% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
+{% endblock %}
+
 {% block section2 %}
-
-<section class="wrapper-div">
-	<div class="text-center">
-		<h3>Configuración</h3>
-	</div>
-	<!-- Changes Done -->
-	{% if has_changes %}
-		<div class="alert alert-success">
-    		<button type="button" class="close" data-dismiss="alert">&times;</button>
-    		<h4>Felicidades!</h4>
-    		Cambios guardados Correctamente
-		</div>
-    {% endif %}
-	<div>
-	<ul class="nav nav-tabs" id="tab-config">
-    	<li class="active">
-            <a href="#account">Cuenta</a>
-        </li>
-    	<li>
-    		<a href="#notifications">Notificaciones</a>
-    	</li>
-    </ul>
-	</div>
-
-	<div class="tab-content wrapper-div3">
-    <div class="tab-pane active" id="account">
-    	<legend>Cuenta</legend>
-    	<div>
-
-    		<div class="row-fluid hover1">
-				<div class="span3">
-					<p>
-						<b>Usuario</b>
-					</p>
-				</div>
-				<div class="span6">
-					<p>{{ user }}</p>
-				</div>
-				<div>
-					<a class="margin5" href="#">Modificar</a>
-				</div>
-			</div>
-
-			<div class="row-fluid hover1">
-				<div class="span3">
-					<p>
-						<b>Contraseña</b>
-					</p>
-				</div>
-				<div class="span6">
-					<p>**********</p>
-				</div>
-				<div>
-					<a class="margin5" href="/config/password">Modificar</a>
-				</div>
-			</div>
-
-			<div class="row-fluid hover1">
-				<div class="span3">
-					<p>
-						<b>Correo Electronico</b>
-					</p>
-				</div>
-				<div class="span6">
-					<p>{{ user.email }}</p>
-				</div>
-				<div>
-					<a class="margin5" href="/config/email">Modificar</a>
-				</div>
-			</div>
-    	</div>
-    </div>
-   
-  	<div class="tab-pane" id="notifications">
-    	<legend>Notificaciones</legend>
-    	<div>
-			<form action="" method="POST" >{% csrf_token %}
-				<div class="row-fluid">
-					<div class="span1">
-						{{form.new_offer }}
+				<div class="content padding-1_5em">
+					<!-- STARTS CONTENT -->
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Configuración de Cuenta</h1>
+							<div class="description">
+								Aquí puedes cambiar la información básica de tu cuenta.
+							</div>
+						</div>
 					</div>
-					<div class="span11">
-						<p>Recibir email cuando tenga una nueva oferta para alguno de mis articulos publicados</p>
+					
+					<!-- STARTS AREA -->
+					<div class="border margin-top-1em padding-1em">
+						<div class="title font-size-1_5em margin-bottom-1em">Cuenta</div>
+							<div class="info-enum border dashed">
+								<div class="container padding-1em">
+									<!-- STARTS OPTION -->
+									<div class="configuration-option group margin-bottom-1em">
+										<div class="strong float-left width-20">
+											Usuario
+										</div>
+										<div class="float-left">
+											{{ user }}
+										</div>
+										<div class="float-right">
+											<a class="attention" href="#">Modificar</a>
+										</div>
+									</div>
+									<!-- END OPTION -->
+									<!-- STARTS OPTION -->
+									<div class="configuration-option group margin-bottom-1em">
+										<div class="strong float-left width-20">
+											Contraseña
+										</div>
+										<div class="float-left">
+											********
+										</div>
+										<div class="float-right">
+											<a class="attention" href="/config/password/">Modificar</a>
+										</div>
+									</div>
+									<!-- END OPTION -->
+									<!-- STARTS OPTION -->
+									<div class="configuration-option group margin-bottom-1em">
+										<div class="strong float-left width-20">
+											Correo <br/> electrónico
+										</div>
+										<div class="float-left">
+											{{ user.email }}
+										</div>
+										<div class="float-right">
+											<a class="attention" href="/config/email/">Modificar</a>
+										</div>
+									</div>
+									<!-- END OPTION -->
+								</div>
+							</div>
 					</div>
+					<!-- ENDS AREA -->
+					
+					<!-- STARTS AREA -->
+					<div class="border margin-top-1em padding-1em">
+						<div class="title font-size-1_5em margin-bottom-1em">Notificaciones</div>
+							<div class="info-enum border dashed">
+								<div class="container padding-1em">
+									<form>
+										<!-- STARTS OPTION -->
+										<div class="configuration-option group margin-bottom-1em">
+											<div class="strong float-left width-5">
+												<input type="checkbox" />
+											</div>
+											<div class="float-left width-90">
+												Recibir email cuando tenga una nueva oferta para alguno de mis artículos publicados.
+											</div>
+										</div>
+										<!-- END OPTION -->
+										<!-- STARTS OPTION -->
+										<div class="configuration-option group margin-bottom-1em">
+											<div class="strong float-left width-5">
+												<input type="checkbox" />
+											</div>
+											<div class="float-left width-90">
+												Recibir email cuando sea seleccionado como Vendedor.
+											</div>
+										</div>
+										<!-- END OPTION -->
+										<!-- STARTS OPTION -->
+										<div class="configuration-option group margin-bottom-1em">
+											<div class="strong float-left width-5">
+												<input type="checkbox" />
+											</div>
+											<div class="float-left width-90">
+												Recibir email cuando reciba un nuevo mensaje.
+											</div>
+										</div>
+										<!-- END OPTION -->
+										<!-- STARTS OPTION -->
+										<div class="configuration-option group margin-bottom-1em">
+											<div class="strong float-left width-5">
+												<input type="checkbox" />
+											</div>
+											<div class="float-left width-90">
+												Recibir email cuando me confirmen el pago de algún articulo.
+											</div>
+										</div>
+										<!-- END OPTION -->
+										<!-- STARTS OPTION -->
+										<div class="configuration-option group margin-bottom-1em">
+											<div class="strong float-left width-5">
+												<input type="checkbox" />
+											</div>
+											<div class="float-left width-90">
+												Recibir email cuando me confirmen el envío de algún articulo.
+											</div>
+										</div>
+										<!-- END OPTION -->
+										<!-- STARTS OPTION -->
+										<div class="configuration-option group margin-bottom-1em">
+											<div class="strong float-left width-5">
+												<input type="checkbox" />
+											</div>
+											<div class="float-left width-90">
+												Recibir email cuando reciba alguna crítica.
+											</div>
+										</div>
+										<!-- END OPTION -->
+										
+										<!-- START SUBMIT -->
+										<div class="text-align-center">
+											<input type="submit" class="button green" value="Guardar" />
+										</div>
+										<!-- END SUBMIT -->
+									</form>
+								</div>
+							</div>
+					</div>
+					<!-- ENDS AREA -->
+					
+					<!-- ENDS CONTENT -->
 				</div>
+{% endblock %}
 
-				<div class="row-fluid">
-					<div class="span1">
-						{{ form.new_sale }}
-					</div>
-					<div class="span11">
-						<p>Recibir email cuando sea seleccionado como Vendedor</p>
-					</div>
-				</div>
-
-				<div class="row-fluid">
-					<div class="span1">
-						{{ form.new_message }}
-					</div>
-					<div class="span11">	
-						<p>Recibir email cuando reciba un nuevo mensaje</p>
-					</div>
-				</div>
-
-				<div class="row-fluid">
-					<div class="span1">
-						{{ form.confirm_pay }}
-					</div>
-					<div class="span11">
-						<p>Recibir email cuando me confirmen el pago de algun articulo</p>
-					</div>
-				</div>
-
-				<div class="row-fluid">
-					<div class="span1">
-						{{ form.confirm_delivery }}
-					</div>
-					<div class="span11">
-						<p>Recibir email cuando me confirmen el envio de algun articulo</p>
-					</div>
-				</div>
-
-				<div class="row-fluid">
-					<div class="span1">
-						{{ form.new_critique }}
-					</div>
-					<div class="span11">
-						<p>Recibir email cuando reciba alguna critica</p>
-					</div>
-				</div>
-
-				<center>
-					<input class="btn btn-success btn-large" type="submit"  value="Guardar">
-				</center>
-			</form>
-    	</div>
-	</div>
-	</div>
-
-</section>
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
