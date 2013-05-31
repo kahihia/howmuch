@@ -1,57 +1,66 @@
 {% extends "3columns.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Inbox{% endblock %}
 
-{% block media %}
-
-{% endblock %}
-
-{% block search-bar %}
-	{% include "search.html" %}
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div">
-	<center>
-		<h2>Inbox</h2>
-	</center>
-	{% for conversation in conversations %}
-	<article class="row-fluid wrapper-div5">
-		<div class="span2 thumbnail">	
-			<img src="{{ conversation.assignment.article.get_first_picture_url }}">
-		</div>
-		<div class="span7 text-center">
-			<div>
-				<a class="a-title-large" href="/messages/{{ conversation.pk }}">
-				{{ conversation.assignment.article.title }}
-				</a>
-			</div>
-			<div>
-				<p>
-					{{ conversation.get_latest_message.message }}
-				</p>
-			</div>
-		</div>
-		<div class="span3 text-center">
-			<div>
-				<p>
-					<b>
-						hace {{ conversation.get_latest_message.get_timestamp }}
-					</b>
-				</p>
-			</div>
-		</div>
-	</article>
-	{% empty %}
-    <div class="alert alert-error">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4>Vacio!</h4>
-        Aun no tienes mensajes
-    </div>
-	{% endfor %}
-</section>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Inbox</h1>
+							<div class="description">
+								Mensajes envíados y recibidos.
+							</div>
+						</div>
+					</div>
+					
+					<!-- STARTS CONTENT -->
+					<div class="messages border margin-bottom-1em">
+						<div class="padding-1em">
+							{% if not conversations %}
+							<!-- IF NO NOTIFICATIONS FROM INBOX -->
+							<div class="notification error borders">
+								<div class="strong">¡Vacío!</div>
+								<div>Aún no has recibido mensajes.</div>
+							</div>
+							<!-- ENDIF -->
+							{% endif %}
+							
+							<!-- ENUM MESSAGES -->
+							{% for conversation in conversations %}
+							<div class="message group border dashed margin-top-1em">
+								<div class="width-15 float-left">
+									<div class="padding-1em text-align-center">
+										<img class="padding-0_5em border width-90" src="{{ conversation.assignment.article.get_first_picture_url }}" />
+									</div>
+								</div>
+								<div class="width-85 float-right group">
+									<div class="padding-1em">
+										<div class="width-60 float-left">
+											<div class="font-size-1_25em strong">
+												<a href="/messages/{{ conversation.pk }}">{{ conversation.assignment.article.title }}</a>
+											</div>
+											<div>
+												{{ conversation.get_latest_message.message }}
+											</div>
+										</div>
+										<div class="width-30 float-right text-align-right">
+											hace {{ conversation.get_latest_message.get_timestamp }}
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							<!-- ENDS ENUM -->
+						</div>
+					</div>
+					<!-- ENDS CONTENT -->
+				</div>
 {% endblock %}
 
 {% block section3 %}
-
+	{% include "howtodo.html" %}
 {% endblock %}
