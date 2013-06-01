@@ -28,11 +28,10 @@ $(function () {
 						<div class="info margin-bottom-1em">
 							<h1 class="font-size-1_5em">Oferta</h1>
 							<div class="description">
-								Una oferta que han realizado para venderte un artículo.
+								Oferta para el articulo {{ offer.article.title }}
 							</div>
 						</div>
 					</div>
-					
 					<!-- START CONTENT -->
 					<div class="border">
 						<div class="padding-1em">
@@ -40,24 +39,24 @@ $(function () {
 							<div class="top-info group">
 								<div class="width-30 float-left">
 									<div class="padding-1em">
-										<img class="width-90 padding-0_5em border" src="media/image.png" />
+										<img class="width-90 padding-0_5em border" src="{{ offer.article.get_first_picture_url }}" />
 									</div>
 								</div>
 								<div class="width-70 float-right">
 									<div class="padding-1em">
 										<div class="offer-title font-size-1_5em strong">
-											Artículo Lorem Ipsum
+											{{ offer.article.title|title }}
 										</div>
 										<!-- DIVISION --><hr />
 										
 										<div class="what-i-pay font-size-1_25em text-align-center border">
 											<div class="padding-1em">
 												<div class="attention strong">Te lo venden en</div>
-												<div>$ 10,000.00 MXN</div>
+												<div>$ {{ offer.cprice }} MXN</div>
 											</div>
 											<!-- BUY -->
 											<div class="margin-1em text-align-center">
-												<a class="green button" href="#">Comprar</a>
+												<a class="green button" href="/article/assignment/{{ offer.article.pk }}/{{ offer.owner.pk }}">Comprar</a>
 											</div>
 											
 										</div>
@@ -67,25 +66,25 @@ $(function () {
 										<div class="me-offering-info">
 											<div class="me-offering-date group margin-bottom-1em">
 												<div class="width-40 float-left strong">Realizada en</div>
-												<div class="width-80 float-left">May 15, 2013 1:00AM</div>
+												<div class="width-80 float-left">{{ offer.date }}</div>
 											</div>
 											<div class="me-offering-date group margin-bottom-1em">
 												<div class="width-40 float-left strong">Usuario</div>
 												<div class="width-80 float-left">
-													<a class="attention" href="#">fulanito</a>
+													<a class="attention" href="/profile/{{ offer.owner }}">{{ offer.owner }}</a>
 												</div>
 											</div>
 											<div class="me-offering-date group margin-bottom-1em">
 												<div class="width-40 float-left strong">Prestigio</div>
-												<div class="width-80 float-left">SIRIUS</div>
+												<div class="width-80 float-left">{{ offer.owner.profile.prestige }}</div>
 											</div>
 											<div class="me-offering-date group margin-bottom-1em">
 												<div class="width-40 float-left strong">Total de compras</div>
-												<div class="width-80 float-left">10</div>
+												<div class="width-80 float-left">{{ offer.owner.profile.total_purchases }}</div>
 											</div>
 											<div class="me-offering-date group margin-bottom-1em">
 												<div class="width-40 float-left strong">Total de ventas</div>
-												<div class="width-80 float-left">0</div>
+												<div class="width-80 float-left">{{ offer.owner.profile.total_sales }}</div>
 											</div>
 										</div>
 									</div>
@@ -102,26 +101,13 @@ $(function () {
 									Más imágenes del artículo
 								</div>
 								<!-- ENUM IMAGES -->
+								{% for picture in offer.pictures.all %}
 								<div class="width-20 float-left text-align-center">
 									<div class="padding-1em">
-										<img class="width-90 padding-0_5em border" src="media/image.png" />
+										<img class="width-90 padding-0_5em border" src="{{ picture.picture.url }}" />
 									</div>
 								</div>
-								<div class="width-20 float-left text-align-center">
-									<div class="padding-1em">
-										<img class="width-90 padding-0_5em border" src="media/image.png" />
-									</div>
-								</div>
-								<div class="width-20 float-left text-align-center">
-									<div class="padding-1em">
-										<img class="width-90 padding-0_5em border" src="media/image.png" />
-									</div>
-								</div>
-								<div class="width-20 float-left text-align-center">
-									<div class="padding-1em">
-										<img class="width-90 padding-0_5em border" src="media/image.png" />
-									</div>
-								</div>
+								{% endfor %}
 								<!-- END ENUM IMAGES -->
 							</div>
 							
@@ -133,7 +119,7 @@ $(function () {
 								<div class="margin-top-1em">
 									<span class="attention">&laquo;</span>
 									<span>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+										{{ offer.message }}
 									</span>
 									<span class="attention">&raquo;</span>
 								</div>

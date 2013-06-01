@@ -23,11 +23,10 @@ $(document).on('ready', function(){
 		$( "<input/>", {
   			"type": "text",
   			"id": "tags-input",
-		}).appendTo( '#wrapper-tags' );
+		}).appendTo( '#wrapper-tags');
 		tags = new MagicSuggest({
             renderTo: $('#tags-input'),
-            width: 490,
-            cls: 'magicsuggest',
+            width: '100%',
             emptyText:'Escribe Aqui',
             noSuggestionText : 'Sin Sugerencias',
             required: true,

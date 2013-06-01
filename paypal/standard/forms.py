@@ -108,7 +108,7 @@ class PayPalPaymentsForm(forms.Form):
     def render2(self):
         return mark_safe(u"""<form action="%s" method="post">
     %s 
-    <input class="btn btn-success btn-large" type="submit" value="Pagar"/>
+    <input class="button green margin-top-1em" type="submit" value="Pagar"/>
     </form>""" %(POSTBACK_ENDPOINT, self.as_p()))
         
         
