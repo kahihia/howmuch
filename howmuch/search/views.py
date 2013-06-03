@@ -128,6 +128,7 @@ def search_filters(request, filters):
                         lst.append(x)
         for y in lst:
             searchresults['results'].remove(y)
+            searchresults['matches']=int(searchresults['matches'])-1;
     cats = categories_matches()
     if searchresults['matches'] == 0:
         return render_to_response('search/results.html',
@@ -200,8 +201,7 @@ def search_query_filters(request, query, filters):
                         lst.append(x)
         for y in lst:
             searchresults['results'].remove(y)
-            #ind = index.search("docid:/article/4/Flash-Light")
-            #algo = ind['facets']['category'].items().pop()[0]
+            searchresults['matches']=int(searchresults['matches'])-1
     if get_rangePrice_filter(filters) != None:
         if custom_filter == 0:
             return render_to_response('search/results.html',
@@ -210,7 +210,7 @@ def search_query_filters(request, query, filters):
         else:
             cats, sts=rangePrice_matches_query(new_query,dic,minrange,maxrange)         
             return render_to_response('search/results.html',
-                {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats, 'state' : sts },
+                {'searchresults':searchresults, 'article' : article, 'filtros' : True, 'filters' : filters, 'cats' : cats, 'state' : sts, },
                 context_instance=RequestContext(request))
     else:
         cats = categories_matches_query(new_query)

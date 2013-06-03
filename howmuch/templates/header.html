@@ -1,154 +1,167 @@
-		<div class="header group text-align-center" style="background: #e0e0e0; border-bottom: 1px solid #c0c0c0;">
-			<!-- START HEADER -->
-			<div class="logo float-left width-15 whole-width-on-mobile" style="margin-left: 1em">
-				<a href="/">
-					<img class="vertical-align-middle" src="{{ MEDIA_URL }}img/comprateca_logo.png" style="height: 2.5em;" />
-				</a>
+<script type="text/javascript">
+$(document).on('ready', function(){
+	$('#searchform').submit(function(e){
+		e.preventDefault();
+        if(document.URL.indexOf("_")!=-1){
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+$('#searchfield').attr("value"))+document.URL.substr(document.URL.indexOf("_")+1);
+        }
+        else{
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+$('#searchfield').attr("value"));
+        }
+	});
+});
+</script>
+
+<div class="header group text-align-center" style="background: #e0e0e0; border-bottom: 1px solid #c0c0c0;">
+	<!-- START HEADER -->
+	<div class="logo float-left width-15 whole-width-on-mobile" style="margin-left: 1em">
+		<a href="/">
+			<img class="vertical-align-middle" src="{{ MEDIA_URL }}img/comprateca_logo.png" style="height: 2.5em;" />
+		</a>
+	</div>
+
+	<!-- START MENU AREA -->
+	<div class="menu-area float-right display-none-on-mobile">
+		<div class="menu" style="margin-left: 1em">
+			<div class="menu-icon">
+				<img class="vertical-align-middle" src="{{ MEDIA_URL }}img/menu.png" style="height: 1.5em" />
 			</div>
+			<div class="menu-options text-align-left display-none">
+				<!-- ENUM OPTIONS -->
 
-			<!-- START MENU AREA -->
-			<div class="menu-area float-right display-none-on-mobile">
-				<div class="menu" style="margin-left: 1em">
-					<div class="menu-icon">
-						<img class="vertical-align-middle" src="{{ MEDIA_URL }}img/menu.png" style="height: 1.5em" />
-					</div>
-					<div class="menu-options text-align-left display-none">
-						<!-- ENUM OPTIONS -->
-
-						<div class="option">
-							<!-- OPTION WITH IMAGE -->
-							<!-- PUT HREF HERE! FOR OPTION -->
-							<a class="no-underline" href="/article/post">
-								<div class="padding-0_5em group">
-									<div class="option-image width-15 float-left">
-										<img src="media/image.png" style="height: 2em" />
-									</div>
-									<div class="option-name" style="margin-left: 20%; line-height: 2em">
-										Publicar Compra
-									</div>
-								</div>
-							</a>
+				<div class="option">
+					<!-- OPTION WITH IMAGE -->
+					<!-- PUT HREF HERE! FOR OPTION -->
+					<a class="no-underline" href="/article/post">
+						<div class="padding-0_5em group">
+							<div class="option-image width-15 float-left">
+								<img src="media/image.png" style="height: 2em" />
+							</div>
+							<div class="option-name" style="margin-left: 20%; line-height: 2em">
+								Publicar Compra
+							</div>
 						</div>
-						{% if user.is_authenticated %}
-						<div class="option">
-							<!-- OPTION WITH IMAGE -->
-							<!-- PUT HREF HERE! FOR OPTION -->
-							<a class="no-underline" href="/messages/inbox">
-								<div class="padding-0_5em group">
-									<div class="option-image width-15 float-left">
-										<img src="media/image.png" style="height: 2em" />
-									</div>
-									<div class="option-name" style="margin-left: 20%; line-height: 2em">
-										Mensajes
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="option">
-							<!-- OPTION WITH IMAGE -->
-							<!-- PUT HREF HERE! FOR OPTION -->
-							<a class="no-underline" href="/notifications/">
-								<div class="padding-0_5em group">
-									<div class="option-image width-15 float-left">
-										<img src="media/image.png" style="height: 2em" />
-									</div>
-									<div class="option-name" style="margin-left: 20%; line-height: 2em">
-										Notificaciones
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="option">
-							<!-- OPTION WITH IMAGE -->
-							<!-- PUT HREF HERE! FOR OPTION -->
-							<a class="no-underline" href="/config/notifications/">
-								<div class="padding-0_5em group">
-									<div class="option-image width-15 float-left">
-										<img src="media/image.png" style="height: 2em" />
-									</div>
-									<div class="option-name" style="margin-left: 20%; line-height: 2em">
-										Configuracion
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="option">
-							<!-- OPTION WITH IMAGE -->
-							<!-- PUT HREF HERE! FOR OPTION -->
-							<a class="no-underline" href="/invoice/">
-								<div class="padding-0_5em group">
-									<div class="option-image width-15 float-left">
-										<img src="media/image.png" style="height: 2em" />
-									</div>
-									<div class="option-name" style="margin-left: 20%; line-height: 2em">
-										Estado de Cuenta
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="option">
-							<!-- OPTION WITH IMAGE -->
-							<!-- PUT HREF HERE! FOR OPTION -->
-							<a class="no-underline" href="/logout/">
-								<div class="padding-0_5em group">
-									<div class="option-image width-15 float-left">
-										<img src="media/image.png" style="height: 2em" />
-									</div>
-									<div class="option-name" style="margin-left: 20%; line-height: 2em">
-										Cerrar Sesion
-									</div>
-								</div>
-							</a>
-						</div>
-						{% endif %}
-						<!-- END ENUM OPTIONS -->
-					</div>
-				</div>
-			</div>
-
-
-			<script>
-				$(window).on('load', function () {
-					/* Slide up menu-options */
-					$('.menu-options').slideUp();
-
-					/* Add show menu event */
-					$('.header .menu-icon').on('click', function () {
-						/* Slide down menu-options */
-						$(this).toggleClass('active');
-						$('.menu-options').slideToggle();
-					});
-				});
-			</script>
-			<!-- END MENU AREA -->
-
-			<!-- START SEARCH AREA -->
-			<div class="options-area group float-right text-align-center whole-width-on-mobile">
-				{% if user.is_authenticated %}
-				<div class="menu-text float-left" style="margin-right: 1.5em">
-					<a class="no-underline" href="/profile/e/edit/">
-						{{ user.get_full_name }}
 					</a>
 				</div>
-				{% else %}
-				<div class="menu-text float-left" style="margin-right: 1.5em">
-					<a style="margin-right: 1em" class="button blue" href="/login/">Iniciar Sesión</a>
+				{% if user.is_authenticated %}
+				<div class="option">
+					<!-- OPTION WITH IMAGE -->
+					<!-- PUT HREF HERE! FOR OPTION -->
+					<a class="no-underline" href="/messages/inbox">
+						<div class="padding-0_5em group">
+							<div class="option-image width-15 float-left">
+								<img src="media/image.png" style="height: 2em" />
+							</div>
+							<div class="option-name" style="margin-left: 20%; line-height: 2em">
+								Mensajes
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="option">
+					<!-- OPTION WITH IMAGE -->
+					<!-- PUT HREF HERE! FOR OPTION -->
+					<a class="no-underline" href="/notifications/">
+						<div class="padding-0_5em group">
+							<div class="option-image width-15 float-left">
+								<img src="media/image.png" style="height: 2em" />
+							</div>
+							<div class="option-name" style="margin-left: 20%; line-height: 2em">
+								Notificaciones
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="option">
+					<!-- OPTION WITH IMAGE -->
+					<!-- PUT HREF HERE! FOR OPTION -->
+					<a class="no-underline" href="/config/notifications/">
+						<div class="padding-0_5em group">
+							<div class="option-image width-15 float-left">
+								<img src="media/image.png" style="height: 2em" />
+							</div>
+							<div class="option-name" style="margin-left: 20%; line-height: 2em">
+								Configuracion
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="option">
+					<!-- OPTION WITH IMAGE -->
+					<!-- PUT HREF HERE! FOR OPTION -->
+					<a class="no-underline" href="/invoice/">
+						<div class="padding-0_5em group">
+							<div class="option-image width-15 float-left">
+								<img src="media/image.png" style="height: 2em" />
+							</div>
+							<div class="option-name" style="margin-left: 20%; line-height: 2em">
+								Estado de Cuenta
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="option">
+					<!-- OPTION WITH IMAGE -->
+					<!-- PUT HREF HERE! FOR OPTION -->
+					<a class="no-underline" href="/logout/">
+						<div class="padding-0_5em group">
+							<div class="option-image width-15 float-left">
+								<img src="media/image.png" style="height: 2em" />
+							</div>
+							<div class="option-name" style="margin-left: 20%; line-height: 2em">
+								Cerrar Sesion
+							</div>
+						</div>
+					</a>
 				</div>
 				{% endif %}
-				<form class="float-right whole-width-on-mobile">
-					<input class="search" placeholder="¿Qué quieres buscar?" style="margin-right: 1em" />
-					<input type="submit" class="green button" value="Buscar" />
-				</form>
-				<!-- MOBILE OPTIONS -->
-				<div class="text-align-center show-on-mobile">
-					<select>
-						<option>Option 1</option>
-					</select>
-				</div>
-				<!-- END MOBILE OPTIONS -->
+				<!-- END ENUM OPTIONS -->
 			</div>
-			<!-- END SEARCH AREA -->
-			
-			<!-- END HEADER -->
 		</div>
+	</div>
 
+
+	<script>
+		$(window).on('load', function () {
+			/* Slide up menu-options */
+			$('.menu-options').slideUp();
+
+			/* Add show menu event */
+			$('.header .menu-icon').on('click', function () {
+				/* Slide down menu-options */
+				$(this).toggleClass('active');
+				$('.menu-options').slideToggle();
+			});
+		});
+	</script>
+	<!-- END MENU AREA -->
+
+	<!-- START SEARCH AREA -->
+	<div class="options-area group float-right text-align-center whole-width-on-mobile">
+		{% if user.is_authenticated %}
+		<div class="menu-text float-left" style="margin-right: 1.5em">
+			<a class="no-underline" href="/profile/e/edit/">
+				{{ user.get_full_name }}
+			</a>
+		</div>
+		{% else %}
+		<div class="menu-text float-left" style="margin-right: 1.5em">
+			<a style="margin-right: 1em" class="button blue" href="/login/">Iniciar Sesión</a>
+		</div>
+		{% endif %}
+		<form id="searchform" class="float-right whole-width-on-mobile">
+			<input id="searchfield" class="search" placeholder="¿Qué quieres buscar?" style="margin-right: 1em" />
+			<input type="submit" class="green button" value="Buscar" />
+		</form>
+		<!-- MOBILE OPTIONS -->
+		<div class="text-align-center show-on-mobile">
+			<select>
+				<option>Option 1</option>
+			</select>
+		</div>
+		<!-- END MOBILE OPTIONS -->
+	</div>
+	<!-- END SEARCH AREA -->
+	
+	<!-- END HEADER -->
+</div>

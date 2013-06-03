@@ -1,126 +1,395 @@
-		<div class="content padding-0_5em">
-					<!-- Starts categories list -->
-					<h1>Categorias</h1>
-					<ul class="categories">
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Videojuegos</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+<script type="text/javascript">
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Hogar</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+$(document).on('ready', function(){
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Electrodomésticos</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+    if(document.URL.split("/")[3]=="search"){
+        $('#filtros').show();
+    }
+    
+	$('.filtro').click(function(e){
+		if(document.URL.split("/")[3]==""){
+            $('#'+this.id).attr("href","search/"+this.id);
+        }
+        else if(document.URL.split("/")[3]=="search"){
+            if(document.URL.indexOf("_"+this.id.split("_")[1]+"_")!=-1){
+                if(document.URL.indexOf("_",document.URL.indexOf("_"+this.id.split("_")[1]+"_")+this.id.split("_")[1].length+2)!=-1){
+                    window.location.assign(document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id+"_"+document.URL.split("_"+this.id.split("_")[1]+"_")[1].substr(document.URL.split("_"+this.id.split("_")[1]+"_")[1].indexOf("_")+1));
+                }
+                else{
+                    $('#'+this.id).attr("href",document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id);
+                }
+            }
+            else{
+                window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+document.URL.split("/")[4]+this.id);
+            }
+        }
+        else{
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+this.id);
+        }
+	});
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Películas, series y DVDs</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+    $('#range').submit(function(e){
+        e.preventDefault();
+        this.id="_rangePrice_"+$('#min').attr("value")+"to"+$('#max').attr("value");
+        if(document.URL.indexOf("_"+this.id.split("_")[1]+"_")!=-1){
+                if(document.URL.indexOf("_",document.URL.indexOf("_"+this.id.split("_")[1]+"_")+this.id.split("_")[1].length+2)!=-1){
+                    window.location.assign(document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id+"_"+document.URL.split("_"+this.id.split("_")[1]+"_")[1].substr(document.URL.split("_"+this.id.split("_")[1]+"_")[1].indexOf("_")+1));
+                }
+                else{
+                    window.location.assign(document.URL.split("_"+this.id.split("_")[1]+"_")[0]+this.id);
+                }
+        }
+        else{
+            window.location.assign(document.URL.split("/")[0]+"/"+document.URL.split("/")[1]+"/"+document.URL.split("/")[2]+"/search/"+document.URL.split("/")[4]+this.id);
+        }
+    });
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Electrónica y Accesorios</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+    {% for cat in cats %}
+        cat_name="{{ cat }}".split("&#39;")[1];
+        cat_matches="{{ cat }}".split(",")[1].split(")")[0].trim();
+        $('#_category_'+cat_name).text($('#_category_'+cat_name).text().split("(")[0]+"("+cat_matches+")");
+    {% endfor %}
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Celulares y Accesorios</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+    {% for rp in rangePrice %}
+        rp_name="{{ rp }}".split("&#39;")[1];
+        rp_matches="{{ rp }}".split(",")[1].split(")")[0].trim();
+        $('#_rangePrice_'+rp_name).text($('#_rangePrice_'+rp_name).text().split("(")[0]+"("+rp_matches+")");
+    {% endfor %}
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Ropa y Accesorios</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+    {% for st in state %}
+        st_name="{{ st }}".split("&#39;")[1];
+        st_matches="{{ st }}".split(",")[1].split(")")[0].trim();
+        $('#_state_'+st_name).text($('#_state_'+st_name).text().split("(")[0]+"("+st_matches+")");
+    {% endfor %}
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Libros y Revistas</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+    {% if searchresults %}
+	    if($('._category_videojuegos').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_videojuegos').hide();
+	    }
+	    if($('._category_hogar').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_hogar').hide();
+	    }
+	    if($('._category_electrodomesticos').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_electrodomesticos').hide();
+	    }
+	    if($('._category_peliculas-series-dvds').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_peliculas-series-dvds').hide();
+	    }
+	    if($('._category_electronica-accesorios').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_electronica-accesorios').hide();
+	    }
+	    if($('._category_celulares-accesorios').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_celulares-accesorios').hide();
+	    }
+	    if($('._category_ropa-accesorios').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_ropa-accesorios').hide();
+	    }
+	    if($('._category_libros-revistas').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_libros-revistas').hide();
+	    }
+	    if($('._category_coleccionables').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_coleccionables').hide();
+	    }
+	    if($('._category_computacion-accesorios').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_computacion-accesorios').hide();
+	    }
+	    if($('._category_instrumentos-musicales').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_instrumentos-musicales').hide();
+	    }
+	    if($('._category_juguetes').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_juguetes').hide();
+	    }
+	    if($('._category_joyas-relojes').text().split("(")[1].charAt(0)=='0'){
+	        $('._category_joyas-relojes').hide();
+	    }
+	    if($('._rangePrice_0to500').text().split("(")[1].charAt(0)=='0'){
+	        $('._rangePrice_0to500').hide();
+	    }
+	    if($('._rangePrice_500to1000').text().split("(")[1].charAt(0)=='0'){
+	        $('._rangePrice_500to1000').hide();
+	    }
+	    if($('._rangePrice_1000to5000').text().split("(")[1].charAt(0)=='0'){
+	        $('._rangePrice_1000to5000').hide();
+	    }
+	    if($('._rangePrice_gte5000').text().split("(")[1].charAt(0)=='0'){
+	        $('._rangePrice_gte5000').hide();
+	    }
+	    if($('._state_nuevo').text().split("(")[1].charAt(0)=='0'){
+	        $('._state_nuevo').hide();
+	    }
+	    if($('._state_usado').text().split("(")[1].charAt(0)=='0'){
+	        $('._state_usado').hide();
+	    }
+	    if($('._state_indistinto').text().split("(")[1].charAt(0)=='0'){
+	        $('._state_indistinto').hide();
+	    }
+    {% endif %}
+});
+</script>
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Coleccionables</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+<div class="content padding-0_5em">
+	<!-- Starts categories list -->
+	<h1>Categorias</h1>
+	<ul class="categories">
+		<!-- Starts category -->
+		<li class="category _category_videojuegos">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_videojuegos" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Videojuegos (0)</span>
+				{% else %}
+					<span>Videojuegos</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Computación y Accesorios</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+		<!-- Starts category -->
+		<li class="category _category_hogar">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_hogar" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Hogar (0)</span>
+				{% else %}
+					<span>Hogar</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Instrumentos Musicales</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+		<!-- Starts category -->
+		<li class="category _category_electrodomesticos">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_electrodomesticos" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Electrodomésticos (0)</span>
+				{% else %}
+					<span>Electrodomésticos</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Juguetes</span>
-							</span>
-						</li>
-						<!-- Ends category -->
+		<!-- Starts category -->
+		<li class="category _category_peliculas-series-dvds">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_peliculas-series-dvds" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Películas, series y DVDs (0)</span>
+				{% else %}
+					<span>Películas, series y DVDs</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
 
-						<!-- Starts category -->
-						<li class="category">
-							<span class="name">
-								<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
-								<span>Joyas y Relojes</span>
-							</span>
-						</li>
-						<!-- Ends category -->
-			
-			
-						
-					</ul>
-					<!-- Ends categories list -->
-				</div>
+		<!-- Starts category -->
+		<li class="category _category_electronica-accesorios">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_electronica-accesorios" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Electrónica y Accesorios (0)</span>
+				{% else %}
+					<span>Electrónica y Accesorios</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_celulares-accesorios">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_celulares-accesorios" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Celulares y Accesorios (0)</span>
+				{% else %}
+					<span>Celulares y Accesorios</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_ropa-accesorios">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_ropa-accesorios" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Ropa y Accesorios (0)</span>
+				{% else %}
+					<span>Ropa y Accesorios</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_libros-revistas">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_libros-revistas" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Libros y Revistas (0)</span>
+				{% else %}
+					<span>Libros y Revistas</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_coleccionables">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_coleccionables" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Coleccionables (0)</span>
+				{% else %}
+					<span>Coleccionables</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_computacion-accesorios">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_computacion-accesorios" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Computación y Accesorios (0)</span>
+				{% else %}
+					<span>Computación y Accesorios</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_instrumentos-musicales">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_instrumentos-musicales" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Instrumentos Musicales (0)</span>
+				{% else %}
+					<span>Instrumentos Musicales</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_juguetes">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_juguetes" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Juguetes (0)</span>
+				{% else %}
+					<span>Juguetes</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+
+		<!-- Starts category -->
+		<li class="category _category_joyas-relojes">
+			<span class="name">
+				<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+				<a id="_category_joyas-relojes" class="filtro" href="#">
+				{% if searchresults %}
+					<span>Joyas y Relojes (0)</span>
+				{% else %}
+					<span>Joyas y Relojes</span>
+				{% endif %}
+				</a>
+			</span>
+		</li>
+		<!-- Ends category -->
+		<div id="filtros" style="display:none;">
+			<h1>Rango de precios</h1>
+            <li class="category _rangePrice_0to500">
+            	<span class="name">
+					<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+            		<a id="_rangePrice_0to500" class="filtro" href="#">
+            			<span>Hasta $500 (0)</span>
+            		</a>
+            	</span>
+            </li>
+            <li class="category _rangePrice_500to1000">
+            	<span class="name">
+					<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+            		<a id="_rangePrice_500to1000" class="filtro" href="#">
+						<span>$500 a $1000 (0)</span>
+					</a>
+            	</span>
+            </li>
+            <li class="category _rangePrice_1000to5000">
+            	<span class="name">
+					<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+            		<a id="_rangePrice_1000to5000" class="filtro" href="#">
+            			<span>$1000 a $5000 (0)</span>
+            		</a>
+            	</span>
+            </li>
+            <li class="category _rangePrice_gte5000">
+            	<span class="name">
+					<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+					<a id="_rangePrice_gte5000" class="filtro" href="#">
+	            		<span>Más de $5000 (0)</span>
+            		</a>
+            	</span>
+            </li>
+            <li>
+                <form id="range" action="/search">
+                    <input id="min" type="text" placeholder="Min." style="width:60px"><span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span><input id="max" type="text" placeholder="Máx." style="width:60px">&nbsp;&nbsp;<button type="submit">></button>
+                </form>
+            </li>
+            <h1>Estado</h1>
+            <li class="category _state_nuevo">
+            	<span class="name">
+					<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+            		<a id="_state_nuevo" class="filtro" href="#">
+            			<span>Nuevo (0)</span>
+            		</a>
+            	</span>
+            </li>
+            <li class="category _state_usado">
+            	<span class="name">
+					<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+	            	<a id="_state_usado" class="filtro" href="#">
+	            		<span>Usado (0)</span>
+	            	</a>
+	            </span>
+            </li>
+            <li class="category _state_indistinto">
+            	<span class="name">
+					<span class="triangle attention js-enabled">&#9656;&nbsp;</span>
+	            	<a id="_state_indistinto" class="filtro" href="#">
+	            		<span>Indistinto (0)</span>
+	            	</a>
+	            </span>
+            </li>
+        </div>
+	</ul>
+	<!-- Ends categories list -->
+</div>

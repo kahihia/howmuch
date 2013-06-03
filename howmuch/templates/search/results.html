@@ -6,12 +6,11 @@
 <script type="text/javascript">
 $(document).on('ready', function(){
 	if("{{ searchresults.query }}"!="all:1"){
-		$('#query_nav_ind').show();
 		if(document.URL.split("/search/")[1].split("{{ searchresults.query }}".split(":")[1].split("*")[0])[1]=="/"){
 			$('#query_nav_delete').show();
 		}
 		$('#query_nav').text("\""+"{{ searchresults.query }}".split(":")[1].split("*")[0]+"\"");
-		$('#query_nav').attr("href","/search/"+"{{ searchresults.query }}".split(":")[1].split("*")[0]);
+		$('#query_nav_link').attr("href","/search/"+"{{ searchresults.query }}".split(":")[1].split("*")[0]);
 	}
 	filters="{{ filters }}".split(",");
 	for(i=0; i<filters.length; i++){
@@ -24,10 +23,10 @@ $(document).on('ready', function(){
 			}
 			$('#category_nav').text($('#_category_'+items[1].split("&#39;")[1]).text().split("(")[0]);
 			if("{{ searchresults.query }}"!="all:1"){
-				$('#category_nav').attr("href",$('#query_nav').attr("href")+"_category_"+items[1].split("&#39;")[1]);
+				$('#category_nav_link').attr("href",$('#query_nav_link').attr("href")+"_category_"+items[1].split("&#39;")[1]);
 			}
 			else{
-				$('#category_nav').attr("href","/search/"+"_category_"+items[1].split("&#39;")[1]);
+				$('#category_nav_link').attr("href","/search/"+"_category_"+items[1].split("&#39;")[1]);
 			}
 		}
 		else if(aux=="rangePrice"){
@@ -53,10 +52,10 @@ $(document).on('ready', function(){
 			$('#state_nav_delete').show();
 			$('#state_nav').text($('#_state_'+items[1].split("&#39;")[1]).text().split("(")[0]);
 			if("{{ searchresults.query }}"!="all:1"){
-				$('#state_nav').attr("href",$('#query_nav').attr("href")+"_state_"+items[1].split("&#39;")[1]);
+				$('#state_nav_link').attr("href",$('#query_nav_link').attr("href")+"_state_"+items[1].split("&#39;")[1]);
 			}
 			else{
-				$('#state_nav').attr("href","/search/"+"_state_"+items[1].split("&#39;")[1]);
+				$('#state_nav_link').attr("href","/search/"+"_state_"+items[1].split("&#39;")[1]);
 			}
 		}
 	}
@@ -115,84 +114,99 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section2 %}
-				<div class="content">
-					<div class="head">
-						<div class="info margin-bottom-1em">
-							<h1 class="font-size-1_5em">Búsqueda</h1>
-							<div class="description">
-								Has buscado
-								<span class="attention">&laquo;</span>
-								<span class="query strong">{{ article }}</span>
-								<span class="attention">&raquo;</span>.
-							</div>
-						</div>
-					</div>
-										
-					<div class="items border">
-						<!-- Top items options starts -->
-						<div class="path padding-0_5em">
-							<span class="name">Categoría 1</span>
-							<span class="attention">&raquo;</span>
-							<span class="name">Sub-categoría 1.1</span>
-							<span class="attention">&raquo;</span>
-							<span class="name">Sub-categoría 1.1.1</span>
-						</div>
-
-						<div class="arrange group padding-0_5em">
-							<div class="float-left width-75">
-								Se muestran <strong>10</strong> de <strong>1000</strong> resultados
-							</div>
-							<div class="float-right width-25">
-								<select class="width-100 font-size-0_8em">
-									<option>Precio alto a bajo</option>
-									<option>Precio bajo a alto</option>
-									<option>Orden alfabético</option>
-								</select>
-							</div>
-						</div>
-						<!-- Top items options ends -->
-						
-						
-						<!-- Now, items list starts -->
-						<div class="items-list">
-							<!-- 3 ITEMS GROUP STARTS -->
-							<div class="items-group group margin-bottom-1em border-bottom-dashed">
-								{% for result in searchresults.results %}
-								<!-- Item starts -->
-								<div class="item float-left width-33_3 margin-top-1em margin-bottom-1em text-align-justify">
-									<div class="item-image-container padding-0_5em">
-										<a href="#">
-											<img class="item-image width-100" src="{{ result.img }}" alt="{{ result.text|title }}" />
-										</a>
-									</div>
-									<div class="item-header padding-0_5em">
-										<a href="#">{{ result.text|title }}</a>
-									</div>
-									<div class="item-price padding-0_5em">$ {{ result.price }}</div>
-									<div class="item-extra padding-0_5em font-size-0_8em">
-										<span class="attention">&laquo;</span>
-										<span class="item-extra-info">
-											{{ result.description }}
-										</span>
-										<span class="attention">&raquo;</span>
-									</div>
-									<div class="tags">
-										{{ result.tags|tagsformat }}
-									</div>
-								</div>
-								<!-- Item ends -->
-								{% empty %}
-								<!-- NOT FOUND -->
-								<div class="notification borders margin-top-1em margin-bottom-1em">
-									No se encontraron resultados.
-								</div>
-								{% endfor %}								
-							</div>
-							<!-- 3 ITEMS GROUP ENDS -->						
-						</div>
-						<!-- Now, items list ends -->
-					</div>
+	<div class="content">
+		<div class="head">
+			<div class="info margin-bottom-1em">
+				<h1 class="font-size-1_5em">Búsqueda</h1>
+				{% if article %}
+				<div class="description">
+					Has buscado
+					<span class="attention">&laquo;</span>
+					<span class="query strong">{{ article }}</span>
+					<span class="attention">&raquo;</span>.
 				</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="items border">
+			<!-- Top items options starts -->
+			<div class="path padding-0_5em">
+				<a id="query_nav_link" href="">
+					<span id="query_nav"></span>
+				</a>
+				<a id="query_nav_delete" class="delete_query" href="#" style="display:none"><button>x</button></a>
+				<span id="category_nav_ind" class="attention" style="display:none">&raquo;</span>
+				<a id="category_nav_link" href="">
+					<span id="category_nav"></span>
+				</a>
+				<a id="category_nav_delete" class="delete_category" href="#" style="display:none"><button>x</button></a>
+				<span id="state_nav_ind" class="attention" style="display:none">&raquo;</span>
+				<a id="state_nav_link" href="">
+					<span id="state_nav"></span>
+				</a>
+				<a id="state_nav_delete" class="delete_state" href="#" style="display:none"><button>x</button></a>
+				<span id="rangePrice_nav_ind" class="attention" style="display:none">&raquo;</span>
+				<a id="rangePrice_nav_link" href="">
+					<span id="rangePrice_nav"></span>
+				</a>
+				<a id="rangePrice_nav_delete" class="delete_rangePrice" href="#" style="display:none"><button>x</button></a>
+			</div>
+
+			<div class="arrange group padding-0_5em">
+				<div class="float-left width-75">
+					Se muestran <strong>{{ searchresults.matches }}</strong> de <strong>{{ searchresults.matches }}</strong> resultados
+				</div>
+				<div class="float-right width-25">
+					<select class="width-100 font-size-0_8em">
+						<option>Precio bajo a alto</option>
+						<option>Precio alto a bajo</option>
+						<option>Orden alfabético</option>
+					</select>
+				</div>
+			</div>
+			<!-- Top items options ends -->
+			
+			
+			<!-- Now, items list starts -->
+			<div class="items-list">
+				<!-- 3 ITEMS GROUP STARTS -->
+				<div class="items-group group margin-bottom-1em border-bottom-dashed">
+					{% for result in searchresults.results %}
+					<!-- Item starts -->
+					<div class="item float-left width-33_3 margin-top-1em margin-bottom-1em text-align-justify">
+						<div class="item-image-container padding-0_5em">
+							<a href="#">
+								<img class="item-image width-100" src="{{ result.img }}" alt="{{ result.text|title }}" />
+							</a>
+						</div>
+						<div class="item-header padding-0_5em">
+							<a href="#">{{ result.text|title }}</a>
+						</div>
+						<div class="item-price padding-0_5em">$ {{ result.price }}</div>
+						<div class="item-extra padding-0_5em font-size-0_8em">
+							<span class="attention">&laquo;</span>
+							<span class="item-extra-info">
+								{{ result.description }}
+							</span>
+							<span class="attention">&raquo;</span>
+						</div>
+						<div class="tags">
+							{{ result.tags|tagsformat }}
+						</div>
+					</div>
+					<!-- Item ends -->
+					{% empty %}
+					<!-- NOT FOUND -->
+					<div class="notification borders margin-top-1em margin-bottom-1em">
+						No se encontraron resultados.
+					</div>
+					{% endfor %}								
+				</div>
+				<!-- 3 ITEMS GROUP ENDS -->						
+			</div>
+			<!-- Now, items list ends -->
+		</div>
+	</div>
 <!-- Old
 <h3 id="aver"><a href="/">Inicio</a><abbr id="query_nav_ind" style="display:none"> > </abbr><a id="query_nav" href=""></a><a id="query_nav_delete" class="btn btn-mini delete_query" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="category_nav_ind" style="display:none"> > </abbr><a id="category_nav" href=""></a><a id="category_nav_delete" class="btn btn-mini delete_category" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="state_nav_ind" style="display:none"> > </abbr><a id="state_nav" href=""></a><a id="state_nav_delete" class="btn btn-mini delete_state" href="#" style="display:none"><i class="icon-remove"></i></a><abbr id="rangePrice_nav_ind" style="display:none"> > </abbr><a id="rangePrice_nav" href=""></a><a id="rangePrice_nav_delete" class="btn btn-mini delete_rangePrice" href="#" style="display:none"><i class="icon-remove"></i></a></h3>
 <section class="wrapper-div">
