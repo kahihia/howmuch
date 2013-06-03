@@ -1,55 +1,138 @@
 {% extends "3columns.html" %}
 
-{% block title %}
+{% block title %}Confirmar Pago{% endblock %}
 
-{% endblock %}
-
-{% block media %}
-
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div3">
-	<div class="row-fluid">
-		<div class="span3 thumbnail">
-			<img src="{{ article.get_first_picture_url }}">
-		</div>
-		<div class="span8 text-center">
-			<h2>Confirmacion de PAGO del articulo {{ article.title }}</h2>
-		</div>
-	</div>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Confirmar Pago</h1>
+							<div class="description">
+								Estás a punto de confirmar el pago, llena por favor los siguientes datos.
+							</div>
+						</div>
+					</div>
+					
+					<!-- FORM STARTS -->
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						{% if form.errors %}
+						<div class="notification error border borders margin-bottom-1em text-align-left">
+							<div class="strong">Error en la forma</div>
+							<div class="notification-info">
+								Verificar que hayas introducido los datos correctos en la forma.
+							</div>
+						</div>
+						{% endif %}
+								
+						<!-- FORM LOGIN STARTS -->
+						<div class="login-form-area div-center-fix">
+							<div class="text-align-left">
+								
+								<!-- PRINCIPAL INFO -->
+								<div class="group border dashed">
+									<div class="width-20 float-left">
+										<div class="padding-1em text-align-center">
+											<img class="width-100 padding-0_5em border" src="{{ article.get_first_picture_url }}" />
+										</div>
+									</div>
+									<div class="width-70 float-right">
+										<div class="padding-1em">
+											<div class="item-title font-size-1_25em strong">
+												{{ article.title|title }}
+											</div>
+											<div class="item-description">
+												<span class="attention">&laquo;</span>
+												<span>
+													{{ article.description|truncatechars:100 }}
+												</span>
+												<span class="attention">&raquo;</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 font-size-1_25em display-block">Cantidad</label>
+									{{ form.amount }}
+									
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em margin-top-0_5em">
+										Escribe la cantidad que has pagados.
+									</div>
+									{% if form.amount.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.amount.errors }}
+									</div>
+									{% endif %}
+								</div>
 
-	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<div class="text-center">
-			<legend>Monto del Pago</legend>
-			<div class="input-prepend input-append">
-				<span class="add-on"><i>$</i></span>
-				{{ form.amount }}
-				<span class="add-on"><i>.00</i></span>
-			</div>
-			<span class="help-block">Cantidad que has pagado de este articulo, solo numeros enteros</span>
-			{{ form.amount.errors }}
-		</div>
 
-		<div class="text-center">
-			<legend>Mensaje</legend>
-			{{ form.message }}
-			<span class="help-block">Deja algun mensaje acerca de esta confirmacion de pago</span>
-			{{ form.message.errors }}
-		</div>
+								<div class="division margin-1em">
+									<label for="" class="width-100 font-size-1_25em display-block">Mensaje</label>
+									{{ form.message }}
+									
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em margin-top-0_5em">
+										Deja algún mensaje acerca de esta confirmación de envío.
+									</div>
+									{% if form.message.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.message.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- DIVISION --><hr />
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em">
+									<label for="" class="width-100 display-block">
+										<span class="font-size-1_25em ">Subir fotografía</span>
+										<span>(No es obligatorio)</span>
+									</label>
+									{{ form.picture }}
+									<input id="confirm-delivery-file-upload-button" type="" class="button green" value="Seleccionar archivo" style="margin:0.5em 0px" />
+									
+									<script>
+										$(window).on('load', function () {
+											$('#id_picture').hide();
+											$('#confirm-delivery-file-upload-button').on('click', function () {
+												$('#id_picture').click();
+											});
+										});
+									</script>
+									
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em margin-top-0_5em">
+										Sube por ejemplo comprobantes de pago, fichas de pago, en formato .jpg
+									</div>
+									{% if form.picture.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.picture.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- DIVISION --><hr />
+								
+								<div class="division margin-1em text-align-center">
+									<input type="submit" name="" class="button green width-50" value="Enviar" />
+								</div>
+								
+							</div>
+						</div>
+					</form>
+					<!-- FORM ENDS -->
+				</div>
+{% endblock %}
 
-		<div class="text-center">
-			<legend>Imagen (NO ES OBLIGATORIO)</legend>
-			<div class="input-prepend">
-				<span class="add-on"><i class="icon-picture"></i></span>
-				{{ form.picture }}
-			</div>
-			<span class="help-block">Sube por ejemplo comprobantes de pago, fichas de pago, en formato .jpg</span>
-			{{ form.picture.errors }}
-		</div>
-		<div class="text-center">
-			<input class="btn btn-success btn-large" type="submit" value="Confirmar">
-		</div>
-	</form>
-</div>
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

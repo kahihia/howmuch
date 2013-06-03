@@ -1,42 +1,113 @@
 {% extends "3columns.html" %}
 
-{% block title %}
+{% block title %}Critica a {{ to }}{% endblock %}
 
-{% endblock %}
-
-{% block media %}
-
+{% block section1 %}
+	{% include "categories2.html" %}
 {% endblock %}
 
 {% block section2 %}
-<div class="wrapper-div3">
-	<div class="row-fluid">
-		<div class="span8 text-center">
-			<h2>Critica a {{ to }} en el articulo {{ assignment.article.title }}</h2>
-		</div>
-		<div class="span3 thumbnail">
-			<img src="{{ to.profile.get_profile_picture }}">
-		</div>
-	</div>
+				<div class="content padding-1_5em">
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Enviar crítica</h1>
+							<div class="description">
+								Estás a punto de realizar una crítica sobre <a class="attention" href="/profile/{{ to }}">{{ to }}</a> con respecto al artículo <a class="attention" href="#">{{ assignment.article.title|title }}</a>.
+							</div>
+						</div>
+					</div>
+					
+					<!-- FORM STARTS -->
+					<form class="register-form border padding-1em text-align-center" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+						{% if form.errors %}
+						<div class="notification error border borders margin-bottom-1em text-align-left">
+							<div class="strong">Error en la forma</div>
+							<div class="notification-info">
+								{{ form.errors }}
+							</div>
+						</div>
+						{% endif %}
+								
+						<!-- FORM LOGIN STARTS -->
+						<div class="login-form-area div-center-fix">
+							<div class="text-align-left">
+								
+								<!-- PRINCIPAL INFO -->
+								<div class="group border dashed">
+									<div class="width-20 float-left">
+										<div class="padding-1em text-align-center">
+											<img class="width-100 padding-0_5em border" src="{{ assignment.article.get_first_picture_url }}" />
+										</div>
+									</div>
+									<div class="width-70 float-right">
+										<div class="padding-1em">
+											<div class="item-title font-size-1_25em strong">
+												{{ assignment.article.title|title }}
+											</div>
+											<div class="item-description">
+												<span class="attention">&laquo;</span>
+												<span>
+													{{ assignment.article.description }}
+												</span>
+												<span class="attention">&raquo;</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em text-align-center">
+									<label for="" class="width-100 display-block margin-bottom-1em">
+										<span class="font-size-1_25em ">Tu crítica para <a href="/profile/{{ to}}">{{ to}}</a></span>
+									</label>
+									{{ form.critique }}
+									
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em margin-top-0_5em">
+										Sólo existen dos opciones, hay que ser extremistas para conocer realmente a los usuarios.
+									</div>
+									{% if form.critique.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.critique.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- DIVISION --><hr />
+								
+								<!-- STARTS INPUT -->
+								<div class="division margin-1em text-align-center">
+									<label for="" class="width-100 font-size-1_25em display-block margin-bottom-1em">Mensaje</label>
 
-	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-		<div class="text-center">
-			<legend>Tu Critica para {{ to }}</legend>
-			{{ form.critique }}
-			<span class="help-block">Solo existin estas dos opciones, lo siento tendras que ser extremista.</span>
-			{{ form.critique.errors }}
-		</div>
+									{{ form.message }}
 
-		<div class="text-center">
-			<legend>Mensaje</legend>
-			{{ form.message }}
-			<span class="help-block">Deja algun mensaje explicando el porque de esta critica</span>
-			{{ form.message.errors }}
-		</div>
+									<!-- ERROR -->
+									<div class="slide-down font-size-0_9em margin-top-0_5em">
+										Deja algún mensaje explicando tu decisión en ésta crítica.
+									</div>
+									{% if form.message.errors %}
+									<div class="error slide-down color-red font-size-0_9em">
+										{{ form.message.errors }}
+									</div>
+									{% endif %}
+								</div>
+								<!-- ENDS INPUT -->
+								
+								<!-- DIVISION --><hr />
+								
+								<div class="division margin-1em text-align-center">
+									<input type="submit" name="" class="button green width-50" value="Confirmar" />
+								</div>
+								
+							</div>
+						</div>
+					</form>
+					<!-- FORM ENDS -->
+				</div>
+{% endblock %}
 
-		<div class="text-center">
-			<input class="btn btn-success btn-large" type="submit" value="Confirmar">
-		</div>
-	</form>
-</div>
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}

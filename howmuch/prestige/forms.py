@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm, Textarea, ClearableFileInput, TextInput, Select
 
 from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, Critique
 
@@ -9,7 +9,9 @@ class ConfirmPayForm(ModelForm):
         model = ConfirmPay
         exclude = ('owner' , 'assignment', 'date',)
         widgets = {
-        'message' : Textarea(attrs={'class':'span12'})
+        'amount' : TextInput(attrs={'class':'width-100'}),
+        'message' : Textarea(attrs={'class':'width-100','style':'height:10em'}),
+        'picture' : ClearableFileInput(attrs={'class':'text password width-100'}),
         }
 
 class ConfirmDeliveryForm(ModelForm):
@@ -17,7 +19,8 @@ class ConfirmDeliveryForm(ModelForm):
         model = ConfirmDelivery
         exclude = ('owner', 'assignment', 'date',)
         widgets = {
-        'message' : Textarea(attrs={'class':'span12'})
+        'message' : Textarea(attrs={'id':'confirm-delivery-file-upload-input','class':'width-100','style':'height:10em'}),
+        'picture' : ClearableFileInput(attrs={'class':'text password width-100'}),
         }
 
 class CritiqueForm(ModelForm):
@@ -25,5 +28,6 @@ class CritiqueForm(ModelForm):
         model = Critique
         exclude = ('de', 'to', 'assignment', 'date',)
         widgets = {
-        'message' : Textarea(attrs={'class':'span12'})
+        'critique' : Select(attrs={'class':'width-30'}),
+        'message' : Textarea(attrs={'class':'width-100','style':'height:10em'}),
         }
