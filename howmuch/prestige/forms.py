@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Textarea, ClearableFileInput, TextInput
+from django.forms import ModelForm, Textarea, ClearableFileInput, TextInput, Select
 
 from howmuch.prestige.models import ConfirmPay, ConfirmDelivery, Critique
 
@@ -28,5 +28,6 @@ class CritiqueForm(ModelForm):
         model = Critique
         exclude = ('de', 'to', 'assignment', 'date',)
         widgets = {
-        'message' : Textarea(attrs={'class':'span12'})
+        'critique' : Select(attrs={'class':'width-30'}),
+        'message' : Textarea(attrs={'class':'width-100','style':'height:10em'}),
         }
