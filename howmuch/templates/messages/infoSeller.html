@@ -8,6 +8,7 @@
 
 {% block section2 %}
 				<div class="content padding-1_5em">
+					{% if not errors %}
 					<!-- STARTS CONTENT -->
 					<div class="head">
 						<div class="info margin-bottom-1em">
@@ -142,8 +143,21 @@
 											</div>
 										</div>
 						</div>
+						<div class="division margin-1em text-align-center">
+							<a class="button green" href="#">Aceptar</a>
+						</div>
 					</div>
 					<!-- ENDS CONTENT -->
+					{% else %}
+					<div class="notification error borders">
+						<div class="strong">
+							Sin permiso
+						</div>
+						<div>
+							No tienes permiso para ver esta información.
+						</div>
+					</div>
+					{% endif %}
 				</div>
 {% endblock %}
 

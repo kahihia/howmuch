@@ -1,71 +1,158 @@
 {% extends "3columns.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ buyer.get_full_name }} {% endblock %}
+
+{% block section1 %}
+	{% include "categories2.html" %}
+{% endblock %}
 
 {% block section2 %}
-<section class="wrapper-div3">
-	{% if not errors %}
-	<div>
-		<div class="text-center">
-			<h2>Información del Comprador</h2>
-		</div>
-		<div class="row-fluid">
-			<div class="span3 thumbnail">
-				<img src="{{ buyer.profile.profile_picture.url }}">
-			</div>
-			<div class="span8">
-				<legend>{{ buyer.get_full_name }}  ({{ buyer }})</legend>
-			</div>
-		</div>
-		<div class="text-center">
-			<h3>Prestigio</h3>
-			<h2>{{ buyer.profile.prestige }}</h2>
-		</div>
-		<div>
-			<h1>{{ buyer.prestige }}</h1>
-			<div class="row-fluid text-center">
-				<div class="span6 wrapper-div4">
-					<h3>Puntos Positivos</h3>
-					<h4>{{ buyer.profile.positive_points }}</h4>
+				<div class="content padding-1_5em">
+					{% if not errors %}
+					<!-- STARTS CONTENT -->
+					<div class="head">
+						<div class="info margin-bottom-1em">
+							<h1 class="font-size-1_5em">Información del Comprador</h1>
+							<div class="description">
+								Aquí puedes consultar la información de {{ buyer }}.
+							</div>
+						</div>
+					</div>
+					<div class="border">
+						<div class="padding-1em text-align-center">
+							<!-- USERNAME -->
+							<div class="big-user-name margin-1em">
+								<div class="font-size-1_5em strong">{{ buyer.get_full_name }}</div>
+								<div class="font-size-1_25em">{{ buyer }}</div>
+							</div>
+							
+							<!-- DIVISION --><hr/>
+							
+							<!-- USER IMAGE -->
+							<div class="text-align-center">
+								<img class="width-40 border padding-0_5em" src="{{ buyer.profile.profile_picture.url }}" />
+							</div>
+							
+							<!-- DIVISION --><hr/>
+							
+							<!-- PRESTIGIO -->
+							<div class="font-size-1_25em">
+								<div>Prestigio</div>
+								<div class="font-size-1_25em strong">{{ buyer.profile.prestige }}</div>
+							</div>
+							<!-- ENDS PRESTIGIO -->
+							<!-- STARTS PUNTOS -->
+							<div class="group font-size-1_5em">
+								<div class="float-left width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="strong margin-top-1em">
+												Puntos positivos
+											</div>
+											<div class="margin-bottom-1em">
+												{{ buyer.profile.positive_points }}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="float-right width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="strong margin-top-1em">
+												Puntos negativos
+											</div>
+											<div class="margin-bottom-1em">
+												{{ buyer.profile.negative_points }}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ENDS PUNTOS -->
+							
+							<!-- DIVISION --><hr />
+							
+							<!-- INFORMACIÓN -->
+							<div class="font-size-1_25em">
+								<div class="strong">Información</div>
+							</div>
+							<!-- ENDS PRESTIGIO -->
+							<!-- STARTS PUNTOS -->
+							<div class="group">
+								<div class="float-left width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="font-size-1_5em">
+												<div class="strong margin-top-1em">
+													Total de Compras
+												</div>
+												<div class="margin-bottom-1em">
+													{{ buyer.profile.total_purchases }}
+												</div>
+											</div>
+											<div class="margin-bottom-1em">
+												<a class="attention" href="/prestige/critiques/{{ buyer }}">Ver críticas</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="float-right width-50">
+									<div class="padding-1em">
+										<div class="border">
+											<div class="font-size-1_5em">
+												<div class="strong margin-top-1em">
+													Total de Ventas
+												</div>
+												<div class="margin-bottom-1em">
+													{{ buyer.profile.total_sales }}
+												</div>
+											</div>
+											<div class="margin-bottom-1em">
+												<a class="attention" href="/prestige/critiques/{{ buyer }}">Ver críticas</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ENDS PUNTOS -->
+							<!-- DIVISION --><hr />
+							<!-- INFORMACIÓN -->
+							<div class="font-size-1_25em margin-1em">
+								<div class="strong">Contacto</div>
+							</div>
+										<div class="me-offering-info" style="text-align:left">
+											<div class="me-offering-date group margin-bottom-1em">
+												<div class="width-40 float-left strong">Email</div>
+												<div class="width-80 float-left">{{ buyer.email }}</div>
+											</div>
+											<div class="me-offering-date group margin-bottom-1em">
+												<div class="width-40 float-left strong">Telefonos</div>
+												{% for phone in buyer.profile.phones.all %}
+												<div class="width-80 float-left">{{ phone }}</div>
+												{% empty %}
+												<div class="width-80 float-left">Sin Telefonos</div>
+												{% endfor %}
+											</div>
+										</div>
+						</div>
+						<div class="division margin-1em text-align-center">
+							<a class="button green" href="#">Aceptar</a>
+						</div>
+					</div>
+					<!-- ENDS CONTENT -->
+					{% else %}
+					<div class="notification error borders">
+						<div class="strong">
+							Sin permiso
+						</div>
+						<div>
+							No tienes permiso para ver esta información.
+						</div>
+					</div>
+					{% endif %}
 				</div>
-				<div class="span6 wrapper-div4">
-					<h3>Puntos Negativos</h3>
-					<h4>{{ buyer.profile.negative_points }}</h4>
-				</div>	
-			</div>
-		</div>
-		<div class="text-center">
-			<h3>Información</h3>
-		</div>
-		<div class="row-fluid text-center">
-			<div class="span6 wrapper-div4">
-				<h3>Total de Compras</h3>
-				<h4>{{ buyer.profile.total_purchases }}</h4>
-				<a href="/prestige/critiques/{{ buyer }}">Ver Criticas</a>
-			</div>
-			<div class="span6 wrapper-div4">
-				<h3>Total de Ventas</h3>
-				<h4>{{ buyer.profile.total_sales }}</h4>
-				<a href="/prestige/critiques/{{ buyer }}">Ver Criticas</a>
-			</div>
-		</div>
-		<div class="text-center margin10">
-			<div>
-				<b>Email:</b>
-				<p>{{ buyer.email }}</p>
-			</div>
-			<div>
-				<b>Telefonos:</b>
-				{% for phone in buyer.profile.phones.all %}
-					<p>{{ phone }}</p>
-				{% empty %}
-					<p>No se han registrado Telefonos</p>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
-	{% else %}
-	<p>No tienes permiso para ver esta informacion</p>
-	{% endif %}
-</section>
+{% endblock %}
+
+{% block section3 %}
+	{% include "howtodo.html" %}
 {% endblock %}
