@@ -34,6 +34,8 @@ def index_article(article):
         'category':'%s' % (article.category.subname),
     }
     index.update_categories(docid, categories)
+    variables = { 0: article.price }
+    index.update_variables(docid, variables=variables) 
 
 
 def searchservice(request):
@@ -64,7 +66,8 @@ def search_query(request, query):
         new_query = 'text:%s' % convert_query(query)
         new_query += "*"
         searchresults = index.search(new_query,
-            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'],
+            scoring_function=2)
         if searchresults['matches'] == 0:
             return render_to_response('search/results.html',
                 {'searchresults':searchresults, 'article' : article },
@@ -103,14 +106,22 @@ def search_filters(request, filters):
             dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
     if get_category_filter(filters) != None:
         dic.update({'category':[get_category_filter(filters)]})
+    scoring_func=2
+    if get_sort_filter(filters) != None:
+        if get_sort_filter(filters) == "priceasc":
+            scoring_func=2
+        if get_sort_filter(filters) == "pricedesc":
+            scoring_func=3
     if custom_filter == 0:
         searchresults = index.search('all:1',
             category_filters=dic,
-            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'],
+            scoring_function=scoring_func)
     else:
         searchresults = index.search('all:1',
             category_filters=dic,
-            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'],
+            scoring_function=scoring_func)
         lst=[]
         if minrange != None:
             if maxrange != None:

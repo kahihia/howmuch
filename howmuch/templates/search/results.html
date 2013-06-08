@@ -105,6 +105,10 @@ $(document).on('ready', function(){
 			window.location.assign("/");
 		}
 	});
+
+	$('#priceasc').click(function(e){
+		
+	});
 });
 </script>
 {% endblock %}
@@ -158,9 +162,9 @@ $(document).on('ready', function(){
 				</div>
 				<div class="float-right width-25">
 					<select class="width-100 font-size-0_8em">
-						<option>Precio bajo a alto</option>
-						<option>Precio alto a bajo</option>
-						<option>Orden alfabético</option>
+						<option id="priceasc">Precio bajo a alto</option>
+						<option id="pricedesc">Precio alto a bajo</option>
+						<option id="alp">Orden alfabético</option>
 					</select>
 				</div>
 			</div>

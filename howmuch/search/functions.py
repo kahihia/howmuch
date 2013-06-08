@@ -38,6 +38,13 @@ def convert_filters(filters):
 	else:
 		filters_dic.update({'state':filters_list[index_state+1]})
 
+	try:
+		index_sort=filters_list.index('sort')
+	except ValueError:
+		pass
+	else:
+		filters_dic.update({'sort':filters_list[index_state+1]})
+
 	return filters_dic
 
 
@@ -66,3 +73,11 @@ def get_category_filter(filters):
 	except KeyError:
 		category = None
 	return category
+
+#Return Value of sort key
+def get_sort_filter(filters):
+	try:
+		sort = filters['sort']
+	except KeyError:
+		sort = None
+	return sort
