@@ -34,7 +34,8 @@ def index_article(article):
         'category':'%s' % (article.category.subname),
     }
     index.update_categories(docid, categories)
-    variables = { 0: article.price }
+    ascii_str = "".join("%03d" % ord(c) for c in article.title.lower()[:8])
+    variables = { 0: article.price, 1: ascii_str }
     index.update_variables(docid, variables=variables) 
 
 
@@ -110,8 +111,10 @@ def search_filters(request, filters):
     if get_sort_filter(filters) != None:
         if get_sort_filter(filters) == "priceasc":
             scoring_func=2
-        if get_sort_filter(filters) == "pricedesc":
+        elif get_sort_filter(filters) == "pricedesc":
             scoring_func=3
+        elif get_sort_filter(filters) == "alp":
+            scoring_func=4
     if custom_filter == 0:
         searchresults = index.search('all:1',
             category_filters=dic,
@@ -187,14 +190,24 @@ def search_query_filters(request, query, filters):
             dic.update({'rangePrice':[get_rangePrice_filter(filters)]})
     if get_category_filter(filters) != None:
         dic.update({'category':[get_category_filter(filters)]})
+    scoring_func=2
+    if get_sort_filter(filters) != None:
+        if get_sort_filter(filters) == "priceasc":
+            scoring_func=2
+        elif get_sort_filter(filters) == "pricedesc":
+            scoring_func=3
+        elif get_sort_filter(filters) == "alp":
+            scoring_func=4
     if custom_filter == 0:
         searchresults = index.search(new_query,
             category_filters=dic,
-            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'],
+            scoring_function=scoring_func)
     else:
         searchresults = index.search(new_query,
             category_filters=dic,
-            fetch_fields=['text', 'img','description', 'tags','state', 'price'])
+            fetch_fields=['text', 'img','description', 'tags','state', 'price'],
+            scoring_function=scoring_func)
         lst=[]
         if minrange != None:
             if maxrange != None:

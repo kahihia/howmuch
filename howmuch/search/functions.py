@@ -43,7 +43,7 @@ def convert_filters(filters):
 	except ValueError:
 		pass
 	else:
-		filters_dic.update({'sort':filters_list[index_state+1]})
+		filters_dic.update({'sort':filters_list[index_sort+1]})
 
 	return filters_dic
 

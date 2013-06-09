@@ -105,10 +105,72 @@ $(document).on('ready', function(){
 			window.location.assign("/");
 		}
 	});
+	$('#sort_select').click(function(e){
 
-	$('#priceasc').click(function(e){
-		
+		if($('#priceasc').attr("selected") == "selected"){
+			if(document.URL.split("/search/")[1].split("_sort_")[0].indexOf("/")!=-1){
+				window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].split("_sort_")[0].substr(0,document.URL.split("/search/")[1].split("_sort_")[0].indexOf("/"))+"_sort_priceasc");
+			}
+			else{
+				if(typeof(document.URL.split("_sort_")[1])!='undefined'){
+					if(document.URL.split("_sort_")[1].indexOf("_")!="-1"){
+						window.location.assign(document.URL.split("_sort_")[0]+"_sort_priceasc"+document.URL.split("_sort_")[1].substr(document.URL.split("_sort_")[1].indexOf("_")));
+					}
+					else{
+						window.location.assign(document.URL.split("_sort_")[0]+"_sort_priceasc");
+					}
+				}
+				else{
+					window.location.assign(document.URL.split("_sort_")[0]+"_sort_priceasc");
+				}
+			}
+		}
+		else if($('#pricedesc').attr("selected") == "selected"){
+			if(document.URL.split("/search/")[1].split("_sort_")[0].indexOf("/")!=-1){
+				window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].split("_sort_")[0].substr(0,document.URL.split("/search/")[1].split("_sort_")[0].indexOf("/"))+"_sort_pricedesc");
+			}
+			else{
+				if(typeof(document.URL.split("_sort_")[1])!='undefined'){
+					if(document.URL.split("_sort_")[1].indexOf("_")!="-1"){
+						window.location.assign(document.URL.split("_sort_")[0]+"_sort_pricedesc"+document.URL.split("_sort_")[1].substr(document.URL.split("_sort_")[1].indexOf("_")));
+					}
+					else{
+						window.location.assign(document.URL.split("_sort_")[0]+"_sort_pricedesc");
+					}
+				}
+				else{
+					window.location.assign(document.URL.split("_sort_")[0]+"_sort_pricedesc");
+				}
+			}
+		}
+		else if($('#alp').attr("selected") == "selected"){
+			if(document.URL.split("/search/")[1].split("_sort_")[0].indexOf("/")!=-1){
+				window.location.assign(document.URL.split("/search/")[0]+"/search/"+document.URL.split("/search/")[1].split("_sort_")[0].substr(0,document.URL.split("/search/")[1].split("_sort_")[0].indexOf("/"))+"_sort_alp");
+			}
+			else{
+				if(typeof(document.URL.split("_sort_")[1])!='undefined'){
+					if(document.URL.split("_sort_")[1].indexOf("_")!="-1"){
+						window.location.assign(document.URL.split("_sort_")[0]+"_sort_alp"+document.URL.split("_sort_")[1].substr(document.URL.split("_sort_")[1].indexOf("_")));
+					}
+					else{
+						window.location.assign(document.URL.split("_sort_")[0]+"_sort_alp");
+					}
+				}
+				else{
+					window.location.assign(document.URL.split("_sort_")[0]+"_sort_alp");
+				}
+			}
+		}
 	});
+
+	if(typeof(document.URL.split("_sort_")[1])!='undefined'){
+		if(document.URL.split("_sort_")[1].indexOf("_")!=-1){
+			$('#'+document.URL.split("_sort_")[1].substr(0,document.URL.split("_sort_")[1].indexOf("_"))).attr("selected","selected");
+		}
+		else{
+			$('#'+document.URL.split("_sort_")[1]).attr("selected","selected");
+		}
+	}
 });
 </script>
 {% endblock %}
@@ -161,7 +223,7 @@ $(document).on('ready', function(){
 					Se muestran <strong>{{ searchresults.matches }}</strong> de <strong>{{ searchresults.matches }}</strong> resultados
 				</div>
 				<div class="float-right width-25">
-					<select class="width-100 font-size-0_8em">
+					<select id="sort_select" class="width-100 font-size-0_8em">
 						<option id="priceasc">Precio bajo a alto</option>
 						<option id="pricedesc">Precio alto a bajo</option>
 						<option id="alp">Orden alfabético</option>
