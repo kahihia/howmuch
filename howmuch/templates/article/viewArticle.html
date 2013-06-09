@@ -144,7 +144,7 @@ $(document).on('ready', function(){
 					<div class="general-description group">
 						<div class="picture width-50 float-left border">
 							<div class="principal padding-0_5em">
-								<img class="width-100" src="{{ article.get_first_picture_url }}" />
+								<img id="articledisplayimage" class="width-100" src="{{ article.get_first_picture_url }}" />
 							</div>
 							
 							<!-- STARTS PICTURES GROUP -->
@@ -152,8 +152,11 @@ $(document).on('ready', function(){
 								<!-- STARTS PICTURES LOOP -->
 								{% for picture in article.pictures.all %}
 								<div class="width-25 float-left">
-									<div class="container padding-0_5em">
-										<img class="width-100" src="{{ picture.picture.url }}"/>
+									<div id="div{{ picture.pk }}" class="container padding-0_5em">
+										<img id="pic_{{ picture.pk }}" class="width-100 pics" src="{{ picture.picture.url }}" rel="group1"/>
+										{% if user.is_authenticated and user == article.owner %}
+											<a id="{{ picture.pk }}" class="delete_pic" href="#"><button>x</button></a>
+										{% endif %}
 									</div>
 								</div>
 								{% endfor %}
@@ -232,6 +235,14 @@ $(document).on('ready', function(){
 					</div>
 					<!--  ENDS TOP PRODUCT DESCRIPTION -->
 					
+					<div id="uniquepicerrordiv" class="notification error border borders margin-bottom-1em text-align-left" style="display:none;">
+						<div class="strong">Error<button id="uniquepicerrorbutton" style="float:right;">x</button></div>
+							<div class="notification-info">
+								No puedes eliminar la unica imagen del articulo.
+							</div>
+						</div>
+    				</div>	
+
 					<!-- PRODUCT QUESTIONS -->
 					<div class="product-questions border margin-top-1em">
 						<div class="container padding-1em">
