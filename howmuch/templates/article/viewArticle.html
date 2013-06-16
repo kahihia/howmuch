@@ -36,7 +36,6 @@ $(document).on('ready', function(){
 </script>
 <script type="text/javascript">
 $(document).on('ready', function(){
-
   pic_count= {{ article.pictures.all.count }};
 
   var pic_ids= new Array();
@@ -126,177 +125,177 @@ $(document).on('ready', function(){
 {% endblock %}
 
 {% block section2 %}
-				<div class="content padding-1_5em">
-					<div class="head margin-bottom-1em">
-						<div class="path margin-bottom-1em">
-							Path
-							<span class="attention">&gt;</span>
-							Al
-							<span class="attention">&gt;</span>
-							Producto.
-						</div>
-						<div class="product-name strong font-size-1_5em">
-							{{ article.title|title }}
-						</div>
-					</div>
-					
-					<!-- PRODUCT TOP DESCRIPTION -->
-					<div class="general-description group">
-						<div class="picture width-50 float-left border">
-							<div class="principal padding-0_5em">
-								<img id="articledisplayimage" class="width-100" src="{{ article.get_first_picture_url }}" />
-							</div>
-							
-							<!-- STARTS PICTURES GROUP -->
-							<div class="all-pictures group">
-								<!-- STARTS PICTURES LOOP -->
-								{% for picture in article.pictures.all %}
-								<div class="width-25 float-left">
-									<div id="div{{ picture.pk }}" class="container padding-0_5em">
-										<img id="pic_{{ picture.pk }}" class="width-100 pics" src="{{ picture.picture.url }}" rel="group1"/>
-										{% if user.is_authenticated and user == article.owner %}
-											<a id="{{ picture.pk }}" class="delete_pic" href="#"><button>x</button></a>
-										{% endif %}
-									</div>
-								</div>
-								{% endfor %}
-								<!-- ENDS PICTURE LOOP -->
-							</div>
-							<!--  ENDS PICTURES GROUP -->
-						</div>
-						
-						<!-- PRODUCT INFO -->
-						<div class="info width-45 float-right">
-							<div class="container">
-								<!-- IF NOTIFICATION -->
-								{% if article.owner == user %}
-								<div class="notification borders margin-bottom-1em">
-									Esta publicación es tuya, <a href="#">editar</a>.
-								</div>
-								{% endif %}
-								
-								{% if not article.is_active %}
-								<div class="notification error borders margin-bottom-1em">
-									Esta publicación ha terminado, <a href="#">ver otras</a>.
-								</div>
-								{% endif %}
-								
-								{% if new_post %}
-								<div class="notification success borders margin-bottom-1em">
-									<div class="strong">¡Felicidades!</div>
-									<div>¡Acabas de publicar correctamente tu compra!</div>
-								</div>
-								{% endif %}
-								<!-- ENDIF NOTIFICATION -->
-								
-								<div class="published-date margin-bottom-1em">
-									Publicado <span class="strong">{{ article.date|timesince }}</span> por <a class="strong attention" href="/profile/{{ article.owner }}">{{ article.owner }}</a>.
-								</div>
+<div class="content padding-1_5em">
+	<div class="head margin-bottom-1em">
+		<div class="path margin-bottom-1em">
+			<a href="/">Inicio</a>
+			<span class="attention">&gt;</span>
+			<a href="/search/_category_{{ article.category.subname }}">{{ article.category }}</a>
+			<span class="attention">&gt;</span>
+			{{ article.title|title }}
+		</div>
+		<div class="product-name strong font-size-1_5em">
+			{{ article.title|title }}
+		</div>
+	</div>
+	
+	<!-- PRODUCT TOP DESCRIPTION -->
+	<div class="general-description group">
+		<div class="picture width-50 float-left border">
+			<div class="principal padding-0_5em">
+				<img id="articledisplayimage" class="width-100" src="{{ article.get_first_picture_url }}" />
+			</div>
 			
-								<div class="price strong font-size-2em margin-bottom-1em">
-									$ {{ article.price }}
-								</div>
-								
-								<div class="sell-button">
-									<a class="button green margin-botton-1em" href="/article/offer/{{ article.pk }}">
-										Vender producto
-									</a>
-									<br />
-									<br />
-									<br />
-								</div>
-								
-								
-								<!--  PRODUCT DESCRIPTION -->
-								<div class="product-description margin-bottom-1em">
-									<div class="description-header strong attention margin-bottom-0_5em">
-										Descripción
-									</div>
-									<div class="description-info">
-										<span class="attention">&laquo;</span>
-										<span class="info">
-											{{ article.description }}
-										</span>
-										<span class="attention">&raquo;</span>
-									</div>
-									
-								</div>
-								
-								<!-- PRODUCT TAGS -->
-								<div class="tags font-size-1_25em ">
-									{% for tag in article.tags.all %}
-									<a class="item-tag tag blue" href="#">{{ tag }}</a>
-									{% endfor %}
-								</div>
-								
-							</div>
-						</div>
-						
-					</div>
-					<!--  ENDS TOP PRODUCT DESCRIPTION -->
-					
-					<div id="uniquepicerrordiv" class="notification error border borders margin-bottom-1em text-align-left" style="display:none;">
-						<div class="strong">Error<button id="uniquepicerrorbutton" style="float:right;">x</button></div>
-							<div class="notification-info">
-								No puedes eliminar la unica imagen del articulo.
-							</div>
-						</div>
-    				</div>	
-
-					<!-- PRODUCT QUESTIONS -->
-					<div class="product-questions border margin-top-1em">
-						<div class="container padding-1em">
-							<div class="questions-header font-size-1_25em strong">
-								Dudas
-							</div>
-							<div class="questions-container padding-1em">
-
-								<div class="comments-area">
-									<!-- QUESTION FORM -->
-									{% if user.is_authenticated %}
-									<div class="question-form margin-2em">
-										<form id="comments-form" class="text-align-center margin-top-1em border dashed" method="POST" enctype="multipart/form-data">{% csrf_token %}
-											<div class="container padding-1em">
-												<textarea id="comment" class="width-90" name="comment" placeholder="¿Qué quieres preguntar?"></textarea>
-												<div>
-													<input class="button green" type="submit" value="Preguntar" />
-												</div>
-											</div>
-										</form>
-									</div>
-									{% else %}
-									{% endif %}
-									<!-- ENDS QUESTION FORM -->
-									<!-- STARTS QUESTIONS LOOP -->
-									{% for comment in article.comments.all %}
-									<div class="question group">
-										<div class="question-profile-picture width-10 float-left">
-											<div class="container padding-0_5em">
-												<img class="width-100" src="{{ comment.owner.profile.get_profile_picture }}"/>
-											</div>
-										</div>
-										
-										<div class="question-content width-90 float-right">
-											<div class="container padding-0_5em">
-												<div class="question-user-name">
-													<a class="strong attention" href="#">{{ comment.owner }}</a>
-												</div>
-												<div class="question-info">
-													{{ comment.comment }}
-												</div>
-												<div class="question-published text-align-right">
-													hace {{ comment.get_timestamp}}
-											</div>
-											</div>
-										</div>
-									</div>
-									{% endfor %}
-									<!-- ENDS QUESTIONS LOOP -->
-								</div>								
-							</div>
-						</div>
+			<!-- STARTS PICTURES GROUP -->
+			<div class="all-pictures group">
+				<!-- STARTS PICTURES LOOP -->
+				{% for picture in article.pictures.all %}
+				<div class="width-25 float-left">
+					<div id="div{{ picture.pk }}" class="container padding-0_5em">
+						<img id="pic_{{ picture.pk }}" class="width-100 pics" src="{{ picture.picture.url }}" rel="group1"/>
+						{% if user.is_authenticated and user == article.owner %}
+							<a id="{{ picture.pk }}" class="delete_pic" href="#"><button>x</button></a>
+						{% endif %}
 					</div>
 				</div>
+				{% endfor %}
+				<!-- ENDS PICTURE LOOP -->
+			</div>
+			<!--  ENDS PICTURES GROUP -->
+		</div>
+		
+		<!-- PRODUCT INFO -->
+		<div class="info width-45 float-right">
+			<div class="container">
+				<!-- IF NOTIFICATION -->
+				{% if article.owner == user %}
+				<div class="notification borders margin-bottom-1em">
+					Esta publicación es tuya, <a href="{{ article.get_url }}/edit">editar</a>.
+				</div>
+				{% endif %}
+				
+				{% if not article.is_active %}
+				<div class="notification error borders margin-bottom-1em">
+					Esta publicación ha terminado, <a href="/search/{{ article.title }}">buscar otras similares</a>.
+				</div>
+				{% endif %}
+				
+				{% if new_post %}
+				<div class="notification success borders margin-bottom-1em">
+					<div class="strong">¡Felicidades!</div>
+					<div>¡Acabas de publicar correctamente tu compra!</div>
+				</div>
+				{% endif %}
+				<!-- ENDIF NOTIFICATION -->
+				
+				<div class="published-date margin-bottom-1em">
+					Publicado <span class="strong">{{ article.date|timesince }}</span> por <a class="strong attention" href="/profile/{{ article.owner }}">{{ article.owner }}</a>.
+				</div>
+
+				<div class="price strong font-size-2em margin-bottom-1em">
+					$ {{ article.price }}
+				</div>
+				
+				<div class="sell-button">
+					<a class="button green margin-botton-1em" href="/article/offer/{{ article.pk }}">
+						Vender producto
+					</a>
+					<br />
+					<br />
+					<br />
+				</div>
+				
+				
+				<!--  PRODUCT DESCRIPTION -->
+				<div class="product-description margin-bottom-1em">
+					<div class="description-header strong attention margin-bottom-0_5em">
+						Descripción
+					</div>
+					<div class="description-info">
+						<span class="attention">&laquo;</span>
+						<span class="info">
+							{{ article.description }}
+						</span>
+						<span class="attention">&raquo;</span>
+					</div>
+					
+				</div>
+				
+				<!-- PRODUCT TAGS -->
+				<div class="tags font-size-1_25em ">
+					{% for tag in article.tags.all %}
+					<a class="item-tag tag blue" href="#">{{ tag }}</a>
+					{% endfor %}
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+	<!--  ENDS TOP PRODUCT DESCRIPTION -->
+	
+	<div id="uniquepicerrordiv" class="notification error border borders margin-bottom-1em text-align-left" style="display:none;">
+		<div class="strong">Error<button id="uniquepicerrorbutton" style="float:right;">x</button></div>
+			<div class="notification-info">
+				No puedes eliminar la unica imagen del articulo.
+			</div>
+		</div>
+	</div>	
+
+	<!-- PRODUCT QUESTIONS -->
+	<div class="product-questions border margin-top-1em">
+		<div class="container padding-1em">
+			<div class="questions-header font-size-1_25em strong">
+				Dudas
+			</div>
+			<div class="questions-container padding-1em">
+
+				<div class="comments-area">
+					<!-- QUESTION FORM -->
+					{% if user.is_authenticated %}
+					<div class="question-form margin-2em">
+						<form id="comments-form" class="text-align-center margin-top-1em border dashed" method="POST" enctype="multipart/form-data">{% csrf_token %}
+							<div class="container padding-1em">
+								<textarea id="comment" class="width-90" name="comment" placeholder="¿Qué quieres preguntar?"></textarea>
+								<div>
+									<input class="button green" type="submit" value="Preguntar" />
+								</div>
+							</div>
+						</form>
+					</div>
+					{% else %}
+					{% endif %}
+					<!-- ENDS QUESTION FORM -->
+					<!-- STARTS QUESTIONS LOOP -->
+					{% for comment in article.comments.all %}
+					<div class="question group">
+						<div class="question-profile-picture width-10 float-left">
+							<div class="container padding-0_5em">
+								<img class="width-100" src="{{ comment.owner.profile.get_profile_picture }}"/>
+							</div>
+						</div>
+						
+						<div class="question-content width-90 float-right">
+							<div class="container padding-0_5em">
+								<div class="question-user-name">
+									<a class="strong attention" href="#">{{ comment.owner }}</a>
+								</div>
+								<div class="question-info">
+									{{ comment.comment }}
+								</div>
+								<div class="question-published text-align-right">
+									hace {{ comment.get_timestamp}}
+							</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					<!-- ENDS QUESTIONS LOOP -->
+				</div>								
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block section3 %}

@@ -17,6 +17,7 @@ $(document).on('ready', function(){
 	var tags;
 	$('#wrapper-tags').hide();
 	$('#id_category').on('change', function(){
+		
 		$('#wrapper-tags').show("slow");
 		$('#tags-input').remove();
 		$('#ms-ctn-0').remove();
@@ -37,13 +38,30 @@ $(document).on('ready', function(){
             	"category_id" : $(this).val()
             }
 		});
+		$( "<div class='ms-sel-item' id='averdiv'>Baterias</div>"//, {
+  			//"class": "ms-sel-item",
+  			//"id": "averdiv",
+		//}
+		).prependTo( '#ms-sel-ctn-0');
+		//$('#averdiv').text("Baterias");
+		$( "<span class='ms-close-btn'></span>"//, {
+  			//"class": "ms-close-btn",
+		//}
+		).appendTo( '#averdiv');
+		//tags.setValue("Baterias");
+		//alert(tags.getValue());
 	});
 	$('#submit-post').on('click', function(e){
 		e.preventDefault();
-		var tags_input = tags.getValue();
-		$('#tags').val(tags_input);
+		if(typeof(tags)!="undefined"){
+			var tags_input = tags.getValue();
+			$('#tags').val(tags_input);
+		}
+		else{
+			$('#tags').val("");
+		}
 		$('#form-post-article').submit();
-	})
+	});
 });
 </script>
 <script>
@@ -119,182 +137,181 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block section2 %}
-				<div class="content padding-1_5em">
-					<div class="head">
-						<div class="info margin-bottom-1em">
-							<h1 class="font-size-1_5em">Publicar artículo</h1>
-							<div class="description">
-								Introduce los datos del artículo que deseas comprar para publicarlo.
+<div class="content padding-1_5em">
+	<div class="head">
+		<div class="info margin-bottom-1em">
+			<h1 class="font-size-1_5em">Publicar artículo</h1>
+			<div class="description">
+				Introduce los datos del artículo que deseas comprar para publicarlo.
+			</div>
+		</div>
+	</div>
+	
+	<!-- FORM STARTS -->
+	<form id="form-post-article"  class="register-form border padding-1em text-align-center" method="POST" action="" enctype="multipart/form-data" action="">{% csrf_token%}
+		{% if form.errors %}
+		<div class="notification error border borders margin-bottom-1em text-align-left">
+			<div class="strong">Error en la forma</div>
+			<div class="notification-info">
+				Verificar que hayas introducido los datos correctos en la forma.
+			</div>
+		</div>
+		{% endif %}
+		<!-- FORM LOGIN STARTS -->
+		<div class="login-form-area div-center-fix">
+			<div class="text-align-left">
+				
+				<!-- STARTS INPUT -->
+				<div class="division margin-1em">
+					<label for="" class="width-100 font-size-1_25em display-block">Título del artículo</label>
+					{{ form.title }}
+					
+					<!-- ERROR -->
+					<div class="slide-down font-size-0_9em margin-top-0_5em">
+						Entre más claro sea el título de tu artículo, más ofertas recibirás.
+					</div>
+					{% if form.title.errors %}
+					<div class="error slide-down color-red font-size-0_9em">
+						Favor de introducir correctamente el nombre.
+					</div>
+					{% endif %}
+				</div>
+				<!-- ENDS INPUT -->
+
+				<!-- DIVISION --><hr />
+				
+				<div class="group">
+					<div class="float-left width-50">
+						<div class="padding-1em">
+							<!-- STARTS INPUT -->
+							<div class="division">
+								<label for="" class="width-100 font-size-1_25em display-block">Precio</label>
+								{{ form.price }}
+								<!-- ERROR -->
+								<div class="slide-down font-size-0_9em margin-top-0_5em">
+									Precio que estás dispuesto a pagar por el artículo.
+								</div>
+								{% if form.price.errors %}
+								<div class="error slide-down color-red font-size-0_9em">
+									Verificar precio.
+								</div>
+								{% endif %}
 							</div>
+							<!-- ENDS INPUT -->
 						</div>
 					</div>
-					
-					<!-- FORM STARTS -->
-					<form id="form-post-article"  class="register-form border padding-1em text-align-center" method="POST" action="" enctype="multipart/form-data" action="">{% csrf_token%}
-						{% if form.errors %}
-						<div class="notification error border borders margin-bottom-1em text-align-left">
-							<div class="strong">Error en la forma</div>
-							<div class="notification-info">
-								Verificar que hayas introducido los datos correctos en la forma.
+					<div class="float-right width-50">
+						<div class="padding-1em">
+							<!-- STARTS INPUT -->
+							<div class="division">
+								<label for="" class="width-100 font-size-1_25em display-block">Cantidad</label>
+								{{ form.quantity }}												
+								<!-- ERROR -->
+								<div class="slide-down font-size-0_9em margin-top-0_5em">
+									Selecciona la cantidad de artículos que estás buscando
+								</div>
+								{% if form.quantity.errors %}
+								<div class="error slide-down color-red font-size-0_9em">
+									Verificar cantidad.
+								</div>
+								{% endif %}
 							</div>
+							<!-- ENDS INPUT -->
 						</div>
-						{% endif %}
-								
-						<!-- FORM LOGIN STARTS -->
-						<div class="login-form-area div-center-fix">
-							<div class="text-align-left">
-								
-								<!-- STARTS INPUT -->
-								<div class="division margin-1em">
-									<label for="" class="width-100 font-size-1_25em display-block">Título del artículo</label>
-									{{ form.title }}
-									
-									<!-- ERROR -->
-									<div class="slide-down font-size-0_9em margin-top-0_5em">
-										Entre más claro sea el título de tu artículo, más ofertas recibirás.
-									</div>
-									{% if form.title.errors %}
-									<div class="error slide-down color-red font-size-0_9em">
-										Favor de introducir correctamente el nombre.
-									</div>
-									{% endif %}
-								</div>
-								<!-- ENDS INPUT -->
-								
-								<!-- DIVISION --><hr />
-								
-								<div class="group">
-									<div class="float-left width-50">
-										<div class="padding-1em">
-											<!-- STARTS INPUT -->
-											<div class="division">
-												<label for="" class="width-100 font-size-1_25em display-block">Precio</label>
-												{{ form.price }}
-												<!-- ERROR -->
-												<div class="slide-down font-size-0_9em margin-top-0_5em">
-													Precio que estás dispuesto a pagar por el artículo.
-												</div>
-												{% if form.price.errors %}
-												<div class="error slide-down color-red font-size-0_9em">
-													Verificar precio.
-												</div>
-												{% endif %}
-											</div>
-											<!-- ENDS INPUT -->
-										</div>
-									</div>
-									<div class="float-right width-50">
-										<div class="padding-1em">
-											<!-- STARTS INPUT -->
-											<div class="division">
-												<label for="" class="width-100 font-size-1_25em display-block">Cantidad</label>
-												{{ form.quantity }}												
-												<!-- ERROR -->
-												<div class="slide-down font-size-0_9em margin-top-0_5em">
-													Selecciona la cantidad de artículos que estás buscando
-												</div>
-												{% if form.quantity.errors %}
-												<div class="error slide-down color-red font-size-0_9em">
-													Verificar cantidad.
-												</div>
-												{% endif %}
-											</div>
-											<!-- ENDS INPUT -->
-										</div>
-									</div>
-								</div>
-								
-								<!-- DIVISION --><hr />
-								
-								<!-- STARTS INPUT -->
-								<div class="division margin-1em">
-									<label for="" class="width-100 font-size-1_25em display-block">Descripción</label>
-									{{ form.description }}
-									
-									<!-- ERROR -->
-									<div class="slide-down font-size-0_9em margin-top-0_5em">
-										Describe el artículo que estás buscando e incluye detalles sobre él.
-									</div>
-									{% if form.description.errors %}
-									<div class="error slide-down color-red font-size-0_9em">
-										Verificar descripción.
-									</div>
-									{% endif %}
-								</div>
-								<!-- ENDS INPUT -->
-								
-								<!-- DIVISION --><hr />
-								
-								<div class="group">
-									<div class="float-left width-50">
-										<div class="padding-1em">
-											<!-- STARTS INPUT -->
-											<div class="division">
-												<label for="" class="width-100 font-size-1_25em display-block">Estado del artículo</label>
-												{{ form.state }}
-												<!-- ERROR -->
-												<div class="slide-down font-size-0_9em margin-top-0_5em">
-													El artículo que buscas, ¿Es nuevo o usado?.
-												</div>
-												{% if form.state.errors %}
-												<div class="error slide-down color-red font-size-0_9em">
-													Verificar opción seleccionada.
-												</div>
-												{% endif %}
-											</div>
-											<!-- ENDS INPUT -->
-										</div>
-									</div>
-									<div class="float-right width-50">
-										<div class="padding-1em">
-											<!-- STARTS INPUT -->
-											<div class="division">
-												<label for="" class="width-100 font-size-1_25em display-block">Clasificación</label>
-												{{ form.category }}
-												<!-- ERROR -->
-												<div class="slide-down font-size-0_9em margin-top-0_5em">
-													Selecciona la categoría en la cual clasificarías tu artículo.
-												</div>
-												{% if form.category.errors %}
-												<div class="error slide-down color-red font-size-0_9em">
-													Verificar opción seleccionada.
-												</div>
-												{% endif %}
-											</div>
-											<!-- ENDS INPUT -->
-										</div>
-									</div>
-								</div>
-								
-								<!-- DIVISION --><hr />
-								
-								<!-- STARTS INPUT -->
-								<div id="wrapper-tags" class="division margin-1em">
-									<label for="" class="width-100 font-size-1_25em display-block">Tags</label>
-									<input type="text" id="tags-input" class="text width-100" />
-									<input type="hidden" id="tags" name="tags">
-
-									
-									<!-- ERROR -->
-									<div class="slide-down font-size-0_9em margin-top-0_5em">
-										Escribe palabras relacionadas a tu articulo y presiona ENTER.
-									</div>
-								</div>
-								<!-- ENDS INPUT -->
-								
-								<!-- DIVISION --><hr />
-								
-								<div class="division margin-1em text-align-center">
-									<input id="submit-post" type="submit" class="button green width-50" value="Publicar compra" />
-								</div>
-
-							</div>
-						</div>
-						<!-- FORM LOGIN ENDS -->
-						<br/>
-					</form>
-					<!-- FORM ENDS -->
+					</div>
 				</div>
+				
+				<!-- DIVISION --><hr />
+				
+				<!-- STARTS INPUT -->
+				<div class="division margin-1em">
+					<label for="" class="width-100 font-size-1_25em display-block">Descripción</label>
+					{{ form.description }}
+					
+					<!-- ERROR -->
+					<div class="slide-down font-size-0_9em margin-top-0_5em">
+						Describe el artículo que estás buscando e incluye detalles sobre él.
+					</div>
+					{% if form.description.errors %}
+					<div class="error slide-down color-red font-size-0_9em">
+						Verificar descripción.
+					</div>
+					{% endif %}
+				</div>
+				<!-- ENDS INPUT -->
+				
+				<!-- DIVISION --><hr />
+				
+				<div class="group">
+					<div class="float-left width-50">
+						<div class="padding-1em">
+							<!-- STARTS INPUT -->
+							<div class="division">
+								<label for="" class="width-100 font-size-1_25em display-block">Estado del artículo</label>
+								{{ form.state }}
+								<!-- ERROR -->
+								<div class="slide-down font-size-0_9em margin-top-0_5em">
+									El artículo que buscas, ¿Es nuevo o usado?.
+								</div>
+								{% if form.state.errors %}
+								<div class="error slide-down color-red font-size-0_9em">
+									Verificar opción seleccionada.
+								</div>
+								{% endif %}
+							</div>
+							<!-- ENDS INPUT -->
+						</div>
+					</div>
+					<div class="float-right width-50">
+						<div class="padding-1em">
+							<!-- STARTS INPUT -->
+							<div class="division">
+								<label for="" class="width-100 font-size-1_25em display-block">Clasificación</label>
+								{{ form.category }}
+								<!-- ERROR -->
+								<div class="slide-down font-size-0_9em margin-top-0_5em">
+									Selecciona la categoría en la cual clasificarías tu artículo.
+								</div>
+								{% if form.category.errors %}
+								<div class="error slide-down color-red font-size-0_9em">
+									Verificar opción seleccionada.
+								</div>
+								{% endif %}
+							</div>
+							<!-- ENDS INPUT -->
+						</div>
+					</div>
+				</div>
+				
+				<!-- DIVISION --><hr />
+				
+				<!-- STARTS INPUT -->
+				<div id="wrapper-tags" class="division margin-1em">
+					<label for="" class="width-100 font-size-1_25em display-block">Tags</label>
+					<input type="text" id="tags-input" class="text width-100" />
+					<input type="hidden" id="tags" name="tags">
+
+					
+					<!-- ERROR -->
+					<div class="slide-down font-size-0_9em margin-top-0_5em">
+						Escribe palabras relacionadas a tu articulo y presiona ENTER.
+					</div>
+				</div>
+				<!-- ENDS INPUT -->
+				
+				<!-- DIVISION --><hr />
+				
+				<div class="division margin-1em text-align-center">
+					<input id="submit-post" type="submit" class="button green width-50" value="Publicar compra" />
+				</div>
+
+			</div>
+		</div>
+		<!-- FORM LOGIN ENDS -->
+		<br/>
+	</form>
+	<!-- FORM ENDS -->
+</div>
 {% endblock %}
 
 {% block section3 %}

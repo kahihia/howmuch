@@ -65,7 +65,7 @@ def edit(request, articleID, title_url):
             return HttpResponseRedirect(str(post_edited.get_url()))
     else:
         form = ArticleForm(instance=current)
-    return render_to_response('article/post.html', {'form' : form }, context_instance = RequestContext(request))
+    return render_to_response('article/post.html', {'form' : form , 'tags' : current.tags ,}, context_instance = RequestContext(request))
 
 #Para ver un articulo no es necesario hacer login
 def view(request, articleID, title_url):
