@@ -3,13 +3,13 @@
 {% block title %}Publicar Compra{% endblock %}
 
 {% block media_css %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/magicsuggest-1.1.1.css">
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/magicsuggest-1.3.0-min.css">
 <link rel="stylesheet" id="themestyle" href="{{ MEDIA_URL}}css/tour/theme1/style.css">
 {% endblock %}
 
 {% block media_js%}
 <script type="text/javascript" src="{{ MEDIA_URL }}js/class-0.0.2.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/magicsuggest-1.1.1.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/magicsuggest-1.3.0-min.js"></script>
 <script src="{{ MEDIA_URL }}js/jquery.easing.js"></script>
 <script src="{{ MEDIA_URL }}/js/jTour.js"></script>
 <script type="text/javascript">
@@ -25,7 +25,7 @@ $(document).on('ready', function(){
   			"type": "text",
   			"id": "tags-input",
 		}).appendTo( '#wrapper-tags');
-		tags = new MagicSuggest({
+		/*tags = new MagicSuggest({
             renderTo: $('#tags-input'),
             width: '100%',
             emptyText:'Escribe Aqui',
@@ -37,17 +37,33 @@ $(document).on('ready', function(){
             dataParams : {
             	"category_id" : $(this).val()
             }
+		});*/
+		tags = $('#tags-input').magicSuggest({
+            width: '100%',
+            emptyText:'Escribe Aqui',
+            noSuggestionText : 'Sin Sugerencias',
+            required: true,
+            data: ["Otros"],//'/tags/',
+            //method: 'GET',
+            //valueField:'name',
+            value: ["Otros"],
+            //dataUrlParams : {
+            //	"category_id" : $(this).val()
+            //}
 		});
-		$( "<div class='ms-sel-item' id='averdiv'>Baterias</div>"//, {
+		//$(tags).on('load', function(){
+    		
+		//});
+		//$( "<div class='ms-sel-item' id='averdiv'>Baterias</div>"//, {
   			//"class": "ms-sel-item",
   			//"id": "averdiv",
 		//}
-		).prependTo( '#ms-sel-ctn-0');
+		//).prependTo( '#ms-sel-ctn-0');
 		//$('#averdiv').text("Baterias");
-		$( "<span class='ms-close-btn'></span>"//, {
+		//$( "<span class='ms-close-btn'></span>"//, {
   			//"class": "ms-close-btn",
 		//}
-		).appendTo( '#averdiv');
+		//).appendTo( '#averdiv');
 		//tags.setValue("Baterias");
 		//alert(tags.getValue());
 	});
@@ -286,7 +302,7 @@ $(document).ready(function() {
 				<!-- DIVISION --><hr />
 				
 				<!-- STARTS INPUT -->
-				<div id="wrapper-tags" class="division margin-1em">
+				<div id="wrapper-tags" >
 					<label for="" class="width-100 font-size-1_25em display-block">Tags</label>
 					<input type="text" id="tags-input" class="text width-100" />
 					<input type="hidden" id="tags" name="tags">
